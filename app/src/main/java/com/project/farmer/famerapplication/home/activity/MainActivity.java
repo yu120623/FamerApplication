@@ -1,7 +1,9 @@
 package com.project.farmer.famerapplication.home.activity;
 
+import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +19,10 @@ import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
 
 import github.chenupt.dragtoplayout.DragTopLayout;
 
@@ -31,10 +36,20 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout tuijian;
     private RelativeLayout postionLayout;
     private DragTopLayout dragTopLayout;
+    private ViewPager contentViewPager;
     @Override
     protected void initViews() {
         findViews();
         initData();
+        initFragments();
+    }
+
+    private void initFragments() {
+        FragmentPagerItemAdapter fragmentAdapter = new FragmentPagerItemAdapter(
+                getFragmentManager(), FragmentPagerItems.with(this)
+                .add("",JingXuanFragment.class)
+                .create());
+        contentViewPager.setAdapter(fragmentAdapter);
     }
 
     private void initData() {
@@ -64,6 +79,7 @@ public class MainActivity extends BaseActivity {
         zhoubian = (RelativeLayout) this.findViewById(R.id.zhoubian);
         tuijian = (RelativeLayout) this.findViewById(R.id.tuijian);
         postionLayout = (RelativeLayout) this.findViewById(R.id.postion_container);
+        contentViewPager = (ViewPager) this.findViewById(R.id.content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.drag_layout);
     }
 
@@ -76,4 +92,5 @@ public class MainActivity extends BaseActivity {
     protected String setActionBarTitle() {
         return "";
     }
+
 }

@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
 import com.project.farmer.famerapplication.R;
@@ -44,7 +45,8 @@ public class JingXuanFragment extends BaseFragment {
     }
 
     class TopicViewHolder extends RecyclerView.ViewHolder{
-
+        private TextView topicName;
+        private TextView topic;
         public TopicViewHolder(View itemView) {
             super(itemView);
         }

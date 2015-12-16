@@ -1,26 +1,18 @@
 package com.project.farmer.famerapplication.home.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Bitmap;
-import android.support.v4.view.PagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
-import com.baseandroid.postionviewpager.PostionViewPager;
-import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
 
@@ -45,11 +37,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragments() {
-        FragmentPagerItemAdapter fragmentAdapter = new FragmentPagerItemAdapter(
-                getFragmentManager(), FragmentPagerItems.with(this)
-                .add("",JingXuanFragment.class)
-                .create());
-        contentViewPager.setAdapter(fragmentAdapter);
+        FragmentPagerAdapter fragmentPagerAdapter = new HomeFragmentPagerAdapter(getFragmentManager());
+        //contentViewPager.setAdapter(fragmentPagerAdapter);
     }
 
     private void initData() {
@@ -82,6 +71,28 @@ public class MainActivity extends BaseActivity {
         contentViewPager = (ViewPager) this.findViewById(R.id.content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.drag_layout);
     }
+
+    class HomeFragmentPagerAdapter extends android.support.v13.app.FragmentPagerAdapter {
+
+        public HomeFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new JingXuanFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+    };
 
     @Override
     protected int getContentView() {

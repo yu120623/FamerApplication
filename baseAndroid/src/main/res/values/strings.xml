@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="server_error_default_msg">无法连接到服务器，请检查您的网络或稍后再试</string>
+
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RippleView">
+        <attr name="rippleColor" format="color" />
+        <attr name="alphaFactor" format="float" />
+        <attr name="hover" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BottomButton">
+        <attr name="buttonImg" format="reference" />
+        <attr name="buttonTextColor" format="reference" />
+        <attr name="buttonText" format="string" />
+    </declare-styleable>
+
+</resources>

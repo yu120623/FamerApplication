@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
@@ -27,7 +28,6 @@ public class JingXuanFragment extends BaseFragment {
 
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder>{
 
-
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return null;
@@ -46,7 +46,8 @@ public class JingXuanFragment extends BaseFragment {
 
     class TopicViewHolder extends RecyclerView.ViewHolder{
         private TextView topicName;
-        private TextView topic;
+        private TextView topicArea;
+        private ImageView topicImage;
         public TopicViewHolder(View itemView) {
             super(itemView);
         }

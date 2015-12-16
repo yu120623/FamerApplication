@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,8 +14,17 @@ import com.baseandroid.BaseActivity;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItem;
+import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
+import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
+import com.project.farmer.famerapplication.home.fragment.TuiJianFragment;
+import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import github.chenupt.dragtoplayout.DragTopLayout;
 
@@ -29,6 +39,7 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout postionLayout;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
+    private List<Fragment> fragments;
     @Override
     protected void initViews() {
         findViews();
@@ -37,8 +48,19 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragments() {
-        FragmentPagerAdapter fragmentPagerAdapter = new HomeFragmentPagerAdapter(getFragmentManager());
-        //contentViewPager.setAdapter(fragmentPagerAdapter);
+        fragments = new ArrayList<Fragment>();
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getFragmentManager(), FragmentPagerItems.with(this)
+                .add("", JingXuanFragment.class)
+                .add("", QiangGouFragment.class)
+                .add("", ZhouBianFragment.class)
+                .add("", TuiJianFragment.class)
+                .create());
+        contentViewPager.setAdapter(adapter);
+        fragments.add(new JingXuanFragment());
+        fragments.add(new QiangGouFragment());
+        fragments.add(new ZhouBianFragment());
+        fragments.add(new TuiJianFragment());
     }
 
     private void initData() {
@@ -71,28 +93,6 @@ public class MainActivity extends BaseActivity {
         contentViewPager = (ViewPager) this.findViewById(R.id.content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.drag_layout);
     }
-
-    class HomeFragmentPagerAdapter extends android.support.v13.app.FragmentPagerAdapter {
-
-        public HomeFragmentPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return new JingXuanFragment();
-        }
-
-        @Override
-        public int getCount() {
-            return 1;
-        }
-    };
 
     @Override
     protected int getContentView() {

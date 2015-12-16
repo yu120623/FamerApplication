@@ -4,4 +4,118 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <github.chenupt.dragtoplayout.DragTopLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drag_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <!--top view-->
+        <RelativeLayout
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/postion_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/layout"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <RelativeLayout
+                    android:id="@+id/jingxuan"
+                    style="@style/home_btn_container_style"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        style="@style/home_btn_style"
+                        android:background="@drawable/home_btn1"
+                        android:text="精选"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/qianggou"
+                    style="@style/home_btn_container_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        style="@style/home_btn_style"
+                        android:background="@drawable/home_btn2"
+                        android:text="抢购"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/zhoubian"
+                    style="@style/home_btn_container_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        style="@style/home_btn_style"
+                        android:background="@drawable/home_btn3"
+                        android:text="周边"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/tuijian"
+                    style="@style/home_btn_container_style"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        style="@style/home_btn_style"
+                        android:background="@drawable/home_btn4"
+                        android:text="推荐"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--content view-->
+        <LinearLayout
+            android:id="@+id/drag_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ECECEC"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+
+    </github.chenupt.dragtoplayout.DragTopLayout>
+
+
 </RelativeLayout>

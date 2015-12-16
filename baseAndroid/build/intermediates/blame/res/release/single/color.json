@@ -1,19 +1,11 @@
 [
     {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_dark.xml"
-    },
-    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_light.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_light.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_search_url_text.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_background_cache_hint_selector_material_dark.xml",
@@ -28,52 +20,20 @@
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_light.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_light.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_light.xml"
-    },
-    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_background_cache_hint_selector_material_light.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_background_cache_hint_selector_material_light.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_dark.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_background_cache_hint_selector_material_light.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_background_cache_hint_selector_material_light.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_light.xml"
-    },
-    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_light.xml"
-    },
-    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_dark.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_dark.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_background_cache_hint_selector_material_dark.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_background_cache_hint_selector_material_dark.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
@@ -82,9 +42,5 @@
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_search_url_text.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     }
 ]

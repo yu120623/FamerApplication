@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.baseandroid.view.InScrollViewViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" >
-    </com.baseandroid.view.InScrollViewViewPager>
+    </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/view_pager_postion_layout"

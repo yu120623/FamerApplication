@@ -21,9 +21,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':baseAndroid')
-    compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.github.chenupt.android:dragtoplayout:1.2.1@aar'
 }

@@ -13,7 +13,7 @@ import com.project.farmer.famerapplication.R;
  * Created by Administrator on 2015/12/16.
  */
 public class ZhouBianFragment extends BaseFragment{
-    private RecyclerView nearbyList;
+    private RecyclerView nearList;
     @Override
     protected void initViews() {
         findViews();
@@ -21,28 +21,28 @@ public class ZhouBianFragment extends BaseFragment{
     }
 
     private void initData() {
-        nearbyList.setLayoutManager(new LinearLayoutManager(context));
-        nearbyList.setAdapter(new nearbyAdapter());
+        nearList.setLayoutManager(new LinearLayoutManager(context));
+        nearList.setAdapter(new nearAdapter());
     }
 
     private void findViews() {
-        nearbyList = (RecyclerView) this.findViewById(R.id.nearby_list);
+        nearList = (RecyclerView) this.findViewById(R.id.near_list);
     }
 
-    class nearbyAdapter extends RecyclerView.Adapter<NearbyViewHolder> {
+    class nearAdapter extends RecyclerView.Adapter<nearViewHolder> {
 
         @Override
-        public NearbyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(),R.layout.nearby_item,null);
-            NearbyViewHolder holder = new NearbyViewHolder(v);
+        public nearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = View.inflate(parent.getContext(),R.layout.near_item,null);
+            nearViewHolder holder = new nearViewHolder(v);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(NearbyViewHolder holder, int position) {
-            holder.nearbyName.setText("农庄标题BBB");
-            holder.nearbyArea.setText("苏州");
-            holder.nearbyReason.setText("农庄环境很好，庄主人很好");
+        public void onBindViewHolder(nearViewHolder holder, int position) {
+            holder.nearName.setText("农庄标题BBB");
+            holder.nearArea.setText("苏州");
+            holder.nearReason.setText("农庄环境很好，庄主人很好");
 
 
         }
@@ -53,16 +53,16 @@ public class ZhouBianFragment extends BaseFragment{
         }
     }
 
-    class NearbyViewHolder extends RecyclerView.ViewHolder {
-        private TextView nearbyName;
-        private TextView nearbyArea;
-        private TextView nearbyReason;
+    class nearViewHolder extends RecyclerView.ViewHolder {
+        private TextView nearName;
+        private TextView nearArea;
+        private TextView nearReason;
 
-        public NearbyViewHolder(View itemView) {
+        public nearViewHolder(View itemView) {
             super(itemView);
-            nearbyName= (TextView) itemView.findViewById(R.id.nearby_name);
-            nearbyArea= (TextView) itemView.findViewById(R.id.nearby_area);
-            nearbyReason= (TextView) itemView.findViewById(R.id.nearby_reason);
+            nearName= (TextView) itemView.findViewById(R.id.near_name);
+            nearArea= (TextView) itemView.findViewById(R.id.near_area);
+            nearReason= (TextView) itemView.findViewById(R.id.near_reason);
 
         }
 

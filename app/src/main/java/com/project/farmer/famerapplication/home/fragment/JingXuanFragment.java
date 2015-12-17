@@ -28,6 +28,11 @@ public class JingXuanFragment extends BaseFragment {
     }
 
     private void initData() {
+        options = new DisplayImageOptions.Builder()
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicList.setLayoutManager(new LinearLayoutManager(context));
         topicList.setAdapter(new TopicAdapter());
     }
@@ -47,14 +52,10 @@ public class JingXuanFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            holder.topicName.setText("某某某的牧场");
+            holder.topicName.setText("农庄标题AAA");
             holder.topicArea.setText("苏州");
-            holder.topicReason.setText("环境很好，庄主人很好");
-            options = new DisplayImageOptions.Builder()
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
+            holder.topicReason.setText("农庄环境很好，庄主人很好");
+
             ImageLoaderUtil.getInstance().displayImg(holder.topicImage,url,options);
 
         }

@@ -26,6 +26,7 @@ import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
 public class MainActivity extends BaseActivity {
@@ -39,7 +40,6 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout postionLayout;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
-    private List<Fragment> fragments;
     @Override
     protected void initViews() {
         findViews();
@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragments() {
-        fragments = new ArrayList<Fragment>();
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
                 .add("", JingXuanFragment.class)
@@ -57,11 +56,12 @@ public class MainActivity extends BaseActivity {
                 .add("", TuiJianFragment.class)
                 .create());
         contentViewPager.setAdapter(adapter);
-        fragments.add(new JingXuanFragment());
-        fragments.add(new QiangGouFragment());
-        fragments.add(new ZhouBianFragment());
-        fragments.add(new TuiJianFragment());
     }
+
+    public void onEvent(Boolean flag){
+        dragTopLayout.setTouchMode(flag);
+    }
+
 
     private void initData() {
         options = new DisplayImageOptions.Builder()
@@ -78,9 +78,21 @@ public class MainActivity extends BaseActivity {
                 zhoubian.getLayoutParams().height = jingxuan.getWidth();
                 tuijian.getLayoutParams().height = jingxuan.getWidth();
                 postionLayout.getLayoutParams().height = jingxuan.getWidth()/2;
-                dragTopLayout.setCollapseOffset(jingxuan.getWidth());
+                dragTopLayout.setCollapseOffset(jingxuan.getWidth()+10);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     private void findViews() {
@@ -104,4 +116,8 @@ public class MainActivity extends BaseActivity {
         return "";
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

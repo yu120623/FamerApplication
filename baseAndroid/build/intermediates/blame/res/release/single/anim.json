@@ -4,16 +4,16 @@
         "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\anim\\slide_down_out.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\anim\\abc_slide_in_bottom.xml"
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\anim\\zoom_exit.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\anim\\zoom_exit.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\anim\\slide_right_out.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\anim\\slide_right_out.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\anim\\zoom_exit.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\anim\\zoom_exit.xml"
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",

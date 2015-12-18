@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.baseandroid.BaseFragment;
 import com.project.farmer.famerapplication.R;
 
+import de.greenrobot.event.EventBus;
+import github.chenupt.dragtoplayout.AttachUtil;
+
 /**
  * Created by Administrator on 2015/12/16.
  */
@@ -23,6 +26,18 @@ public class ZhouBianFragment extends BaseFragment{
     private void initData() {
         nearList.setLayoutManager(new LinearLayoutManager(context));
         nearList.setAdapter(new nearAdapter());
+        nearList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
+            }
+        });
     }
 
     private void findViews() {

@@ -1,8 +1,12 @@
 package com.project.farmer.famerapplication.home.fragment;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +18,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.project.farmer.famerapplication.R;
 
-import static com.project.farmer.famerapplication.R.id.id_cancel;
+import de.greenrobot.event.EventBus;
+import github.chenupt.dragtoplayout.AttachUtil;
 
 public class JingXuanFragment extends BaseFragment {
     private RecyclerView topicList;
@@ -25,6 +30,23 @@ public class JingXuanFragment extends BaseFragment {
     protected void initViews() {
         findViews();
         initData();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        topicList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
+                Log.i("++++++++++++","++++++++++++++113131321");
+            }
+        });
     }
 
     private void initData() {
@@ -41,6 +63,7 @@ public class JingXuanFragment extends BaseFragment {
         topicList = (RecyclerView) this.findViewById(R.id.topic_list);
     }
 
+
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> {
 
         @Override
@@ -55,7 +78,6 @@ public class JingXuanFragment extends BaseFragment {
             holder.topicName.setText("农庄标题AAA");
             holder.topicArea.setText("苏州");
             holder.topicReason.setText("农庄环境很好，庄主人很好");
-
             ImageLoaderUtil.getInstance().displayImg(holder.topicImage,url,options);
 
         }

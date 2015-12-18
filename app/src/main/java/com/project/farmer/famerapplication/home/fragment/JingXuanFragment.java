@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 
 import de.greenrobot.event.EventBus;

@@ -1,12 +1,19 @@
 package com.project.farmer.famerapplication.home.fragment;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
+import com.baseandroid.util.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 
 import de.greenrobot.event.EventBus;
@@ -17,6 +24,8 @@ import github.chenupt.dragtoplayout.AttachUtil;
  */
 public class ZhouBianFragment extends BaseFragment{
     private RecyclerView nearList;
+    private DisplayImageOptions options;
+
     @Override
     protected void initViews() {
         findViews();
@@ -38,6 +47,12 @@ public class ZhouBianFragment extends BaseFragment{
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
             }
         });
+        options = new DisplayImageOptions.Builder()
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .displayer(new RoundedBitmapDisplayer(CommonUtil.Dp2Px(context,60)))
+                .imageScaleType(ImageScaleType.EXACTLY).build();
     }
 
     private void findViews() {
@@ -58,6 +73,7 @@ public class ZhouBianFragment extends BaseFragment{
             holder.nearName.setText("农庄标题BBB");
             holder.nearArea.setText("苏州");
             holder.nearReason.setText("农庄环境很好，庄主人很好");
+            ImageLoaderUtil.getInstance().displayImg(holder.nearImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
 
 
         }
@@ -72,12 +88,14 @@ public class ZhouBianFragment extends BaseFragment{
         private TextView nearName;
         private TextView nearArea;
         private TextView nearReason;
+        private ImageView nearImg;
 
         public nearViewHolder(View itemView) {
             super(itemView);
             nearName= (TextView) itemView.findViewById(R.id.near_name);
             nearArea= (TextView) itemView.findViewById(R.id.near_area);
             nearReason= (TextView) itemView.findViewById(R.id.near_reason);
+            nearImg= (ImageView) itemView.findViewById(R.id.near_img);
 
         }
 

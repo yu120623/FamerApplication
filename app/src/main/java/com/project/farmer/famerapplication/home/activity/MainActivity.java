@@ -14,6 +14,7 @@ import com.baseandroid.BaseActivity;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
@@ -45,6 +46,41 @@ public class MainActivity extends BaseActivity {
         findViews();
         initData();
         initFragments();
+        initClick();
+    }
+
+    private void initClick() {
+        jingxuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewPager.setCurrentItem(0);
+            }
+        });
+        qianggou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewPager.setCurrentItem(1);
+            }
+        });
+        zhoubian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewPager.setCurrentItem(2);
+            }
+        });
+        tuijian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewPager.setCurrentItem(3);
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private void initFragments() {
@@ -69,7 +105,7 @@ public class MainActivity extends BaseActivity {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
-        ImageLoaderUtil.getInstance().displayImg(imageView,url,options);
+        ImageLoaderUtil.getInstance().displayImg(imageView,"drawable://"+R.mipmap.head_bg,options);
         jingxuan.post(new Runnable() {
             @Override
             public void run() {

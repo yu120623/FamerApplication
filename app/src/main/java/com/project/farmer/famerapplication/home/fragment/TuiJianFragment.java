@@ -1,14 +1,102 @@
 package com.project.farmer.famerapplication.home.fragment;
 
+import android.graphics.Bitmap;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+
+import de.greenrobot.event.EventBus;
+import github.chenupt.dragtoplayout.AttachUtil;
 
 /**
  * Created by Administrator on 2015/12/16.
  */
 public class TuiJianFragment extends BaseFragment{
+    private RecyclerView recommendList;
+    private DisplayImageOptions options;
     @Override
     protected void initViews() {
+        findViews();
+        initData();
+    }
+
+    private void initData() {
+        recommendList.setLayoutManager(new LinearLayoutManager(context));
+        recommendList.setAdapter(new recommendAdapter());
+        recommendList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
+            }
+        });
+        options = new DisplayImageOptions.Builder()
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .displayer(new CircleBitmapDisplayer())
+                .imageScaleType(ImageScaleType.EXACTLY).build();
+    }
+
+    private void findViews() {
+        recommendList = (RecyclerView) this.findViewById(R.id.recommend_list);
+
+    }
+
+    class recommendAdapter extends RecyclerView.Adapter<recommendViewHolder> {
+
+        @Override
+        public recommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = View.inflate(parent.getContext(),R.layout.recommend_item,null);
+            recommendViewHolder holder = new recommendViewHolder(v);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(recommendViewHolder holder, int position) {
+            holder.recommendName.setText("农庄标题测试");
+            holder.recommendArea.setText("苏州");
+            holder.recommendReason.setText("推荐理由或者简单介绍");
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 10;
+        }
+    }
+
+    class recommendViewHolder extends RecyclerView.ViewHolder {
+        private TextView recommendName;
+        private TextView recommendArea;
+        private TextView recommendReason;
+        private ImageView recommendImg;
+
+        public recommendViewHolder(View itemView) {
+            super(itemView);
+            recommendName= (TextView) itemView.findViewById(R.id.recommend_name);
+            recommendArea= (TextView) itemView.findViewById(R.id.recommend_area);
+            recommendReason= (TextView) itemView.findViewById(R.id.recommend_reason);
+            recommendImg= (ImageView) itemView.findViewById(R.id.recommend_img);
+
+        }
 
     }
 

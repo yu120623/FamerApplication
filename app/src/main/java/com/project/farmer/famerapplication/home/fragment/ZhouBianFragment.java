@@ -13,6 +13,7 @@ import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 
@@ -51,7 +52,7 @@ public class ZhouBianFragment extends BaseFragment{
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .displayer(new RoundedBitmapDisplayer(CommonUtil.Dp2Px(context,60)))
+                .displayer(new CircleBitmapDisplayer())
                 .imageScaleType(ImageScaleType.EXACTLY).build();
     }
 
@@ -70,9 +71,9 @@ public class ZhouBianFragment extends BaseFragment{
 
         @Override
         public void onBindViewHolder(nearViewHolder holder, int position) {
-            holder.nearName.setText("农庄标题BBB");
+            holder.nearName.setText("农庄标题测试");
             holder.nearArea.setText("苏州");
-            holder.nearReason.setText("农庄环境很好，庄主人很好");
+            holder.nearReason.setText("推荐理由或者简单介绍");
             ImageLoaderUtil.getInstance().displayImg(holder.nearImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
 
 

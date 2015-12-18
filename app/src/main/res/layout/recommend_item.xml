@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageView
-                android:id="@+id/near_img"
+                android:id="@+id/recommend_img"
                 style="@style/near_img_bg"/>
 
             <LinearLayout
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/near_area"
+                        android:id="@+id/recommend_area"
                         android:textColor="@color/white"
                         android:background="@drawable/near_area_bg"
                         android:paddingLeft="3dp"
@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content" />
                     <TextView
                         android:padding="3dp"
-                        android:id="@+id/near_name"
+                        android:id="@+id/recommend_name"
                         android:textSize="15sp"
                         android:ellipsize="end"
                         android:textColor="@color/black"
@@ -53,21 +53,21 @@
                         android:layout_height="wrap_content" />
 
                     <!--<RatingBar-->
-                        <!--android:paddingTop="5dp"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--style="?android:attr/ratingBarStyleSmall"-->
-                        <!--android:rating = "4"-->
-                        <!--android:numStars="5"-->
-                        <!--android:stepSize = "0.5"-->
-                        <!--android:id="@+id/ratingBar" />-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="?android:attr/ratingBarStyleSmall"-->
+                    <!--android:rating = "4"-->
+                    <!--android:numStars="5"-->
+                    <!--android:stepSize = "0.5"-->
+                    <!--android:id="@+id/ratingBar" />-->
                 </LinearLayout>
                 <TextView android:layout_marginTop="10dp"
-                android:id="@+id/near_reason"
-                android:textSize="14sp"
-                android:textColor="@color/gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/recommend_reason"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout

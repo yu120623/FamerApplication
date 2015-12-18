@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#C0C0C0"
+    android:background="#ECECEC"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,7 +8,9 @@
         android:id="@+id/topic_list"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
 
     </android.support.v7.widget.RecyclerView>
 

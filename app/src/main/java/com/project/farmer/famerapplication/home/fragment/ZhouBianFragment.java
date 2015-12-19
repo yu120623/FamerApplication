@@ -52,7 +52,7 @@ public class ZhouBianFragment extends BaseFragment{
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .displayer(new CircleBitmapDisplayer())
+//                .displayer(new CircleBitmapDisplayer())
                 .imageScaleType(ImageScaleType.EXACTLY).build();
     }
 
@@ -73,7 +73,7 @@ public class ZhouBianFragment extends BaseFragment{
         public void onBindViewHolder(nearViewHolder holder, int position) {
             holder.nearName.setText("农庄标题测试");
             holder.nearArea.setText("苏州");
-            holder.nearReason.setText("推荐理由或者简单介绍");
+            holder.nearReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
             ImageLoaderUtil.getInstance().displayImg(holder.nearImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
 
 

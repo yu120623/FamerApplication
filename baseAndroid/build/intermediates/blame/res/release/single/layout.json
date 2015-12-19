@@ -1,43 +1,63 @@
 [
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_view_list_nav_layout.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_simple.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_select_dialog_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_singlechoice_material.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_singlechoice_material.xml"
     },
     {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_action.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_layout.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_item_layout.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_content_include.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_content_include.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_list_dir.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_list_dir.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_layout.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_menu_layout.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\action_bar.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\action_bar.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_list_dir_item.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_list_dir_item.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_icon.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_icon.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_item_material.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_list_dir_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_list_dir_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\toast_view.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\toast_view.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_layout.xml",
@@ -48,64 +68,84 @@
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_time.xml"
     },
     {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_bottom_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_bottom_item.xml"
+    },
+    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_material.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_big_media.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_list_dir.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_list_dir.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_toolbar.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_toolbar.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_icon.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_icon.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\test.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\test.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_select_dialog_material.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_select_dialog_material.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\base_activity.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\base_activity.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_multichoice_material.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_multichoice_material.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_toolbar.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_toolbar.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\bottom_button_item.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\bottom_button_item.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_bar.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_mode_bar.xml"
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_multichoice_material.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_multichoice_material.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_bottom_item.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_bottom_item.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_item_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_title_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_bar.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_mode_bar.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_view.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_search_view.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_expanded_menu_layout.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_expanded_menu_layout.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_expanded_menu_layout.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_expanded_menu_layout.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_title_item.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_item_layout.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\action_bar.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\action_bar.xml"
+    },
+    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\postion_view_pager.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\postion_view_pager.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_lines.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_lines.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_radio.xml",
@@ -114,14 +154,6 @@
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\view_pager_postion.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\view_pager_postion.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_cancel_action.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_checkbox.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_checkbox.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\support_simple_spinner_dropdown_item.xml",
@@ -136,32 +168,36 @@
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_dropdown_item_icons_2line.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\view_pager_postion.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\view_pager_postion.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_button_bar_material.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_big_media_narrow.xml"
-    },
-    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_media.xml"
     },
     {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\postion_view_pager.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\postion_view_pager.xml"
+    },
+    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view_list_item.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view_list_item.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_action.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_action.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_close_item_material.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel.xml",
@@ -172,20 +208,12 @@
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\test.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\test.xml"
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_city.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\activity_city.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_up_container.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_up_container.xml"
-    },
-    {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_grid_item.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_grid_item.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\toast_view.xml",
@@ -198,5 +226,177 @@
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_dialog_title_material.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_layout.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_bar.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_layout.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\action_bar.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\action_bar.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_list_dir_item.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_list_dir_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_multichoice_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_up_container.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_city.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\activity_city.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_lines.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\bottom_button_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\bottom_button_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_icon.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_select_dialog_material.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_bottom_item.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_bottom_item.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_expanded_menu_layout.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_lines.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_view.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_grid_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_grid_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_radio.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_action.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\test.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\test.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_dialog_title_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_up_container.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\com_mark_utils_picsel_grid_item.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_grid_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_cancel_action.xml"
     }
 ]

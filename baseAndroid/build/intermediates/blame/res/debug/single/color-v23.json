@@ -2,5 +2,9 @@
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color-v23\\abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color-v23\\abc_color_highlight_material.xml"
     }
 ]

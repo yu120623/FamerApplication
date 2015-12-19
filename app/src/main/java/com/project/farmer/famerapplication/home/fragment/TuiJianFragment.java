@@ -49,7 +49,7 @@ public class TuiJianFragment extends BaseFragment{
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .displayer(new CircleBitmapDisplayer())
+//                .displayer(new CircleBitmapDisplayer())
                 .imageScaleType(ImageScaleType.EXACTLY).build();
     }
 
@@ -71,7 +71,7 @@ public class TuiJianFragment extends BaseFragment{
         public void onBindViewHolder(recommendViewHolder holder, int position) {
             holder.recommendName.setText("农庄标题测试");
             holder.recommendArea.setText("苏州");
-            holder.recommendReason.setText("推荐理由或者简单介绍");
+            holder.recommendReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
 
 

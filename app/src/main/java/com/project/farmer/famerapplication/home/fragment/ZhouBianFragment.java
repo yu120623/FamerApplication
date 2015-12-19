@@ -99,7 +99,24 @@ public class ZhouBianFragment extends BaseFragment{
             nearImg= (ImageView) itemView.findViewById(R.id.near_img);
 
         }
+    }
 
+    public void onEvent(Integer index){
+        if(index.intValue() == 2){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(nearList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

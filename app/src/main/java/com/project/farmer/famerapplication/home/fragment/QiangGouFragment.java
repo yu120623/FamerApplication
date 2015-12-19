@@ -69,7 +69,6 @@ public class QiangGouFragment extends BaseFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
-                Log.i("++++++++++++", "++++++++++++++113131321");
             }
         });
     }
@@ -112,6 +111,24 @@ public class QiangGouFragment extends BaseFragment {
 
         }
 
+    }
+
+    public void onEvent(Integer index){
+        if(index.intValue() == 1){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(flashSelaList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -11,94 +11,141 @@
         android:background="@android:color/white">
 
         <!--top view-->
-        <RelativeLayout
-            android:id="@+id/top_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layout"
+            <RelativeLayout
+                android:id="@+id/top_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <RelativeLayout
-                    android:id="@+id/postion_container"
+                <LinearLayout
+                    android:id="@+id/layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
-                </RelativeLayout>
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <com.bigkoo.convenientbanner.ConvenientBanner
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/convenient_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:canLoop="true"
+                    />
+
+                    <RelativeLayout
+                        android:id="@+id/postion_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"></RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/layout"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <RelativeLayout
+                        android:id="@+id/jingxuan"
+                        style="@style/home_btn_container_style"
+                        android:layout_marginRight="@dimen/home_btn_margin_half">
+
+                        <TextView
+                            style="@style/home_btn_style"
+                            android:background="@drawable/home_btn1"
+                            android:text="精选"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/qianggou"
+                        style="@style/home_btn_container_style"
+                        android:layout_marginLeft="@dimen/home_btn_margin_half"
+                        android:layout_marginRight="@dimen/home_btn_margin_half">
+
+                        <TextView
+                            style="@style/home_btn_style"
+                            android:background="@drawable/home_btn2"
+                            android:text="抢购"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/zhoubian"
+                        style="@style/home_btn_container_style"
+                        android:layout_marginLeft="@dimen/home_btn_margin_half"
+                        android:layout_marginRight="@dimen/home_btn_margin_half">
+
+                        <TextView
+                            style="@style/home_btn_style"
+                            android:background="@drawable/home_btn3"
+                            android:text="周边"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/tuijian"
+                        style="@style/home_btn_container_style"
+                        android:layout_marginLeft="@dimen/home_btn_margin_half">
+
+                        <TextView
+                            style="@style/home_btn_style"
+                            android:background="@drawable/home_btn4"
+                            android:text="推荐"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/layout"
-                android:orientation="horizontal"
+                android:id="@+id/arr_content"
                 android:weightSum="4">
 
                 <RelativeLayout
-                    android:id="@+id/jingxuan"
-                    style="@style/home_btn_container_style"
-                    android:layout_marginRight="10dp">
+                    style="@style/home_btn_arr_container_style"
+                    android:layout_marginRight="@dimen/home_btn_margin_half">
 
-                    <TextView
-                        style="@style/home_btn_style"
-                        android:background="@drawable/home_btn1"
-                        android:text="精选"
-                        android:textColor="@color/white" />
+                    <ImageView style="@style/home_btn_arr_style"/>
+
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/qianggou"
-                    style="@style/home_btn_container_style"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
+                    style="@style/home_btn_arr_container_style"
+                    android:layout_marginLeft="@dimen/home_btn_margin_half"
+                    android:layout_marginRight="@dimen/home_btn_margin_half">
 
-                    <TextView
-                        style="@style/home_btn_style"
-                        android:background="@drawable/home_btn2"
-                        android:text="抢购"
-                        android:textColor="@color/white" />
+                    <ImageView style="@style/home_btn_arr_style"/>
+
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/zhoubian"
-                    style="@style/home_btn_container_style"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
+                    style="@style/home_btn_arr_container_style"
+                    android:layout_marginLeft="@dimen/home_btn_margin_half"
+                    android:layout_marginRight="@dimen/home_btn_margin_half">
 
-                    <TextView
-                        style="@style/home_btn_style"
-                        android:background="@drawable/home_btn3"
-                        android:text="周边"
-                        android:textColor="@color/white" />
+                    <ImageView style="@style/home_btn_arr_style"/>
+
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/tuijian"
-                    style="@style/home_btn_container_style"
-                    android:layout_marginLeft="10dp">
+                    style="@style/home_btn_arr_container_style"
+                    android:layout_marginLeft="@dimen/home_btn_margin_half">
 
-                    <TextView
-                        style="@style/home_btn_style"
-                        android:background="@drawable/home_btn4"
-                        android:text="推荐"
-                        android:textColor="@color/white" />
+                    <ImageView style="@style/home_btn_arr_style"/>
+
                 </RelativeLayout>
             </LinearLayout>
-
-        </RelativeLayout>
-
+        </LinearLayout>
         <!--content view-->
         <LinearLayout
             android:id="@+id/drag_content_view"

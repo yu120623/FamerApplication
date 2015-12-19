@@ -11,18 +11,11 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/action_bar"
+            android:id="@+id/action_bar_view"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:padding="@dimen/action_bar_defalut_padding"
+            android:layout_height="@android:dimen/app_icon_size"
             android:background="#2e2e2e">
-            <TextView
-                android:text="苏州市"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </RelativeLayout>
         <!--  <android.support.v7.widget.Toolbar
              android:visibility="gone"

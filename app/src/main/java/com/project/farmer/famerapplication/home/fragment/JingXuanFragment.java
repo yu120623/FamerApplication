@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.home.fragment;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +28,11 @@ import github.chenupt.dragtoplayout.AttachUtil;
 public class JingXuanFragment extends BaseFragment {
     private RecyclerView topicList;
     private DisplayImageOptions options;
-    private String[] url = {"http://s.mycff.com/images/direct/564d2ce239fc9.png",
+    private String[] url = {"http://oss.mycff.com/images/00001.png" ,
+            "http://oss.mycff.com/images/00002.png",
+            "http://oss.mycff.com/images/00003.png",
+            "http://oss.mycff.com/images/00004.png",
+            "http://s.mycff.com/images/direct/564d2ce239fc9.png",
             "http://s.mycff.com/images/2015/10/04cb5dee5845984129bd6265bcfde0b8.jpg",
             "http://s.mycff.com/images/direct/5653d669599bb.jpg",
             "http://s.mycff.com/images/direct/56385f05a53e6.jpg",
@@ -64,6 +69,9 @@ public class JingXuanFragment extends BaseFragment {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
+                .showImageForEmptyUri(R.mipmap.default_img)
+                .showImageOnFail(R.mipmap.default_img)
+                .showImageOnLoading(R.mipmap.default_img)
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicList.setLayoutManager(new LinearLayoutManager(context));
@@ -112,7 +120,24 @@ public class JingXuanFragment extends BaseFragment {
             topicImage = (ImageView) itemView.findViewById(R.id.topic_img);
 
         }
+    }
 
+    public void onEvent(Integer index){
+        if(index.intValue() == 0){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(topicList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

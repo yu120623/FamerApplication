@@ -28,18 +28,15 @@ public abstract class BaseActivity extends Activity {
 	protected Activity activity;
 	protected LayoutInflater inflater;
 	protected SharedPreferences sp;
-	protected ActionBar actionBar;
-	protected View actionBarView;
 	protected FragmentManager fragmentManager;
 	protected ImageButton leftBtn;
 	protected ImageButton rightBtn;
 	protected TextView rightTextBtn;
 	protected TextView actionBarTitle;
-	protected RelativeLayout rightLayout;
 	private NetWorkBroadcast netWorkBroadcast;
-	private TextView netWorkInfo;
+	protected TextView netWorkInfo;
 	protected Bundle savedInstanceState;
-	private View actionbarView;
+	protected RelativeLayout actionbarView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -64,7 +61,7 @@ public abstract class BaseActivity extends Activity {
 	protected void init() {
 		context = this.getApplicationContext();
 		activity = this;
-		actionbarView = this.findViewById(R.id.action_bar);
+		actionbarView = (RelativeLayout)this.findViewById(R.id.action_bar_view);
 		inflater = LayoutInflater.from(context);
 		sp = this.getSharedPreferences("sp", MODE_PRIVATE);
 		fragmentManager = this.getFragmentManager();

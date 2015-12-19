@@ -26,4 +26,5 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:utils-v13:1.6.0@aar'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'de.greenrobot:java-common:2.2.0'
+    compile 'com.bigkoo:convenientbanner:2.0.2'
 }

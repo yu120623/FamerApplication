@@ -2,14 +2,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">#2e2e2e</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="home_btn_container_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">30dp</item>
-        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginLeft">@dimen/home_btn_margin</item>
+        <item name="android:layout_marginRight">@dimen/home_btn_margin</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/home_btn_container_bg</item>
         <item name="android:padding">4dp</item>
@@ -33,4 +35,21 @@
         <item name="android:layout_centerInParent">true</item>
     </style>
 
+    <style name="home_btn_arr_container_style">
+        <item name="android:visibility">invisible</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/home_btn_margin</item>
+        <item name="android:layout_marginRight">@dimen/home_btn_margin</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="home_btn_arr_style">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:src">@mipmap/arr</item>
+    </style>
 </resources>

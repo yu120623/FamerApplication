@@ -1,21 +1,17 @@
 package com.project.farmer.famerapplication.home.activity;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Bitmap;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.baseandroid.BaseActivity;
-import com.baseandroid.util.ImageLoaderUtil;
+import com.baseandroid.util.CommonUtil;
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
@@ -23,30 +19,47 @@ import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
 import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
 import com.project.farmer.famerapplication.home.fragment.TuiJianFragment;
 import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
+import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
 public class MainActivity extends BaseActivity {
     private DisplayImageOptions options;
-    private ImageView imageView;
-    private String url = "http://img1.imgtn.bdimg.com/it/u=3654508348,624460089&fm=21&gp=0.jpg";
     private RelativeLayout jingxuan;
     private RelativeLayout qianggou;
     private RelativeLayout zhoubian;
     private RelativeLayout tuijian;
+    private LinearLayout arrContent;
     private RelativeLayout postionLayout;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
+    private ConvenientBanner banner;
+    private String[] url = {"http://oss.mycff.com/images/000014.png","http://oss.mycff.com/images/000015.png"};
     @Override
     protected void initViews() {
         findViews();
         initData();
         initFragments();
+        initBanner();
         initClick();
+    }
+
+    private void initBanner() {
+        //banner.getLayoutParams().height = CommonUtil.Px2Dp(context,1200);
+        banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+            @Override
+            public NetworkImageHolderView createHolder() {
+                return new NetworkImageHolderView();
+            }
+        }, Arrays.asList(url));
+        banner.startTurning(3000);
+        int screenWith = CommonUtil.getScreenWith(getWindowManager());
+        double scale = screenWith/ (444*1.0);
+        banner.getLayoutParams().height = (int)(200*scale);
+        //banner.getViewPager().setPageTransformer(true,new DepthPageTransformer());
     }
 
     private void initClick() {
@@ -54,33 +67,54 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 contentViewPager.setCurrentItem(0);
+                setArrVisible(0);
             }
         });
         qianggou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 contentViewPager.setCurrentItem(1);
+                setArrVisible(1);
             }
         });
         zhoubian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 contentViewPager.setCurrentItem(2);
+                setArrVisible(2);
             }
         });
         tuijian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 contentViewPager.setCurrentItem(3);
+                setArrVisible(3);
             }
         });
-        imageView.setOnClickListener(new View.OnClickListener() {
+        contentViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                EventBus.getDefault().post(position);
+                setArrVisible(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
+    }
 
+    @Override
+    public void initActonBar() {
+        super.initActonBar();
+        actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
+        actionbarView.addView(inflater.inflate(R.layout.home_action_bar,null));
     }
 
     private void initFragments() {
@@ -98,6 +132,13 @@ public class MainActivity extends BaseActivity {
         dragTopLayout.setTouchMode(flag);
     }
 
+    private void setArrVisible(int index){
+        arrContent.getChildAt(index).setVisibility(View.VISIBLE);
+        for(int i = 0;i < arrContent.getChildCount();i++){
+            if(index == i)continue;
+            arrContent.getChildAt(i).setVisibility(View.INVISIBLE);
+        }
+    }
 
     private void initData() {
         options = new DisplayImageOptions.Builder()
@@ -105,7 +146,6 @@ public class MainActivity extends BaseActivity {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
-        ImageLoaderUtil.getInstance().displayImg(imageView,"drawable://"+R.mipmap.head_bg,options);
         jingxuan.post(new Runnable() {
             @Override
             public void run() {
@@ -114,9 +154,10 @@ public class MainActivity extends BaseActivity {
                 zhoubian.getLayoutParams().height = jingxuan.getWidth();
                 tuijian.getLayoutParams().height = jingxuan.getWidth();
                 postionLayout.getLayoutParams().height = jingxuan.getWidth()/2;
-                dragTopLayout.setCollapseOffset(jingxuan.getWidth()+10);
+                dragTopLayout.setCollapseOffset(jingxuan.getWidth()+arrContent.getHeight()+10);
             }
         });
+        setArrVisible(0);
     }
 
     @Override
@@ -132,7 +173,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void findViews() {
-        imageView = (ImageView) this.findViewById(R.id.image_view);
         jingxuan = (RelativeLayout) this.findViewById(R.id.jingxuan);
         qianggou = (RelativeLayout) this.findViewById(R.id.qianggou);
         zhoubian = (RelativeLayout) this.findViewById(R.id.zhoubian);
@@ -140,6 +180,8 @@ public class MainActivity extends BaseActivity {
         postionLayout = (RelativeLayout) this.findViewById(R.id.postion_container);
         contentViewPager = (ViewPager) this.findViewById(R.id.content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.drag_layout);
+        arrContent = (LinearLayout) this.findViewById(R.id.arr_content);
+        banner = (ConvenientBanner) this.findViewById(R.id.convenient_banner);
     }
 
     @Override

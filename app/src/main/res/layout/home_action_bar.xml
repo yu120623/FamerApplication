@@ -3,15 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:id="@+id/user_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:text="苏州市"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="苏州市"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <ImageView
+            android:src="@mipmap/jiao"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="2dp"
+            android:adjustViewBounds="true"
+            android:layout_width="8dp"
+            android:layout_height="5dp" />
+    </LinearLayout>
 
 
     <LinearLayout
@@ -19,25 +33,27 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/search_view_bg"
         android:layout_toLeftOf="@+id/user_login"
         android:layout_toRightOf="@+id/user_location"
-        android:padding="5dp"
+        android:background="@drawable/search_view_bg"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
+
         <ImageView
-            android:src="@mipmap/search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/search" />
+
         <TextView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:ellipsize="end"
             android:gravity="center_vertical"
             android:hint="搜索农庄、特产、地区、专题"
             android:lines="1"
-            android:ellipsize="end"
-            android:textColorHint="@color/gray"
+            android:textColorHint="#cacaca"
             android:textSize="12sp" />
     </LinearLayout>
 

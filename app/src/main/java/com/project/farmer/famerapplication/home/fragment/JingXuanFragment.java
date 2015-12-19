@@ -55,7 +55,6 @@ public class JingXuanFragment extends BaseFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
-                Log.i("++++++++++++", "++++++++++++++113131321");
             }
         });
     }

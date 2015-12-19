@@ -97,8 +97,9 @@
                 android:paddingRight="10dp"
                 android:layout_alignBottom="@id/relative1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_centerHorizontal="true"
+                android:textSize="13sp"
                 android:text="限时抢购"
                 android:background="@drawable/timer_bg1"
                 android:id="@+id/textView2" />

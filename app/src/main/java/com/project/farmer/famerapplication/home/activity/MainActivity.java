@@ -1,10 +1,12 @@
 package com.project.farmer.famerapplication.home.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
@@ -12,6 +14,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
@@ -19,6 +22,7 @@ import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
 import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
 import com.project.farmer.famerapplication.home.fragment.TuiJianFragment;
 import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
+import com.project.farmer.famerapplication.search.activity.SearchActivity;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
 import java.util.Arrays;
@@ -28,6 +32,7 @@ import github.chenupt.dragtoplayout.DragTopLayout;
 
 public class MainActivity extends BaseActivity {
     private DisplayImageOptions options;
+    private TextView area;
     private RelativeLayout jingxuan;
     private RelativeLayout qianggou;
     private RelativeLayout zhoubian;
@@ -37,6 +42,7 @@ public class MainActivity extends BaseActivity {
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
     private ConvenientBanner banner;
+    private View searchBtn;
     private String[] url = {"http://oss.mycff.com/images/000014.png","http://oss.mycff.com/images/000015.png"};
     @Override
     protected void initViews() {
@@ -48,7 +54,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initBanner() {
-        //banner.getLayoutParams().height = CommonUtil.Px2Dp(context,1200);
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
             public NetworkImageHolderView createHolder() {
@@ -59,7 +64,6 @@ public class MainActivity extends BaseActivity {
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith/ (444*1.0);
         banner.getLayoutParams().height = (int)(200*scale);
-        //banner.getViewPager().setPageTransformer(true,new DepthPageTransformer());
     }
 
     private void initClick() {
@@ -108,13 +112,20 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void initActonBar() {
         super.initActonBar();
         actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
-        actionbarView.addView(inflater.inflate(R.layout.home_action_bar,null));
+        inflater.inflate(R.layout.home_action_bar,actionbarView,true);
     }
 
     private void initFragments() {
@@ -155,8 +166,14 @@ public class MainActivity extends BaseActivity {
                 tuijian.getLayoutParams().height = jingxuan.getWidth();
                 postionLayout.getLayoutParams().height = jingxuan.getWidth()/2;
                 dragTopLayout.setCollapseOffset(jingxuan.getWidth()+arrContent.getHeight()+10);
+                jingxuan.setVisibility(View.VISIBLE);
+                qianggou.setVisibility(View.VISIBLE);
+                zhoubian.setVisibility(View.VISIBLE);
+                tuijian.setVisibility(View.VISIBLE);
+
             }
         });
+        area.setText(CommonUtil.toDBC("苏州.."));
         setArrVisible(0);
     }
 
@@ -182,6 +199,8 @@ public class MainActivity extends BaseActivity {
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.drag_layout);
         arrContent = (LinearLayout) this.findViewById(R.id.arr_content);
         banner = (ConvenientBanner) this.findViewById(R.id.convenient_banner);
+        searchBtn = this.findViewById(R.id.search_btn);
+        area = (TextView) this.findViewById(R.id.area);
     }
 
     @Override

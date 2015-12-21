@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="action_bar_defalut_padding">9dp</dimen>
+    <dimen name="action_bar_defalut_top_padding">9dp</dimen>
+    <dimen name="action_bar_defalut_left_padding">13dp</dimen>
+    <dimen name="action_bar_defalut_right_padding">13dp</dimen>
+    <dimen name="action_bar_defalut_bottom_padding">9dp</dimen>
+    <dimen name="action_bar_back_padding">4dp</dimen>
 </resources>

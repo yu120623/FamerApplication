@@ -142,6 +142,6 @@
             android:paddingRight="4dp"
             android:text="荐"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </RelativeLayout>
 </LinearLayout>

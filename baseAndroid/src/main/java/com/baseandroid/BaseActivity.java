@@ -109,13 +109,7 @@ public abstract class BaseActivity extends Activity {
 
 	// 显示后退按钮
 	protected void showBackBtn() {
-		leftBtn.setVisibility(View.VISIBLE);
-		leftBtn.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				finish();
-				backEffect();
-			}
-		});
+		//View backBtn = this.findViewById(R.id.back)
 	}
 	
 	protected void backEffect(){

@@ -1,10 +1,8 @@
 package com.project.farmer.famerapplication.home.fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
-import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.home.activity.MainActivity;
+import com.project.farmer.famerapplication.home.activity.TopicDetailsActivity;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -83,12 +81,13 @@ public class JingXuanFragment extends BaseFragment {
     }
 
 
-    class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> {
+    class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
 
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.topic_item, null);
             TopicViewHolder holder = new TopicViewHolder(v);
+            v.setOnClickListener(this);
             return holder;
         }
 
@@ -103,6 +102,13 @@ public class JingXuanFragment extends BaseFragment {
         @Override
         public int getItemCount() {
             return url.length;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), TopicDetailsActivity.class);
+            startActivity(intent);
         }
     }
 

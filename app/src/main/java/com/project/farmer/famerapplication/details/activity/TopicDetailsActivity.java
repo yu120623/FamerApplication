@@ -14,6 +14,7 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.details.fragment.JieShaoFragment;
 import com.project.farmer.famerapplication.details.fragment.PingJiaFragment;
 import com.project.farmer.famerapplication.details.fragment.XuZhiFragment;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
@@ -71,9 +72,9 @@ public class TopicDetailsActivity extends BaseActivity {
     private void initFragments() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add("介绍", JingXuanFragment.class)
-                .add("评价", PingJiaFragment.class)
-                .add("须知", XuZhiFragment.class)
+                .add(R.string.jieshao, JieShaoFragment.class)
+                .add(R.string.pingjia, PingJiaFragment.class)
+                .add(R.string.xuzhi, XuZhiFragment.class)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);

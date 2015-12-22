@@ -1,6 +1,5 @@
 package com.baseandroid;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
@@ -19,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -95,7 +95,17 @@ public abstract class BaseActivity extends Activity {
 
 
 	public void initActonBar() {
-
+		actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
+		inflater.inflate(R.layout.action_bar,actionbarView,true);
+		TextView actionBarTitle = (TextView) this.findViewById(R.id.action_bar_title);
+		actionBarTitle.setText(setActionBarTitle());
+		ImageView back = (ImageView) this.findViewById(R.id.back_btn);
+		back.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 	}
 
 	protected boolean isFullScreen() {
@@ -128,9 +138,9 @@ public abstract class BaseActivity extends Activity {
 			if(info == null){
 				netWorkInfo.setVisibility(View.VISIBLE);
 				netWorkInfo.setOnClickListener(goToNetWorkSetting);
-			}else{
+			}else {
 				netWorkInfo.setVisibility(View.GONE);
-			}			
+			}
 		}		
 	}
 	

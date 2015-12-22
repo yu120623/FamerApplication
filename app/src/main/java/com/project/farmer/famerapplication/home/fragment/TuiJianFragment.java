@@ -32,7 +32,7 @@ public class TuiJianFragment extends BaseFragment{
 
     private void initData() {
         recommendList.setLayoutManager(new LinearLayoutManager(context));
-        recommendList.setAdapter(new recommendAdapter());
+        recommendList.setAdapter(new RecommendAdapter());
         recommendList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -58,17 +58,17 @@ public class TuiJianFragment extends BaseFragment{
 
     }
 
-    class recommendAdapter extends RecyclerView.Adapter<recommendViewHolder> {
+    class RecommendAdapter extends RecyclerView.Adapter<RecommendViewHolder> {
 
         @Override
-        public recommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(),R.layout.recommend_item,null);
-            recommendViewHolder holder = new recommendViewHolder(v);
+            RecommendViewHolder holder = new RecommendViewHolder(v);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(recommendViewHolder holder, int position) {
+        public void onBindViewHolder(RecommendViewHolder holder, int position) {
             holder.recommendName.setText("农庄标题测试");
             holder.recommendArea.setText("苏州");
             holder.recommendReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
@@ -83,13 +83,13 @@ public class TuiJianFragment extends BaseFragment{
         }
     }
 
-    class recommendViewHolder extends RecyclerView.ViewHolder {
+    class RecommendViewHolder extends RecyclerView.ViewHolder {
         private TextView recommendName;
         private TextView recommendArea;
         private TextView recommendReason;
         private ImageView recommendImg;
 
-        public recommendViewHolder(View itemView) {
+        public RecommendViewHolder(View itemView) {
             super(itemView);
             recommendName= (TextView) itemView.findViewById(R.id.recommend_name);
             recommendArea= (TextView) itemView.findViewById(R.id.recommend_area);

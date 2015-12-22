@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -17,6 +19,15 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.entity.FarmTopicModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -24,19 +35,8 @@ import github.chenupt.dragtoplayout.AttachUtil;
 public class JingXuanFragment extends BaseFragment {
     private RecyclerView topicList;
     private DisplayImageOptions options;
-    private String[] url = {"http://oss.mycff.com/images/00001.png" ,
-            "http://oss.mycff.com/images/00002.png",
-            "http://oss.mycff.com/images/00003.png",
-            "http://oss.mycff.com/images/00004.png",
-            "http://s.mycff.com/images/direct/564d2ce239fc9.png",
-            "http://s.mycff.com/images/2015/10/04cb5dee5845984129bd6265bcfde0b8.jpg",
-            "http://s.mycff.com/images/direct/5653d669599bb.jpg",
-            "http://s.mycff.com/images/direct/56385f05a53e6.jpg",
-            "http://s.mycff.com/images/direct/56385fdc8d19b.jpg",
-            "http://s.mycff.com/images/direct/56385f5b7de10.jpg",
-            "http://s.mycff.com/images/direct/566e7f8602140.jpg",
-            "http://s.mycff.com/images/direct/56385e6e9e621.jpg",
-            "http://s.mycff.com/images/direct/564170c898a43.jpg"};
+    private TopicAdapter adapter;
+    private List<FarmTopicModel> farmTopicModels;
 
     @Override
     protected void initViews() {
@@ -71,7 +71,26 @@ public class JingXuanFragment extends BaseFragment {
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicList.setLayoutManager(new LinearLayoutManager(context));
-        topicList.setAdapter(new TopicAdapter());
+        adapter = new TopicAdapter();
+        farmTopicModels = new ArrayList<FarmTopicModel>();
+        topicList.setAdapter(adapter);
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_TOPIC_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setPageNumber(0);
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                farmTopicModels = data.getFarmTopicModels();
+                if(farmTopicModels != null && farmTopicModels.size() > 0){
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        },data);
+        request.execute();
     }
 
     private void findViews() {
@@ -91,15 +110,16 @@ public class JingXuanFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            holder.topicName.setText("农庄标题");
-            holder.topicArea.setText("苏州");
-            holder.topicReason.setText("推荐理由或者简单介绍");
-            ImageLoaderUtil.getInstance().displayImg(holder.topicImage, url[position], options);
+            FarmTopicModel farmTopicModel = farmTopicModels.get(position);
+            holder.topicName.setText(farmTopicModel.getFarmTopicName());
+            holder.topicArea.setText(farmTopicModel.getCodeName());
+            holder.topicReason.setText(farmTopicModel.getFarmTopicRecomReason());
+            ImageLoaderUtil.getInstance().displayImg(holder.topicImage,farmTopicModel.getResourcePath(), options);
         }
 
         @Override
         public int getItemCount() {
-            return url.length;
+            return farmTopicModels.size();
         }
 
         @Override

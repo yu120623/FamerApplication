@@ -5,6 +5,7 @@
         <item name="colorPrimaryDark">#2e2e2e</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="selectableItemBackground">@color/white</item>
     </style>
 
     <style name="home_btn_container_style">

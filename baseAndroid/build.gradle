@@ -24,6 +24,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:support-v13:23.1.1'
     compile files('libs/nineoldandroids-2.4.0.jar')
-    compile files('libs/volley.jar')
+    compile 'com.mcxiaoke.volley:library:1.0.19'
     compile files('libs/universal-image-loader-1.9.5.jar')
 }

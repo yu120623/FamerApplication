@@ -123,7 +123,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initActonBar() {
-        super.initActonBar();
         actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
         inflater.inflate(R.layout.home_action_bar,actionbarView,true);
     }

@@ -105,6 +105,9 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:drawableLeft="@mipmap/location"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="1dp"
                         android:id="@+id/near_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

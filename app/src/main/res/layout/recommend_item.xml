@@ -110,6 +110,8 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
+                        android:drawablePadding="1dp"
+                        android:drawableLeft="@mipmap/location"
                         android:textColor="#2FAC2F"
                         android:textSize="12sp" />
 
@@ -129,6 +131,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tuijian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

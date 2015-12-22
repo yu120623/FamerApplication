@@ -17,6 +17,8 @@ import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 
+import org.w3c.dom.Text;
+
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
@@ -35,7 +37,7 @@ public class ZhouBianFragment extends BaseFragment{
 
     private void initData() {
         nearList.setLayoutManager(new LinearLayoutManager(context));
-        nearList.setAdapter(new nearAdapter());
+        nearList.setAdapter(new NearAdapter());
         nearList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -60,23 +62,22 @@ public class ZhouBianFragment extends BaseFragment{
         nearList = (RecyclerView) this.findViewById(R.id.near_list);
     }
 
-    class nearAdapter extends RecyclerView.Adapter<nearViewHolder> {
+    class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> {
 
         @Override
-        public nearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(),R.layout.near_item,null);
-            nearViewHolder holder = new nearViewHolder(v);
+        public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = View.inflate(parent.getContext(),R.layout.recommend_item,null);
+            RecommendViewHolder holder = new RecommendViewHolder(v);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(nearViewHolder holder, int position) {
-            holder.nearName.setText("农庄标题测试");
-            holder.nearArea.setText("苏州");
-            holder.nearReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
-            ImageLoaderUtil.getInstance().displayImg(holder.nearImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
-
-
+        public void onBindViewHolder(RecommendViewHolder holder, int position) {
+            holder.recommendName.setText("农庄标题测试");
+            holder.recommendArea.setText("苏州");
+            holder.recommendReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
+            holder.recommendTuijian.setVisibility(View.INVISIBLE);
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
         }
 
         @Override
@@ -85,20 +86,23 @@ public class ZhouBianFragment extends BaseFragment{
         }
     }
 
-    class nearViewHolder extends RecyclerView.ViewHolder {
-        private TextView nearName;
-        private TextView nearArea;
-        private TextView nearReason;
-        private ImageView nearImg;
+    class RecommendViewHolder extends RecyclerView.ViewHolder {
+        private TextView recommendName;
+        private TextView recommendArea;
+        private TextView recommendReason;
+        private ImageView recommendImg;
+        private TextView recommendTuijian;
 
-        public nearViewHolder(View itemView) {
+        public RecommendViewHolder(View itemView) {
             super(itemView);
-            nearName= (TextView) itemView.findViewById(R.id.near_name);
-            nearArea= (TextView) itemView.findViewById(R.id.near_area);
-            nearReason= (TextView) itemView.findViewById(R.id.near_reason);
-            nearImg= (ImageView) itemView.findViewById(R.id.near_img);
+            recommendName= (TextView) itemView.findViewById(R.id.recommend_name);
+            recommendArea= (TextView) itemView.findViewById(R.id.recommend_area);
+            recommendReason= (TextView) itemView.findViewById(R.id.recommend_reason);
+            recommendImg= (ImageView) itemView.findViewById(R.id.recommend_img);
+            recommendTuijian = (TextView) itemView.findViewById(R.id.tuijian);
 
         }
+
     }
 
     public void onEvent(Integer index){

@@ -1,4 +1,4 @@
-package com.project.farmer.famerapplication.home.details.activity;
+package com.project.farmer.famerapplication.details.activity;
 
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
@@ -14,8 +14,8 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.home.details.fragment.PingJiaFragment;
-import com.project.farmer.famerapplication.home.details.fragment.XuZhiFragment;
+import com.project.farmer.famerapplication.details.fragment.PingJiaFragment;
+import com.project.farmer.famerapplication.details.fragment.XuZhiFragment;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 

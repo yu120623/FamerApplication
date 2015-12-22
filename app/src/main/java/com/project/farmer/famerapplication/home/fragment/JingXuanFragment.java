@@ -16,7 +16,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.home.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;

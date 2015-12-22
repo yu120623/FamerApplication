@@ -1,4 +1,4 @@
-package com.project.farmer.famerapplication.home.details.fragment;
+package com.project.farmer.famerapplication.details.fragment;
 
 import com.baseandroid.BaseFragment;
 

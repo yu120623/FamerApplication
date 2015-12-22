@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,8 +16,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.home.activity.MainActivity;
-import com.project.farmer.famerapplication.home.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.home.details.activity.TopicDetailsActivity;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;

@@ -168,12 +168,12 @@
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel.xml"
     },
     {
-        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\test.xml",
-        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\test.xml"
-    },
-    {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple_overlay_action_mode.xml",
         "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\test.xml",
+        "source": "D:\\StudioProject\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\test.xml"
     },
     {
         "merged": "D:\\StudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_city.xml",

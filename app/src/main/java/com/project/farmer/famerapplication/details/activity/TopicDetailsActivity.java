@@ -18,6 +18,7 @@ import com.project.farmer.famerapplication.details.fragment.JieShaoFragment;
 import com.project.farmer.famerapplication.details.fragment.PingJiaFragment;
 import com.project.farmer.famerapplication.details.fragment.XuZhiFragment;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
+import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
 import java.util.Arrays;

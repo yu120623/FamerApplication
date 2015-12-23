@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.home.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -73,12 +75,13 @@ public class QiangGouFragment extends BaseFragment {
         });
     }
 
-    class FlashSaleAdapter extends RecyclerView.Adapter<TopicViewHolder> {
+    class FlashSaleAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
 
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.flash_sale_item, null);
             TopicViewHolder holder = new TopicViewHolder(v);
+            v.setOnClickListener(this);
             return holder;
         }
 
@@ -93,6 +96,13 @@ public class QiangGouFragment extends BaseFragment {
         @Override
         public int getItemCount() {
             return url.length;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), TopicDetailsActivity.class);
+            startActivity(intent);
         }
     }
 

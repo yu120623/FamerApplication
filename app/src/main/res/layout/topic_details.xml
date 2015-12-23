@@ -54,9 +54,9 @@
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
-                            android:background="#ececec"
+                            android:background="#cccccc"
                             android:orientation="horizontal"
-                            android:paddingBottom="3dp">
+                            android:paddingBottom="1dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -125,7 +125,10 @@
                 android:layout_height="match_parent"
                 android:background="#ECECEC"
                 android:orientation="vertical">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
                 <com.ogaclejapan.smarttablayout.SmartTabLayout
                     android:id="@+id/viewpagertab"
                     android:layout_width="match_parent"
@@ -133,12 +136,12 @@
                     app:stl_clickable="true"
                     app:stl_defaultTabBackground="?attr/selectableItemBackground"
                     app:stl_defaultTabTextAllCaps="true"
-                    app:stl_defaultTabTextColor="#FF6600"
+                    app:stl_defaultTabTextColor="@color/tab_select"
                     app:stl_defaultTabTextHorizontalPadding="16dp"
                     app:stl_defaultTabTextMinWidth="0dp"
                     app:stl_defaultTabTextSize="15sp"
                     app:stl_distributeEvenly="true"
-                    app:stl_dividerColor="#CCCCCC"
+                    app:stl_dividerColor="@color/transparent"
                     app:stl_dividerThickness="1dp"
                     app:stl_drawDecorationAfterTab="false"
                     app:stl_indicatorAlwaysInCenter="false"
@@ -155,7 +158,7 @@
                     app:stl_titleOffset="24dp"
                     app:stl_underlineColor="#CCCCCC"
                     app:stl_underlineThickness="1dp" />
-
+            </LinearLayout>
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/details_content_view_pager"
@@ -175,18 +178,19 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:gravity="center"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
+            android:layout_marginTop="5dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"
-                android:paddingBottom="8dp"
+                android:paddingBottom="6dp"
                 android:paddingLeft="45dp"
                 android:paddingRight="45dp"
-                android:paddingTop="8dp"
+                android:paddingTop="6dp"
                 android:text="查看套餐"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

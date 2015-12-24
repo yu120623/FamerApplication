@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:paddingBottom="@dimen/action_bar_defalut_bottom_padding"
             android:paddingTop="@dimen/action_bar_defalut_top_padding"
-            android:layout_height="@android:dimen/app_icon_size"
+            android:layout_height="?attr/actionBarSize"
             android:background="#2e2e2e">
         </RelativeLayout>
         <!--  <android.support.v7.widget.Toolbar

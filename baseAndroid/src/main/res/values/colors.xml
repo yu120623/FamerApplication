@@ -82,5 +82,6 @@
 	
 	<color name="province_line_border">#C7C7C7</color>
 	<color name="action_bar_btn_checked_bg">#22a2d1</color>
+    <color name="back_bg">#78000000</color>
     <color name="line">#cccccc</color>
 </resources>

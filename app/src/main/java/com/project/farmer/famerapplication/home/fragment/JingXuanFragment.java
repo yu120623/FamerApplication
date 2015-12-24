@@ -112,7 +112,7 @@ public class JingXuanFragment extends BaseFragment {
         public void onBindViewHolder(TopicViewHolder holder, int position) {
             FarmTopicModel farmTopicModel = farmTopicModels.get(position);
             holder.topicName.setText(farmTopicModel.getFarmTopicName());
-            holder.topicArea.setText(farmTopicModel.getCodeName());
+            holder.topicArea.setText(farmTopicModel.getTagName());
             holder.topicReason.setText(farmTopicModel.getFarmTopicRecomReason());
             ImageLoaderUtil.getInstance().displayImg(holder.topicImage,farmTopicModel.getResourcePath(), options);
         }

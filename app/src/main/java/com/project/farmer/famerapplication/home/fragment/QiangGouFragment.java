@@ -18,6 +18,15 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.entity.FarmTopicModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -26,17 +35,10 @@ import github.chenupt.dragtoplayout.AttachUtil;
  * Created by Administrator on 2015/12/16.
  */
 public class QiangGouFragment extends BaseFragment {
-    private RecyclerView flashSelaList;
+    private RecyclerView topicPanicBuyingList;
     private DisplayImageOptions options;
-    private String[] url = {"http://s.mycff.com/images/direct/564d2ce239fc9.png",
-            "http://s.mycff.com/images/2015/10/04cb5dee5845984129bd6265bcfde0b8.jpg",
-            "http://s.mycff.com/images/direct/5653d669599bb.jpg",
-            "http://s.mycff.com/images/direct/56385f05a53e6.jpg",
-            "http://s.mycff.com/images/direct/56385fdc8d19b.jpg",
-            "http://s.mycff.com/images/direct/56385f5b7de10.jpg",
-            "http://s.mycff.com/images/direct/566e7f8602140.jpg",
-            "http://s.mycff.com/images/direct/56385e6e9e621.jpg",
-            "http://s.mycff.com/images/direct/564170c898a43.jpg"};
+    private List<FarmTopicModel> farmTopicPanicBuyingModels;
+    private FlashSaleAdapter adapter;
 
     @Override
     protected void initViews() {
@@ -51,18 +53,37 @@ public class QiangGouFragment extends BaseFragment {
                 .cacheOnDisk(true)
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
-        flashSelaList.setLayoutManager(new LinearLayoutManager(context));
-        flashSelaList.setAdapter(new FlashSaleAdapter());
+        topicPanicBuyingList.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new FlashSaleAdapter();
+        farmTopicPanicBuyingModels = new ArrayList<FarmTopicModel>();
+        topicPanicBuyingList.setAdapter(adapter);
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_TOPIC_PANICBUYING_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setPageNumber(0);
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                farmTopicPanicBuyingModels = data.getFarmTopicModels();
+                if (farmTopicPanicBuyingModels != null && farmTopicPanicBuyingModels.size() > 0) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }, data);
+        request.execute();
     }
 
     private void findViews() {
-        flashSelaList = (RecyclerView) this.findViewById(R.id.flash_sale_list);
+        topicPanicBuyingList = (RecyclerView) this.findViewById(R.id.flash_sale_list);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        flashSelaList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        topicPanicBuyingList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -87,15 +108,16 @@ public class QiangGouFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            holder.flashSaleName.setText("农庄标题");
-            holder.flashSaleArea.setText("苏州");
-            holder.flashSaleReason.setText("推荐理由或者简单介绍");
-            ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, url[position], options);
+            FarmTopicModel farmTopicModel = farmTopicPanicBuyingModels.get(position);
+            holder.flashSaleName.setText(farmTopicModel.getFarmTopicName());
+            holder.flashSaleArea.setText(farmTopicModel.getCodeName());
+            holder.flashSaleReason.setText(farmTopicModel.getFarmTopicRecomReason());
+            ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath(), options);
         }
 
         @Override
         public int getItemCount() {
-            return url.length;
+            return farmTopicPanicBuyingModels.size();
         }
 
         @Override
@@ -123,9 +145,9 @@ public class QiangGouFragment extends BaseFragment {
 
     }
 
-    public void onEvent(Integer index){
-        if(index.intValue() == 1){
-            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(flashSelaList));
+    public void onEvent(Integer index) {
+        if (index.intValue() == 1) {
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(topicPanicBuyingList));
         }
     }
 

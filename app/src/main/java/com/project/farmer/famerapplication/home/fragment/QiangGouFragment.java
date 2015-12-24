@@ -110,7 +110,7 @@ public class QiangGouFragment extends BaseFragment {
         public void onBindViewHolder(TopicViewHolder holder, int position) {
             FarmTopicModel farmTopicModel = farmTopicPanicBuyingModels.get(position);
             holder.flashSaleName.setText(farmTopicModel.getFarmTopicName());
-            holder.flashSaleArea.setText(farmTopicModel.getCodeName());
+            holder.flashSaleArea.setText(farmTopicModel.getTagName());
             holder.flashSaleReason.setText(farmTopicModel.getFarmTopicRecomReason());
             ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath(), options);
         }

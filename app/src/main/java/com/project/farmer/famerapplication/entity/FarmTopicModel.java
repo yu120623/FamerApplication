@@ -4,10 +4,19 @@ import java.util.Date;
 
 public class FarmTopicModel extends FarmTopic{
 	private String resourcePath;
-
-	private String codeName;
 	
 	private Date nowTime;
+	
+	private String tagName;
+	
+	public String getTagName() {
+		return tagName;
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+	
 	
 	public Date getNowTime() {
 		return nowTime;
@@ -25,13 +34,6 @@ public class FarmTopicModel extends FarmTopic{
 		this.resourcePath = resourcePath;
 	}
 	
-	public String getCodeName() {
-		return codeName;
-	}
-
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
-	}
 
 	public FarmTopicModel(){
 		
@@ -40,7 +42,6 @@ public class FarmTopicModel extends FarmTopic{
 	public FarmTopicModel(FarmTopic farmTopic){
 		this.setCreatedBy(farmTopic.getCreatedBy());
 		this.setCreatedTime(farmTopic.getCreatedTime());
-		this.setFarmTopicAreaCode(farmTopic.getFarmTopicAreaCode());
 		this.setFarmTopicDesc(farmTopic.getFarmTopicDesc());
 		this.setFarmTopicEndTime(farmTopic.getFarmTopicEndTime());
 		this.setFarmTopicId(farmTopic.getFarmTopicId());
@@ -49,12 +50,18 @@ public class FarmTopicModel extends FarmTopic{
 		this.setFarmTopicType(farmTopic.getFarmTopicType());
 		this.setUpdatdBy(farmTopic.getUpdatdBy());
 		this.setUpdatedTime(farmTopic.getUpdatedTime());
+		this.setFarmTopicAliasId(farmTopic.getFarmTopicAliasId());
+		this.setFarmTopicAreaTag(farmTopic.getFarmTopicAreaTag());
+		this.setFarmTopicCityCode(farmTopic.getFarmTopicCityCode());
+		this.setFarmTopicOrderbyId(farmTopic.getFarmTopicOrderbyId());
+		this.setFarmTopicBeginTime(farmTopic.getFarmTopicBeginTime());
+		this.setIsDeleted(farmTopic.getIsDeleted());
+		this.setFarmTopicStatus(farmTopic.getFarmTopicStatus());
 	}
 	public FarmTopic getFarmTopic(){
 		FarmTopic farmTopic = new FarmTopic();
 		farmTopic.setCreatedBy(this.getCreatedBy());
 		farmTopic.setCreatedTime(this.getCreatedTime());
-		farmTopic.setFarmTopicAreaCode(this.getFarmTopicAreaCode());
 		farmTopic.setFarmTopicDesc(this.getFarmTopicDesc());
 		farmTopic.setFarmTopicEndTime(this.getFarmTopicEndTime());
 		farmTopic.setFarmTopicId(this.getFarmTopicId());
@@ -63,6 +70,13 @@ public class FarmTopicModel extends FarmTopic{
 		farmTopic.setFarmTopicType(this.getFarmTopicType());
 		farmTopic.setUpdatdBy(this.getUpdatdBy());
 		farmTopic.setUpdatedTime(this.getUpdatedTime());
+		farmTopic.setFarmTopicAliasId(this.getFarmTopicAliasId());
+		farmTopic.setFarmTopicAreaTag(this.getFarmTopicAreaTag());
+		farmTopic.setFarmTopicCityCode(this.getFarmTopicCityCode());
+		farmTopic.setFarmTopicOrderbyId(this.getFarmTopicOrderbyId());
+		farmTopic.setFarmTopicBeginTime(this.getFarmTopicBeginTime());
+		farmTopic.setIsDeleted(this.getIsDeleted());
+		farmTopic.setFarmTopicStatus(this.getFarmTopicStatus());
 		return farmTopic;
 	}
 	

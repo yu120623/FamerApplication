@@ -7,12 +7,18 @@ import java.util.Date;
 public class FarmTopic implements java.io.Serializable {
 
 	private Integer farmTopicId;
-	private String farmTopicAreaCode;
+	private String farmTopicAliasId;
+	private Integer farmTopicAreaTag;
+	private Integer farmTopicCityCode;
+	private String farmTopicOrderbyId;
 	private String farmTopicName;
 	private String farmTopicDesc;
 	private String farmTopicRecomReason;
 	private String farmTopicType;
+	private Date farmTopicBeginTime;
 	private Date farmTopicEndTime;
+	private String isDeleted;
+	private String farmTopicStatus;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -21,10 +27,9 @@ public class FarmTopic implements java.io.Serializable {
 	public FarmTopic() {
 	}
 
-	public FarmTopic(String farmTopicAreaCode, String farmTopicName,
+	public FarmTopic( String farmTopicName,
 			String farmTopicType, Date createdTime, String createdBy,
 			Date updatedTime, String updatdBy) {
-		this.farmTopicAreaCode = farmTopicAreaCode;
 		this.farmTopicName = farmTopicName;
 		this.farmTopicType = farmTopicType;
 		this.createdTime = createdTime;
@@ -33,16 +38,29 @@ public class FarmTopic implements java.io.Serializable {
 		this.updatdBy = updatdBy;
 	}
 
-	public FarmTopic(String farmTopicAreaCode, String farmTopicName,
-			String farmTopicDesc, String farmTopicRecomReason,
-			String farmTopicType, Date farmTopicEndTime, Date createdTime,
-			String createdBy, Date updatedTime, String updatdBy) {
-		this.farmTopicAreaCode = farmTopicAreaCode;
+	
+	
+	
+
+	public FarmTopic(String farmTopicAliasId, Integer farmTopicAreaTag,
+			Integer farmTopicCityCode, String farmTopicOrderbyId,
+			String farmTopicName, String farmTopicDesc,
+			String farmTopicRecomReason, String farmTopicType,
+			Date farmTopicBeginTime, Date farmTopicEndTime, String isDeleted,
+			String farmTopicStatus, Date createdTime, String createdBy,
+			Date updatedTime, String updatdBy) {
+		this.farmTopicAliasId = farmTopicAliasId;
+		this.farmTopicAreaTag = farmTopicAreaTag;
+		this.farmTopicCityCode = farmTopicCityCode;
+		this.farmTopicOrderbyId = farmTopicOrderbyId;
 		this.farmTopicName = farmTopicName;
 		this.farmTopicDesc = farmTopicDesc;
 		this.farmTopicRecomReason = farmTopicRecomReason;
 		this.farmTopicType = farmTopicType;
+		this.farmTopicBeginTime = farmTopicBeginTime;
 		this.farmTopicEndTime = farmTopicEndTime;
+		this.isDeleted = isDeleted;
+		this.farmTopicStatus = farmTopicStatus;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
@@ -55,14 +73,6 @@ public class FarmTopic implements java.io.Serializable {
 
 	public void setFarmTopicId(Integer farmTopicId) {
 		this.farmTopicId = farmTopicId;
-	}
-
-	public String getFarmTopicAreaCode() {
-		return this.farmTopicAreaCode;
-	}
-
-	public void setFarmTopicAreaCode(String farmTopicAreaCode) {
-		this.farmTopicAreaCode = farmTopicAreaCode;
 	}
 
 	public String getFarmTopicName() {
@@ -88,7 +98,6 @@ public class FarmTopic implements java.io.Serializable {
 	public void setFarmTopicRecomReason(String farmTopicRecomReason) {
 		this.farmTopicRecomReason = farmTopicRecomReason;
 	}
-
 	public String getFarmTopicType() {
 		return this.farmTopicType;
 	}
@@ -137,4 +146,61 @@ public class FarmTopic implements java.io.Serializable {
 		this.updatdBy = updatdBy;
 	}
 
+	public String getFarmTopicAliasId() {
+		return farmTopicAliasId;
+	}
+
+	public void setFarmTopicAliasId(String farmTopicAliasId) {
+		this.farmTopicAliasId = farmTopicAliasId;
+	}
+
+	public Integer getFarmTopicAreaTag() {
+		return farmTopicAreaTag;
+	}
+
+	public void setFarmTopicAreaTag(Integer farmTopicAreaTag) {
+		this.farmTopicAreaTag = farmTopicAreaTag;
+	}
+
+	public Integer getFarmTopicCityCode() {
+		return farmTopicCityCode;
+	}
+
+	public void setFarmTopicCityCode(Integer farmTopicCityCode) {
+		this.farmTopicCityCode = farmTopicCityCode;
+	}
+
+	public String getFarmTopicOrderbyId() {
+		return farmTopicOrderbyId;
+	}
+
+	public void setFarmTopicOrderbyId(String farmTopicOrderbyId) {
+		this.farmTopicOrderbyId = farmTopicOrderbyId;
+	}
+
+	public Date getFarmTopicBeginTime() {
+		return farmTopicBeginTime;
+	}
+
+	public void setFarmTopicBeginTime(Date farmTopicBeginTime) {
+		this.farmTopicBeginTime = farmTopicBeginTime;
+	}
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public String getFarmTopicStatus() {
+		return farmTopicStatus;
+	}
+
+	public void setFarmTopicStatus(String farmTopicStatus) {
+		this.farmTopicStatus = farmTopicStatus;
+	}
+	
+	
+	
 }

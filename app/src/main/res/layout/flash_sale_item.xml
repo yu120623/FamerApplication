@@ -1,109 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="5dp"
-    android:paddingLeft="5dp"
-    android:paddingBottom="5dp"
-    android:background="@color/transparent"
-    android:orientation="vertical">
+    android:background="@color/transparent">
+
+    <include layout="@layout/topic_item"></include>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:padding="10dp"
-            android:background="@drawable/topic_head_bg"
-            android:layout_alignParentLeft="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/flashsale_area"
-                android:textColor="@color/white"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:background="@drawable/topic_area_bg"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:paddingLeft="5dp"
-                android:id="@+id/flashsale_name"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:textColor="#666666"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right">
-
-                <TextView
-                    android:id="@+id/flashsale_reason"
-                    android:textSize="13sp"
-                    android:textColor="@color/gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/flashsale_img"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/relative1"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="21:30:05"
-                    android:textSize="28sp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/timer_bg2"
-                    android:id="@+id/textView" />
-            </RelativeLayout>
+            android:id="@+id/relative1"
+            android:layout_marginBottom="10dp">
 
             <TextView
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_alignBottom="@id/relative1"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_centerHorizontal="true"
-                android:textSize="13sp"
-                android:text="限时抢购"
-                android:background="@drawable/timer_bg1"
-                android:id="@+id/textView2" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="21:30:05"
+                android:textSize="28sp"
+                android:textColor="@color/white"
+                android:background="@drawable/timer_bg2"
+                android:id="@+id/textView" />
         </RelativeLayout>
-    </RelativeLayout>
 
-</LinearLayout>
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_alignBottom="@id/relative1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="13sp"
+            android:text="限时抢购"
+            android:background="@drawable/timer_bg1"
+            android:id="@+id/textView2" />
+    </RelativeLayout>
+</RelativeLayout>

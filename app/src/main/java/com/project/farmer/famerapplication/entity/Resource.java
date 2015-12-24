@@ -1,8 +1,8 @@
 package com.project.farmer.famerapplication.entity;
 
+// Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
-
 
 public class Resource implements java.io.Serializable {
 
@@ -12,6 +12,7 @@ public class Resource implements java.io.Serializable {
 	private String resourceLocation;
 	private String resourceProperty;
 	private Integer referrenceObjectId;
+	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -31,15 +32,20 @@ public class Resource implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+	
+
+	
+
 	public Resource(String resourceName, String resourceType,
 			String resourceLocation, String resourceProperty,
-			Integer referrenceObjectId, Date createdTime, String createdBy,
-			Date updatedTime, String updatedBy) {
+			Integer referrenceObjectId, String isDeleted, Date createdTime,
+			String createdBy, Date updatedTime, String updatedBy) {
 		this.resourceName = resourceName;
 		this.resourceType = resourceType;
 		this.resourceLocation = resourceLocation;
 		this.resourceProperty = resourceProperty;
 		this.referrenceObjectId = referrenceObjectId;
+		this.isDeleted = isDeleted;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
@@ -77,7 +83,6 @@ public class Resource implements java.io.Serializable {
 	public void setResourceLocation(String resourceLocation) {
 		this.resourceLocation = resourceLocation;
 	}
-
 	public String getResourceProperty() {
 		return this.resourceProperty;
 	}
@@ -124,6 +129,14 @@ public class Resource implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

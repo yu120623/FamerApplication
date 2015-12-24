@@ -9,7 +9,6 @@ public class FarmItemStore implements java.io.Serializable {
 	private Integer farmItemStoreId;
 	private int farmItemId;
 	private int farmItemAvailable;
-	private Date farmItemDate;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -19,20 +18,18 @@ public class FarmItemStore implements java.io.Serializable {
 	}
 
 	public FarmItemStore(int farmItemId, int farmItemAvailable,
-			Date farmItemDate, Date createdTime, String createdBy,
-			Date updatedTime, String updatedBy) {
+			Date createdTime, String createdBy, Date updatedTime,
+			String updatedBy) {
 		this.farmItemId = farmItemId;
 		this.farmItemAvailable = farmItemAvailable;
-		this.farmItemDate = farmItemDate;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
 	}
 
-	public Integer getFarmItemStoreId() {
-		return this.farmItemStoreId;
-	}
+
+
 
 	public void setFarmItemStoreId(Integer farmItemStoreId) {
 		this.farmItemStoreId = farmItemStoreId;
@@ -52,14 +49,6 @@ public class FarmItemStore implements java.io.Serializable {
 
 	public void setFarmItemAvailable(int farmItemAvailable) {
 		this.farmItemAvailable = farmItemAvailable;
-	}
-
-	public Date getFarmItemDate() {
-		return this.farmItemDate;
-	}
-
-	public void setFarmItemDate(Date farmItemDate) {
-		this.farmItemDate = farmItemDate;
 	}
 
 	public Date getCreatedTime() {

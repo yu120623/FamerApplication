@@ -114,13 +114,11 @@ public class QiangGouFragment extends BaseFragment {
 
         public TopicViewHolder(View itemView) {
             super(itemView);
-            flashSaleName = (TextView) itemView.findViewById(R.id.flashsale_name);
-            flashSaleArea = (TextView) itemView.findViewById(R.id.flashsale_area);
-            flashSaleReason = (TextView) itemView.findViewById(R.id.flashsale_reason);
-            flashSaleImage = (ImageView) itemView.findViewById(R.id.flashsale_img);
-
+            flashSaleName = (TextView) itemView.findViewById(R.id.topic_name);
+            flashSaleArea = (TextView) itemView.findViewById(R.id.topic_area);
+            flashSaleReason = (TextView) itemView.findViewById(R.id.topic_reason);
+            flashSaleImage = (ImageView) itemView.findViewById(R.id.topic_img);
         }
-
     }
 
     public void onEvent(Integer index){

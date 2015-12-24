@@ -1,6 +1,5 @@
 package com.project.farmer.famerapplication.entity;
 
-// Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -46,7 +45,6 @@ public class AaSubject implements java.io.Serializable {
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
 	}
-
 	public Integer getSubjectId() {
 		return this.subjectId;
 	}

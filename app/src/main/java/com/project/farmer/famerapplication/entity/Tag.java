@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.entity;
 
+// Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -8,6 +9,7 @@ public class Tag implements java.io.Serializable {
 	private Integer tagId;
 	private String tagName;
 	private String tagDesc;
+	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -16,15 +18,19 @@ public class Tag implements java.io.Serializable {
 	public Tag() {
 	}
 
-	public Tag(String tagName, String tagDesc, Date createdTime,
-			String createdBy, Date updatedTime, String updatedBy) {
+	public Tag(String tagName, String tagDesc, String isDeleted,
+			Date createdTime, String createdBy, Date updatedTime,
+			String updatedBy) {
 		this.tagName = tagName;
 		this.tagDesc = tagDesc;
+		this.isDeleted = isDeleted;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
 	}
+
+
 
 	public Integer getTagId() {
 		return this.tagId;
@@ -80,6 +86,17 @@ public class Tag implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

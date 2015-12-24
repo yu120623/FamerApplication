@@ -1,6 +1,5 @@
 package com.project.farmer.famerapplication.entity;
 
-// Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -13,6 +12,7 @@ public class FarmSet implements java.io.Serializable {
 	private String farmSetRecomReason;
 	private String farmSetType;
 	private String farmStatus;
+	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -30,16 +30,21 @@ public class FarmSet implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+	
+
+	
+
 	public FarmSet(String farmSetAliasId, String farmSetName,
 			String farmSetDesc, String farmSetRecomReason, String farmSetType,
-			String farmStatus, Date createdTime, String createdBy,
-			Date updatedTime, String updatedBy) {
+			String farmStatus, String isDeleted, Date createdTime,
+			String createdBy, Date updatedTime, String updatedBy) {
 		this.farmSetAliasId = farmSetAliasId;
 		this.farmSetName = farmSetName;
 		this.farmSetDesc = farmSetDesc;
 		this.farmSetRecomReason = farmSetRecomReason;
 		this.farmSetType = farmSetType;
 		this.farmStatus = farmStatus;
+		this.isDeleted = isDeleted;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
@@ -132,6 +137,14 @@ public class FarmSet implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

@@ -1,14 +1,19 @@
 package com.project.farmer.famerapplication.entity;
 
+// Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
 public class Order implements java.io.Serializable {
 
 	private Integer orderId;
+	private String orderAliasId;
+	private String orderType;
 	private String orderSn;
 	private String orderStatus;
 	private int userId;
+	private int referenceObjeceId;
+	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -17,17 +22,26 @@ public class Order implements java.io.Serializable {
 	public Order() {
 	}
 
-	public Order(String orderSn, String orderStatus, int userId,
-			Date createdTime, String createdBy, Date updatedTime,
-			String updatedBy) {
+	
+
+	public Order(String orderAliasId, String orderType, String orderSn,
+			String orderStatus, int userId, int referenceObjeceId,
+			String isDeleted, Date createdTime, String createdBy,
+			Date updatedTime, String updatedBy) {
+		this.orderAliasId = orderAliasId;
+		this.orderType = orderType;
 		this.orderSn = orderSn;
 		this.orderStatus = orderStatus;
 		this.userId = userId;
+		this.referenceObjeceId = referenceObjeceId;
+		this.isDeleted = isDeleted;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
 	}
+
+
 
 	public Integer getOrderId() {
 		return this.orderId;
@@ -91,6 +105,50 @@ public class Order implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+
+	public String getOrderAliasId() {
+		return orderAliasId;
+	}
+
+
+
+	public void setOrderAliasId(String orderAliasId) {
+		this.orderAliasId = orderAliasId;
+	}
+
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
+
+	public int getReferenceObjeceId() {
+		return referenceObjeceId;
+	}
+
+
+
+	public void setReferenceObjeceId(int referenceObjeceId) {
+		this.referenceObjeceId = referenceObjeceId;
+	}
+
+
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

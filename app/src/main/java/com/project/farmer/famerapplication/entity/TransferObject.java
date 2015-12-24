@@ -10,14 +10,13 @@ public class TransferObject implements Serializable {
 	private List<FarmTopicModel> farmTopicModels;
 	
 	private List<FarmModel> farmModels;
-	
-	private String farmTopicAliasId;
+
 	
 	private FarmSetModel farmSetModel;
 	
 	private List<FarmSetModel> farmSetModels;
 	
-	private String farmSetAliasId;
+	private String farmTopicAliasId;
 	
 	private String commentCount;
 	
@@ -77,13 +76,6 @@ public class TransferObject implements Serializable {
 		this.pageNumber = pageNumber;
 	}
 
-	public String getFarmSetAliasId() {
-		return farmSetAliasId;
-	}
-
-	public void setFarmSetAliasId(String farmSetAliasId) {
-		this.farmSetAliasId = farmSetAliasId;
-	}
 
 	public String getCommentCount() {
 		return commentCount;

@@ -17,6 +17,18 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.entity.CommentModel;
+import com.project.farmer.famerapplication.entity.FarmSetModel;
+import com.project.farmer.famerapplication.entity.FarmTopicModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -26,12 +38,15 @@ import github.chenupt.dragtoplayout.AttachUtil;
  */
 public class PingJiaFragment extends BaseFragment {
     private RecyclerView pingjiaList;
-
+    private FarmTopicModel farmTopicModel;
+    private List<CommentModel> comments;
+    private PingJiaAdapter adapter;
+    private SimpleDateFormat dataFormat;
+    private TransferObject resData;
     @Override
     protected void initViews() {
         findViews();
         initData();
-
     }
 
     @Override
@@ -51,9 +66,29 @@ public class PingJiaFragment extends BaseFragment {
     }
 
     private void initData() {
-
+        farmTopicModel = (FarmTopicModel) this.getArguments().getSerializable("farmTopic");
         pingjiaList.setLayoutManager(new LinearLayoutManager(context));
-        pingjiaList.setAdapter(new PingJiaAdapter());
+        adapter = new PingJiaAdapter();
+        pingjiaList.setAdapter(adapter);
+        dataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        comments = new ArrayList<CommentModel>();
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_TOPIC_COMMENT_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setPageNumber(0);
+        data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
+        AppRequest appRequest = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                resData = data;
+                comments = data.getCommentModels();
+                adapter.notifyDataSetChanged();;
+            }
+        },data);
+        appRequest.execute();
     }
 
     private void findViews() {
@@ -75,21 +110,22 @@ public class PingJiaFragment extends BaseFragment {
             if (position == 0) {
                 holder.commentHead.setVisibility(View.VISIBLE);
                 holder.commentBody.setVisibility(View.GONE);
-                holder.totalComment.setText("共有80人评价");
-                holder.highPraiseRate.setText("好评率：80%");
-                holder.score.setText("4.8");
+                holder.totalComment.setText("共有"+resData.getCommentCount()+"人评价");
+                holder.highPraiseRate.setText("好评率："+resData.getFavorableRate());
+                holder.score.setText(resData.getScore());
             } else {
                 holder.commentHead.setVisibility(View.GONE);
                 holder.commentBody.setVisibility(View.VISIBLE);
-                holder.commentUserName.setText("asd103945");
-                holder.commentDate.setText("2015/12/14 15:55:23");
-                holder.commentContext.setText("不错很好玩不错很好玩不错很好玩不错很好玩不错很好玩");
+                holder.commentUserName.setText(comments.get(position-1).getCommentName());
+                holder.commentDate.setText(dataFormat.format(comments.get(position-1).getCreatedTime()));
+                holder.commentContext.setText(comments.get(position-1).getComment().getCommentContent());
             }
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            if(comments.size() <= 0)return 0;
+            return comments.size()+1;
         }
 
     }

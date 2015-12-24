@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.entity.FarmSetModel;
 
 import org.w3c.dom.Text;
 
@@ -29,19 +30,7 @@ import github.chenupt.dragtoplayout.AttachUtil;
 public class JieShaoFragment extends BaseFragment {
     private RecyclerView jieshaoList;
     private DisplayImageOptions options;
-    private String[] url = {"http://oss.mycff.com/images/00001.png",
-            "http://oss.mycff.com/images/00002.png",
-            "http://oss.mycff.com/images/00003.png",
-            "http://oss.mycff.com/images/00004.png",
-            "http://s.mycff.com/images/direct/564d2ce239fc9.png",
-            "http://s.mycff.com/images/2015/10/04cb5dee5845984129bd6265bcfde0b8.jpg",
-            "http://s.mycff.com/images/direct/5653d669599bb.jpg",
-            "http://s.mycff.com/images/direct/56385f05a53e6.jpg",
-            "http://s.mycff.com/images/direct/56385fdc8d19b.jpg",
-            "http://s.mycff.com/images/direct/56385f5b7de10.jpg",
-            "http://s.mycff.com/images/direct/566e7f8602140.jpg",
-            "http://s.mycff.com/images/direct/56385e6e9e621.jpg",
-            "http://s.mycff.com/images/direct/564170c898a43.jpg"};
+    private FarmSetModel farmSetModels;
 
     @Override
     protected void initViews() {
@@ -77,6 +66,7 @@ public class JieShaoFragment extends BaseFragment {
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         jieshaoList.setLayoutManager(new LinearLayoutManager(context));
         jieshaoList.setAdapter(new JieShaoAdapter());
+        farmSetModels = (FarmSetModel) this.getArguments().getSerializable("farmSet");
     }
 
     private void findViews() {
@@ -84,7 +74,6 @@ public class JieShaoFragment extends BaseFragment {
     }
 
     class JieShaoAdapter extends RecyclerView.Adapter<JieShaoViewHolder> {
-
         @Override
         public JieShaoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.jieshao_item, null);
@@ -97,16 +86,16 @@ public class JieShaoFragment extends BaseFragment {
         public void onBindViewHolder(JieShaoViewHolder holder, int position) {
             if (position == 0) {
                 holder.jieshaoText.setVisibility(View.VISIBLE);
-                holder.jieshaoText.setText("只显示专题的界面，不显示相关农庄的介绍，一段文字+多图的组合");
+                holder.jieshaoText.setText(farmSetModels.getFarmSetDesc());
             } else {
                 holder.jieshaoText.setVisibility(View.GONE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, url[position], options);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResources().get(position-1).getResourceLocation(), options);
             }
         }
 
         @Override
         public int getItemCount() {
-            return url.length;
+            return farmSetModels.getDeResources().size() + 1;
         }
 
     }

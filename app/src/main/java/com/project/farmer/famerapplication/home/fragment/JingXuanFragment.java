@@ -5,13 +5,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -104,7 +102,6 @@ public class JingXuanFragment extends BaseFragment {
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.topic_item, null);
             TopicViewHolder holder = new TopicViewHolder(v);
-            v.setOnClickListener(this);
             return holder;
         }
 
@@ -112,8 +109,10 @@ public class JingXuanFragment extends BaseFragment {
         public void onBindViewHolder(TopicViewHolder holder, int position) {
             FarmTopicModel farmTopicModel = farmTopicModels.get(position);
             holder.topicName.setText(farmTopicModel.getFarmTopicName());
-            holder.topicArea.setText(farmTopicModel.getCodeName());
+            holder.topicArea.setText(farmTopicModel.getTagName());
             holder.topicReason.setText(farmTopicModel.getFarmTopicRecomReason());
+            holder.itemView.setTag(position);
+            holder.itemView.setOnClickListener(this);
             ImageLoaderUtil.getInstance().displayImg(holder.topicImage,farmTopicModel.getResourcePath(), options);
         }
 
@@ -125,6 +124,9 @@ public class JingXuanFragment extends BaseFragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
+            int position = (int) v.getTag();
+            FarmTopicModel farmTopicModel = farmTopicModels.get(position);
+            intent.putExtra("farmTopic",farmTopicModel);
             intent.setClass(getActivity(), TopicDetailsActivity.class);
             startActivity(intent);
         }
@@ -142,7 +144,6 @@ public class JingXuanFragment extends BaseFragment {
             topicArea = (TextView) itemView.findViewById(R.id.topic_area);
             topicReason = (TextView) itemView.findViewById(R.id.topic_reason);
             topicImage = (ImageView) itemView.findViewById(R.id.topic_img);
-
         }
     }
 

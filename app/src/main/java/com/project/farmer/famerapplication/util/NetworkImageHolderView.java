@@ -36,6 +36,10 @@ public class NetworkImageHolderView implements Holder<String> {
         return imageView;
     }
 
+    public void setImageOptions(DisplayImageOptions options){
+        this.options = options;
+    }
+
     @Override
     public void UpdateUI(Context context,int position, String data) {
         ImageLoaderUtil.getInstance().displayImg(imageView,data,options);

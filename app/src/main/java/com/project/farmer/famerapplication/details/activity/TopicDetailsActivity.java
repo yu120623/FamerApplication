@@ -1,8 +1,11 @@
 package com.project.farmer.famerapplication.details.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.widget.RelativeLayout;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
@@ -17,65 +20,70 @@ import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.details.fragment.JieShaoFragment;
 import com.project.farmer.famerapplication.details.fragment.PingJiaFragment;
 import com.project.farmer.famerapplication.details.fragment.XuZhiFragment;
-import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
-import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
+import com.project.farmer.famerapplication.entity.FarmSetModel;
+import com.project.farmer.famerapplication.entity.FarmTopicModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
-/**
- * Created by heoa on 2015/12/20.
- */
 public class TopicDetailsActivity extends BaseActivity {
     private DisplayImageOptions options;
-    private RelativeLayout jieshao;
-    private RelativeLayout pingjia;
-    private RelativeLayout xuzhi;
-    private RelativeLayout postionLayout;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
     private ConvenientBanner banner;
     private SmartTabLayout smartTabLayout;
-    private String[] url = {"http://oss.mycff.com/images/000014.png","http://oss.mycff.com/images/000015.png"};
+    private FarmTopicModel farmTopicModel;
+    private List<String> bannerUrls;
+    private ImageView progress;
+    private AnimationDrawable progressDrawable;
+    private View contentView;
+    private FarmSetModel farmSetModels;
     @Override
     protected void initViews() {
         findViews();
         initData();
-        initFragments();
-        initBanner();
     }
 
     private void initBanner() {
-        //banner.getLayoutParams().height = CommonUtil.Px2Dp(context,1200);
+        final NetworkImageHolderView netWorkImageHolderView = new NetworkImageHolderView();
+        netWorkImageHolderView.setImageOptions(options);
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
             public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
+                return netWorkImageHolderView;
             }
-        }, Arrays.asList(url));
+        }, bannerUrls);
         banner.startTurning(3000);
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
-        double scale = screenWith/ (444*1.0);
-        banner.getLayoutParams().height = (int)(200*scale);
-        //banner.getViewPager().setPageTransformer(true,new DepthPageTransformer());
+        double scale = screenWith/ (640*1.0);
+        banner.getLayoutParams().height = (int)(400*scale);
     }
 
     @Override
     public void initActonBar() {
         super.initActonBar();
-        actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
-        actionbarView.addView(inflater.inflate(R.layout.home_action_bar,null));
+        this.actionbarView.setVisibility(View.GONE);
     }
 
     private void initFragments() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("farmSet",farmSetModels);
+        Bundle bundle2 = new Bundle();
+        bundle.putSerializable("farmTopic",farmTopicModel);
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.jieshao, JieShaoFragment.class)
-                .add(R.string.pingjia, PingJiaFragment.class)
-                .add(R.string.xuzhi, XuZhiFragment.class)
+                .add(R.string.jieshao, JieShaoFragment.class,bundle)
+                .add(R.string.pingjia, PingJiaFragment.class,bundle)
+                .add(R.string.xuzhi, XuZhiFragment.class,bundle)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);
@@ -91,7 +99,37 @@ public class TopicDetailsActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
+                .showImageForEmptyUri(R.mipmap.default_banner_img)
+                .showImageOnFail(R.mipmap.default_banner_img)
+                .showImageOnLoading(R.mipmap.default_banner_img)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
+        farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
+        progressDrawable = (AnimationDrawable) progress.getDrawable();
+        progressDrawable.start();
+        dragTopLayout.setCollapseOffset(CommonUtil.Dp2Px(context, android.support.v7.appcompat.R.attr.actionBarSize));
+        loadDataFromServer();
+    }
+
+
+    //获取专题详细
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_TOPIC_INFO;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
+        data.setPageNumber(0);
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                farmSetModels = data.getFarmSetModel();
+                setUrlBanners(farmSetModels);
+                initBanner();
+                initFragments();
+                progressDrawable.stop();
+                progress.setVisibility(View.GONE);
+                contentView.setVisibility(View.VISIBLE);
+            }
+        },data);
+        request.execute();
     }
 
     @Override
@@ -107,14 +145,12 @@ public class TopicDetailsActivity extends BaseActivity {
     }
 
     private void findViews() {
-//        jieshao = (RelativeLayout) this.findViewById(R.id.details_jieshao);
-//        pingjia = (RelativeLayout) this.findViewById(R.id.details_pingjia);
-//        xuzhi = (RelativeLayout) this.findViewById(R.id.details_xuzhi);
-//        postionLayout = (RelativeLayout) this.findViewById(R.id.details_postion_container);
         contentViewPager = (ViewPager) this.findViewById(R.id.details_content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.details_drag_layout);
         banner = (ConvenientBanner) this.findViewById(R.id.details_convenient_banner);
         smartTabLayout= (SmartTabLayout) this.findViewById(R.id.viewpagertab);
+        progress = (ImageView) this.findViewById(R.id.progress);
+        contentView = this.findViewById(R.id.topic_content);
     }
 
     @Override
@@ -130,5 +166,12 @@ public class TopicDetailsActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void setUrlBanners(FarmSetModel farmSetModel) {
+        bannerUrls = new ArrayList<String>();
+        for(int i = 0;i < farmSetModel.getBaResources().size();i++){
+            bannerUrls.add(farmSetModel.getBaResources().get(i).getResourceLocation());
+        }
     }
 }

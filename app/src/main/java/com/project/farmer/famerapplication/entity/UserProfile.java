@@ -109,6 +109,7 @@ public class UserProfile implements java.io.Serializable {
 		this.userAliasId = userAliasId;
 	}
 
+
 	public String getUserName() {
 		return this.userName;
 	}
@@ -196,7 +197,6 @@ public class UserProfile implements java.io.Serializable {
 	public void setUserInviteCodeAssigned(String userInviteCodeAssigned) {
 		this.userInviteCodeAssigned = userInviteCodeAssigned;
 	}
-
 	public String getUserInviteCodeUsed() {
 		return this.userInviteCodeUsed;
 	}

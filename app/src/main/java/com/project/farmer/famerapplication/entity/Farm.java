@@ -4,7 +4,6 @@ package com.project.farmer.famerapplication.entity;
 
 import java.util.Date;
 
-
 public class Farm implements java.io.Serializable {
 
 	private Integer farmId;
@@ -22,6 +21,8 @@ public class Farm implements java.io.Serializable {
 	private String farmLevel;
 	private String farmInCharge;
 	private Integer farmInChargePhone;
+	private Integer quickPay;
+	private String isDeleted;
 	private String farmStatus;
 	private Date createdTime;
 	private String createdBy;
@@ -41,13 +42,17 @@ public class Farm implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+	
+
+	
+
 	public Farm(String farmAliasId, String farmName, String farmOwnerId,
 			String farmDesc, String farmAddress, String farmProvince,
 			String farmCity, String farmArea, String farmCode,
 			String farmLatitude, String farmLongitude, String farmLevel,
-			String farmInCharge, Integer farmInChargePhone, String farmStatus,
-			Date createdTime, String createdBy, Date updatedTime,
-			String updatedBy) {
+			String farmInCharge, Integer farmInChargePhone, Integer quickPay,
+			String isDeleted, String farmStatus, Date createdTime,
+			String createdBy, Date updatedTime, String updatedBy) {
 		this.farmAliasId = farmAliasId;
 		this.farmName = farmName;
 		this.farmOwnerId = farmOwnerId;
@@ -62,6 +67,8 @@ public class Farm implements java.io.Serializable {
 		this.farmLevel = farmLevel;
 		this.farmInCharge = farmInCharge;
 		this.farmInChargePhone = farmInChargePhone;
+		this.quickPay = quickPay;
+		this.isDeleted = isDeleted;
 		this.farmStatus = farmStatus;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
@@ -227,6 +234,22 @@ public class Farm implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public Integer getQuickPay() {
+		return quickPay;
+	}
+
+	public void setQuickPay(Integer quickPay) {
+		this.quickPay = quickPay;
+	}
+
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

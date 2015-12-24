@@ -9,24 +9,56 @@ public class TransferObject implements Serializable {
 
 	private List<FarmTopicModel> farmTopicModels;
 	
-	private List<FarmModel> farmModel;
+	private List<FarmModel> farmModels;
 	
-	private Integer farmTopicId;
+	private String farmTopicAliasId;
 	
-	public Integer getFarmTopicId() {
-		return farmTopicId;
+	private FarmSetModel farmSetModel;
+	
+	private List<FarmSetModel> farmSetModels;
+	
+	private String farmSetAliasId;
+	
+	private String commentCount;
+	
+	private List<CommentModel> commentModels;
+	
+	private String favorableRate;
+	
+	private String score;
+	
+	private List<FarmStatement> farmStatements;
+	
+	public FarmSetModel getFarmSetModel() {
+		return farmSetModel;
 	}
 
-	public void setFarmTopicId(Integer farmTopicId) {
-		this.farmTopicId = farmTopicId;
+	public void setFarmSetModel(FarmSetModel farmSetModel) {
+		this.farmSetModel = farmSetModel;
 	}
 
-	public List<FarmModel> getFarmModel() {
-		return farmModel;
+	public List<FarmSetModel> getFarmSetModels() {
+		return farmSetModels;
 	}
 
-	public void setFarmModel(List<FarmModel> farmModel) {
-		this.farmModel= farmModel;
+	public void setFarmSetModels(List<FarmSetModel> farmSetModels) {
+		this.farmSetModels = farmSetModels;
+	}
+
+	public String getFarmTopicAliasId() {
+		return farmTopicAliasId;
+	}
+
+	public void setFarmTopicAliasId(String farmTopicAliasId) {
+		this.farmTopicAliasId = farmTopicAliasId;
+	}
+
+	public List<FarmModel> getFarmModels() {
+		return farmModels;
+	}
+
+	public void setFarmModels(List<FarmModel> farmModels) {
+		this.farmModels= farmModels;
 	}
 
 	public List<FarmTopicModel> getFarmTopicModels() {
@@ -44,6 +76,53 @@ public class TransferObject implements Serializable {
 	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
 	}
+
+	public String getFarmSetAliasId() {
+		return farmSetAliasId;
+	}
+
+	public void setFarmSetAliasId(String farmSetAliasId) {
+		this.farmSetAliasId = farmSetAliasId;
+	}
+
+	public String getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(String commentCount) {
+		this.commentCount = commentCount;
+	}
+
+	public List<CommentModel> getCommentModels() {
+		return commentModels;
+	}
+
+	public void setCommentModels(List<CommentModel> commentModels) {
+		this.commentModels = commentModels;
+	}
 	
+	public String getFavorableRate() {
+		return favorableRate;
+	}
+
+	public void setFavorableRate(String favorableRate) {
+		this.favorableRate = favorableRate;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+	public List<FarmStatement> getFarmStatements() {
+		return farmStatements;
+	}
+
+	public void setFarmStatements(List<FarmStatement> farmStatements) {
+		this.farmStatements = farmStatements;
+	}
 	   
 }

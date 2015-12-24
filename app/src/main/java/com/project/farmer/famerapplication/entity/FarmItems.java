@@ -1,6 +1,5 @@
 package com.project.farmer.famerapplication.entity;
 
-
 import java.util.Date;
 
 public class FarmItems implements java.io.Serializable {
@@ -11,6 +10,7 @@ public class FarmItems implements java.io.Serializable {
 	private String farmItemName;
 	private String farmItemType;
 	private String farmItemDesc;
+	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
 	private Date updatedTime;
@@ -29,19 +29,27 @@ public class FarmItems implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+	
+
+	
+
 	public FarmItems(String farmItemAliasId, int farmId, String farmItemName,
-			String farmItemType, String farmItemDesc, Date createdTime,
-			String createdBy, Date updatedTime, String updatedBy) {
+			String farmItemType, String farmItemDesc, String isDeleted,
+			Date createdTime, String createdBy, Date updatedTime,
+			String updatedBy) {
+
 		this.farmItemAliasId = farmItemAliasId;
 		this.farmId = farmId;
 		this.farmItemName = farmItemName;
 		this.farmItemType = farmItemType;
 		this.farmItemDesc = farmItemDesc;
+		this.isDeleted = isDeleted;
 		this.createdTime = createdTime;
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
 	}
+
 
 	public Integer getFarmItemId() {
 		return this.farmItemId;
@@ -121,6 +129,14 @@ public class FarmItems implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

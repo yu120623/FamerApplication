@@ -53,4 +53,10 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="android:src">@mipmap/arr</item>
     </style>
+
+    <style name="farmset_zhu_bg">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+    </style>
 </resources>

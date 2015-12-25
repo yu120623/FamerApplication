@@ -4,5 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="home_btn_margin">26dp</dimen>
     <dimen name="home_btn_margin_half">13dp</dimen>
+    <dimen name="set_open_w">30dp</dimen>
+    <dimen name="set_open_h">15dp</dimen>
     <dimen name="progress_margin_top">20dp</dimen>
 </resources>

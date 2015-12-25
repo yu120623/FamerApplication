@@ -24,12 +24,13 @@
         </activity>
         <activity
             android:name=".search.activity.SearchActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".details.activity.TopicDetailsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".farmset.activity.FarmSetActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.home.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
 
 import org.w3c.dom.Text;
 
@@ -62,12 +65,13 @@ public class ZhouBianFragment extends BaseFragment{
         nearList = (RecyclerView) this.findViewById(R.id.near_list);
     }
 
-    class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> {
+    class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> implements  View.OnClickListener  {
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(),R.layout.recommend_item,null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
+            v.setOnClickListener(this);
             return holder;
         }
 
@@ -83,6 +87,13 @@ public class ZhouBianFragment extends BaseFragment{
         @Override
         public int getItemCount() {
             return 10;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), FarmSetActivity.class);
+            startActivity(intent);
         }
     }
 

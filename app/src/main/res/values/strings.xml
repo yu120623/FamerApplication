@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FamerApplication</string>
+    <string name="app_name">我的农庄</string>
     <string name="search_title">搜索农庄、特产、地区、专题</string>
     <string name="login">登录</string>
     <string name="search">搜索</string>

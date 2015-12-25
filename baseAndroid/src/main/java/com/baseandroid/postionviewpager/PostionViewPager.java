@@ -111,9 +111,9 @@ public class PostionViewPager extends RelativeLayout{
 	
 	private void changeViewPagerPostion(int index){
 		for(int i = 0;i < postions.size();i++){
-			postions.get(i).setImageResource(R.drawable.white_yuan);
+			postions.get(i).setImageResource(R.mipmap.white_yuan);
 			if(i == index)
-				postions.get(i).setImageResource(R.drawable.yuan);	
+				postions.get(i).setImageResource(R.mipmap.yuan);
 		}
 	}
 	

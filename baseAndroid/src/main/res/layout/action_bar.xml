@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:padding="@dimen/action_bar_back_padding"
-        android:src="@drawable/back" />
+        android:src="@mipmap/back" />
 
     <TextView
         android:id="@+id/action_bar_title"

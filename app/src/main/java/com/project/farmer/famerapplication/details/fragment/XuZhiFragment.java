@@ -15,29 +15,25 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.entity.FarmStatement;
+import com.project.farmer.famerapplication.entity.FarmTopicModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
-/**
- * Created by heoa on 2015/12/21.
- */
 public class XuZhiFragment extends BaseFragment {
     private RecyclerView xuzhiList;
     private DisplayImageOptions options;
-    private String[] url = {"http://oss.mycff.com/images/00001.png",
-            "http://oss.mycff.com/images/00002.png",
-            "http://oss.mycff.com/images/00003.png",
-            "http://oss.mycff.com/images/00004.png",
-            "http://s.mycff.com/images/direct/564d2ce239fc9.png",
-            "http://s.mycff.com/images/2015/10/04cb5dee5845984129bd6265bcfde0b8.jpg",
-            "http://s.mycff.com/images/direct/5653d669599bb.jpg",
-            "http://s.mycff.com/images/direct/56385f05a53e6.jpg",
-            "http://s.mycff.com/images/direct/56385fdc8d19b.jpg",
-            "http://s.mycff.com/images/direct/56385f5b7de10.jpg",
-            "http://s.mycff.com/images/direct/566e7f8602140.jpg",
-            "http://s.mycff.com/images/direct/56385e6e9e621.jpg",
-            "http://s.mycff.com/images/direct/564170c898a43.jpg"};
+    private FarmTopicModel farmTopicModel;
+    private XuZhiAdapter adapter;
+    private List<FarmStatement> stats;
     @Override
     protected void initViews() {
         findViews();
@@ -70,7 +66,25 @@ public class XuZhiFragment extends BaseFragment {
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         xuzhiList.setLayoutManager(new LinearLayoutManager(context));
-        xuzhiList.setAdapter(new XuZhiAdapter());
+        adapter = new XuZhiAdapter();
+        xuzhiList.setAdapter(adapter);
+        farmTopicModel = (FarmTopicModel) this.getArguments().getSerializable("farmTopic");
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_TOPIC_KONW;
+        TransferObject data = AppUtil.getHttpData(context);
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                stats = data.getFarmStatements();
+                if(stats != null && stats.size() > 0){
+                    adapter.notifyDataSetChanged();;
+                }
+            }
+        },data);
+        request.execute();
     }
 
     private void findViews() {
@@ -89,13 +103,13 @@ public class XuZhiFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(XuZhiViewHolder holder, int position) {
-            holder.xuzhiTitle.setText("变更公告");
-            holder.xuzhiContext.setText("具体的内容，文字更多，更多的详情具体的内容，文字更多，更多的详情具体的内容，文字更多，更多的详情");
+            holder.xuzhiTitle.setText(stats.get(position).getFarmStatementDesc());
+            holder.xuzhiContext.setText(stats.get(position).getFarmStatementDesc());
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return stats.size();
         }
 
     }

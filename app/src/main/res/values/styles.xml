@@ -15,7 +15,6 @@
         <item name="android:layout_marginLeft">@dimen/home_btn_margin</item>
         <item name="android:layout_marginRight">@dimen/home_btn_margin</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/home_btn_container_bg</item>
         <item name="android:padding">4dp</item>
     </style>
 

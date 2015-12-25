@@ -25,7 +25,9 @@ import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
 import com.project.farmer.famerapplication.search.activity.SearchActivity;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager contentViewPager;
     private ConvenientBanner banner;
     private View searchBtn;
+    private List<RelativeLayout> buttons;
     private String[] url = {"http://oss.mycff.com/images/000014.png","http://oss.mycff.com/images/000015.png"};
     @Override
     protected void initViews() {
@@ -144,8 +147,12 @@ public class MainActivity extends BaseActivity {
 
     private void setArrVisible(int index){
         arrContent.getChildAt(index).setVisibility(View.VISIBLE);
+        buttons.get(index).setSelected(true);
         for(int i = 0;i < arrContent.getChildCount();i++){
-            if(index == i)continue;
+            if(index == i) {
+                continue;
+            }
+            buttons.get(i).setSelected(false);
             arrContent.getChildAt(i).setVisibility(View.INVISIBLE);
         }
     }
@@ -172,7 +179,12 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-        area.setText(CommonUtil.toDBC("苏州.."));
+        buttons = new ArrayList<>();
+        buttons.add(jingxuan);
+        buttons.add(qianggou);
+        buttons.add(zhoubian);
+        buttons.add(tuijian);
+        area.setText(CommonUtil.toDBC("苏州"));
         setArrVisible(0);
     }
 

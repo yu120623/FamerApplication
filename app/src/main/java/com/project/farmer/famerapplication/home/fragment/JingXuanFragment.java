@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.home.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +36,8 @@ public class JingXuanFragment extends BaseFragment {
     private DisplayImageOptions options;
     private TopicAdapter adapter;
     private List<FarmTopicModel> farmTopicModels;
-
+    private ImageView progress;
+    private AnimationDrawable progressDrawable;
     @Override
     protected void initViews() {
         findViews();
@@ -72,6 +74,8 @@ public class JingXuanFragment extends BaseFragment {
         adapter = new TopicAdapter();
         farmTopicModels = new ArrayList<FarmTopicModel>();
         topicList.setAdapter(adapter);
+        progressDrawable =  ((AnimationDrawable)progress.getDrawable());
+        progressDrawable.start();
         loadDataFromServer();
     }
 
@@ -85,6 +89,7 @@ public class JingXuanFragment extends BaseFragment {
                 farmTopicModels = data.getFarmTopicModels();
                 if(farmTopicModels != null && farmTopicModels.size() > 0){
                     adapter.notifyDataSetChanged();
+                    hideProgress();
                 }
             }
         },data);
@@ -93,8 +98,14 @@ public class JingXuanFragment extends BaseFragment {
 
     private void findViews() {
         topicList = (RecyclerView) this.findViewById(R.id.topic_list);
+        progress = (ImageView) this.findViewById(R.id.progress);
     }
 
+
+    private void hideProgress() {
+        progress.setVisibility(View.GONE);
+        progressDrawable.stop();
+    }
 
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
 

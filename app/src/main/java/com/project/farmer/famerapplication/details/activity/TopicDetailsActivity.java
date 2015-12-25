@@ -4,13 +4,16 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -47,10 +50,45 @@ public class TopicDetailsActivity extends BaseActivity {
     private AnimationDrawable progressDrawable;
     private View contentView;
     private FarmSetModel farmSetModels;
+    private View actionBar;
+    private ImageView backBtn;
+    private ImageView shareBtn;
+    private ImageView favouriteBtn;
+
     @Override
     protected void initViews() {
         findViews();
         initData();
+        initClick();
+    }
+
+    private void initClick() {
+        dragTopLayout.listener(new DragTopLayout.PanelListener() {
+            @Override
+            public void onPanelStateChanged(DragTopLayout.PanelState panelState) {
+                if(panelState == DragTopLayout.PanelState.COLLAPSED){
+                    setActionBarIcon(true);
+                }else if(panelState == DragTopLayout.PanelState.EXPANDED){
+                    setActionBarIcon(false);
+                }
+            }
+
+            @Override
+            public void onSliding(float ratio) {
+                ViewHelper.setAlpha(actionBar,1-ratio);
+            }
+
+            @Override
+            public void onRefresh() {
+
+            }
+        });
+    }
+
+    private void setActionBarIcon(boolean flag){
+        backBtn.setSelected(flag);
+        favouriteBtn.setSelected(flag);
+        shareBtn.setSelected(flag);
     }
 
     private void initBanner() {
@@ -82,8 +120,8 @@ public class TopicDetailsActivity extends BaseActivity {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.jieshao, JieShaoFragment.class,bundle)
-                .add(R.string.pingjia, PingJiaFragment.class,bundle)
-                .add(R.string.xuzhi, XuZhiFragment.class,bundle)
+                .add(R.string.pingjia, PingJiaFragment.class,bundle2)
+                .add(R.string.xuzhi, XuZhiFragment.class,bundle2)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);
@@ -106,7 +144,7 @@ public class TopicDetailsActivity extends BaseActivity {
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         progressDrawable.start();
-        dragTopLayout.setCollapseOffset(CommonUtil.Dp2Px(context, android.support.v7.appcompat.R.attr.actionBarSize));
+        dragTopLayout.setCollapseOffset((int)getResources().getDimension(android.R.dimen.app_icon_size));
         loadDataFromServer();
     }
 
@@ -151,6 +189,10 @@ public class TopicDetailsActivity extends BaseActivity {
         smartTabLayout= (SmartTabLayout) this.findViewById(R.id.viewpagertab);
         progress = (ImageView) this.findViewById(R.id.progress);
         contentView = this.findViewById(R.id.topic_content);
+        actionBar = this.findViewById(R.id.top_info_acion_bar);
+        backBtn = (ImageView) this.findViewById(R.id.back_btn);
+        shareBtn = (ImageView) this.findViewById(R.id.share_btn);
+        favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
     }
 
     @Override

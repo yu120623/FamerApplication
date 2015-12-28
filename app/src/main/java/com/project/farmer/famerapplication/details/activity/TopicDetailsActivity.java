@@ -51,6 +51,7 @@ public class TopicDetailsActivity extends BaseActivity {
     private View contentView;
     private FarmSetModel farmSetModels;
     private View actionBar;
+    private View actionBarBg;
     private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView favouriteBtn;
@@ -75,7 +76,7 @@ public class TopicDetailsActivity extends BaseActivity {
 
             @Override
             public void onSliding(float ratio) {
-                ViewHelper.setAlpha(actionBar,1-ratio);
+                ViewHelper.setAlpha(actionBarBg,1-ratio);
             }
 
             @Override
@@ -89,6 +90,7 @@ public class TopicDetailsActivity extends BaseActivity {
         backBtn.setSelected(flag);
         favouriteBtn.setSelected(flag);
         shareBtn.setSelected(flag);
+
     }
 
     private void initBanner() {
@@ -116,7 +118,7 @@ public class TopicDetailsActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("farmSet",farmSetModels);
         Bundle bundle2 = new Bundle();
-        bundle.putSerializable("farmTopic",farmTopicModel);
+        bundle2.putSerializable("farmTopic",farmTopicModel);
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.jieshao, JieShaoFragment.class,bundle)
@@ -165,6 +167,7 @@ public class TopicDetailsActivity extends BaseActivity {
                 progressDrawable.stop();
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);
+                actionBar.setVisibility(View.VISIBLE);
             }
         },data);
         request.execute();
@@ -190,7 +193,8 @@ public class TopicDetailsActivity extends BaseActivity {
         progress = (ImageView) this.findViewById(R.id.progress);
         contentView = this.findViewById(R.id.topic_content);
         actionBar = this.findViewById(R.id.top_info_acion_bar);
-        backBtn = (ImageView) this.findViewById(R.id.back_btn);
+        actionBarBg = this.findViewById(R.id.top_info_acion_bar_bg);
+        backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
     }

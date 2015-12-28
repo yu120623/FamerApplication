@@ -23,6 +23,7 @@ import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -33,7 +34,7 @@ public class XuZhiFragment extends BaseFragment {
     private DisplayImageOptions options;
     private FarmTopicModel farmTopicModel;
     private XuZhiAdapter adapter;
-    private List<FarmStatement> stats;
+    private List<FarmStatement> stats = new ArrayList<>();
     @Override
     protected void initViews() {
         findViews();
@@ -75,6 +76,9 @@ public class XuZhiFragment extends BaseFragment {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_TOPIC_KONW;
         TransferObject data = AppUtil.getHttpData(context);
+
+        data.setPageNumber(0);
+        data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

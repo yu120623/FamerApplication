@@ -102,7 +102,6 @@ public class QiangGouFragment extends BaseFragment {
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.flash_sale_item, null);
             TopicViewHolder holder = new TopicViewHolder(v);
-            v.setOnClickListener(this);
             return holder;
         }
 

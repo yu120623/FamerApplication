@@ -187,12 +187,14 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/top_info_acion_bar"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:layout_alignParentTop="true">
 
         <RelativeLayout
-            android:id="@+id/top_info_acion_bar"
+            android:id="@+id/top_info_acion_bar_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0"
@@ -209,7 +211,7 @@
             android:paddingTop="@dimen/action_bar_defalut_top_padding">
 
             <ImageView
-                android:id="@+id/back_btn"
+                android:id="@+id/topic_back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -220,6 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -228,6 +231,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
                     android:src="@drawable/topic_info_action_bar_share" />
 
                 <ImageView
@@ -235,6 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
                     android:src="@drawable/topic_info_action_bar_favourite" />
             </LinearLayout>
         </RelativeLayout>

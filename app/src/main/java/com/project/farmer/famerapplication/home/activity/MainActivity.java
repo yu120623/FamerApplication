@@ -14,7 +14,6 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
@@ -46,7 +45,7 @@ public class MainActivity extends BaseActivity {
     private ConvenientBanner banner;
     private View searchBtn;
     private List<RelativeLayout> buttons;
-    private String[] url = {"http://oss.mycff.com/images/000014.png","http://oss.mycff.com/images/000015.png"};
+    private String[] url = {"http://oss.mycff.com/images/000014.png", "http://oss.mycff.com/images/000015.png"};
     @Override
     protected void initViews() {
         findViews();
@@ -65,8 +64,8 @@ public class MainActivity extends BaseActivity {
         }, Arrays.asList(url));
         banner.startTurning(3000);
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
-        double scale = screenWith/ (444*1.0);
-        banner.getLayoutParams().height = (int)(200*scale);
+        double scale = screenWith / (444 * 1.0);
+        banner.getLayoutParams().height = (int) (200 * scale);
     }
 
     private void initClick() {
@@ -127,7 +126,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initActonBar() {
         actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
-        inflater.inflate(R.layout.home_action_bar,actionbarView,true);
+        inflater.inflate(R.layout.home_action_bar, actionbarView, true);
     }
 
     private void initFragments() {
@@ -141,18 +140,20 @@ public class MainActivity extends BaseActivity {
         contentViewPager.setAdapter(adapter);
     }
 
-    public void onEvent(Boolean flag){
+    public void onEvent(Boolean flag) {
         dragTopLayout.setTouchMode(flag);
     }
 
-    private void setArrVisible(int index){
+    private void setArrVisible(int index) {
         arrContent.getChildAt(index).setVisibility(View.VISIBLE);
         buttons.get(index).setSelected(true);
-        for(int i = 0;i < arrContent.getChildCount();i++){
-            if(index == i) {
+        //buttons.get(index).getChildAt(0).setSelected(true);
+        for (int i = 0; i < arrContent.getChildCount(); i++) {
+            if (index == i) {
                 continue;
             }
             buttons.get(i).setSelected(false);
+            //buttons.get(index).getChildAt(0).setSelected(false);
             arrContent.getChildAt(i).setVisibility(View.INVISIBLE);
         }
     }
@@ -170,8 +171,8 @@ public class MainActivity extends BaseActivity {
                 qianggou.getLayoutParams().height = jingxuan.getWidth();
                 zhoubian.getLayoutParams().height = jingxuan.getWidth();
                 tuijian.getLayoutParams().height = jingxuan.getWidth();
-                postionLayout.getLayoutParams().height = jingxuan.getWidth()/2;
-                dragTopLayout.setCollapseOffset(jingxuan.getWidth()+arrContent.getHeight()+10);
+                postionLayout.getLayoutParams().height = jingxuan.getWidth() / 2;
+                dragTopLayout.setCollapseOffset(jingxuan.getWidth() + arrContent.getHeight() + 10);
                 jingxuan.setVisibility(View.VISIBLE);
                 qianggou.setVisibility(View.VISIBLE);
                 zhoubian.setVisibility(View.VISIBLE);
@@ -228,4 +229,5 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

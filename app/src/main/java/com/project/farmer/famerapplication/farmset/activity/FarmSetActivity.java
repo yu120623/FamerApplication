@@ -49,23 +49,25 @@ public class FarmSetActivity extends BaseActivity {
 
             return holder;
         }
+
         public boolean c = false;
+        private boolean d=true;
         private void addTags(final FarmSetViewHolder holder) {
             for (int i = 0; i < 5; i++) {
                 if (i == 0) {
                     inflater.inflate(R.layout.item1_farmset, holder.linearLayout, true);
+                    inflater.inflate(R.layout.item1_context_farmset, holder.linearLayout, true);
                     holder.linearLayout.getChildAt(0).setOnClickListener(new View.OnClickListener() {
 
 
                         @Override
                         public void onClick(View v) {
-                            click(c,holder,0);
+                            click(holder, 1);
                         }
                     });
                 } else if (i == 1) {
                     inflater.inflate(R.layout.item2_farmset, holder.linearLayout, true);
-                    holder.linearLayout.getChildAt(1).setOnClickListener(new View.OnClickListener() {
-                        boolean c = false;
+                    holder.linearLayout.getChildAt(2).setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
@@ -79,12 +81,12 @@ public class FarmSetActivity extends BaseActivity {
             }
         }
 
-        private void click(boolean c, FarmSetViewHolder holder, int index) {
+        private void click(FarmSetViewHolder holder, int index) {
             if (this.c) {
-                holder.linearLayout.getChildAt(index).findViewById(R.id.farmset_zhu).setVisibility(View.VISIBLE);
+                holder.linearLayout.getChildAt(index).findViewById(R.id.farmset_context_1).setVisibility(View.GONE);
                 this.c = false;
             } else {
-                holder.linearLayout.getChildAt(index).findViewById(R.id.farmset_zhu).setVisibility(View.GONE);
+                holder.linearLayout.getChildAt(index).findViewById(R.id.farmset_context_1).setVisibility(View.VISIBLE);
                 this.c = true;
             }
         }
@@ -92,13 +94,29 @@ public class FarmSetActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(final FarmSetViewHolder holder, int position) {
+
+            holder.linearLayout4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.checkBox.isChecked()) {
+                        holder.checkBox.setChecked(false);
+                    } else {
+                        holder.checkBox.setChecked(true);
+                    }
+                }
+            });
+
             holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
+                    if (isChecked) {
                         holder.linearLayout.setVisibility(View.VISIBLE);
-                    else
+                        holder.btnFarmset.setVisibility(View.VISIBLE);
+                    } else {
                         holder.linearLayout.setVisibility(View.GONE);
+                        holder.btnFarmset.setVisibility(View.GONE);
+                    }
                 }
             });
 
@@ -115,12 +133,16 @@ public class FarmSetActivity extends BaseActivity {
 
     class FarmSetViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox;
+        private LinearLayout btnFarmset;
         private LinearLayout linearLayout;
+        private LinearLayout linearLayout4;
 
         public FarmSetViewHolder(View itemView) {
             super(itemView);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearlayout1);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox1);
+            btnFarmset = (LinearLayout) itemView.findViewById(R.id.btn_farmset);
+            linearLayout4 = (LinearLayout) itemView.findViewById(R.id.lin4);
 
         }
     }

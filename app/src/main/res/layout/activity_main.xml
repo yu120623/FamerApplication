@@ -60,6 +60,7 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/jingxuan_btn_bg"
+                            android:textColor="@color/home_btn_text_color0"
                             android:text="精选" />
                     </RelativeLayout>
 
@@ -72,6 +73,7 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/qianggou_btn_bg"
+                            android:textColor="@color/home_btn_text_color1"
                             android:text="抢购" />
                     </RelativeLayout>
 
@@ -84,6 +86,7 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/zhoubian_btn_bg"
+                            android:textColor="@color/home_btn_text_color2"
                             android:text="周边" />
                     </RelativeLayout>
 
@@ -95,6 +98,7 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/tuijian_btn_bg"
+                            android:textColor="@color/home_btn_text_color3"
                             android:text="推荐" />
                     </RelativeLayout>
                 </LinearLayout>

@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmStatement;
+import com.project.farmer.famerapplication.entity.FarmStatementModel;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
@@ -34,7 +35,7 @@ public class XuZhiFragment extends BaseFragment {
     private DisplayImageOptions options;
     private FarmTopicModel farmTopicModel;
     private XuZhiAdapter adapter;
-    private List<FarmStatement> stats = new ArrayList<>();
+    private List<FarmStatementModel> stats = new ArrayList<>();
     @Override
     protected void initViews() {
         findViews();
@@ -82,7 +83,7 @@ public class XuZhiFragment extends BaseFragment {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                stats = data.getFarmStatements();
+                stats = data.getFarmStatementModels();
                 if(stats != null && stats.size() > 0){
                     adapter.notifyDataSetChanged();;
                 }

@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
@@ -216,8 +214,8 @@ public class TopicDetailsActivity extends BaseActivity {
 
     public void setUrlBanners(FarmSetModel farmSetModel) {
         bannerUrls = new ArrayList<String>();
-        for(int i = 0;i < farmSetModel.getBaResources().size();i++){
-            bannerUrls.add(farmSetModel.getBaResources().get(i).getResourceLocation());
+        for(int i = 0;i < farmSetModel.getBaResourceModels().size();i++){
+            bannerUrls.add(farmSetModel.getBaResourceModels().get(i).getResourceLocation());
         }
     }
 }

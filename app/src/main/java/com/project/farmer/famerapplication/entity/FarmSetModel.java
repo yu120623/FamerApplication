@@ -3,23 +3,23 @@ package com.project.farmer.famerapplication.entity;
 import java.util.List;
 
 public class FarmSetModel extends FarmSet{
-	private List<Resource> baResources;
-	private List<Resource> deResources;
+	private List<ResourseModel> baResourceModels;
+	private List<ResourseModel> deResourceModels;
 	private List<String> tags;
 	private List<FarmItemsModel> farmItemsModels;
-	private int norPrice;
-	private int minPrice;
-	public List<Resource> getBaResources() {
-		return baResources;
+	private Integer minPrice;
+	
+	public List<ResourseModel> getBaResourceModels() {
+		return baResourceModels;
 	}
-	public void setBaResources(List<Resource> baResources) {
-		this.baResources = baResources;
+	public void setBaResourceModels(List<ResourseModel> baResourceModels) {
+		this.baResourceModels = baResourceModels;
 	}
-	public List<Resource> getDeResources() {
-		return deResources;
+	public List<ResourseModel> getDeResourceModels() {
+		return deResourceModels;
 	}
-	public void setDeResources(List<Resource> deResources) {
-		this.deResources = deResources;
+	public void setDeResourceModels(List<ResourseModel> deResourceModels) {
+		this.deResourceModels = deResourceModels;
 	}
 	public List<String> getTags() {
 		return tags;
@@ -27,16 +27,10 @@ public class FarmSetModel extends FarmSet{
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-	public int getNorPrice() {
-		return norPrice;
-	}
-	public void setNorPrice(int norPrice) {
-		this.norPrice = norPrice;
-	}
-	public int getMinPrice() {
+	public Integer getMinPrice() {
 		return minPrice;
 	}
-	public void setMinPrice(int minPrice) {
+	public void setMinPrice(Integer minPrice) {
 		this.minPrice = minPrice;
 	}
 	public FarmSetModel(){

@@ -1,28 +1,55 @@
 package com.project.farmer.famerapplication.entity;
 
+import java.util.List;
+
 public class FarmModel extends Farm{
-	private double distance;
-	private String resoursePath;
-	private String codeName;
 	
-	public String getCodeName() {
-		return codeName;
+	private String resourcePath;
+	private List<String> farmTags;
+	private String recommend;
+	private String areaName;
+	private float farmDistance;
+	
+	public float getFarmDistance() {
+		return farmDistance;
 	}
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
+
+	public void setFarmDistance(float farmDistance) {
+		this.farmDistance = farmDistance;
 	}
-	public double getDistance() {
-		return distance;
+
+	public String getAreaName() {
+		return areaName;
 	}
-	public void setDistance(double distance) {
-		this.distance = distance;
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
 	}
-	public String getResoursePath() {
-		return resoursePath;
+
+	public String getResourcePath() {
+		return resourcePath;
 	}
-	public void setResoursePath(String resoursePath) {
-		this.resoursePath = resoursePath;
+
+	public void setResourcePath(String resourcePath) {
+		this.resourcePath = resourcePath;
 	}
+
+	public List<String> getFarmTags() {
+		return farmTags;
+	}
+
+	public void setFarmTags(List<String> farmTags) {
+		this.farmTags = farmTags;
+	}
+
+	public String getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(String recommend) {
+		this.recommend = recommend;
+	}
+
 	public FarmModel(){
 		
 	}
@@ -48,6 +75,8 @@ public class FarmModel extends Farm{
 		this.setFarmStatus(farm.getFarmStatus());
 		this.setUpdatedBy(farm.getUpdatedBy());
 		this.setUpdatedTime(farm.getUpdatedTime());
+		this.setQuickPay(farm.getQuickPay());
+		this.setIsDeleted(farm.getIsDeleted());
 	}
 	public Farm getFarm(){
 		Farm farm = new Farm();
@@ -71,6 +100,8 @@ public class FarmModel extends Farm{
 		farm.setFarmStatus(this.getFarmStatus());
 		farm.setUpdatedBy(this.getUpdatedBy());
 		farm.setUpdatedTime(this.getUpdatedTime());
+		farm.setQuickPay(this.getQuickPay());
+		farm.setIsDeleted(this.getIsDeleted());
 		return farm;
 	}
 }

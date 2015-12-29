@@ -3,11 +3,16 @@ package com.project.farmer.famerapplication.home.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.LocationSource;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -22,6 +27,7 @@ import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
 import com.project.farmer.famerapplication.home.fragment.TuiJianFragment;
 import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
 import com.project.farmer.famerapplication.search.activity.SearchActivity;
+import com.project.farmer.famerapplication.util.AppUtil;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
 import java.util.ArrayList;
@@ -54,6 +60,7 @@ public class MainActivity extends BaseActivity {
         initBanner();
         initClick();
     }
+
 
     private void initBanner() {
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {

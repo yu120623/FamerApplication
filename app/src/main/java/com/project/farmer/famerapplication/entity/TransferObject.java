@@ -10,13 +10,14 @@ public class TransferObject implements Serializable {
 	private List<FarmTopicModel> farmTopicModels;
 	
 	private List<FarmModel> farmModels;
-
+	
+	private String farmTopicAliasId;
 	
 	private FarmSetModel farmSetModel;
 	
 	private List<FarmSetModel> farmSetModels;
 	
-	private String farmTopicAliasId;
+	private String farmSetAliasId;
 	
 	private String commentCount;
 	
@@ -26,8 +27,32 @@ public class TransferObject implements Serializable {
 	
 	private String score;
 	
-	private List<FarmStatement> farmStatements;
+	private List<FarmStatementModel> farmStatementModels;
 	
+	private Double farmLatitude;
+	
+	private Double farmLongitude;
+	
+	private String type;
+	
+	private String cityCode;
+	
+	private String cityCodeName;
+	
+	private List<CodeModel> codeModels;
+	
+	private List<Resource> resources;
+	
+	private CodeModel codeModel;
+	
+	public CodeModel getCodeModel() {
+		return codeModel;
+	}
+
+	public void setCodeModel(CodeModel codeModel) {
+		this.codeModel = codeModel;
+	}
+
 	public FarmSetModel getFarmSetModel() {
 		return farmSetModel;
 	}
@@ -76,6 +101,13 @@ public class TransferObject implements Serializable {
 		this.pageNumber = pageNumber;
 	}
 
+	public String getFarmSetAliasId() {
+		return farmSetAliasId;
+	}
+
+	public void setFarmSetAliasId(String farmSetAliasId) {
+		this.farmSetAliasId = farmSetAliasId;
+	}
 
 	public String getCommentCount() {
 		return commentCount;
@@ -109,12 +141,76 @@ public class TransferObject implements Serializable {
 		this.score = score;
 	}
 
-	public List<FarmStatement> getFarmStatements() {
-		return farmStatements;
+	public List<FarmStatementModel> getFarmStatements() {
+		return farmStatementModels;
 	}
 
-	public void setFarmStatements(List<FarmStatement> farmStatements) {
-		this.farmStatements = farmStatements;
+	public void setFarmStatements(List<FarmStatementModel> farmStatementModels) {
+		this.farmStatementModels = farmStatementModels;
+	}
+
+	public Double getFarmLatitude() {
+		return farmLatitude;
+	}
+
+	public void setFarmLatitude(Double farmLatitude) {
+		this.farmLatitude = farmLatitude;
+	}
+
+	public Double getFarmLongitude() {
+		return farmLongitude;
+	}
+
+	public void setFarmLongitude(Double farmLongitude) {
+		this.farmLongitude = farmLongitude;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCityCode() {
+		return cityCode;
+	}
+
+	public void setCityCode(String cityCode) {
+		this.cityCode = cityCode;
+	}
+
+	public String getCityCodeName() {
+		return cityCodeName;
+	}
+
+	public void setCityCodeName(String cityCodeName) {
+		this.cityCodeName = cityCodeName;
+	}
+
+	public List<FarmStatementModel> getFarmStatementModels() {
+		return farmStatementModels;
+	}
+
+	public void setFarmStatementModels(List<FarmStatementModel> farmStatementModels) {
+		this.farmStatementModels = farmStatementModels;
+	}
+
+	public List<CodeModel> getCodeModels() {
+		return codeModels;
+	}
+
+	public void setCodeModels(List<CodeModel> codeModels) {
+		this.codeModels = codeModels;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
 	}
 	   
 }

@@ -89,13 +89,13 @@ public class JieShaoFragment extends BaseFragment {
                 holder.jieshaoText.setText(farmSetModels.getFarmSetDesc());
             } else {
                 holder.jieshaoText.setVisibility(View.GONE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResources().get(position-1).getResourceLocation(), options);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation(), options);
             }
         }
 
         @Override
         public int getItemCount() {
-            return farmSetModels.getDeResources().size() + 1;
+            return farmSetModels.getDeResourceModels().size() + 1;
         }
 
     }

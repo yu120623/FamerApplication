@@ -8,4 +8,6 @@
     <string name="jieshao">介绍</string>
     <string name="pingjia">评价</string>
     <string name="xuzhi">须知</string>
+    <string name="no_more_data">已经没有更多了</string>
+    <string name="loding_more_data">已经没有更多了</string>
 </resources>

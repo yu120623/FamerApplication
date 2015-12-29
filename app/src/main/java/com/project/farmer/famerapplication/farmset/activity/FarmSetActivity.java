@@ -1,16 +1,22 @@
 package com.project.farmer.famerapplication.farmset.activity;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
+import com.baseandroid.util.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.project.farmer.famerapplication.R;
 
 /**
@@ -20,7 +26,7 @@ public class FarmSetActivity extends BaseActivity {
 
     private RecyclerView farmSetList;
     private FarmAdapter adapter;
-    private View c;
+    private DisplayImageOptions options;
 
 
     @Override
@@ -34,6 +40,12 @@ public class FarmSetActivity extends BaseActivity {
     }
 
     private void initDate() {
+
+        options = new DisplayImageOptions.Builder()
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY).build();
         farmSetList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new FarmAdapter();
         farmSetList.setAdapter(adapter);
@@ -51,12 +63,13 @@ public class FarmSetActivity extends BaseActivity {
         }
 
         public boolean c = false;
-        private boolean d=true;
+
         private void addTags(final FarmSetViewHolder holder) {
             for (int i = 0; i < 5; i++) {
                 if (i == 0) {
                     inflater.inflate(R.layout.item1_farmset, holder.linearLayout, true);
                     inflater.inflate(R.layout.item1_context_farmset, holder.linearLayout, true);
+
                     holder.linearLayout.getChildAt(0).setOnClickListener(new View.OnClickListener() {
 
 
@@ -79,6 +92,7 @@ public class FarmSetActivity extends BaseActivity {
                 }
 
             }
+
         }
 
         private void click(FarmSetViewHolder holder, int index) {
@@ -94,7 +108,7 @@ public class FarmSetActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(final FarmSetViewHolder holder, int position) {
-
+            ImageLoaderUtil.getInstance().displayImg((ImageView) holder.linearLayout.getChildAt(1).findViewById(R.id.img_farmset), "http://s.mycff.com/images/00055.png@!w200h100", options);
             holder.linearLayout4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

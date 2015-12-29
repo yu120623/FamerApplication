@@ -33,6 +33,7 @@ import com.project.farmer.famerapplication.util.AppUtil;
 import org.apmem.tools.layouts.FlowLayout;
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,7 +122,7 @@ public class ZhouBianFragment extends BaseFragment {
             holder.recommendArea.setText(farmModel.getFarmArea());
             holder.recommendReason.setText(farmModel.getFarmDesc());
             holder.recommendTuijian.setVisibility(View.INVISIBLE);
-            holder.recommendDistance.setText(farmModel.getFarmDistance() + "");
+            holder.recommendDistance.setText(new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = new TextView(getActivity());

@@ -2,11 +2,14 @@ package com.project.farmer.famerapplication.home.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
@@ -18,19 +21,34 @@ import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.entity.FarmModel;
+import com.project.farmer.famerapplication.entity.FarmTopicModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
 
+import org.apmem.tools.layouts.FlowLayout;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
+import static com.project.farmer.famerapplication.R.drawable.near_label_bg;
+
 /**
  * Created by Administrator on 2015/12/16.
  */
-public class ZhouBianFragment extends BaseFragment{
+public class ZhouBianFragment extends BaseFragment {
     private RecyclerView nearList;
     private DisplayImageOptions options;
+    private List<FarmModel> farmAroundListModels;
+    private NearAdapter adapter;
 
     @Override
     protected void initViews() {
@@ -40,7 +58,9 @@ public class ZhouBianFragment extends BaseFragment{
 
     private void initData() {
         nearList.setLayoutManager(new LinearLayoutManager(context));
-        nearList.setAdapter(new NearAdapter());
+        adapter = new NearAdapter();
+        farmAroundListModels = new ArrayList<FarmModel>();
+        nearList.setAdapter(adapter);
         nearList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -57,19 +77,38 @@ public class ZhouBianFragment extends BaseFragment{
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-//                .displayer(new CircleBitmapDisplayer())
                 .imageScaleType(ImageScaleType.EXACTLY).build();
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_AROUND_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setPageNumber(0);
+        data.setType("around");
+        data.setFarmLatitude(34.180563);
+        data.setFarmLongitude(112.211952);
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                farmAroundListModels = data.getFarmModels();
+                if (farmAroundListModels != null && farmAroundListModels.size() > 0) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }, data);
+        request.execute();
     }
 
     private void findViews() {
         nearList = (RecyclerView) this.findViewById(R.id.near_list);
     }
 
-    class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> implements  View.OnClickListener  {
+    class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> implements View.OnClickListener {
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(),R.layout.recommend_item,null);
+            View v = View.inflate(parent.getContext(), R.layout.recommend_item, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
             v.setOnClickListener(this);
             return holder;
@@ -77,16 +116,36 @@ public class ZhouBianFragment extends BaseFragment{
 
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
-            holder.recommendName.setText("农庄标题测试");
-            holder.recommendArea.setText("苏州");
-            holder.recommendReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
+            FarmModel farmModel = farmAroundListModels.get(position);
+            holder.recommendName.setText(farmModel.getFarmName());
+            holder.recommendArea.setText(farmModel.getFarmArea());
+            holder.recommendReason.setText(farmModel.getFarmDesc());
             holder.recommendTuijian.setVisibility(View.INVISIBLE);
-            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
+            holder.recommendDistance.setText(farmModel.getFarmDistance() + "");
+            for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                TextView tv = new TextView(getActivity());
+                TextView tv1 = new TextView(getActivity());
+                tv1.setText("  ");
+                tv1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                tv.setBackgroundResource(R.drawable.near_label_bg);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                tv.setTextColor(Color.WHITE);
+                tv.setPadding(20, 2, 20, 2);
+                tv.setText(farmModel.getFarmTags().get(i));
+                tv.setLayoutParams(lp);
+                tv1.setLayoutParams(lp);
+                holder.flowLayout.addView(tv);
+                holder.flowLayout.addView(tv1);
+            }
+
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath(), options);
+
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return farmAroundListModels.size();
         }
 
         @Override
@@ -103,21 +162,25 @@ public class ZhouBianFragment extends BaseFragment{
         private TextView recommendReason;
         private ImageView recommendImg;
         private TextView recommendTuijian;
+        private TextView recommendDistance;
+        private FlowLayout flowLayout;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
-            recommendName= (TextView) itemView.findViewById(R.id.recommend_name);
-            recommendArea= (TextView) itemView.findViewById(R.id.recommend_area);
-            recommendReason= (TextView) itemView.findViewById(R.id.recommend_reason);
-            recommendImg= (ImageView) itemView.findViewById(R.id.recommend_img);
+            recommendName = (TextView) itemView.findViewById(R.id.recommend_name);
+            recommendArea = (TextView) itemView.findViewById(R.id.recommend_area);
+            recommendReason = (TextView) itemView.findViewById(R.id.recommend_reason);
+            recommendImg = (ImageView) itemView.findViewById(R.id.recommend_img);
             recommendTuijian = (TextView) itemView.findViewById(R.id.tuijian);
+            recommendDistance = (TextView) itemView.findViewById(R.id.distancen);
+            flowLayout = (FlowLayout) itemView.findViewById(R.id.flowLayout);
 
         }
 
     }
 
-    public void onEvent(Integer index){
-        if(index.intValue() == 2){
+    public void onEvent(Integer index) {
+        if (index.intValue() == 2) {
             EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(nearList));
         }
     }

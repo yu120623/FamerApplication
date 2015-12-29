@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="年蜜桔丰收，不少地方的蜜桔产量都创下历史新高"
+            android:textColor="#a3a3a3"
             android:textSize="14sp" />
 
         <LinearLayout

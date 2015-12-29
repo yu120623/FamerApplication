@@ -1,8 +1,10 @@
 package com.project.farmer.famerapplication.home.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +16,17 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.entity.FarmModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -21,9 +34,12 @@ import github.chenupt.dragtoplayout.AttachUtil;
 /**
  * Created by Administrator on 2015/12/16.
  */
-public class TuiJianFragment extends BaseFragment{
+public class TuiJianFragment extends BaseFragment {
     private RecyclerView recommendList;
     private DisplayImageOptions options;
+    private List<FarmModel> farmTuiJianListModels;
+    private RecommendAdapter adapter;
+
     @Override
     protected void initViews() {
         findViews();
@@ -32,7 +48,9 @@ public class TuiJianFragment extends BaseFragment{
 
     private void initData() {
         recommendList.setLayoutManager(new LinearLayoutManager(context));
-        recommendList.setAdapter(new RecommendAdapter());
+        adapter = new RecommendAdapter();
+        recommendList.setAdapter(adapter);
+        farmTuiJianListModels = new ArrayList<FarmModel>();
         recommendList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -49,8 +67,28 @@ public class TuiJianFragment extends BaseFragment{
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-//                .displayer(new CircleBitmapDisplayer())
                 .imageScaleType(ImageScaleType.EXACTLY).build();
+
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_AROUND_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setPageNumber(0);
+        data.setType("recommend");
+        data.setFarmLatitude(34.180563);
+        data.setFarmLongitude(112.211952);
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                farmTuiJianListModels = data.getFarmModels();
+                if (farmTuiJianListModels != null && farmTuiJianListModels.size() > 0) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }, data);
+        request.execute();
     }
 
     private void findViews() {
@@ -62,24 +100,46 @@ public class TuiJianFragment extends BaseFragment{
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(),R.layout.recommend_item,null);
+            View v = View.inflate(parent.getContext(), R.layout.recommend_item, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
-            holder.recommendName.setText("农庄标题测试");
-            holder.recommendArea.setText("苏州");
-            holder.recommendReason.setText("环境不错可以钓鱼也可以吃饭，庄主人很好");
-            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg,"http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg",options);
+            FarmModel farmModel = farmTuiJianListModels.get(position);
+            holder.recommendName.setText(farmModel.getFarmName());
+            holder.recommendArea.setText(farmModel.getFarmArea());
+            holder.recommendReason.setText(farmModel.getFarmDesc());
+            holder.recommendTuijian.setVisibility(View.INVISIBLE);
+            if (farmModel.getRecommend() != null) {
+                holder.recommendTuijian.setVisibility(View.VISIBLE);
+            }
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath(), options);
+            holder.recommendDistance.setText(farmModel.getFarmDistance() + "");
+            for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                TextView tv = new TextView(getActivity());
+                TextView tv1 = new TextView(getActivity());
+                tv1.setText("  ");
+                tv1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                tv.setBackgroundResource(R.drawable.near_label_bg);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                tv.setTextColor(Color.WHITE);
+                tv.setPadding(20, 2, 20, 2);
+                tv.setText(farmModel.getFarmTags().get(i));
+                tv.setLayoutParams(lp);
+                tv1.setLayoutParams(lp);
+                holder.flowLayout.addView(tv);
+                holder.flowLayout.addView(tv1);
+            }
 
 
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return farmTuiJianListModels.size();
         }
     }
 
@@ -88,20 +148,26 @@ public class TuiJianFragment extends BaseFragment{
         private TextView recommendArea;
         private TextView recommendReason;
         private ImageView recommendImg;
+        private TextView recommendTuijian;
+        private TextView recommendDistance;
+        private FlowLayout flowLayout;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
-            recommendName= (TextView) itemView.findViewById(R.id.recommend_name);
-            recommendArea= (TextView) itemView.findViewById(R.id.recommend_area);
-            recommendReason= (TextView) itemView.findViewById(R.id.recommend_reason);
-            recommendImg= (ImageView) itemView.findViewById(R.id.recommend_img);
+            recommendName = (TextView) itemView.findViewById(R.id.recommend_name);
+            recommendArea = (TextView) itemView.findViewById(R.id.recommend_area);
+            recommendReason = (TextView) itemView.findViewById(R.id.recommend_reason);
+            recommendImg = (ImageView) itemView.findViewById(R.id.recommend_img);
+            recommendTuijian = (TextView) itemView.findViewById(R.id.tuijian);
+            recommendDistance = (TextView) itemView.findViewById(R.id.distancen);
+            flowLayout = (FlowLayout) itemView.findViewById(R.id.flowLayout);
 
         }
 
     }
 
-    public void onEvent(Integer index){
-        if(index.intValue() == 3){
+    public void onEvent(Integer index) {
+        if (index.intValue() == 3) {
             EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recommendList));
         }
     }

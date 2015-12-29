@@ -39,10 +39,10 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:layout_marginTop="5dp"
                     android:id="@+id/recommend_reason"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/gray"
                     android:textSize="13sp" />
 
@@ -52,50 +52,20 @@
                     android:layout_marginTop="3dp"
                     android:orientation="horizontal">
 
-                    <!--<RatingBar-->
-                    <!--android:paddingTop="5dp"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="?android:attr/ratingBarStyleSmall"-->
-                    <!--android:rating = "4"-->
-                    <!--android:numStars="5"-->
-                    <!--android:stepSize = "0.5"-->
-                    <!--android:id="@+id/ratingBar" />-->
-                    <TextView
-                        android:id="@+id/Label1"
+                    <org.apmem.tools.layouts.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:f="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/flowLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:layout_marginRight="3dp"
-                        android:textSize="10sp"
-                        android:textColor="@color/white"
-                        android:background="@drawable/near_label_bg"
-                        android:text="标签" />
+                        android:background="@android:color/white"
+                        android:gravity="fill"
+                        android:orientation="horizontal"
+                        f:debugDraw="true"
+                        f:layoutDirection="ltr"
+                        f:weightDefault="1.0">
 
-                    <TextView
-                        android:id="@+id/Label2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:layout_marginRight="3dp"
-                        android:textSize="10sp"
-                        android:textColor="@color/white"
-                        android:background="@drawable/near_label_bg"
-                        android:text="钓鱼" />
+                    </org.apmem.tools.layouts.FlowLayout>
 
-                    <TextView
-                        android:id="@+id/Label3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:layout_marginRight="3dp"
-                        android:textSize="10sp"
-                        android:textColor="@color/white"
-                        android:background="@drawable/near_label_bg"
-                        android:text="太湖边上" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,10 +78,10 @@
                         android:id="@+id/recommend_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/location"
+                        android:drawablePadding="1dp"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
-                        android:drawablePadding="1dp"
-                        android:drawableLeft="@mipmap/location"
                         android:textColor="#2FAC2F"
                         android:textSize="12sp" />
 
@@ -120,7 +90,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:text="1.2km"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
 
@@ -136,13 +105,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginRight="30dp"
             android:background="#FF6600"
             android:gravity="center"
-            android:layout_marginRight="30dp"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
+            android:paddingTop="5dp"
             android:text="荐"
             android:textColor="@color/white"
             android:textSize="12sp" />

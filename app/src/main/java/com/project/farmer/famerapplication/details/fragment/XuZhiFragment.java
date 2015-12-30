@@ -4,12 +4,16 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.Text;
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -77,7 +81,6 @@ public class XuZhiFragment extends BaseFragment {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_TOPIC_KONW;
         TransferObject data = AppUtil.getHttpData(context);
-
         data.setPageNumber(0);
         data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
@@ -108,8 +111,16 @@ public class XuZhiFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(XuZhiViewHolder holder, int position) {
-            holder.xuzhiTitle.setText(stats.get(position).getFarmStatementDesc());
-            holder.xuzhiContext.setText(stats.get(position).getFarmStatementDesc());
+            holder.xuzhiTitle.setText(stats.get(position).getFarmStatementTitle());
+            holder.xuzhiContent.removeAllViews();
+            for(int i =0;i < stats.get(position).getDescs().size();i++){
+                TextView desc = new TextView(context);
+                desc.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+                desc.setTextColor(getResources().getColor(R.color.gray));
+                desc.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                desc.setText(stats.get(position).getDescs().get(i));
+                holder.xuzhiContent.addView(desc);
+            }
         }
 
         @Override
@@ -121,11 +132,11 @@ public class XuZhiFragment extends BaseFragment {
 
     class XuZhiViewHolder extends RecyclerView.ViewHolder {
         private TextView xuzhiTitle;
-        private TextView xuzhiContext;
+        private LinearLayout xuzhiContent;
 
         public XuZhiViewHolder(View itemView) {
             super(itemView);
-            xuzhiContext = (TextView) itemView.findViewById(R.id.xuzhi_context);
+            xuzhiContent = (LinearLayout) itemView.findViewById(R.id.xuzhi_desc_content);
             xuzhiTitle = (TextView) itemView.findViewById(R.id.xuzhi_title);
 
         }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,20 +27,24 @@ import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import cn.iwgang.countdownview.CountdownView;
+import de.greenrobot.common.DateUtils;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
-/**
- * Created by Administrator on 2015/12/16.
- */
 public class QiangGouFragment extends BaseFragment {
     private RecyclerView topicPanicBuyingList;
     private DisplayImageOptions options;
     private List<FarmTopicModel> farmTopicPanicBuyingModels;
     private FlashSaleAdapter adapter;
-
+    private Chronometer time;
+    private Date nowTime;
     @Override
     protected void initViews() {
         findViews();
@@ -51,6 +56,9 @@ public class QiangGouFragment extends BaseFragment {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
+                .showImageForEmptyUri(R.mipmap.default_img)
+                .showImageOnFail(R.mipmap.default_img)
+                .showImageOnLoading(R.mipmap.default_img)
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicPanicBuyingList.setLayoutManager(new LinearLayoutManager(context));
@@ -64,16 +72,33 @@ public class QiangGouFragment extends BaseFragment {
         String url = API.URL + API.API_URL.FARM_TOPIC_PANICBUYING_LIST;
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
+        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 farmTopicPanicBuyingModels = data.getFarmTopicModels();
                 if (farmTopicPanicBuyingModels != null && farmTopicPanicBuyingModels.size() > 0) {
                     adapter.notifyDataSetChanged();
+                    initTime();
                 }
             }
         }, data);
         request.execute();
+    }
+
+    private void initTime() {
+        nowTime = farmTopicPanicBuyingModels.get(0).getNowTime();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(nowTime);
+                calendar.add(Calendar.MILLISECOND,-1000);
+                nowTime = calendar.getTime();
+            }
+        },0,1000);
+
     }
 
     private void findViews() {
@@ -97,7 +122,6 @@ public class QiangGouFragment extends BaseFragment {
     }
 
     class FlashSaleAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
-
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.flash_sale_item, null);
@@ -111,6 +135,13 @@ public class QiangGouFragment extends BaseFragment {
             holder.flashSaleName.setText(farmTopicModel.getFarmTopicName());
             holder.flashSaleArea.setText(farmTopicModel.getTagName());
             holder.flashSaleReason.setText(farmTopicModel.getFarmTopicRecomReason());
+            holder.countdownView.allShowZero();
+            holder.countdownView.start(farmTopicModel.getFarmTopicEndTime().getTime() - nowTime.getTime());
+
+            Log.i("++++++++++++",farmTopicModel.getFarmTopicEndTime().getTime() - nowTime.getTime()+"");
+            //holder.countdownView.start(2741084000l);
+            //holder.countdownView.start(321797000l);
+
             ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath(), options);
         }
 
@@ -132,13 +163,14 @@ public class QiangGouFragment extends BaseFragment {
         private TextView flashSaleArea;
         private TextView flashSaleReason;
         private ImageView flashSaleImage;
-
+        private CountdownView countdownView;
         public TopicViewHolder(View itemView) {
             super(itemView);
             flashSaleName = (TextView) itemView.findViewById(R.id.topic_name);
             flashSaleArea = (TextView) itemView.findViewById(R.id.topic_area);
             flashSaleReason = (TextView) itemView.findViewById(R.id.topic_reason);
             flashSaleImage = (ImageView) itemView.findViewById(R.id.topic_img);
+            countdownView = (CountdownView) itemView.findViewById(R.id.time);
         }
     }
 

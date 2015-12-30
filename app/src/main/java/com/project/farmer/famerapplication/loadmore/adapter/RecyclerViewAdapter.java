@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.project.farmer.famerapplication.R;
 
-public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>{
+public abstract class RecyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T>{
     private View header;
     private View loadMoreFooter;//加载更多layout
     private View noMoreTips;//暂无更多提示
@@ -30,11 +30,14 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == FLAG_HEADER_VIEW)
-            return new RecyclerViewHolder(header);
+    public T onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == FLAG_HEADER_VIEW){
+            onCreateHeaderViewHolder(parent,viewType);
+
+        }
         else if(viewType == FLAG_FOOTER_VIEW){
-            return new RecyclerViewHolder(loadMoreFooter);
+            onCreateFooterViewHolder(parent,viewType);
+
         }
         else if(viewType == FLAG_ITEM_VIEW){
             return onCreateItemViewHolder(parent, viewType);
@@ -43,16 +46,19 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(T holder, int position) {
         int viewType = getItemViewType(position);
         if(viewType == FLAG_HEADER_VIEW){
-            onBindHeaderViewHolder(holder,position);
         }
         else if(viewType == FLAG_FOOTER_VIEW){
 
         }
         else if(viewType == FLAG_ITEM_VIEW){
-            onBindItemViewHolder(holder,position);
+            int index = 0;
+            if(header != null){
+                index = position - 1;
+            }
+            onBindItemViewHolder(holder,index);
         }
     }
 
@@ -73,13 +79,14 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     public abstract int getCount();
 
-    public abstract RecyclerViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType);
+    public abstract T onCreateItemViewHolder(ViewGroup parent, int viewType);
+    public abstract T onCreateHeaderViewHolder(ViewGroup parent, int viewType);
+    public abstract T onCreateFooterViewHolder(ViewGroup parent, int viewType);
 
     public abstract void findViews(View itemView);
 
-    public abstract void onBindItemViewHolder(RecyclerViewHolder holder, int position);
+    public abstract void onBindItemViewHolder(T holder, int position);
 
-    public abstract void onBindHeaderViewHolder(RecyclerViewHolder holder, int position);
 
     public void initLoadMoreLayout(){//初始化加载更多
         loadMoreFooter = inflater.inflate(R.layout.load_more_layout,null,false);
@@ -109,8 +116,6 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
         return FLAG_ITEM_VIEW;
     }
-
-
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
         public RecyclerViewHolder(View itemView) {

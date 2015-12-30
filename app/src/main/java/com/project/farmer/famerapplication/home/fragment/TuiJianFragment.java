@@ -25,6 +25,7 @@ import com.project.farmer.famerapplication.util.AppUtil;
 
 import org.apmem.tools.layouts.FlowLayout;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +117,7 @@ public class TuiJianFragment extends BaseFragment {
                 holder.recommendTuijian.setVisibility(View.VISIBLE);
             }
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath(), options);
-            holder.recommendDistance.setText(farmModel.getFarmDistance() + "");
+            holder.recommendDistance.setText(new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = new TextView(getActivity());

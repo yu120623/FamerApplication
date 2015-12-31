@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ECECEC"
-        android:padding="15dp"
+        android:padding="10dp"
         android:text="@string/hot_city"
         android:textColor="@color/black"
         android:textSize="15sp" />
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ECECEC"
-        android:padding="15dp"
+        android:padding="10dp"
         android:text="@string/other_city"
         android:textColor="@color/black"
         android:textSize="15sp" />

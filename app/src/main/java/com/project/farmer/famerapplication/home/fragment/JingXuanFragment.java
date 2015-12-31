@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -24,6 +28,7 @@ import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.loadmore.LoadMoreFooter;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.util.ArrayList;
@@ -36,35 +41,32 @@ public class JingXuanFragment extends BaseFragment {
     private RecyclerView topicList;
     private DisplayImageOptions options;
     private TopicAdapter adapter;
-    private List<FarmTopicModel> farmTopicModels;
+    private List<FarmTopicModel> farmTopicModels = new ArrayList<>();
     private ImageView progress;
     private AnimationDrawable progressDrawable;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
+    private LoadMoreFooter loadMoreFooter;
+    private Integer pageNumber = 0;
     @Override
     protected void initViews() {
         findViews();
         initData();
+        initClick();
     }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void initClick() {
         topicList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
                 super.onScrollStateChanged(recyclerView, newState);
             }
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
-                LinearLayoutManager lm= (LinearLayoutManager) recyclerView.getLayoutManager();
-                if(lm.findViewByPosition(lm.findFirstVisibleItemPosition()).getTop()==0 && lm.findFirstVisibleItemPosition()==0) {
-
-                }
             }
         });
+        topicList.addOnScrollListener(loadMoreListener);
     }
+
 
     private void initData() {
         options = new DisplayImageOptions.Builder()
@@ -78,26 +80,42 @@ public class JingXuanFragment extends BaseFragment {
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new TopicAdapter();
-        farmTopicModels = new ArrayList<FarmTopicModel>();
-        topicList.setAdapter(adapter);
-        progressDrawable =  ((AnimationDrawable)progress.getDrawable());
+        loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        topicList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(topicList,loadMoreFooter.getFooter());
+        progressDrawable = ((AnimationDrawable)progress.getDrawable());
         progressDrawable.start();
         loadDataFromServer();
     }
 
     private void loadDataFromServer() {
+        loadMoreFooter.setIsLoading(true);
         String url = API.URL + API.API_URL.FARM_TOPIC_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setPageNumber(0);
+        data.setPageNumber(pageNumber);
         data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                farmTopicModels = data.getFarmTopicModels();
-                if(farmTopicModels != null && farmTopicModels.size() > 0){
+                List<FarmTopicModel> list = data.getFarmTopicModels();
+                if (list != null && list.size() > 0) {
+                    if(pageNumber == 0) {
+                        farmTopicModels = list;
+                        hideProgress();
+                    }else{
+                        farmTopicModels.addAll(list);
+                    }
                     adapter.notifyDataSetChanged();
-                    hideProgress();
+                }else{
+                    if(pageNumber > 0)
+                        pageNumber--;
                 }
+            }
+            @Override
+            public void onEnd() {
+                loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
             }
         },data);
         request.execute();
@@ -113,6 +131,17 @@ public class JingXuanFragment extends BaseFragment {
         progress.setVisibility(View.GONE);
         progressDrawable.stop();
     }
+
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if(loadMoreFooter.isLoading())return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
 
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
 

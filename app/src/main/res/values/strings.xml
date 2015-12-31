@@ -9,7 +9,7 @@
     <string name="pingjia">评价</string>
     <string name="xuzhi">须知</string>
     <string name="no_more_data">已经没有更多了</string>
-    <string name="loding_more_data">已经没有更多了</string>
+    <string name="loding_more_data">正在加载更多</string>
     <string name="hot_city">推荐地区</string>
     <string name="other_city">其他地区</string>
     <string name="gsp">GSP定位</string>

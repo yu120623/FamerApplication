@@ -13,8 +13,4 @@
         android:fromYScale="1.0"
         android:toXScale="1.1"
         android:toYScale="1.1"></scale>
-    <alpha
-        android:duration="1500"
-        android:fromAlpha="1.0"
-        android:toAlpha="0.2"></alpha>
 </set>

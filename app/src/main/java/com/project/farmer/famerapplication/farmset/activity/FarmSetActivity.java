@@ -3,6 +3,7 @@ package com.project.farmer.famerapplication.farmset.activity;
 import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -27,7 +28,9 @@ public class FarmSetActivity extends BaseActivity {
     private RecyclerView farmSetList;
     private FarmAdapter adapter;
     private DisplayImageOptions options;
-
+    public boolean c = false;
+    private LinearLayout tmp;
+    private int curPosition = -1;
 
     @Override
     protected void initViews() {
@@ -51,109 +54,119 @@ public class FarmSetActivity extends BaseActivity {
         farmSetList.setAdapter(adapter);
     }
 
-    class FarmAdapter extends RecyclerView.Adapter<FarmSetViewHolder> {
+    private void addTags(FarmSetViewHolder holder) {
+        for (int i = 0; i < 5; i++) {
+            if (i == 0) {
+                inflater.inflate(R.layout.item1_farmset, holder.linearLayout1, true);
+                inflater.inflate(R.layout.item1_context_farmset, holder.linearLayout1, true);
+
+//                holder.linearLayout1.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                      click(holder, 1);
+//                    }
+//                });
+            }
+//            else if (i == 1) {
+//                inflater.inflate(R.layout.item2_farmset, holder.linearLayout, true);
+//                holder.linearLayout1.getChildAt(2).setOnClickListener(new View.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
+//            } else {
+//
+//            }
+        }
+    }
+
+    class FarmAdapter extends RecyclerView.Adapter<FarmSetViewHolder> implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
         @Override
         public FarmSetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.item_farmset, null);
             v.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
             FarmSetViewHolder holder = new FarmSetViewHolder(v);
             addTags(holder);
-
             return holder;
-        }
-
-        public boolean c = false;
-
-        private void addTags(final FarmSetViewHolder holder) {
-            for (int i = 0; i < 5; i++) {
-                if (i == 0) {
-                    inflater.inflate(R.layout.item1_farmset, holder.linearLayout, true);
-                    inflater.inflate(R.layout.item1_context_farmset, holder.linearLayout, true);
-
-                    holder.linearLayout.getChildAt(0).setOnClickListener(new View.OnClickListener() {
-
-
-                        @Override
-                        public void onClick(View v) {
-                            click(holder, 1);
-                        }
-                    });
-                } else if (i == 1) {
-                    inflater.inflate(R.layout.item2_farmset, holder.linearLayout, true);
-                    holder.linearLayout.getChildAt(2).setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
-                } else {
-
-                }
-
-            }
-
-        }
-
-        private void click(FarmSetViewHolder holder, int index) {
-            if (this.c) {
-                holder.linearLayout.getChildAt(index).findViewById(R.id.farmset_context_1).setVisibility(View.GONE);
-                this.c = false;
-            } else {
-                holder.linearLayout.getChildAt(index).findViewById(R.id.farmset_context_1).setVisibility(View.VISIBLE);
-                this.c = true;
-            }
         }
 
 
         @Override
         public void onBindViewHolder(final FarmSetViewHolder holder, int position) {
-            ImageLoaderUtil.getInstance().displayImg((ImageView) holder.linearLayout.getChildAt(1).findViewById(R.id.img_farmset), "http://s.mycff.com/images/00055.png@!w200h100", options);
-            holder.linearLayout4.setOnClickListener(new View.OnClickListener() {
+            if (position == curPosition) {
+                tmp = holder.linearLayout4;
+                ((CheckBox) holder.linearLayout4.findViewById(R.id.checkbox1)).setChecked(true);
+                Log.i("11111111111111111111", "onClick: " + tmp.getChildCount());
+            } else {
+                ((CheckBox) holder.linearLayout4.findViewById(R.id.checkbox1)).setChecked(false);
+            }
+
+            holder.linearLayout4.setTag(holder);
+            holder.linearLayout4.setOnClickListener(this);
+
+            holder.checkBox.setTag(holder);
+            holder.checkBox.setOnCheckedChangeListener(this);
+
+            holder.linearLayout1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    if (holder.checkBox.isChecked()) {
-                        holder.checkBox.setChecked(false);
-                    } else {
-                        holder.checkBox.setChecked(true);
-                    }
+                    if (holder.linearLayout1.findViewById(R.id.farmset_context_1).getVisibility() == View.VISIBLE)
+                        holder.linearLayout1.findViewById(R.id.farmset_context_1).setVisibility(View.GONE);
+                    else
+                        holder.linearLayout1.findViewById(R.id.farmset_context_1).setVisibility(View.VISIBLE);
                 }
             });
 
-            holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        holder.linearLayout.setVisibility(View.VISIBLE);
-                        holder.btnFarmset.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.linearLayout.setVisibility(View.GONE);
-                        holder.btnFarmset.setVisibility(View.GONE);
-                    }
-                }
-            });
-
-
+//            ImageLoaderUtil.getInstance().displayImg((ImageView) holder.linearLayout.getChildAt(1).findViewById(R.id.img_farmset), "http://s.mycff.com/images/00055.png@!w200h100", options);
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return 20;
         }
 
+        @Override
+        public void onClick(View v) {
+            FarmSetViewHolder farmSetViewHolder = (FarmSetViewHolder) v.getTag();
+            curPosition = farmSetViewHolder.getAdapterPosition();
 
+            if (tmp != farmSetViewHolder.linearLayout4 && tmp != null) {
+//                tmp.findViewById(R.id.linearlayout1).setVisibility(View.GONE);
+
+                tmp.findViewById(R.id.btn_farmset).setVisibility(View.GONE);
+                ((CheckBox) tmp.findViewById(R.id.checkbox1)).setChecked(false);
+            }
+            tmp = farmSetViewHolder.linearLayout4;
+            if (farmSetViewHolder.checkBox.isChecked())
+                farmSetViewHolder.checkBox.setChecked(false);
+            else
+                farmSetViewHolder.checkBox.setChecked(true);
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            FarmSetViewHolder farmSetViewHolder = (FarmSetViewHolder) buttonView.getTag();
+            if (farmSetViewHolder.checkBox.isChecked()) {
+                farmSetViewHolder.linearLayout1.setVisibility(View.VISIBLE);
+                farmSetViewHolder.btnFarmset.setVisibility(View.VISIBLE);
+            } else {
+                farmSetViewHolder.linearLayout1.setVisibility(View.GONE);
+                farmSetViewHolder.btnFarmset.setVisibility(View.GONE);
+            }
+        }
     }
 
     class FarmSetViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox;
         private LinearLayout btnFarmset;
-        private LinearLayout linearLayout;
+        private LinearLayout linearLayout1;
         private LinearLayout linearLayout4;
 
         public FarmSetViewHolder(View itemView) {
             super(itemView);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.linearlayout1);
+            linearLayout1 = (LinearLayout) itemView.findViewById(R.id.linearlayout1);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox1);
             btnFarmset = (LinearLayout) itemView.findViewById(R.id.btn_farmset);
             linearLayout4 = (LinearLayout) itemView.findViewById(R.id.lin4);

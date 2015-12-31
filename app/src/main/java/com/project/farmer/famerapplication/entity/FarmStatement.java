@@ -13,6 +13,7 @@ public class FarmStatement implements java.io.Serializable {
 	private String createdBy;
 	private Date updatedTime;
 	private String updatedBy;
+	private String farmStatementTitle;
 
 	public FarmStatement() {
 	}
@@ -84,4 +85,11 @@ public class FarmStatement implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+	public String getFarmStatementTitle() {
+		return farmStatementTitle;
+	}
+
+	public void setFarmStatementTitle(String farmStatementTitle) {
+		this.farmStatementTitle = farmStatementTitle;
+	}
 }

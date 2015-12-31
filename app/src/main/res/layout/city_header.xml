@@ -2,21 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/xuzhi_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:background="#ECECEC"
+        android:padding="15dp"
+        android:text="@string/hot_city"
         android:textColor="@color/black"
         android:textSize="15sp" />
 
     <LinearLayout
-        android:id="@+id/xuzhi_desc_content"
+        android:id="@+id/hot_city_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"></LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ECECEC"
+        android:padding="15dp"
+        android:text="@string/other_city"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 </LinearLayout>

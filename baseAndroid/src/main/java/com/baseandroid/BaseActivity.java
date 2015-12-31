@@ -61,7 +61,6 @@ public abstract class BaseActivity extends Activity {
 	protected void init() {
 		context = this.getApplicationContext();
 		activity = this;
-		actionbarView = (RelativeLayout)this.findViewById(R.id.action_bar_view);
 		inflater = LayoutInflater.from(context);
 		sp = this.getSharedPreferences("sp", MODE_PRIVATE);
 		fragmentManager = this.getFragmentManager();
@@ -87,6 +86,7 @@ public abstract class BaseActivity extends Activity {
 		}else{
 			this.setContentView(getContentView());
 		}
+		actionbarView = (RelativeLayout)this.findViewById(R.id.action_bar_view);
 	}
 	
 	protected boolean isAttachToLayout(){

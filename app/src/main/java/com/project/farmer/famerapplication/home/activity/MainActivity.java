@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.city.activity.CityActivity;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
 import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
 import com.project.farmer.famerapplication.home.fragment.TuiJianFragment;
@@ -128,6 +129,13 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,CityActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -192,7 +200,7 @@ public class MainActivity extends BaseActivity {
         buttons.add(qianggou);
         buttons.add(zhoubian);
         buttons.add(tuijian);
-        area.setText(CommonUtil.toDBC("苏州"));
+        area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME,"")));
         setArrVisible(0);
     }
 

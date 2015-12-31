@@ -7,9 +7,6 @@ import android.widget.TextView;
 
 import com.project.farmer.famerapplication.R;
 
-/**
- * Created by Administrator on 2015/12/31.
- */
 public class LoadMoreFooter {
     private Context context;
     private LayoutInflater inflater;
@@ -33,20 +30,20 @@ public class LoadMoreFooter {
 
     public void showLoadingTips(){
         loadMoreFooter.setVisibility(View.VISIBLE);
-        noMoreTips.setVisibility(View.GONE);
+        noMoreTips.setVisibility(View.INVISIBLE);
         loadingMoreTips.setVisibility(View.VISIBLE);
     }
 
     public void showNoMoreTips(){
         loadMoreFooter.setVisibility(View.VISIBLE);
-        loadingMoreTips.setVisibility(View.GONE);
+        loadingMoreTips.setVisibility(View.INVISIBLE);
         noMoreTips.setVisibility(View.VISIBLE);
     }
 
     public void hideLoadMore(){
-        loadMoreFooter.setVisibility(View.GONE);
-        loadingMoreTips.setVisibility(View.GONE);
-        noMoreTips.setVisibility(View.GONE);
+        loadMoreFooter.setVisibility(View.INVISIBLE);
+        loadingMoreTips.setVisibility(View.INVISIBLE);
+        noMoreTips.setVisibility(View.INVISIBLE);
     }
 
     public void setLoadingMoreTipsText(String text){

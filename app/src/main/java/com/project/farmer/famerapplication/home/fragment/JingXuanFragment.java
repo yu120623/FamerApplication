@@ -111,11 +111,11 @@ public class JingXuanFragment extends BaseFragment {
                     if(pageNumber > 0)
                         pageNumber--;
                 }
+                loadMoreFooter.hideLoadMore();
             }
             @Override
             public void onEnd() {
                 loadMoreFooter.setIsLoading(false);
-                loadMoreFooter.hideLoadMore();
             }
         },data);
         request.execute();
@@ -144,7 +144,6 @@ public class JingXuanFragment extends BaseFragment {
     };
 
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
-
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.topic_item, null);

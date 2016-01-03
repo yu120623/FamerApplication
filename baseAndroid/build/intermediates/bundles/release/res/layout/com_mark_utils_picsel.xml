@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/action_bar_bg" >
+        android:background="@mipmap/action_bar_bg" >
 
         <TextView
             android:id="@+id/sel_pic"

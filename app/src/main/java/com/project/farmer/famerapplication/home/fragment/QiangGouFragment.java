@@ -83,7 +83,8 @@ public class QiangGouFragment extends BaseFragment {
         String url = API.URL + API.API_URL.FARM_TOPIC_PANICBUYING_LIST;
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(pageNumber);
-        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
+        //data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
+        data.setCityCode("0512");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -147,7 +148,7 @@ public class QiangGouFragment extends BaseFragment {
     private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
         @Override
         public void onLoadNextPage(View view) {
-            if(loadMoreFooter.isLoading())return;
+            if(loadMoreFooter.isLoading() || farmTopicPanicBuyingModels.size() <= 0)return;
             pageNumber++;
             loadMoreFooter.showLoadingTips();
             loadDataFromServer();
@@ -167,9 +168,8 @@ public class QiangGouFragment extends BaseFragment {
             FarmTopicModel farmTopicModel = farmTopicPanicBuyingModels.get(position);
             holder.flashSaleName.setText(farmTopicModel.getFarmTopicName());
             holder.flashSaleArea.setText(farmTopicModel.getTagName());
+
             holder.flashSaleReason.setText(farmTopicModel.getFarmTopicRecomReason());
-            holder.countdownView.allShowZero();
-            holder.countdownView.start(farmTopicModel.getFarmTopicEndTime().getTime() - nowTime.getTime());
             ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath(), options);
         }
 
@@ -191,14 +191,12 @@ public class QiangGouFragment extends BaseFragment {
         private TextView flashSaleArea;
         private TextView flashSaleReason;
         private ImageView flashSaleImage;
-        private CountdownView countdownView;
         public TopicViewHolder(View itemView) {
             super(itemView);
             flashSaleName = (TextView) itemView.findViewById(R.id.topic_name);
             flashSaleArea = (TextView) itemView.findViewById(R.id.topic_area);
             flashSaleReason = (TextView) itemView.findViewById(R.id.topic_reason);
             flashSaleImage = (ImageView) itemView.findViewById(R.id.topic_img);
-            countdownView = (CountdownView) itemView.findViewById(R.id.time);
         }
     }
 

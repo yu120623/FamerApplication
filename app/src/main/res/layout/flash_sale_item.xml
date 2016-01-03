@@ -14,9 +14,9 @@
 
         <RelativeLayout
             android:id="@+id/relative1"
-            android:paddingBottom="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
 
             <com.project.farmer.famerapplication.view.CountdownView
                 android:id="@+id/time"
@@ -27,6 +27,7 @@
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp"
                 android:paddingTop="10dp"
+                android:visibility="gone"
                 app:isHideTimeBackground="true"
                 app:isShowDay="false"
                 app:isShowHour="true"
@@ -40,6 +41,15 @@
                 app:timeTextColor="@color/white"
                 app:timeTextSize="22sp" />
         </RelativeLayout>
+
+        <com.project.farmer.famerapplication.view.TimeView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timer_bg2"
+            android:paddingBottom="14dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:paddingTop="10dp"/>
 
         <TextView
             android:id="@+id/textView2"

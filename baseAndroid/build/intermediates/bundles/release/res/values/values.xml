@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="abs__holo_blue_light">#ff33b5e5</color>
+    <color name="action_bar_bg">#2e2e2e</color>
     <color name="action_bar_btn_checked_bg">#22a2d1</color>
+    <color name="back_bg">#78000000</color>
     <color name="bg">#f1f1f2</color>
     <color name="black">#000000</color>
     <color name="blue">#33B5E5</color>

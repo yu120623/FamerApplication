@@ -19,7 +19,9 @@
     <color name="abs__holo_blue_light">#ff33b5e5</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
+    <color name="action_bar_bg">#2e2e2e</color>
     <color name="action_bar_btn_checked_bg">#22a2d1</color>
+    <color name="back_bg">#78000000</color>
     <color name="background_floating_material_dark">@color/material_grey_800</color>
     <color name="background_floating_material_light">@android:color/white</color>
     <color name="background_material_dark">@color/material_grey_850</color>

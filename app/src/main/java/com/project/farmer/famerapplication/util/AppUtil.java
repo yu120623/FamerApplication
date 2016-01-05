@@ -19,6 +19,21 @@ public class AppUtil {
     public static final String SP_NEW_LAT = "n_t";
     public static final String SP_NEW_LOG = "n_g";
 
+    public static String getFarmSetTag(String tag){
+        if("".equals("1")){
+            return "吃";
+        }else if("".equals("2")){
+            return "住";
+        }else if("".equals("3")){
+            return "玩";
+        }else if("".equals("4")){
+            return "提";
+        }else if("".equals("5")){
+            return "品";
+        }
+        return "玩";
+    }
+
     public static TransferObject getHttpData(Context context){
         return new TransferObject();
     }

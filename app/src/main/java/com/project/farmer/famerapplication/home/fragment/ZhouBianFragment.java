@@ -87,8 +87,8 @@ public class ZhouBianFragment extends BaseFragment {
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
         data.setType("around");
-        data.setFarmLatitude(34.180563);
-        data.setFarmLongitude(112.211952);
+        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LAT,0)).doubleValue());
+        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LOG,0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

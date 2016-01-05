@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class TimeView extends RelativeLayout {
     private TextView seconds;//秒
     private Long ms;//总毫秒数
     private boolean isStop = false;
+    TimeHandler handler;
 
     public TimeView(Context context) {
         super(context);
@@ -44,27 +46,54 @@ public class TimeView extends RelativeLayout {
 
     public void start(Long ms){
         this.ms = ms;
+        if(ms < 0){
+            this.ms = 0l;
+        }
         updateTime();
+        if(handler != null){
+            handler.setStopTimeHanlder(true);
+        }
+        handler = new TimeHandler();
         handler.sendEmptyMessageDelayed(0,1000);
     }
 
-    private Handler handler = new Handler(){
+    private class TimeHandler extends Handler{
+        private boolean stopTimeHanlder = false;
         @Override
         public void handleMessage(Message msg) {
-            if(isStop)return;
+            if(msg.what == 1) {
+                Log.i("","");
+                return;
+            }
+            if(stopTimeHanlder)return;
             ms = ms - 1000l;
+            if(ms < 0l) {
+                ms = 0l;
+                return;
+            }
             updateTime();
             handler.sendEmptyMessageDelayed(0,1000);
         }
-    };
 
-    private void updateTime() {
-        int mHour = (int)((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        int mMinute = (int)((ms % (1000 * 60 * 60)) / (1000 * 60));
-        int mSecond = (int)((ms % (1000 * 60)) / 1000);
-        hour.setText(mHour+"");
-        minute.setText(mMinute+"");
-        seconds.setText(mSecond+"");
+        public void setStopTimeHanlder(boolean stopTimeHanlder) {
+            this.stopTimeHanlder = stopTimeHanlder;
+        }
     }
 
+    private void updateTime() {
+        int mHour = (int)(ms / (1000 * 60 * 60));
+        int mMinute = (int)((ms % (1000 * 60 * 60)) / (1000 * 60));
+        int mSecond = (int)((ms % (1000 * 60)) / 1000);
+        hour.setText(formatTime(mHour));
+        minute.setText(formatTime(mMinute));
+        seconds.setText(formatTime(mSecond));
+    }
+
+
+    private String formatTime(int time){
+        if(time < 10){
+            return "0"+time;
+        }
+        return time+"";
+    }
 }

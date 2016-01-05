@@ -42,6 +42,7 @@ public class LocationService extends Service {
 
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
+            Log.i("11111111111111111111", "onLocationChanged: "+aMapLocation.getErrorInfo());
             if(aMapLocation.getErrorCode() == 0) {
                 mLocationClient.stopLocation();
                 if(!"".equals(sp.getString(AppUtil.SP_CITY_CODE,""))){

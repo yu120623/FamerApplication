@@ -82,13 +82,14 @@ public class ZhouBianFragment extends BaseFragment {
         loadDataFromServer();
     }
 
+
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_AROUND_LIST;
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
         data.setType("around");
-        data.setFarmLatitude(34.180563);
-        data.setFarmLongitude(112.211952);
+        data.setFarmLatitude((double) sp.getFloat(AppUtil.SP_LAT, 0));
+        data.setFarmLongitude((double) sp.getFloat(AppUtil.SP_LOG, 0));
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

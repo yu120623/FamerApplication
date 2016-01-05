@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;

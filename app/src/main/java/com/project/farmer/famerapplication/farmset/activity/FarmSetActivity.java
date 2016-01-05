@@ -19,6 +19,16 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.entity.FarmSet;
+import com.project.farmer.famerapplication.entity.FarmSetModel;
+import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.http.API;
+import com.project.farmer.famerapplication.http.AppHttpResListener;
+import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.util.AppUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gseoa on 2015/12/24.
@@ -26,6 +36,7 @@ import com.project.farmer.famerapplication.R;
 public class FarmSetActivity extends BaseActivity {
 
     private RecyclerView farmSetList;
+    private List<FarmSetModel> farmSetModels;
     private FarmAdapter adapter;
     private DisplayImageOptions options;
     public boolean c = false;
@@ -50,8 +61,27 @@ public class FarmSetActivity extends BaseActivity {
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY).build();
         farmSetList.setLayoutManager(new LinearLayoutManager(context));
+        farmSetModels = new ArrayList<FarmSetModel>();
         adapter = new FarmAdapter();
         farmSetList.setAdapter(adapter);
+
+        loadDataFromServer();
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARMSET_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setFarmTopicAliasId("dasdsadasdasd");
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                farmSetModels = data.getFarmSetModels();
+                if (farmSetModels != null && farmSetModels.size() > 0) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }, data);
+        request.execute();
     }
 
     private void addTags(FarmSetViewHolder holder) {
@@ -95,6 +125,9 @@ public class FarmSetActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(final FarmSetViewHolder holder, int position) {
+            FarmSetModel farmSetModel = farmSetModels.get(position);
+            holder.farmSetName.setText(farmSetModel.getFarmSetName());
+            holder.farmSetPrice.setText(farmSetModel.getMinPrice());
             if (position == curPosition) {
                 tmp = holder.linearLayout4;
                 ((CheckBox) holder.linearLayout4.findViewById(R.id.checkbox1)).setChecked(true);
@@ -124,7 +157,7 @@ public class FarmSetActivity extends BaseActivity {
 
         @Override
         public int getItemCount() {
-            return 20;
+            return farmSetModels.size();
         }
 
         @Override
@@ -163,9 +196,13 @@ public class FarmSetActivity extends BaseActivity {
         private LinearLayout btnFarmset;
         private LinearLayout linearLayout1;
         private LinearLayout linearLayout4;
+        private TextView farmSetName;
+        private TextView farmSetPrice;
 
         public FarmSetViewHolder(View itemView) {
             super(itemView);
+            farmSetName = (TextView) itemView.findViewById(R.id.farmset_name);
+            farmSetPrice = (TextView) itemView.findViewById(R.id.farmset_price);
             linearLayout1 = (LinearLayout) itemView.findViewById(R.id.linearlayout1);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox1);
             btnFarmset = (LinearLayout) itemView.findViewById(R.id.btn_farmset);

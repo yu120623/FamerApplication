@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.util;
 
 import android.content.Context;
 
+import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.TransferObject;
 
 /**
@@ -19,22 +20,38 @@ public class AppUtil {
     public static final String SP_NEW_LAT = "n_t";
     public static final String SP_NEW_LOG = "n_g";
 
-    public static String getFarmSetTag(String tag){
-        if("".equals("1")){
+    public static String getFarmSetTag(String tag) {
+        if (tag.equals("1")) {
             return "吃";
-        }else if("".equals("2")){
+        } else if (tag.equals("2")) {
             return "住";
-        }else if("".equals("3")){
+        } else if (tag.equals("3")) {
             return "玩";
-        }else if("".equals("4")){
+        } else if (tag.equals("4")) {
             return "提";
-        }else if("".equals("5")){
+        } else if (tag.equals("5")) {
             return "品";
+        } else {
+            return "玩";
         }
-        return "玩";
     }
 
-    public static TransferObject getHttpData(Context context){
+    public static int getFarmSetTagBg(String tag) {
+        if (tag.equals("1")) {
+            return R.drawable.chi_bg;
+        } else if (tag.equals("2")) {
+            return R.drawable.zhu_bg;
+        } else if (tag.equals("3")) {
+            return R.drawable.wan_bg;
+        } else if (tag.equals("4")) {
+            return R.drawable.ti_bg;
+        } else if (tag.equals("5")) {
+            return R.drawable.pin_bg;
+        } else
+            return R.drawable.wan_bg;
+    }
+
+    public static TransferObject getHttpData(Context context) {
         return new TransferObject();
     }
 }

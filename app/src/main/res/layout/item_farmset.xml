@@ -44,6 +44,13 @@
             android:textColor="#a3a3a3"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/farm_set_line"
+            style="@style/line"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:visibility="gone" />
+
         <LinearLayout
             android:id="@+id/linearlayout1"
             android:layout_width="match_parent"
@@ -56,27 +63,26 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/farmset_price"
+                    android:id="@+id/farmset_min_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/red"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/farmset_con_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="原价2000元"
                     android:textColor="#a3a3a3"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -85,36 +91,36 @@
                 android:id="@+id/btn_farmset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp">
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="线路"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/farmset_xl_bg"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:text="线路"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:layout_marginRight="10dp"/>
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/farmset_yd_bg"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/farmset_yd_bg"
-                    android:textColor="@color/white"
                     android:text="立即预定"
-                    android:textSize="15sp"/>
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

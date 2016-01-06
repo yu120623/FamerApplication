@@ -46,7 +46,6 @@ public class FarmSetActivity extends BaseActivity {
     private List<FarmItemsModel> farmItemsModels;
     private FarmAdapter adapter;
     private DisplayImageOptions options;
-    public boolean c = false;
     private LinearLayout tmp;
     private int curPosition = -1;
 
@@ -94,15 +93,25 @@ public class FarmSetActivity extends BaseActivity {
 
     private void addTags(FarmSetViewHolder holder, FarmItemsModel farmItemsModel) {
         inflater.inflate(R.layout.item_sub_farmset, holder.linearLayout1, true);
-        ((TextView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_tag)).setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
-        ((TextView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_tag)).setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
-        ((TextView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_name)).setText(farmItemsModel.getFarmName());
-        ((TextView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_desc)).setText(farmItemsModel.getFarmItemName());
-        ((TextView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_price)).setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
-        ImageLoaderUtil.getInstance().displayImg(((ImageView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_img)), farmItemsModel.getResources().get(0).getResourceLocation());
-        ((TextView) holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farmset_item_desclist)).setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
-        View setHeader = holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farm_set_item_header);
-        View setContent = holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1).findViewById(R.id.farm_set_item_content);
+        View item = holder.linearLayout1.getChildAt(holder.linearLayout1.getChildCount() - 1);
+        TextView farmSetItemTag = (TextView) item.findViewById(R.id.farmset_item_tag);
+        TextView farmSetItemTagBg = (TextView) item.findViewById(R.id.farmset_item_tag);
+        TextView farmSetItemName = (TextView) item.findViewById(R.id.farmset_item_name);
+        TextView farmSetItemDesc = (TextView) item.findViewById(R.id.farmset_item_desc);
+        TextView farmSetItemPrice = (TextView) item.findViewById(R.id.farmset_item_price);
+        ImageView farmSetItemImg = (ImageView) item.findViewById(R.id.farmset_item_img);
+        TextView farmSetItemDescList = (TextView) item.findViewById(R.id.farmset_item_desclist);
+
+        farmSetItemTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
+        farmSetItemTagBg.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
+        farmSetItemName.setText(farmItemsModel.getFarmName());
+        farmSetItemDesc.setText(farmItemsModel.getFarmItemName());
+        farmSetItemPrice.setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
+        ImageLoaderUtil.getInstance().displayImg(farmSetItemImg, farmItemsModel.getResources().get(0).getResourceLocation());
+        farmSetItemDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
+
+        View setHeader = item.findViewById(R.id.farm_set_item_header);
+        View setContent = item.findViewById(R.id.farm_set_item_content);
         setHeader.setTag(setContent);
         setHeader.setOnClickListener(onFarmSetItemClick);
     }
@@ -128,7 +137,6 @@ public class FarmSetActivity extends BaseActivity {
             return holder;
         }
 
-
         @Override
         public void onBindViewHolder(final FarmSetViewHolder holder, int position) {
             FarmSetModel farmSetModel = farmSetModels.get(position);
@@ -144,7 +152,6 @@ public class FarmSetActivity extends BaseActivity {
                 addTags(holder, farmItemsModel);
             }
 
-
             if (position == curPosition) {
                 tmp = holder.linearLayout4;
                 ((CheckBox) holder.linearLayout4.findViewById(R.id.checkbox1)).setChecked(true);
@@ -157,19 +164,6 @@ public class FarmSetActivity extends BaseActivity {
 
             holder.checkBox.setTag(holder);
             holder.checkBox.setOnCheckedChangeListener(this);
-
-
-            holder.linearLayout1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    if (holder.linearLayout1.findViewById(R.id.farmset_context_1).getVisibility() == View.VISIBLE)
-//                        holder.linearLayout1.findViewById(R.id.farmset_context_1).setVisibility(View.GONE);
-//                    else
-//                        holder.linearLayout1.findViewById(R.id.farmset_context_1).setVisibility(View.VISIBLE);
-                }
-            });
-
-//            ImageLoaderUtil.getInstance().displayImg((ImageView) holder.linearLayout.getChildAt(1).findViewById(R.id.img_farmset), "http://s.mycff.com/images/00055.png@!w200h100", options);
         }
 
 

@@ -45,7 +45,7 @@
             android:name=".search.activity.SearchActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".details.activity.TopicDetailsActivity"
+            android:name=".topic.activity.TopicDetailsActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".farmset.activity.FarmSetActivity"
@@ -55,7 +55,10 @@
             android:name=".city.activity.CityActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".details.activity.TimingTopicDetailsActivity"
+            android:name=".topic.activity.TimingTopicDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".farm.activity.FarmDetailActivity"
             android:screenOrientation="portrait"></activity>
 
         <service android:name=".services.LocationService"></service>
@@ -65,7 +68,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="77a73778d96f7fd4a2625d5d6aed7ed0"/>
+            android:value="1951cd2699cf07ef97898dc32a296561"/>
     </application>
 
 </manifest>

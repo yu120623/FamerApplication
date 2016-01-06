@@ -36,9 +36,6 @@ import java.util.List;
 
 import static com.project.farmer.famerapplication.R.drawable.zhu_bg;
 
-/**
- * Created by gseoa on 2015/12/24.
- */
 public class FarmSetActivity extends BaseActivity {
 
     private RecyclerView farmSetList;

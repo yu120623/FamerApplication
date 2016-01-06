@@ -1,9 +1,14 @@
 package com.project.farmer.famerapplication.util;
 
 import android.content.Context;
+import android.graphics.Point;
 
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.TransferObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Administrator on 2015/12/22.
@@ -31,9 +36,8 @@ public class AppUtil {
             return "提";
         } else if (tag.equals("5")) {
             return "品";
-        } else {
-            return "玩";
         }
+        return "玩";
     }
 
     public static int getFarmSetTagBg(String tag) {
@@ -51,7 +55,19 @@ public class AppUtil {
             return R.drawable.wan_bg;
     }
 
-    public static TransferObject getHttpData(Context context) {
+    public static List<Point> random(int size,int width,int height){
+        List<Point> points = new ArrayList<>();
+        for(int i = 0;i < size; i++){
+            Random random = new Random();
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+            Point point = new Point(x,y);
+            points.add(point);
+        }
+        return points;
+    }
+
+    public static TransferObject getHttpData(Context context){
         return new TransferObject();
     }
 }

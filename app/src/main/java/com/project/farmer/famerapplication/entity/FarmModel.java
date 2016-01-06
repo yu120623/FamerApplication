@@ -8,13 +8,16 @@ public class FarmModel extends Farm{
 	private List<String> farmTags;
 	private String recommend;
 	private String areaName;
-	private float farmDistance;
-	
-	public float getFarmDistance() {
+	private Float farmDistance;
+	private List<ResourseModel> deResourseModels;
+	private List<Resource> baResources;
+	private String farmIntruDesc;
+	private String farmEva;
+	public Float getFarmDistance() {
 		return farmDistance;
 	}
 
-	public void setFarmDistance(float farmDistance) {
+	public void setFarmDistance(Float farmDistance) {
 		this.farmDistance = farmDistance;
 	}
 
@@ -103,6 +106,35 @@ public class FarmModel extends Farm{
 		farm.setQuickPay(this.getQuickPay());
 		farm.setIsDeleted(this.getIsDeleted());
 		return farm;
+	}
+
+	public List<ResourseModel> getDeResourseModels() {
+		return deResourseModels;
+	}
+
+	public void setDeResourseModels(List<ResourseModel> deResourseModels) {
+		this.deResourseModels = deResourseModels;
+	}
+
+	public List<Resource> getBaResources() {
+		return baResources;
+	}
+
+	public void setBaResources(List<Resource> baResources) {
+		this.baResources = baResources;
+	}
+	
+	public String getFarmIntruDesc() {
+		return farmIntruDesc;
+	}
+	public void setFarmIntruDesc(String farmIntruDesc) {
+		this.farmIntruDesc = farmIntruDesc;
+	}
+	public String getFarmEva() {
+		return farmEva;
+	}
+	public void setFarmEva(String farmEva) {
+		this.farmEva = farmEva;
 	}
 }
 

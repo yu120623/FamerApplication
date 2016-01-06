@@ -1,7 +1,8 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.topic.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.baseandroid.BaseFragment;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmItemsModel;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
 import com.project.farmer.famerapplication.util.AppUtil;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimingNavigationFragment extends Fragment {
@@ -29,6 +33,8 @@ public class TimingNavigationFragment extends Fragment {
     private FarmSetModel farmSetModel;
     private LinearLayout navContent;
     private LayoutInflater inflater;
+    private List<Marker> markers;
+    private DecimalFormat decimalFormat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +61,7 @@ public class TimingNavigationFragment extends Fragment {
             itemName.setText(item.getFarmName());
             itemTag.setText(AppUtil.getFarmSetTag(item.getFarmItemType()));
             itemDesc.setText(item.getFarmItemName());
-            itemDistance.setText(item.getDistance()+"");
+            itemDistance.setText(decimalFormat.format(item.getDistance()));
         }
     }
 
@@ -67,12 +73,13 @@ public class TimingNavigationFragment extends Fragment {
             mark.position(new LatLng(item.getFarmLatitude(), item.getFarmLongitude()));
             mark.icon(BitmapDescriptorFactory.defaultMarker());
             mark.title(item.getFarmItemName());
-            map.addMarker(mark);
-
+            markers.add(map.addMarker(mark));
         }
     }
 
     private void initData() {
+        decimalFormat = new DecimalFormat("#.##");
+        markers = new ArrayList<>();
         inflater = LayoutInflater.from(getActivity().getApplicationContext());
         farmSetModel = (FarmSetModel) this.getArguments().getSerializable("farmSet");
         map = mapView.getMap();
@@ -81,6 +88,24 @@ public class TimingNavigationFragment extends Fragment {
         map.getUiSettings().setCompassEnabled(false);
         map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(false);
+        map.setOnMapLoadedListener(onloadListener);
+    }
+
+    private AMap.OnMapLoadedListener onloadListener = new AMap.OnMapLoadedListener() {
+        @Override
+        public void onMapLoaded() {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for(int i =0; i < markers.size();i++){
+                builder.include(markers.get(i).getPosition());
+            }
+            map.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+        }
+    };
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
     @Override

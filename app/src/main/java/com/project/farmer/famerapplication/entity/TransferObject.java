@@ -10,6 +10,8 @@ public class TransferObject implements Serializable {
 	private List<FarmTopicModel> farmTopicModels;
 	
 	private List<FarmModel> farmModels;
+
+	private FarmModel farmModel;
 	
 	private String farmTopicAliasId;
 	
@@ -34,6 +36,8 @@ public class TransferObject implements Serializable {
 	private Double farmLongitude;
 	
 	private String type;
+
+	private String farmAliasId;
 	
 	private String cityCode;
 	
@@ -212,5 +216,20 @@ public class TransferObject implements Serializable {
 	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
-	   
+
+	public String getFarmAliasId() {
+		return farmAliasId;
+	}
+
+	public void setFarmAliasId(String farmAliasId) {
+		this.farmAliasId = farmAliasId;
+	}
+
+	public FarmModel getFarmModel() {
+		return farmModel;
+	}
+
+	public void setFarmModel(FarmModel farmModel) {
+		this.farmModel = farmModel;
+	}
 }

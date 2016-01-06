@@ -8,6 +8,7 @@
     <string name="jieshao">介绍</string>
     <string name="pingjia">评价</string>
     <string name="xuzhi">须知</string>
+    <string name="map">地图</string>
     <string name="navigation">导航</string>
     <string name="no_more_data">已经没有更多了</string>
     <string name="loding_more_data">正在加载更多</string>
@@ -19,6 +20,6 @@
     <string name="choose_ctiy">城市选择</string>
     <string name="farm_set_info">套餐详细</string>
     <string name="topic_desc">专题介绍</string>
-    <string name="gua_pai_price">挂牌价</string>
+    <string name="gua_pai_price">挂牌价:</string>
     <string name="view_farm_set">查看套餐</string>
 </resources>

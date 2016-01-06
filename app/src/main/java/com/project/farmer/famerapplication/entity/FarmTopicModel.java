@@ -1,21 +1,15 @@
 package com.project.farmer.famerapplication.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class FarmTopicModel extends FarmTopic{
 	private String resourcePath;
 	
 	private Date nowTime;
-	
-	private String tagName;
-	
-	public String getTagName() {
-		return tagName;
-	}
 
-	public void setTagName(String tagName) {
-		this.tagName = tagName;
-	}
+	private String tagName;
+
 	
 	
 	public Date getNowTime() {
@@ -79,5 +73,15 @@ public class FarmTopicModel extends FarmTopic{
 		farmTopic.setFarmTopicStatus(this.getFarmTopicStatus());
 		return farmTopic;
 	}
-	
+
+
+	public String getTagName() {
+		return tagName;
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+
+
 }

@@ -1,37 +1,41 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.farm.fragment;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.entity.FarmItemsModel;
+import com.project.farmer.famerapplication.entity.FarmModel;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
+import com.project.farmer.famerapplication.util.AppUtil;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
 /**
- * Created by Administrator on 2015/12/22.
+ * Created by Administrator on 2016/1/6.
  */
-public class DescFragment extends BaseFragment {
+public class FarmDescFragment extends BaseFragment {
     private RecyclerView jieshaoList;
     private DisplayImageOptions options;
-    private FarmSetModel farmSetModels;
-
+    private FarmModel farmModel;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
     @Override
     protected void initViews() {
         findViews();
@@ -41,7 +45,7 @@ public class DescFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        jieshaoList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        jieshaoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -66,7 +70,7 @@ public class DescFragment extends BaseFragment {
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         jieshaoList.setLayoutManager(new LinearLayoutManager(context));
         jieshaoList.setAdapter(new JieShaoAdapter());
-        farmSetModels = (FarmSetModel) this.getArguments().getSerializable("farmSet");
+        farmModel = (FarmModel) this.getArguments().getSerializable("farmModel");
     }
 
     private void findViews() {
@@ -86,16 +90,16 @@ public class DescFragment extends BaseFragment {
         public void onBindViewHolder(JieShaoViewHolder holder, int position) {
             if (position == 0) {
                 holder.jieshaoText.setVisibility(View.VISIBLE);
-                holder.jieshaoText.setText(farmSetModels.getFarmSetDesc());
+                holder.jieshaoText.setText(farmModel.getFarmDesc());
             } else {
                 holder.jieshaoText.setVisibility(View.GONE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation(), options);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmModel.getDeResourseModels().get(position-1).getResourceLocation(), options);
             }
         }
 
         @Override
         public int getItemCount() {
-            return farmSetModels.getDeResourceModels().size() + 1;
+            return farmModel.getDeResourseModels().size() + 1;
         }
 
     }
@@ -112,8 +116,9 @@ public class DescFragment extends BaseFragment {
         }
     }
 
+
     @Override
     protected int getContentView() {
-        return R.layout.frag_jieshao;
+        return R.layout.frag_farm_desc;
     }
 }

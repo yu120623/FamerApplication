@@ -1,11 +1,16 @@
-package com.project.farmer.famerapplication.details.activity;
+package com.project.farmer.famerapplication.topic.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
@@ -18,9 +23,9 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.details.fragment.TimingCommentFragment;
-import com.project.farmer.famerapplication.details.fragment.TimingDescFragment;
-import com.project.farmer.famerapplication.details.fragment.TimingNavigationFragment;
+import com.project.farmer.famerapplication.topic.fragment.TopicCommentFragment;
+import com.project.farmer.famerapplication.topic.fragment.TopicDescFragment;
+import com.project.farmer.famerapplication.topic.fragment.TopicNoticFragment;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
@@ -36,7 +41,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
-public class TimingTopicDetailsActivity extends BaseActivity{
+public class TopicDetailsActivity extends BaseActivity {
     private DisplayImageOptions options;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
@@ -53,6 +58,8 @@ public class TimingTopicDetailsActivity extends BaseActivity{
     private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView favouriteBtn;
+    private RelativeLayout tagsContainer;
+
     @Override
     protected void initViews() {
         findViews();
@@ -81,6 +88,19 @@ public class TimingTopicDetailsActivity extends BaseActivity{
 
             }
         });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void setActionBarIcon(boolean flag){
+        backBtn.setSelected(flag);
+        favouriteBtn.setSelected(flag);
+        shareBtn.setSelected(flag);
+
     }
 
     private void initBanner() {
@@ -96,12 +116,24 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith/ (640*1.0);
         banner.getLayoutParams().height = (int)(400*scale);
+
+    }
+
+    private void initTags() {
+        List<Point> points = AppUtil.random(farmSetModels.getTags().size(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
+        for(int i =0; i < farmSetModels.getTags().size();i++){
+            inflater.inflate(R.layout.text,tagsContainer,true);
+            TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+            tag.setX(points.get(i).x);
+            tag.setY(points.get(i).y);
+        }
     }
 
     @Override
     public void initActonBar() {
         super.initActonBar();
         this.actionbarView.setVisibility(View.GONE);
+
     }
 
     private void initFragments() {
@@ -111,9 +143,9 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         bundle2.putSerializable("farmTopic",farmTopicModel);
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.jieshao, TimingDescFragment.class,bundle)
-                .add(R.string.pingjia, TimingCommentFragment.class,bundle2)
-                .add(R.string.navigation, TimingNavigationFragment.class,bundle)
+                .add(R.string.jieshao, TopicDescFragment.class,bundle)
+                .add(R.string.pingjia, TopicCommentFragment.class,bundle2)
+                .add(R.string.xuzhi, TopicNoticFragment.class,bundle2)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);
@@ -140,13 +172,13 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         loadDataFromServer();
     }
 
+
     //获取专题详细
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_TOPIC_INFO;
         TransferObject data = AppUtil.getHttpData(context);
         data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
-        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LAT,0)).doubleValue());
-        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LOG,0)).doubleValue());
+        data.setPageNumber(0);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -154,6 +186,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
                 setUrlBanners(farmSetModels);
                 initBanner();
                 initFragments();
+                initTags();
                 progressDrawable.stop();
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);
@@ -161,14 +194,6 @@ public class TimingTopicDetailsActivity extends BaseActivity{
             }
         },data);
         request.execute();
-    }
-
-
-    private void setActionBarIcon(boolean flag){
-        backBtn.setSelected(flag);
-        favouriteBtn.setSelected(flag);
-        shareBtn.setSelected(flag);
-
     }
 
     @Override
@@ -183,14 +208,6 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         EventBus.getDefault().unregister(this);
     }
 
-
-    public void setUrlBanners(FarmSetModel farmSetModel) {
-        bannerUrls = new ArrayList<String>();
-        for(int i = 0;i < farmSetModel.getBaResourceModels().size();i++){
-            bannerUrls.add(farmSetModel.getBaResourceModels().get(i).getResourceLocation());
-        }
-    }
-
     private void findViews() {
         contentViewPager = (ViewPager) this.findViewById(R.id.details_content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.details_drag_layout);
@@ -203,15 +220,28 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
+        tagsContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
     }
-
 
     @Override
     protected int getContentView() {
         return R.layout.topic_details;
     }
+
     @Override
     protected String setActionBarTitle() {
         return "";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void setUrlBanners(FarmSetModel farmSetModel) {
+        bannerUrls = new ArrayList<String>();
+        for(int i = 0;i < farmSetModel.getBaResourceModels().size();i++){
+            bannerUrls.add(farmSetModel.getBaResourceModels().get(i).getResourceLocation());
+        }
     }
 }

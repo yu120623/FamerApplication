@@ -1,6 +1,6 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.topic.fragment;
 
-import com.baseandroid.BaseFragment;
+import com.project.farmer.famerapplication.comment.fragment.BaseCommentFragment;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
@@ -8,9 +8,10 @@ import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 
-public class CommentFragment extends BaseCommentFragment {
 
+public class TimingCommentFragment extends BaseCommentFragment {
     protected FarmTopicModel farmTopicModel;
+
     @Override
     protected void initData() {
         farmTopicModel = (FarmTopicModel) this.getArguments().getSerializable("farmTopic");
@@ -27,7 +28,7 @@ public class CommentFragment extends BaseCommentFragment {
             public void onSuccess(TransferObject data) {
                 resData = data;
                 comments = data.getCommentModels();
-                adapter.notifyDataSetChanged();;
+                refreshComment();
             }
         },data);
         appRequest.execute();

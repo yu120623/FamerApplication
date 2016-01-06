@@ -1,4 +1,4 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.topic.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -7,19 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.amap.api.maps.model.Text;
 import com.baseandroid.BaseFragment;
-import com.baseandroid.util.CommonUtil;
-import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.entity.FarmStatement;
 import com.project.farmer.famerapplication.entity.FarmStatementModel;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
@@ -34,7 +29,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
-public class NoticFragment extends BaseFragment {
+public class TopicNoticFragment extends BaseFragment {
     private RecyclerView xuzhiList;
     private DisplayImageOptions options;
     private FarmTopicModel farmTopicModel;

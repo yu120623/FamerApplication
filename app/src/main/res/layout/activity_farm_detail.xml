@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -44,17 +43,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <RelativeLayout
-                            android:id="@+id/banner_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
 
-                            <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:id="@+id/details_convenient_banner"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:canLoop="true" />
-                        </RelativeLayout>
+                        <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/details_convenient_banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:canLoop="true" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -176,7 +171,7 @@
             android:paddingTop="8dp">
 
             <Button
-                android:id="@+id/textView3"
+                android:id="@+id/view_farm_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"

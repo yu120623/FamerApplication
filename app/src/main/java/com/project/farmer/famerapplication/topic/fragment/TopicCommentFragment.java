@@ -1,9 +1,6 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.topic.fragment;
 
-import android.app.Fragment;
-
-import com.baseandroid.BaseFragment;
-import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.comment.fragment.BaseCommentFragment;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
@@ -11,12 +8,9 @@ import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 
-/**
- * Created by FreeMason on 2016/1/5.
- */
-public class TimingCommentFragment extends BaseCommentFragment{
-    protected FarmTopicModel farmTopicModel;
+public class TopicCommentFragment extends BaseCommentFragment {
 
+    protected FarmTopicModel farmTopicModel;
     @Override
     protected void initData() {
         farmTopicModel = (FarmTopicModel) this.getArguments().getSerializable("farmTopic");
@@ -33,7 +27,7 @@ public class TimingCommentFragment extends BaseCommentFragment{
             public void onSuccess(TransferObject data) {
                 resData = data;
                 comments = data.getCommentModels();
-                adapter.notifyDataSetChanged();;
+                refreshComment();
             }
         },data);
         appRequest.execute();

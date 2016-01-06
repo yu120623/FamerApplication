@@ -1,30 +1,17 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.comment.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
-import com.baseandroid.util.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.CommentModel;
-import com.project.farmer.famerapplication.entity.FarmSetModel;
-import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
-import com.project.farmer.famerapplication.http.API;
-import com.project.farmer.famerapplication.http.AppHttpResListener;
-import com.project.farmer.famerapplication.http.AppRequest;
-import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,11 +21,11 @@ import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
 public abstract class BaseCommentFragment extends BaseFragment {
-    protected RecyclerView pingjiaList;
-    protected List<CommentModel> comments;
-    protected PingJiaAdapter adapter;
-    protected SimpleDateFormat dataFormat;
-    protected TransferObject resData;
+    public RecyclerView pingjiaList;
+    public List<CommentModel> comments;
+    public PingJiaAdapter adapter;
+    public SimpleDateFormat dataFormat;
+    public TransferObject resData;
     @Override
     protected void initViews() {
         findViews();
@@ -133,6 +120,10 @@ public abstract class BaseCommentFragment extends BaseFragment {
             commentBody = (LinearLayout) itemView.findViewById(R.id.comment_body);
 
         }
+    }
+
+    public void refreshComment(){
+        adapter.notifyDataSetChanged();
     }
 
     @Override

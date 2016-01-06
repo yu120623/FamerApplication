@@ -48,14 +48,12 @@ public class LocationService extends Service {
                 if(!"".equals(sp.getString(AppUtil.SP_CITY_CODE,""))){
                     sp.edit().putString(AppUtil.SP_NEW_CITY_CODE, aMapLocation.getCityCode()).commit();
                     sp.edit().putString(AppUtil.SP_NEW_CITY_NAME, aMapLocation.getCity()).commit();
-                    sp.edit().putFloat(AppUtil.SP_NEW_LAT, Double.valueOf(aMapLocation.getLatitude()).floatValue()).commit();
-                    sp.edit().putFloat(AppUtil.SP_NEW_LOG, Double.valueOf(aMapLocation.getLongitude()).floatValue()).commit();
                 }else {
                     sp.edit().putString(AppUtil.SP_CITY_CODE, aMapLocation.getCityCode()).commit();
                     sp.edit().putString(AppUtil.SP_CITY_NAME, aMapLocation.getCity()).commit();
-                    sp.edit().putFloat(AppUtil.SP_LAT, Double.valueOf(aMapLocation.getLatitude()).floatValue()).commit();
-                    sp.edit().putFloat(AppUtil.SP_LOG, Double.valueOf(aMapLocation.getLongitude()).floatValue()).commit();
                 }
+                sp.edit().putFloat(AppUtil.SP_LAT, Double.valueOf(aMapLocation.getLatitude()).floatValue()).commit();
+                sp.edit().putFloat(AppUtil.SP_LOG, Double.valueOf(aMapLocation.getLongitude()).floatValue()).commit();
             }
         }
     }

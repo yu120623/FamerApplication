@@ -16,8 +16,8 @@ public class Farm implements java.io.Serializable {
 	private String farmCity;
 	private String farmArea;
 	private String farmCode;
-	private String farmLatitude;
-	private String farmLongitude;
+	private Double farmLatitude;
+	private Double farmLongitude;
 	private String farmLevel;
 	private String farmInCharge;
 	private Integer farmInChargePhone;
@@ -48,8 +48,7 @@ public class Farm implements java.io.Serializable {
 
 	public Farm(String farmAliasId, String farmName, String farmOwnerId,
 			String farmDesc, String farmAddress, String farmProvince,
-			String farmCity, String farmArea, String farmCode,
-			String farmLatitude, String farmLongitude, String farmLevel,
+			String farmCity, String farmArea, String farmCode, Double farmLatitude, Double farmLongitude, String farmLevel,
 			String farmInCharge, Integer farmInChargePhone, Integer quickPay,
 			String isDeleted, String farmStatus, Date createdTime,
 			String createdBy, Date updatedTime, String updatedBy) {
@@ -156,19 +155,19 @@ public class Farm implements java.io.Serializable {
 		this.farmCode = farmCode;
 	}
 
-	public String getFarmLatitude() {
+	public Double getFarmLatitude() {
 		return this.farmLatitude;
 	}
 
-	public void setFarmLatitude(String farmLatitude) {
+	public void setFarmLatitude(Double farmLatitude) {
 		this.farmLatitude = farmLatitude;
 	}
 
-	public String getFarmLongitude() {
+	public Double getFarmLongitude() {
 		return this.farmLongitude;
 	}
 
-	public void setFarmLongitude(String farmLongitude) {
+	public void setFarmLongitude(Double farmLongitude) {
 		this.farmLongitude = farmLongitude;
 	}
 

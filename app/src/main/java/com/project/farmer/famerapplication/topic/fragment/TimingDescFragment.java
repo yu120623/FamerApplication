@@ -1,4 +1,4 @@
-package com.project.farmer.famerapplication.details.fragment;
+package com.project.farmer.famerapplication.topic.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -40,6 +40,7 @@ public class TimingDescFragment extends BaseFragment{
         findViews();
         initData();
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

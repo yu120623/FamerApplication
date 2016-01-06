@@ -16,5 +16,6 @@ public class API {
         public static final String FARM_AROUND_LIST = "farmAroundList";//首页周边列表
         public static final String CITY_LIST = "intoCitySearch";//城市列表
         public static final String FARMSET_LIST="intoFarmTopic";//套餐列表
+        public static final String FARM_INFO = "clickFarm";//农庄详细
     }
 }

@@ -2,10 +2,8 @@ package com.project.farmer.famerapplication.home.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
@@ -21,8 +19,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.details.activity.TimingTopicDetailsActivity;
-import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.topic.activity.TimingTopicDetailsActivity;
+import com.project.farmer.famerapplication.topic.activity.TopicDetailsActivity;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
@@ -39,7 +37,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.greenrobot.common.DateUtils;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 

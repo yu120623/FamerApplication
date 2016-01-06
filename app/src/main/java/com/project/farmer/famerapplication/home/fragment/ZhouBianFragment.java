@@ -9,21 +9,17 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
-import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.details.activity.TopicDetailsActivity;
+import com.project.farmer.famerapplication.entity.Farm;
 import com.project.farmer.famerapplication.entity.FarmModel;
-import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
+import com.project.farmer.famerapplication.farm.activity.FarmDetailActivity;
 import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
@@ -31,7 +27,6 @@ import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import org.apmem.tools.layouts.FlowLayout;
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -39,8 +34,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
-
-import static com.project.farmer.famerapplication.R.drawable.near_label_bg;
 
 /**
  * Created by Administrator on 2015/12/16.
@@ -50,6 +43,7 @@ public class ZhouBianFragment extends BaseFragment {
     private DisplayImageOptions options;
     private List<FarmModel> farmAroundListModels;
     private NearAdapter adapter;
+    private DecimalFormat decimalFormat;
 
     @Override
     protected void initViews() {
@@ -58,11 +52,12 @@ public class ZhouBianFragment extends BaseFragment {
     }
 
     private void initData() {
+        decimalFormat = new DecimalFormat("#.##");
         nearList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new NearAdapter();
         farmAroundListModels = new ArrayList<FarmModel>();
         nearList.setAdapter(adapter);
-        nearList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        nearList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -87,8 +82,8 @@ public class ZhouBianFragment extends BaseFragment {
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
         data.setType("around");
-        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LAT,0)).doubleValue());
-        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LOG,0)).doubleValue());
+        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT,0)).doubleValue());
+        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG,0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -118,11 +113,12 @@ public class ZhouBianFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
             FarmModel farmModel = farmAroundListModels.get(position);
+            holder.itemView.setTag(farmModel);
             holder.recommendName.setText(farmModel.getFarmName());
             holder.recommendArea.setText(farmModel.getFarmArea());
             holder.recommendReason.setText(farmModel.getFarmDesc());
             holder.recommendTuijian.setVisibility(View.INVISIBLE);
-            holder.recommendDistance.setText(new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
+            holder.recommendDistance.setText(decimalFormat.format(farmModel.getFarmDistance()) + "km");
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = new TextView(getActivity());
@@ -139,9 +135,7 @@ public class ZhouBianFragment extends BaseFragment {
                 holder.flowLayout.addView(tv);
                 holder.flowLayout.addView(tv1);
             }
-
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath(), options);
-
         }
 
         @Override
@@ -151,8 +145,10 @@ public class ZhouBianFragment extends BaseFragment {
 
         @Override
         public void onClick(View v) {
+            FarmModel farmModel = (FarmModel) v.getTag();
             Intent intent = new Intent();
-            intent.setClass(getActivity(), FarmSetActivity.class);
+            intent.putExtra("farmModel",farmModel);
+            intent.setClass(getActivity(), FarmDetailActivity.class);
             startActivity(intent);
         }
     }

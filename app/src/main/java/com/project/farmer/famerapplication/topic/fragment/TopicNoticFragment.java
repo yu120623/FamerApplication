@@ -99,7 +99,7 @@ public class TopicNoticFragment extends BaseFragment {
 
         @Override
         public XuZhiViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.xuzhi_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_xuzhi, null);
             XuZhiViewHolder holder = new XuZhiViewHolder(v);
             return holder;
         }

@@ -4,11 +4,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
@@ -18,12 +16,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.entity.FarmItemsModel;
 import com.project.farmer.famerapplication.entity.FarmModel;
-import com.project.farmer.famerapplication.entity.FarmSetModel;
-import com.project.farmer.famerapplication.util.AppUtil;
-
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -80,7 +73,7 @@ public class FarmDescFragment extends BaseFragment {
     class JieShaoAdapter extends RecyclerView.Adapter<JieShaoViewHolder> {
         @Override
         public JieShaoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.jieshao_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_jieshao, null);
             v.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT));
             JieShaoViewHolder holder = new JieShaoViewHolder(v);
             return holder;

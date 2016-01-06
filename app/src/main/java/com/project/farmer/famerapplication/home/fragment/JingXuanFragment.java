@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
@@ -144,7 +143,7 @@ public class JingXuanFragment extends BaseFragment {
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.topic_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_topic, null);
             TopicViewHolder holder = new TopicViewHolder(v);
             return holder;
         }

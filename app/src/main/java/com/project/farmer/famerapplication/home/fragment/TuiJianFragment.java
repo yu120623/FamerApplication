@@ -15,7 +15,6 @@ import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
@@ -104,7 +103,7 @@ public class TuiJianFragment extends BaseFragment {
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.recommend_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_recommend, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
             v.setOnClickListener(onFarmClick);
             return holder;

@@ -213,7 +213,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
 
     @Override
     protected int getContentView() {
-        return R.layout.topic_details;
+        return R.layout.activity_topic_details;
     }
     @Override
     protected String setActionBarTitle() {

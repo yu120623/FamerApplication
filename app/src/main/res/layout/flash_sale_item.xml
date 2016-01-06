@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
-    <include layout="@layout/topic_item"></include>
+    <include layout="@layout/item_topic"></include>
 
     <RelativeLayout
         android:layout_width="wrap_content"

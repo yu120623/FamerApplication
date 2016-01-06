@@ -22,7 +22,7 @@ public class LoadMoreFooter {
     }
 
     private void init() {
-        loadMoreFooter = inflater.inflate(R.layout.load_more_layout,null,false);
+        loadMoreFooter = inflater.inflate(R.layout.layout_load_more,null,false);
         noMoreTips = (TextView)loadMoreFooter.findViewById(R.id.no_more_tips);
         loadingMoreTips = loadMoreFooter.findViewById(R.id.loading_more_tips);
         loadingMoreTipsText = (TextView) loadMoreFooter.findViewById(R.id.loading_more_tips_text);

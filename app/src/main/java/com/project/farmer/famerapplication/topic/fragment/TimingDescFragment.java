@@ -78,7 +78,7 @@ public class TimingDescFragment extends BaseFragment{
     }
 
     private void initHeader() {
-        header = (LinearLayout)inflater.inflate(R.layout.timing_topic_desc_header,null,false);
+        header = (LinearLayout)inflater.inflate(R.layout.header_timing_topic_desc,null,false);
         farmSetContent = (LinearLayout) header.findViewById(R.id.farm_set_content);
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
         for(int i = 0;i < farmItemsModels.size();i++){
@@ -128,7 +128,7 @@ public class TimingDescFragment extends BaseFragment{
     class DescDapter extends RecyclerView.Adapter<JieShaoViewHolder> {
         @Override
         public JieShaoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.jieshao_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_jieshao, null);
             v.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT));
             JieShaoViewHolder holder = new JieShaoViewHolder(v);
             return holder;

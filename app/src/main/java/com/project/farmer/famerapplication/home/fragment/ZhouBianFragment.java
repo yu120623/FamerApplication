@@ -16,11 +16,9 @@ import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.project.farmer.famerapplication.R;
-import com.project.farmer.famerapplication.entity.Farm;
 import com.project.farmer.famerapplication.entity.FarmModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.farm.activity.FarmDetailActivity;
-import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
@@ -104,7 +102,7 @@ public class ZhouBianFragment extends BaseFragment {
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.recommend_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_recommend, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
             v.setOnClickListener(this);
             return holder;

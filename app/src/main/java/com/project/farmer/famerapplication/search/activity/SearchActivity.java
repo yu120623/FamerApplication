@@ -1,7 +1,6 @@
 package com.project.farmer.famerapplication.search.activity;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -9,8 +8,6 @@ import android.widget.TextView;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.project.farmer.famerapplication.R;
-
-import org.w3c.dom.Text;
 
 public class SearchActivity extends BaseActivity{
     private String[] hotAreas = new String[]{"东山","西山","相城","阳澄湖","旺山","巴城","苏州"};
@@ -38,7 +35,7 @@ public class SearchActivity extends BaseActivity{
         LinearLayout tagsLineLayout = getLineLayout();//生成每行标签的layout
         for(int i = 0; i < 3; i++){
             int index = i+(lineIndex*3);
-            inflater.inflate(R.layout.hot_tag_item,tagsLineLayout,true);
+            inflater.inflate(R.layout.item_hot_tag,tagsLineLayout,true);
             View tagLayout = tagsLineLayout.getChildAt(tagsLineLayout.getChildCount()-1);
             TextView hotNameTextView = (TextView) tagLayout.findViewById(R.id.hot_tag_name);
             String tagName = "";

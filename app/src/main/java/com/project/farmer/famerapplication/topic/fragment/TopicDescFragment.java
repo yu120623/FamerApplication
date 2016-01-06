@@ -72,7 +72,7 @@ public class TopicDescFragment extends BaseFragment {
     class JieShaoAdapter extends RecyclerView.Adapter<JieShaoViewHolder> {
         @Override
         public JieShaoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.jieshao_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_jieshao, null);
             v.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT));
             JieShaoViewHolder holder = new JieShaoViewHolder(v);
             return holder;

@@ -67,7 +67,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
 
         @Override
         public PingJiaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.pingjia_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_pingjia, null);
             v.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.MATCH_PARENT));
             PingJiaViewHolder holder = new PingJiaViewHolder(v);
             return holder;

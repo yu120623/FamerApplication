@@ -5,8 +5,6 @@ import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -225,7 +223,7 @@ public class TopicDetailsActivity extends BaseActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.topic_details;
+        return R.layout.activity_topic_details;
     }
 
     @Override

@@ -54,6 +54,9 @@
         <activity
             android:name=".city.activity.CityActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".details.activity.TimingTopicDetailsActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name=".services.LocationService"></service>
 
@@ -62,7 +65,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="414af4196767e38654ba8e717267564a"/>
+            android:value="77a73778d96f7fd4a2625d5d6aed7ed0"/>
     </application>
 
 </manifest>

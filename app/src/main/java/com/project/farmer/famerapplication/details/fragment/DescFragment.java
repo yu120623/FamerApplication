@@ -27,7 +27,7 @@ import github.chenupt.dragtoplayout.AttachUtil;
 /**
  * Created by Administrator on 2015/12/22.
  */
-public class JieShaoFragment extends BaseFragment {
+public class DescFragment extends BaseFragment {
     private RecyclerView jieshaoList;
     private DisplayImageOptions options;
     private FarmSetModel farmSetModels;

@@ -176,11 +176,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"
-                android:paddingBottom="6dp"
+                android:minWidth="90dp"
                 android:paddingLeft="45dp"
                 android:paddingRight="45dp"
-                android:paddingTop="6dp"
-                android:text="查看套餐"
+                android:text="@string/view_farm_set"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>

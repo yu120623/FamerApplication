@@ -29,7 +29,6 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'de.greenrobot:java-common:2.2.0'
     compile 'com.bigkoo:convenientbanner:2.0.2'
-    compile 'com.github.iwgang:countdownview:1.2'
     compile files('libs/AMap_Android_3DMapSDK_V3.1.1.jar')
     compile files('libs/AMap_Location_v2.0.0_20151117.jar')
     compile project(':HeaderAndFooterRecyclerViewLibrary')

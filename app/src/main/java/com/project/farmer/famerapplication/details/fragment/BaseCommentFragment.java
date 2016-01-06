@@ -33,16 +33,12 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
-/**
- * Created by heoa on 2015/12/21.
- */
-public class PingJiaFragment extends BaseFragment {
-    private RecyclerView pingjiaList;
-    private FarmTopicModel farmTopicModel;
-    private List<CommentModel> comments;
-    private PingJiaAdapter adapter;
-    private SimpleDateFormat dataFormat;
-    private TransferObject resData;
+public abstract class BaseCommentFragment extends BaseFragment {
+    protected RecyclerView pingjiaList;
+    protected List<CommentModel> comments;
+    protected PingJiaAdapter adapter;
+    protected SimpleDateFormat dataFormat;
+    protected TransferObject resData;
     @Override
     protected void initViews() {
         findViews();
@@ -52,7 +48,7 @@ public class PingJiaFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        pingjiaList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        pingjiaList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -65,8 +61,7 @@ public class PingJiaFragment extends BaseFragment {
         });
     }
 
-    private void initData() {
-        farmTopicModel = (FarmTopicModel) this.getArguments().getSerializable("farmTopic");
+    protected void initData() {
         pingjiaList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new PingJiaAdapter();
         pingjiaList.setAdapter(adapter);
@@ -75,21 +70,7 @@ public class PingJiaFragment extends BaseFragment {
         loadDataFromServer();
     }
 
-    private void loadDataFromServer() {
-        String url = API.URL + API.API_URL.FARM_TOPIC_COMMENT_LIST;
-        TransferObject data = AppUtil.getHttpData(context);
-        data.setPageNumber(0);
-        data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
-        AppRequest appRequest = new AppRequest(context, url, new AppHttpResListener() {
-            @Override
-            public void onSuccess(TransferObject data) {
-                resData = data;
-                comments = data.getCommentModels();
-                adapter.notifyDataSetChanged();;
-            }
-        },data);
-        appRequest.execute();
-    }
+    protected abstract void loadDataFromServer();
 
     private void findViews() {
         pingjiaList = (RecyclerView) this.findViewById(R.id.pingjia_list);

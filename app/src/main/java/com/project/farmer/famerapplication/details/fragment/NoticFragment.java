@@ -34,7 +34,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
-public class XuZhiFragment extends BaseFragment {
+public class NoticFragment extends BaseFragment {
     private RecyclerView xuzhiList;
     private DisplayImageOptions options;
     private FarmTopicModel farmTopicModel;

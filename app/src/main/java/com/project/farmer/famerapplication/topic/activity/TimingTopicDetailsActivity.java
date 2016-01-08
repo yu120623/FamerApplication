@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
@@ -53,6 +54,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
     private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView favouriteBtn;
+    private Button topicBtn;
     @Override
     protected void initViews() {
         findViews();
@@ -208,6 +210,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
+        topicBtn = (Button) this.findViewById(R.id.topic_btn);
     }
 
 

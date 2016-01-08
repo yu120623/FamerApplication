@@ -1,44 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
     <include layout="@layout/item_topic"></include>
 
-    <RelativeLayout
+    <com.project.farmer.famerapplication.view.QiangGouBtnView
+        android:id="@+id/qianggou_btn_view"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-        <RelativeLayout
-            android:id="@+id/relative1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp">
-
-            <com.project.farmer.famerapplication.view.TimeView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/timer_bg2"
-                android:paddingBottom="14dp"
-                android:paddingLeft="17dp"
-                android:paddingRight="17dp"
-                android:paddingTop="10dp"/>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_alignBottom="@id/relative1"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/timer_bg1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="限时抢购"
-            android:textSize="13sp" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

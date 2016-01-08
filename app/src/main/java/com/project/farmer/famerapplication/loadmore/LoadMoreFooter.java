@@ -40,8 +40,9 @@ public class LoadMoreFooter {
         noMoreTips.setVisibility(View.VISIBLE);
     }
 
+
     public void hideLoadMore(){
-        loadMoreFooter.setVisibility(View.INVISIBLE);
+        loadMoreFooter.setVisibility(View.VISIBLE);
         loadingMoreTips.setVisibility(View.INVISIBLE);
         noMoreTips.setVisibility(View.INVISIBLE);
     }

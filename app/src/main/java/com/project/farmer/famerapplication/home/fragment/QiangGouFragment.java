@@ -28,6 +28,7 @@ import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.loadmore.LoadMoreFooter;
 import com.project.farmer.famerapplication.util.AppUtil;
+import com.project.farmer.famerapplication.view.QiangGouBtnView;
 import com.project.farmer.famerapplication.view.TimeView;
 
 import java.util.ArrayList;
@@ -102,6 +103,7 @@ public class QiangGouFragment extends BaseFragment {
             @Override
             public void onEnd() {
                 loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
             }
         }, data);
         request.execute();
@@ -168,8 +170,8 @@ public class QiangGouFragment extends BaseFragment {
             FarmTopicModel farmTopicModel = farmTopicPanicBuyingModels.get(position);
             holder.flashSaleName.setText(farmTopicModel.getFarmTopicName());
             holder.flashSaleArea.setText(farmTopicModel.getTagName());
-            holder.timeView.start(farmTopicModel.getFarmTopicEndTime().getTime() - nowTime.getTime());
             holder.flashSaleReason.setText(farmTopicModel.getFarmTopicRecomReason());
+            holder.qiangGouBtnView.setTime(nowTime.getTime(),farmTopicModel.getFarmTopicBeginTime().getTime(),farmTopicModel.getFarmTopicEndTime().getTime());
             ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath(), options);
         }
 
@@ -204,14 +206,14 @@ public class QiangGouFragment extends BaseFragment {
         private TextView flashSaleArea;
         private TextView flashSaleReason;
         private ImageView flashSaleImage;
-        private TimeView timeView;
+        private QiangGouBtnView qiangGouBtnView;
         public TopicViewHolder(View itemView) {
             super(itemView);
             flashSaleName = (TextView) itemView.findViewById(R.id.topic_name);
             flashSaleArea = (TextView) itemView.findViewById(R.id.topic_area);
             flashSaleReason = (TextView) itemView.findViewById(R.id.topic_reason);
             flashSaleImage = (ImageView) itemView.findViewById(R.id.topic_img);
-            timeView = (TimeView) itemView.findViewById(R.id.time);
+            qiangGouBtnView = (QiangGouBtnView) itemView.findViewById(R.id.qianggou_btn_view);
         }
     }
 

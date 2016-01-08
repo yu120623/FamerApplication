@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/relative1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <com.project.farmer.famerapplication.view.TimeView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/not_start_qianggou_time_bg"
+            android:paddingBottom="14dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/qianggou_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@id/relative1"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/not_start_qianggou_time_btn_bg"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/startring_qianggou"
+        android:textSize="13sp" />
+</RelativeLayout>

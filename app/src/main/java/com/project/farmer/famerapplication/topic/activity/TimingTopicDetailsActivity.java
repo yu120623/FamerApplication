@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
@@ -30,8 +31,10 @@ import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
+import com.project.farmer.famerapplication.view.TimeView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -54,12 +57,28 @@ public class TimingTopicDetailsActivity extends BaseActivity{
     private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView favouriteBtn;
+    private RelativeLayout bannerContainer;
     private Button topicBtn;
     @Override
     protected void initViews() {
         findViews();
         initData();
         initClick();
+    }
+
+    private void initTopicBtn() {
+        long now = farmSetModels.getNowTime().getTime();
+        long startTime = farmSetModels.getBeginTime().getTime();
+        long endTime = farmSetModels.getEndTime().getTime();
+        if(now < startTime){
+            topicBtn.setText(R.string.not_start_qianggou);
+        }else{
+            if(endTime < now){
+                topicBtn.setText(R.string.end_qianggou);
+            }else{
+                topicBtn.setText(R.string.startring_qianggou);
+            }
+        }
     }
 
     private void initClick() {
@@ -145,6 +164,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         progressDrawable.start();
         dragTopLayout.setCollapseOffset((int)getResources().getDimension(android.R.dimen.app_icon_size));
         loadDataFromServer();
+
     }
 
     //获取专题详细
@@ -158,6 +178,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
             @Override
             public void onSuccess(TransferObject data) {
                 farmSetModels = data.getFarmSetModel();
+                initTopicBtn();
                 setUrlBanners(farmSetModels);
                 initBanner();
                 initFragments();
@@ -211,6 +232,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
         topicBtn = (Button) this.findViewById(R.id.topic_btn);
+        bannerContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
     }
 
 

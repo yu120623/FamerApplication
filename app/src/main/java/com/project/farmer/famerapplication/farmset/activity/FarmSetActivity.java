@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.farmset.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -45,6 +46,10 @@ public class FarmSetActivity extends BaseActivity {
     private DisplayImageOptions options;
     private LinearLayout tmp;
     private int curPosition = -1;
+    private String farmTopicAliasId;
+    private String farmAliasId;
+    private ImageView progress;
+    private AnimationDrawable progressDrawable;
 
     @Override
     protected void initViews() {
@@ -54,10 +59,14 @@ public class FarmSetActivity extends BaseActivity {
 
     private void findViews() {
         farmSetList = (RecyclerView) findViewById(R.id.farmset_list);
+        progress = (ImageView) this.findViewById(R.id.progress);
     }
 
     private void initDate() {
-
+        farmTopicAliasId = this.getIntent().getStringExtra("farmTopicAliasId");
+        farmAliasId = this.getIntent().getStringExtra("farmAliasId");
+        progressDrawable = (AnimationDrawable) progress.getDrawable();
+        progressDrawable.start();
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
@@ -68,20 +77,23 @@ public class FarmSetActivity extends BaseActivity {
         farmItemsModels = new ArrayList<FarmItemsModel>();
         adapter = new FarmAdapter();
         farmSetList.setAdapter(adapter);
-
         loadDataFromServer();
     }
 
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARMSET_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setFarmTopicAliasId("dasdsadasdasd");
+        data.setFarmTopicAliasId(farmTopicAliasId);
+        data.setFarmAliasId(farmAliasId);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 farmSetModels = data.getFarmSetModels();
                 if (farmSetModels != null && farmSetModels.size() > 0) {
                     adapter.notifyDataSetChanged();
+                    progressDrawable.stop();
+                    progress.setVisibility(View.GONE);
+                    farmSetList.setVisibility(View.VISIBLE);
                 }
             }
         }, data);

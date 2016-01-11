@@ -60,6 +60,7 @@ public class TimingNavigationFragment extends Fragment {
             TextView itemDistance = (TextView) view.findViewById(R.id.farm_set_distance);
             itemName.setText(item.getFarmName());
             itemTag.setText(AppUtil.getFarmSetTag(item.getFarmItemType()));
+            itemTag.setBackgroundResource(AppUtil.getFarmSetTagBg(item.getFarmItemType()));
             itemDesc.setText(item.getFarmItemName());
             itemDistance.setText(decimalFormat.format(item.getDistance()));
         }

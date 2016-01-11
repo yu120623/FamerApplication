@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.farm.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.farm.fragment.FarmCommentFragment;
 import com.project.farmer.famerapplication.farm.fragment.FarmDescFragment;
 import com.project.farmer.famerapplication.farm.fragment.FarmMapFragment;
+import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
@@ -85,7 +87,9 @@ public class FarmDetailActivity extends BaseActivity {
         viewFarmSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, FarmSetActivity.class);
+                intent.putExtra("farmAliasId",farmModel.getFarmAliasId());
+                startActivity(intent);
             }
         });
         backBtn.setOnClickListener(new View.OnClickListener() {

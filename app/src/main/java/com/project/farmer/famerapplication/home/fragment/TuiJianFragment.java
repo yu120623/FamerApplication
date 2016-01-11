@@ -1,6 +1,5 @@
 package com.project.farmer.famerapplication.home.fragment;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,10 +14,10 @@ import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
-import com.project.farmer.famerapplication.farm.activity.FarmDetailActivity;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
@@ -41,7 +40,7 @@ public class TuiJianFragment extends BaseFragment {
     private DisplayImageOptions options;
     private List<FarmModel> farmTuiJianListModels;
     private RecommendAdapter adapter;
-    private DecimalFormat decimalFormat;
+
     @Override
     protected void initViews() {
         findViews();
@@ -49,12 +48,11 @@ public class TuiJianFragment extends BaseFragment {
     }
 
     private void initData() {
-        decimalFormat = new DecimalFormat("#.##");
         recommendList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new RecommendAdapter();
         recommendList.setAdapter(adapter);
         farmTuiJianListModels = new ArrayList<FarmModel>();
-        recommendList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recommendList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -80,8 +78,8 @@ public class TuiJianFragment extends BaseFragment {
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
         data.setType("recommend");
-        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT,0)).doubleValue());
-        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG,0)).doubleValue());
+        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LAT, 0)).doubleValue());
+        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_NEW_LOG, 0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -103,16 +101,14 @@ public class TuiJianFragment extends BaseFragment {
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.item_recommend, null);
+            View v = View.inflate(parent.getContext(), R.layout.recommend_item, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
-            v.setOnClickListener(onFarmClick);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
             FarmModel farmModel = farmTuiJianListModels.get(position);
-            holder.itemView.setTag(farmModel);
             holder.recommendName.setText(farmModel.getFarmName());
             holder.recommendArea.setText(farmModel.getFarmArea());
             holder.recommendReason.setText(farmModel.getFarmDesc());
@@ -121,7 +117,7 @@ public class TuiJianFragment extends BaseFragment {
                 holder.recommendTuijian.setVisibility(View.VISIBLE);
             }
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath(), options);
-            holder.recommendDistance.setText(decimalFormat.format(farmModel.getFarmDistance()) + "km");
+            holder.recommendDistance.setText(new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = new TextView(getActivity());
@@ -147,17 +143,6 @@ public class TuiJianFragment extends BaseFragment {
             return farmTuiJianListModels.size();
         }
     }
-
-    public View.OnClickListener onFarmClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FarmModel farmModel = (FarmModel) view.getTag();
-            Intent intent = new Intent();
-            intent.putExtra("farmModel",farmModel);
-            intent.setClass(getActivity(), FarmDetailActivity.class);
-            startActivity(intent);
-        }
-    };
 
     class RecommendViewHolder extends RecyclerView.ViewHolder {
         private TextView recommendName;

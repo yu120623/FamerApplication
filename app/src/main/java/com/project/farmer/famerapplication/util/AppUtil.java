@@ -40,6 +40,28 @@ public class AppUtil {
         return "玩";
     }
 
+    public static String getSearchTag(String tag) {
+        if (tag.equals("p")) {
+            return "专题";
+        } else if (tag.equals("n")) {
+            return "抢购";
+        } else if (tag.equals("s")) {
+            return "农场";
+        }
+        return "";
+    }
+
+    public static int getSearchTagBg(String tag) {
+        if (tag.equals("p")) {
+            return R.drawable.tag_p_bg;
+        } else if (tag.equals("n")) {
+            return R.drawable.tag_n_bg;
+        } else if (tag.equals("s")) {
+            return R.drawable.tag_s_bg;
+        }
+        return 0;
+    }
+
     public static int getFarmSetTagBg(String tag) {
         if (tag.equals("1")) {
             return R.drawable.chi_bg;
@@ -55,19 +77,19 @@ public class AppUtil {
             return R.drawable.wan_bg;
     }
 
-    public static List<Point> random(int size,int width,int height){
+    public static List<Point> random(int size, int width, int height) {
         List<Point> points = new ArrayList<>();
-        for(int i = 0;i < size; i++){
+        for (int i = 0; i < size; i++) {
             Random random = new Random();
             int x = random.nextInt(width);
             int y = random.nextInt(height);
-            Point point = new Point(x,y);
+            Point point = new Point(x, y);
             points.add(point);
         }
         return points;
     }
 
-    public static TransferObject getHttpData(Context context){
+    public static TransferObject getHttpData(Context context) {
         return new TransferObject();
     }
 }

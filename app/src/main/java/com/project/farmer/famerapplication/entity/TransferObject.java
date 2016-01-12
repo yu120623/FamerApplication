@@ -5,231 +5,270 @@ import java.util.List;
 
 
 public class TransferObject implements Serializable {
-	private Integer pageNumber;
+    private Integer pageNumber;
 
-	private List<FarmTopicModel> farmTopicModels;
-	
-	private List<FarmModel> farmModels;
+    private String key;
 
-	private FarmModel farmModel;
-	
-	private String farmTopicAliasId;
-	
-	private FarmSetModel farmSetModel;
-	
-	private List<FarmSetModel> farmSetModels;
-	
-	private String farmSetAliasId;
-	
-	private String commentCount;
-	
-	private List<CommentModel> commentModels;
-	
-	private String favorableRate;
-	
-	private String score;
-	
-	private List<FarmStatementModel> farmStatementModels;
-	
-	private Double farmLatitude;
-	
-	private Double farmLongitude;
-	
-	private String type;
+    private List<FarmTopicModel> farmTopicModels;
 
-	private String farmAliasId;
-	
-	private String cityCode;
-	
-	private String cityCodeName;
-	
-	private List<CodeModel> codeModels;
-	
-	private List<Resource> resources;
-	
-	private CodeModel codeModel;
-	
-	public CodeModel getCodeModel() {
-		return codeModel;
-	}
+    private List<FarmModel> farmModels;
 
-	public void setCodeModel(CodeModel codeModel) {
-		this.codeModel = codeModel;
-	}
+    private FarmModel farmModel;
 
-	public FarmSetModel getFarmSetModel() {
-		return farmSetModel;
-	}
+    private String farmTopicAliasId;
 
-	public void setFarmSetModel(FarmSetModel farmSetModel) {
-		this.farmSetModel = farmSetModel;
-	}
+    private FarmSetModel farmSetModel;
 
-	public List<FarmSetModel> getFarmSetModels() {
-		return farmSetModels;
-	}
+    private List<FarmSetModel> farmSetModels;
 
-	public void setFarmSetModels(List<FarmSetModel> farmSetModels) {
-		this.farmSetModels = farmSetModels;
-	}
+    private String farmSetAliasId;
 
-	public String getFarmTopicAliasId() {
-		return farmTopicAliasId;
-	}
+    private String commentCount;
 
-	public void setFarmTopicAliasId(String farmTopicAliasId) {
-		this.farmTopicAliasId = farmTopicAliasId;
-	}
+    private List<CommentModel> commentModels;
 
-	public List<FarmModel> getFarmModels() {
-		return farmModels;
-	}
+    private String favorableRate;
 
-	public void setFarmModels(List<FarmModel> farmModels) {
-		this.farmModels= farmModels;
-	}
+    private String score;
 
-	public List<FarmTopicModel> getFarmTopicModels() {
-		return farmTopicModels;
-	}
+    private List<FarmStatementModel> farmStatementModels;
 
-	public void setFarmTopicModels(List<FarmTopicModel> farmTopicModels) {
-		this.farmTopicModels = farmTopicModels;
-	}
+    private Double farmLatitude;
 
-	public Integer getPageNumber() {
-		return pageNumber;
-	}
+    private Double farmLongitude;
 
-	public void setPageNumber(Integer pageNumber) {
-		this.pageNumber = pageNumber;
-	}
+    private String type;
 
-	public String getFarmSetAliasId() {
-		return farmSetAliasId;
-	}
+    private String farmAliasId;
 
-	public void setFarmSetAliasId(String farmSetAliasId) {
-		this.farmSetAliasId = farmSetAliasId;
-	}
+    private String cityCode;
 
-	public String getCommentCount() {
-		return commentCount;
-	}
+    private String cityCodeName;
 
-	public void setCommentCount(String commentCount) {
-		this.commentCount = commentCount;
-	}
+    private List<CodeModel> codeModels;
 
-	public List<CommentModel> getCommentModels() {
-		return commentModels;
-	}
+    private List<Resource> resources;
 
-	public void setCommentModels(List<CommentModel> commentModels) {
-		this.commentModels = commentModels;
-	}
-	
-	public String getFavorableRate() {
-		return favorableRate;
-	}
+    private CodeModel codeModel;
 
-	public void setFavorableRate(String favorableRate) {
-		this.favorableRate = favorableRate;
-	}
+    private RecommendTagModel recommendTagModel;
+    private List<SearchModel> searchModels;
+    private SearchModel searchModel;
 
-	public String getScore() {
-		return score;
-	}
+    public List<SearchModel> getSearchModels() {
+        return searchModels;
+    }
 
-	public void setScore(String score) {
-		this.score = score;
-	}
+    public SearchModel getSearchModel() {
+        return searchModel;
+    }
 
-	public List<FarmStatementModel> getFarmStatements() {
-		return farmStatementModels;
-	}
+    public void setSearchModel(SearchModel searchModel) {
+        this.searchModel = searchModel;
+    }
 
-	public void setFarmStatements(List<FarmStatementModel> farmStatementModels) {
-		this.farmStatementModels = farmStatementModels;
-	}
+    public void setSearchModels(List<SearchModel> searchModels) {
+        this.searchModels = searchModels;
+    }
 
-	public Double getFarmLatitude() {
-		return farmLatitude;
-	}
+    public RecommendTagModel getRecommendTagModel() {
+        return recommendTagModel;
+    }
 
-	public void setFarmLatitude(Double farmLatitude) {
-		this.farmLatitude = farmLatitude;
-	}
+    public void setRecommendTagModel(RecommendTagModel recommendTagModel) {
+        this.recommendTagModel = recommendTagModel;
+    }
 
-	public Double getFarmLongitude() {
-		return farmLongitude;
-	}
+    public CodeModel getCodeModel() {
+        return codeModel;
+    }
 
-	public void setFarmLongitude(Double farmLongitude) {
-		this.farmLongitude = farmLongitude;
-	}
+    public void setCodeModel(CodeModel codeModel) {
+        this.codeModel = codeModel;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public FarmSetModel getFarmSetModel() {
+        return farmSetModel;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setFarmSetModel(FarmSetModel farmSetModel) {
+        this.farmSetModel = farmSetModel;
+    }
 
-	public String getCityCode() {
-		return cityCode;
-	}
+    public List<FarmSetModel> getFarmSetModels() {
+        return farmSetModels;
+    }
 
-	public void setCityCode(String cityCode) {
-		this.cityCode = cityCode;
-	}
+    public void setFarmSetModels(List<FarmSetModel> farmSetModels) {
+        this.farmSetModels = farmSetModels;
+    }
 
-	public String getCityCodeName() {
-		return cityCodeName;
-	}
+    public String getFarmTopicAliasId() {
+        return farmTopicAliasId;
+    }
 
-	public void setCityCodeName(String cityCodeName) {
-		this.cityCodeName = cityCodeName;
-	}
+    public void setFarmTopicAliasId(String farmTopicAliasId) {
+        this.farmTopicAliasId = farmTopicAliasId;
+    }
 
-	public List<FarmStatementModel> getFarmStatementModels() {
-		return farmStatementModels;
-	}
+    public List<FarmModel> getFarmModels() {
+        return farmModels;
+    }
 
-	public void setFarmStatementModels(List<FarmStatementModel> farmStatementModels) {
-		this.farmStatementModels = farmStatementModels;
-	}
+    public void setFarmModels(List<FarmModel> farmModels) {
+        this.farmModels = farmModels;
+    }
 
-	public List<CodeModel> getCodeModels() {
-		return codeModels;
-	}
+    public List<FarmTopicModel> getFarmTopicModels() {
+        return farmTopicModels;
+    }
 
-	public void setCodeModels(List<CodeModel> codeModels) {
-		this.codeModels = codeModels;
-	}
+    public void setFarmTopicModels(List<FarmTopicModel> farmTopicModels) {
+        this.farmTopicModels = farmTopicModels;
+    }
 
-	public List<Resource> getResources() {
-		return resources;
-	}
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
 
-	public void setResources(List<Resource> resources) {
-		this.resources = resources;
-	}
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
-	public String getFarmAliasId() {
-		return farmAliasId;
-	}
+    public String getFarmSetAliasId() {
+        return farmSetAliasId;
+    }
 
-	public void setFarmAliasId(String farmAliasId) {
-		this.farmAliasId = farmAliasId;
-	}
+    public void setFarmSetAliasId(String farmSetAliasId) {
+        this.farmSetAliasId = farmSetAliasId;
+    }
 
-	public FarmModel getFarmModel() {
-		return farmModel;
-	}
+    public String getCommentCount() {
+        return commentCount;
+    }
 
-	public void setFarmModel(FarmModel farmModel) {
-		this.farmModel = farmModel;
-	}
+    public void setCommentCount(String commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public List<CommentModel> getCommentModels() {
+        return commentModels;
+    }
+
+    public void setCommentModels(List<CommentModel> commentModels) {
+        this.commentModels = commentModels;
+    }
+
+    public String getFavorableRate() {
+        return favorableRate;
+    }
+
+    public void setFavorableRate(String favorableRate) {
+        this.favorableRate = favorableRate;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public List<FarmStatementModel> getFarmStatements() {
+        return farmStatementModels;
+    }
+
+    public void setFarmStatements(List<FarmStatementModel> farmStatementModels) {
+        this.farmStatementModels = farmStatementModels;
+    }
+
+    public Double getFarmLatitude() {
+        return farmLatitude;
+    }
+
+    public void setFarmLatitude(Double farmLatitude) {
+        this.farmLatitude = farmLatitude;
+    }
+
+    public Double getFarmLongitude() {
+        return farmLongitude;
+    }
+
+    public void setFarmLongitude(Double farmLongitude) {
+        this.farmLongitude = farmLongitude;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getCityCodeName() {
+        return cityCodeName;
+    }
+
+    public void setCityCodeName(String cityCodeName) {
+        this.cityCodeName = cityCodeName;
+    }
+
+    public List<FarmStatementModel> getFarmStatementModels() {
+        return farmStatementModels;
+    }
+
+    public void setFarmStatementModels(List<FarmStatementModel> farmStatementModels) {
+        this.farmStatementModels = farmStatementModels;
+    }
+
+    public List<CodeModel> getCodeModels() {
+        return codeModels;
+    }
+
+    public void setCodeModels(List<CodeModel> codeModels) {
+        this.codeModels = codeModels;
+    }
+
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+
+    public String getFarmAliasId() {
+        return farmAliasId;
+    }
+
+    public void setFarmAliasId(String farmAliasId) {
+        this.farmAliasId = farmAliasId;
+    }
+
+    public FarmModel getFarmModel() {
+        return farmModel;
+    }
+
+    public void setFarmModel(FarmModel farmModel) {
+        this.farmModel = farmModel;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }

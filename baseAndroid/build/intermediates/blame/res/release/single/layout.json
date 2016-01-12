@@ -84,12 +84,12 @@
         "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\com_mark_utils_picsel_list_dir.xml"
     },
     {
-        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
-        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_time.xml"
-    },
-    {
         "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\bottom_button_item.xml",
         "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\src\\main\\res\\layout\\bottom_button_item.xml"
+    },
+    {
+        "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_time.xml"
     },
     {
         "merged": "D:\\gitworkspaces\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\test.xml",

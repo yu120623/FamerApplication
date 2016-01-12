@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.entity;
 
+import java.util.Date;
 import java.util.List;
 
 public class FarmSetModel extends FarmSet{
@@ -8,6 +9,9 @@ public class FarmSetModel extends FarmSet{
 	private List<String> tags;
 	private List<FarmItemsModel> farmItemsModels;
 	private Integer minPrice;
+	private Date nowTime;
+	private Date endTime;
+	private Date beginTime;
 	
 	public List<ResourseModel> getBaResourceModels() {
 		return baResourceModels;
@@ -74,5 +78,28 @@ public class FarmSetModel extends FarmSet{
 	public void setFarmItemsModels(List<FarmItemsModel> farmItemsModels) {
 		this.farmItemsModels = farmItemsModels;
 	}
-	
+
+	public Date getNowTime() {
+		return nowTime;
+	}
+
+	public void setNowTime(Date nowTime) {
+		this.nowTime = nowTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Date getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
+	}
 }

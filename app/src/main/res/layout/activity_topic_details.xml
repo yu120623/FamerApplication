@@ -180,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"
-                android:minWidth="90dp"
+                android:minWidth="250dp"
                 android:paddingLeft="45dp"
                 android:paddingRight="45dp"
                 android:text="@string/view_farm_set"

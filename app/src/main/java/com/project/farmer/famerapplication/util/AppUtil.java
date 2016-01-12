@@ -77,19 +77,17 @@ public class AppUtil {
             return R.drawable.wan_bg;
     }
 
-    public static List<Point> random(int size, int width, int height) {
-        List<Point> points = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            Random random = new Random();
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            Point point = new Point(x, y);
-            points.add(point);
-        }
-        return points;
+
+    public static Point random(int viewWidth,int viewHeight,int width,int height){
+        //List<Point> points = new ArrayList<>();
+        Random random = new Random();
+        int x = random.nextInt(width-viewWidth-20)+20;
+        int y = random.nextInt(height-viewHeight-20)+20;
+        Point point = new Point(x,y);
+        return point;
     }
 
-    public static TransferObject getHttpData(Context context) {
+    public static TransferObject getHttpData(Context context){
         return new TransferObject();
     }
 }

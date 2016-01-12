@@ -101,7 +101,7 @@ public class TuiJianFragment extends BaseFragment {
 
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.recommend_item, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_recommend, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
             return holder;
         }

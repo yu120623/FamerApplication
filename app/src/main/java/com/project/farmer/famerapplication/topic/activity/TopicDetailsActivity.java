@@ -1,11 +1,13 @@
 package com.project.farmer.famerapplication.topic.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.entity.FarmSet;
+import com.project.farmer.famerapplication.farmset.activity.FarmSetActivity;
 import com.project.farmer.famerapplication.topic.fragment.TopicCommentFragment;
 import com.project.farmer.famerapplication.topic.fragment.TopicDescFragment;
 import com.project.farmer.famerapplication.topic.fragment.TopicNoticFragment;
@@ -57,6 +61,7 @@ public class TopicDetailsActivity extends BaseActivity {
     private ImageView shareBtn;
     private ImageView favouriteBtn;
     private RelativeLayout tagsContainer;
+    private Button veiwFarmSetBtn;
 
     @Override
     protected void initViews() {
@@ -92,6 +97,14 @@ public class TopicDetailsActivity extends BaseActivity {
                 finish();
             }
         });
+        veiwFarmSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, FarmSetActivity.class);
+                intent.putExtra("farmTopicAliasId",farmTopicModel.getFarmTopicAliasId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setActionBarIcon(boolean flag){
@@ -118,12 +131,19 @@ public class TopicDetailsActivity extends BaseActivity {
     }
 
     private void initTags() {
-        List<Point> points = AppUtil.random(farmSetModels.getTags().size(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
-        for(int i =0; i < farmSetModels.getTags().size();i++){
+        //List<Point> points = AppUtil.random(farmSetModels.getTags().size(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
+        for(int i =0; i < 5;i++){
             inflater.inflate(R.layout.text,tagsContainer,true);
-            TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
-            tag.setX(points.get(i).x);
-            tag.setY(points.get(i).y);
+            final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+            tag.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Point point = AppUtil.random(tag.getWidth(),tag.getHeight(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
+                    tag.setX(point.x);
+                    tag.setY(point.y);
+                }
+            },1000);
+
         }
     }
 
@@ -184,7 +204,7 @@ public class TopicDetailsActivity extends BaseActivity {
                 setUrlBanners(farmSetModels);
                 initBanner();
                 initFragments();
-                initTags();
+                //initTags();
                 progressDrawable.stop();
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);
@@ -219,6 +239,7 @@ public class TopicDetailsActivity extends BaseActivity {
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
         tagsContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
+        veiwFarmSetBtn = (Button) this.findViewById(R.id.topic_btn);
     }
 
     @Override

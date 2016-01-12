@@ -132,18 +132,19 @@ public class TopicDetailsActivity extends BaseActivity {
 
     private void initTags() {
         //List<Point> points = AppUtil.random(farmSetModels.getTags().size(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
-        for(int i =0; i < 5;i++){
+        for(int i =0; i < farmSetModels.getTags().size();i++){
             inflater.inflate(R.layout.text,tagsContainer,true);
             final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+            tag.setText(farmSetModels.getTags().get(i));
             tag.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Point point = AppUtil.random(tag.getWidth(),tag.getHeight(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
                     tag.setX(point.x);
                     tag.setY(point.y);
+                    tag.setVisibility(View.VISIBLE);
                 }
             },1000);
-
         }
     }
 
@@ -204,7 +205,7 @@ public class TopicDetailsActivity extends BaseActivity {
                 setUrlBanners(farmSetModels);
                 initBanner();
                 initFragments();
-                //initTags();
+                initTags();
                 progressDrawable.stop();
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);

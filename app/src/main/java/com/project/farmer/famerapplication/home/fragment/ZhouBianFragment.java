@@ -99,7 +99,6 @@ public class ZhouBianFragment extends BaseFragment {
     }
 
     class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> implements View.OnClickListener {
-
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.item_recommend, null);
@@ -107,7 +106,6 @@ public class ZhouBianFragment extends BaseFragment {
             v.setOnClickListener(this);
             return holder;
         }
-
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
             FarmModel farmModel = farmAroundListModels.get(position);

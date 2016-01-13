@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.farmset.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
@@ -30,6 +31,7 @@ import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.order.actvity.OrderChooseDateActivity;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.util.ArrayList;
@@ -155,6 +157,8 @@ public class FarmSetActivity extends BaseActivity {
             holder.farmSetConPrice.setText("原价200元");
             holder.farmSetConPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.farmSetDesc.setText(farmSetModel.getFarmSetDesc());
+            holder.navBtn.setTag(farmSetModel);
+            holder.orderBtn.setTag(farmSetModel);
             holder.linearLayout1.removeAllViews();
             for (int i = 0; i < farmItemsModels.size(); i++) {
                 FarmItemsModel farmItemsModel = farmItemsModels.get(i);
@@ -173,6 +177,8 @@ public class FarmSetActivity extends BaseActivity {
 
             holder.checkBox.setTag(holder);
             holder.checkBox.setOnCheckedChangeListener(this);
+            holder.navBtn.setOnClickListener(onNavBtnClick);
+            holder.orderBtn.setOnClickListener(onOrderBtnClick);
         }
 
 
@@ -214,6 +220,23 @@ public class FarmSetActivity extends BaseActivity {
         }
     }
 
+    private View.OnClickListener onOrderBtnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FarmSetModel farmSetModel = (FarmSetModel) view.getTag();
+            Intent intent = new Intent(context, OrderChooseDateActivity.class);
+            intent.putExtra("farmSetModel",farmSetModel);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener onNavBtnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
+
     class FarmSetViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox;
         private TextView farmSetLine;
@@ -224,6 +247,8 @@ public class FarmSetActivity extends BaseActivity {
         private TextView farmSetConPrice;
         private TextView farmSetDesc;
         private TextView farmSetMinPrice;
+        private TextView navBtn;
+        private TextView orderBtn;
 
         public FarmSetViewHolder(View itemView) {
             super(itemView);
@@ -236,9 +261,9 @@ public class FarmSetActivity extends BaseActivity {
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox1);
             btnFarmset = (LinearLayout) itemView.findViewById(R.id.btn_farmset);
             linearLayout4 = (LinearLayout) itemView.findViewById(R.id.lin4);
-
+            navBtn = (TextView) itemView.findViewById(R.id.navigation_btn);
+            orderBtn = (TextView) itemView.findViewById(R.id.order_btn);
         }
-
     }
 
     @Override

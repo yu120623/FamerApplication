@@ -47,7 +47,9 @@ public class PostRequest extends Request<TransferObject> {
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
         Map<String,String> param = new HashMap<String,String>();
-        param.put(API.PARAM_STR, Json.get().toString(data));
+        String json = Json.get().toString(data);
+        Log.i("----------json---------",json);
+        param.put(API.PARAM_STR, json);
         return param;
     }
 

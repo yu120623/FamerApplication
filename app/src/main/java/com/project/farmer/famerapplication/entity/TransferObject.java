@@ -1,6 +1,7 @@
 package com.project.farmer.famerapplication.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -50,6 +51,12 @@ public class TransferObject implements Serializable {
     private List<Resource> resources;
 
     private CodeModel codeModel;
+
+    private Date date;
+
+    private String userAliasId;
+
+    private List<OrderDateModel> orderDateModels;
 
     private RecommendTagModel recommendTagModel;
     private List<SearchModel> searchModels;
@@ -270,5 +277,29 @@ public class TransferObject implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public List<OrderDateModel> getOrderDateModels() {
+        return orderDateModels;
+    }
+
+    public void setOrderDateModels(List<OrderDateModel> orderDateModels) {
+        this.orderDateModels = orderDateModels;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getUserAliasId() {
+        return userAliasId;
+    }
+
+    public void setUserAliasId(String userAliasId) {
+        this.userAliasId = userAliasId;
     }
 }

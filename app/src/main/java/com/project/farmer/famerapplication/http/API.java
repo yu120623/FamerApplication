@@ -5,7 +5,7 @@ package com.project.farmer.famerapplication.http;
  */
 public class API {
     public static final String URL = "http://121.40.91.182:8080/mycff/api/";
-    //public static final String URL = "http://192.168.1.15:8080/mycff/api/";
+    //public static final String URL = "http://192.168.8.106:8080/mycff/api/";
     public static final String PARAM_STR = "jsonStr";
 
     public static class API_URL {
@@ -20,5 +20,7 @@ public class API {
         public static final String FARM_INFO = "clickFarm";//农庄详细
         public static final String SEARCH_KEY_LIST = "showSearchKey";//搜索页面
         public static final String SEARCH_RESULT_LIST = "keySearch";//搜索结果
+        public static final String ORDER_CHOOSE_TIME = "orderTimeChoose";//下单选择时间
+        public static final String ORDER_CHOOSE_INFO = "orderInfoChoose";//下单选择信息
     }
 }

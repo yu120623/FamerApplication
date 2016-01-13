@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/order_process_step_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/order_process_style"
+                android:text="1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/order_process_line_1"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/order_process_step_2"
+            android:layout_toRightOf="@+id/order_process_step_1"
+            android:background="@color/order_process_no_seleted_bg" />
+
+        <LinearLayout
+            android:id="@+id/order_process_step_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/order_process_style"
+                android:text="2" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/order_process_line_2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/order_process_step_3"
+            android:layout_toRightOf="@+id/order_process_step_2"
+            android:background="@color/order_process_no_seleted_bg" />
+
+        <LinearLayout
+            android:id="@+id/order_process_step_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                style="@style/order_process_style"
+                android:text="3" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/order_choose_time_text"
+            style="@style/order_process_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_choose_time" />
+
+        <TextView
+            android:id="@+id/order_set_info_text"
+            style="@style/order_process_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_set_info" />
+
+        <TextView
+            android:id="@+id/order_pay_text"
+            style="@style/order_process_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_pay" />
+    </RelativeLayout>
+
+</LinearLayout>

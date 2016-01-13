@@ -7,8 +7,7 @@ import com.google.gson.GsonBuilder;
 
 public class GsonImpl extends Json {
 	private Gson gson = new GsonBuilder()
-	.registerTypeAdapter(Date.class,new DateConvert())
-	.setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls()
+	.setDateFormat("yyyy-MM-dd HH:mm:ss")
 			.create();
 
 	@Override

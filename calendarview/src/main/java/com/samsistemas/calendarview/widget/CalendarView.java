@@ -433,23 +433,6 @@ public class CalendarView extends LinearLayout implements ScrollableConst, Touch
         currentCalendar.setTime(currentDate);
 
         // Clear previous marks
-        clearDayOfTheMonthStyle(mLastSelectedDay);
-
-        // Store current values as last values
-        setLastSelectedDay(currentDate);
-
-        // Mark current day as selected
-        DayView view = findViewByCalendar(currentCalendar);
-        view.setBackgroundColor(mSelectedDayBackground);
-        view.getDayText().setTextColor(mSelectedDayTextColor);
-    }
-
-    public void addDateAndPrice(Calendar currentDate,String price) {
-        final Calendar currentCalendar = CalendarUtil.getTodayCalendar(mContext, mFirstDayOfWeek);
-        currentCalendar.setFirstDayOfWeek(mFirstDayOfWeek);
-        currentCalendar.setTime(currentDate.getTime());
-
-        // Clear previous marks
         //clearDayOfTheMonthStyle(mLastSelectedDay);
 
         // Store current values as last values
@@ -459,8 +442,12 @@ public class CalendarView extends LinearLayout implements ScrollableConst, Touch
         DayView view = findViewByCalendar(currentCalendar);
         //view.setBackgroundColor(mSelectedDayBackground);
         //view.getDayText().setTextColor(mSelectedDayTextColor);
-        view.getPriceText().setText(price);
-        view.getPriceText().setVisibility(View.VISIBLE);
+    }
+
+    public void addDateAndPrice(Calendar currentDate,String price) {
+        final Calendar currentCalendar = CalendarUtil.getTodayCalendar(mContext, mFirstDayOfWeek);
+        currentCalendar.setFirstDayOfWeek(mFirstDayOfWeek);
+        currentCalendar.setTime(currentDate.getTime());
         dateAndPrice.put(currentDate,price);
     }
 

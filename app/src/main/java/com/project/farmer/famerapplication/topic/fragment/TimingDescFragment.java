@@ -41,7 +41,6 @@ public class TimingDescFragment extends BaseFragment{
         initData();
     }
 
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

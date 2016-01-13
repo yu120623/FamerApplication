@@ -25,4 +25,10 @@
     <string name="startring_qianggou">抢购中</string>
     <string name="end_qianggou">已经结束</string>
     <string name="not_start_qianggou">即将开始</string>
+    <string name="navigation_line">线路</string>
+    <string name="order_it">立即预定</string>
+    <string name="buy_number">购买份数</string>
+    <string name="order_choose_time">选择时间</string>
+    <string name="order_set_info">订单填写</string>
+    <string name="order_pay">订单支付</string>
 </resources>

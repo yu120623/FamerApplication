@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/loading" />
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.project.farmer.famerapplication.order.view.OrderProcessHeader
+            android:id="@+id/order_process_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <TextView style="@style/line" />
+
+        <com.samsistemas.calendarview.widget.CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:calendarBackgroundColor="@color/white"
+            app:calendarTitleTextColor="#C6C6C6"
+            app:currentDayOfMonthColor="#C6C6C6"
+            app:dayOfMonthTextColor="#C6C6C6"
+            app:dayOfWeekTextColor="@color/black"
+            app:disabledDayBackgroundColor="@android:color/transparent"
+            app:disabledDayTextColor="#CCCCCC"
+            app:selectedDayBackgroundColor="#EEEEEE"
+            app:selectedDayTextColor="#C6C6C6"
+            app:titleLayoutBackgroundColor="@android:color/transparent"
+            app:weekLayoutBackgroundColor="@android:color/transparent"></com.samsistemas.calendarview.widget.CalendarView>
+
+    </LinearLayout>
+
+</RelativeLayout>

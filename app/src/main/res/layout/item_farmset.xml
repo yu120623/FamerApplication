@@ -98,6 +98,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/navigation_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -106,11 +107,12 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:paddingTop="5dp"
-                    android:text="线路"
+                    android:text="@string/navigation_line"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/order_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/farmset_yd_bg"
@@ -118,7 +120,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:paddingTop="5dp"
-                    android:text="立即预定"
+                    android:text="@string/order_it"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </LinearLayout>

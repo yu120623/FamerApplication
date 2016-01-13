@@ -7,4 +7,5 @@
     <dimen name="set_open_w">30dp</dimen>
     <dimen name="set_open_h">15dp</dimen>
     <dimen name="progress_margin_top">20dp</dimen>
+    <dimen name="order_process_width">50dp</dimen>
 </resources>

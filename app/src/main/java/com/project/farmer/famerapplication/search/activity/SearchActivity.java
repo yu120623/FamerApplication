@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -134,9 +135,14 @@ public class SearchActivity extends BaseActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
-                intent.putExtra("key", editText.getText().toString());
-                startActivity(intent);
+                String str = editText.getText().toString();
+                if (str == null || str.equals("") || str.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "输入为空", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
+                    intent.putExtra("key", editText.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -63,15 +63,20 @@
         <activity
             android:name=".search.activity.SearchResultsActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.activity.LoginActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.activity.RegisterActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name=".services.LocationService"></service>
 
-        <service android:name="com.amap.api.location.APSService" >
-        </service>
+        <service android:name="com.amap.api.location.APSService"></service>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="1951cd2699cf07ef97898dc32a296561"/>
+            android:value="414af4196767e38654ba8e717267564a" />
     </application>
 
 </manifest>

@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class SearchResultsActivity extends BaseActivity {
     private RecyclerView searchResultsList;
+    private TextView notFound;
     private List<SearchModel> searchModels;
     private SearchResultsAdapter adapter;
     private String key;
@@ -37,6 +38,7 @@ public class SearchResultsActivity extends BaseActivity {
 
     private void findViews() {
         searchResultsList = (RecyclerView) findViewById(R.id.search_results);
+        notFound = (TextView) findViewById(R.id.search_null);
     }
 
     private void initDate() {
@@ -62,6 +64,9 @@ public class SearchResultsActivity extends BaseActivity {
                 searchModels = data.getSearchModels();
                 if (searchModels != null && searchModels.size() > 0) {
                     adapter.notifyDataSetChanged();
+                } else {
+                    searchResultsList.setVisibility(View.GONE);
+                    notFound.setVisibility(View.VISIBLE);
                 }
             }
         }, data);
@@ -70,7 +75,6 @@ public class SearchResultsActivity extends BaseActivity {
 
 
     class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsViewHolder> {
-
 
         @Override
         public SearchResultsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

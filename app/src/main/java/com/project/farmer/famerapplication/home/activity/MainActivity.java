@@ -51,8 +51,10 @@ public class MainActivity extends BaseActivity {
     private ViewPager contentViewPager;
     private ConvenientBanner banner;
     private View searchBtn;
+    private View loginBtn;
     private List<RelativeLayout> buttons;
     private String[] url = {"http://oss.mycff.com/images/000014.png", "http://oss.mycff.com/images/000015.png"};
+
     @Override
     protected void initViews() {
         findViews();
@@ -132,7 +134,14 @@ public class MainActivity extends BaseActivity {
         area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,CityActivity.class);
+                Intent intent = new Intent(context, CityActivity.class);
+                startActivity(intent);
+            }
+        });
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -200,7 +209,7 @@ public class MainActivity extends BaseActivity {
         buttons.add(qianggou);
         buttons.add(zhoubian);
         buttons.add(tuijian);
-        area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME,"")));
+        area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "")));
         setArrVisible(0);
     }
 
@@ -227,6 +236,7 @@ public class MainActivity extends BaseActivity {
         arrContent = (LinearLayout) this.findViewById(R.id.arr_content);
         banner = (ConvenientBanner) this.findViewById(R.id.convenient_banner);
         searchBtn = this.findViewById(R.id.search_btn);
+        loginBtn = this.findViewById(R.id.user_login);
         area = (TextView) this.findViewById(R.id.area);
     }
 

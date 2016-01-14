@@ -12,6 +12,7 @@ import com.project.farmer.famerapplication.R;
  */
 public class LoginActivity extends BaseActivity {
     private TextView registerBtn;
+    private TextView loginBtn;
 
     @Override
     protected void initViews() {
@@ -22,6 +23,7 @@ public class LoginActivity extends BaseActivity {
 
     private void findViews() {
         registerBtn = (TextView) this.findViewById(R.id.register_user_btn);
+        loginBtn = (TextView) this.findViewById(R.id.login_btn);
     }
 
     private void initData() {
@@ -32,6 +34,14 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("in", true);
                 startActivity(intent);
             }
         });

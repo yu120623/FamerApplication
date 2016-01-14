@@ -3,16 +3,11 @@ package com.project.farmer.famerapplication.home.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.LocationSource;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -28,6 +23,7 @@ import com.project.farmer.famerapplication.home.fragment.QiangGouFragment;
 import com.project.farmer.famerapplication.home.fragment.TuiJianFragment;
 import com.project.farmer.famerapplication.home.fragment.ZhouBianFragment;
 import com.project.farmer.famerapplication.search.activity.SearchActivity;
+import com.project.farmer.famerapplication.user.activity.UserActivity;
 import com.project.farmer.famerapplication.util.AppUtil;
 import com.project.farmer.famerapplication.util.NetworkImageHolderView;
 
@@ -54,6 +50,8 @@ public class MainActivity extends BaseActivity {
     private View loginBtn;
     private List<RelativeLayout> buttons;
     private String[] url = {"http://oss.mycff.com/images/000014.png", "http://oss.mycff.com/images/000015.png"};
+    private Boolean flag = false;
+    private View userBtn;
 
     @Override
     protected void initViews() {
@@ -138,13 +136,28 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        if (flag == false) {
+            loginBtn.setVisibility(View.VISIBLE);
+            userBtn.setVisibility(View.GONE);
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            loginBtn.setVisibility(View.GONE);
+            userBtn.setVisibility(View.VISIBLE);
+            userBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent1 = new Intent(MainActivity.this, UserActivity.class);
+                    startActivity(intent1);
+                }
+            });
+        }
     }
 
     @Override
@@ -183,6 +196,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
+        Intent intent = getIntent();
+        flag = intent.getBooleanExtra("in", false);
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
@@ -237,6 +252,7 @@ public class MainActivity extends BaseActivity {
         banner = (ConvenientBanner) this.findViewById(R.id.convenient_banner);
         searchBtn = this.findViewById(R.id.search_btn);
         loginBtn = this.findViewById(R.id.user_login);
+        userBtn = this.findViewById(R.id.user_btn);
         area = (TextView) this.findViewById(R.id.area);
     }
 

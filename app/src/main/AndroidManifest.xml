@@ -69,6 +69,10 @@
         <activity
             android:name=".home.activity.RegisterActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".user.activity.UserActivity"
+            android:screenOrientation="portrait"></activity>
+
 
         <service android:name=".services.LocationService"></service>
 

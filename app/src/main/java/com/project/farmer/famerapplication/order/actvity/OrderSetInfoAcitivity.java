@@ -1,13 +1,19 @@
 package com.project.farmer.famerapplication.order.actvity;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.TrafficStats;
 import android.text.Html;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
+import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmItemsModel;
@@ -22,6 +28,8 @@ import com.project.farmer.famerapplication.util.AppUtil;
 import com.samsistemas.calendarview.widget.CalendarView;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class OrderSetInfoAcitivity extends BaseActivity{
     private FarmSetModel farmSetModel;
@@ -95,10 +103,13 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         TextView farmSetPrice = (TextView) item.findViewById(R.id.farmset_item_price);
         TextView farmSetTag = (TextView) item.findViewById(R.id.farmset_item_tag);
         TextView farmSetDescList = (TextView) item.findViewById(R.id.farmset_item_desclist);
+        TextView farmSetTime = (TextView) item.findViewById(R.id.farmset_item_time);
         ImageView farmSetImg = (ImageView) item.findViewById(R.id.farmset_item_img);
         farmSetName.setText(farmItemsModel.getFarmName());
         farmSetDesc.setText(farmItemsModel.getFarmItemName());
-        farmSetPrice.setText(getString(R.string.gua_pai_price)+farmItemsModel.getPrice()+"");
+        farmSetPrice.setVisibility(View.GONE);
+        farmSetTime.setVisibility(View.VISIBLE);
+        setFarmItemTime(farmSetTime,farmItemsModel);
         farmSetTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
         farmSetTag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
         farmSetDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
@@ -109,6 +120,79 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         setHeader.setOnClickListener(onFarmSetItemClick);
         return item;
     }
+
+    private void setFarmItemTime(TextView farmSetTime, FarmItemsModel farmItemsModel) {
+        farmSetTime.setText(dateFormat.format(orderDataModel.getDate()));
+        if("1".equals(farmItemsModel.getFarmItemType())){
+            farmSetTime.setTextColor(getResources().getColor(R.color.red));
+            farmSetTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }else{
+            farmSetTime.setTextColor(getResources().getColor(R.color.green2));
+            farmSetTime.setOnClickListener(onFarmSetTime);
+            farmSetTime.setTag(farmItemsModel);
+        }
+    }
+
+    private View.OnClickListener onFarmSetTime = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            showTimeDialog(view);
+        }
+    };
+
+    private void showTimeDialog(View view) {
+        FarmItemsModel farmItemsModel = (FarmItemsModel) view.getTag();
+        View time_view = inflater.inflate(R.layout.layout_order_farm_set_item_choose_date,null,false);
+        LinearLayout timeView = (LinearLayout) time_view.findViewById(R.id.time_view);
+        TextView timeText = getTimeText();
+        timeText.setText(dateFormat.format(orderDataModel.getDate()));
+        timeView.addView(timeText);
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setView(time_view)
+                .create();
+        dialog.getWindow().setWindowAnimations(R.style.dialog_time_style);
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.show();
+        loadTimeFromServer(view,timeView,farmItemsModel);
+    }
+
+    private void loadTimeFromServer(View view,final LinearLayout timeView, FarmItemsModel farmItemsModel) {
+        String url = API.URL + API.API_URL.ORDER_CHANGE_FARM_ITEM_DATE;
+        TransferObject data = new TransferObject();
+        data.setFarmSetAliasId(farmSetModel.getFarmSetAliasId());
+        data.setFarmItemAliasId(farmItemsModel.getFarmItemAliasId());
+        data.setDate(orderDataModel.getDate());
+        AppRequest requset = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                timeView.removeAllViews();
+                for(int i=0;i < data.getDates().size();i++){
+                    TextView timeText = getTimeText();
+                    timeText.setText(dateFormat.format(data.getDates().get(i)));
+                    timeView.addView(timeText);
+                }
+            }
+        },data);
+        requset.execute();
+    }
+
+    private TextView getTimeText(){
+        TextView time = new TextView(context);
+        int padding = CommonUtil.Dp2Px(context,10);
+        time.setPadding(padding,padding,padding,padding);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        time.setLayoutParams(params);
+        time.setTextColor(Color.BLACK);
+        time.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+        time.setGravity(Gravity.CENTER);
+        return time;
+    }
+
     public View.OnClickListener onFarmSetItemClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -121,10 +205,8 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         }
     };
 
-
-
     private void initData() {
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         farmSetModel = (FarmSetModel) this.getIntent().getSerializableExtra("farmSetModel");
         orderDataModel = (OrderDateModel) this.getIntent().getSerializableExtra("orderDataModel");
         orderHeader.setStep2();

@@ -32,4 +32,7 @@
     <string name="order_choose_time">选择时间</string>
     <string name="order_set_info">订单填写</string>
     <string name="order_pay">订单支付</string>
+    <string name="other_msg">其他信息</string>
+    <string name="contact_name">联系人</string>
+    <string name="choose_use_time">请选择使用的时间</string>
 </resources>

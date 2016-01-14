@@ -53,6 +53,7 @@ public class TransferObject implements Serializable {
     private CodeModel codeModel;
 
     private Date date;
+    private List<Date> dates;
 
     private String userAliasId;
 
@@ -61,6 +62,7 @@ public class TransferObject implements Serializable {
     private RecommendTagModel recommendTagModel;
     private List<SearchModel> searchModels;
     private SearchModel searchModel;
+    private String farmItemAliasId;
 
     public List<SearchModel> getSearchModels() {
         return searchModels;
@@ -301,5 +303,21 @@ public class TransferObject implements Serializable {
 
     public void setUserAliasId(String userAliasId) {
         this.userAliasId = userAliasId;
+    }
+
+    public String getFarmItemAliasId() {
+        return farmItemAliasId;
+    }
+
+    public void setFarmItemAliasId(String farmItemAliasId) {
+        this.farmItemAliasId = farmItemAliasId;
+    }
+
+    public List<Date> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<Date> dates) {
+        this.dates = dates;
     }
 }

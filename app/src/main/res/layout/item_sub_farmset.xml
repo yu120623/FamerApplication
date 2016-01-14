@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/farmset_item_price"
+            android:layout_toLeftOf="@+id/farmset_item_price_time"
             android:orientation="horizontal">
 
             <TextView
@@ -43,21 +43,39 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/farmset_item_price"
+        <RelativeLayout
+            android:id="@+id/farmset_item_price_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/farmset_item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/farmset_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="35dp"
+                android:background="@drawable/order_time_bg"
+                android:minWidth="100dp"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/farm_set_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/farmset_item_img"
@@ -69,14 +87,13 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/orange"
             android:autoLink="web"
+            android:background="@color/orange"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
-        style="@style/line"
-        android:layout_height="1dp" />
+        style="@style/line" />
 
 </LinearLayout>

@@ -70,6 +70,14 @@
             android:name=".home.activity.RegisterActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity android:name=".order.actvity.OrderSetInfoAcitivity"
+            android:screenOrientation="portrait"
+            ></activity>
+
+        <activity android:name=".order.actvity.OrderChooseDateActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+
         <service android:name=".services.LocationService"></service>
 
         <service android:name="com.amap.api.location.APSService"></service>

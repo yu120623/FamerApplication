@@ -85,4 +85,8 @@
         <item name="android:textColor">@color/order_process_title_color</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="dialog_time_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_anim_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_anim_exit</item>
+    </style>
 </resources>

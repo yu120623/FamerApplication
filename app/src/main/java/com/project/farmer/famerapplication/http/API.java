@@ -22,5 +22,6 @@ public class API {
         public static final String SEARCH_RESULT_LIST = "keySearch";//搜索结果
         public static final String ORDER_CHOOSE_TIME = "orderTimeChoose";//下单选择时间
         public static final String ORDER_CHOOSE_INFO = "orderInfoChoose";//下单选择信息
+        public static final String ORDER_CHANGE_FARM_ITEM_DATE = "changeFarmItemDate";//下单选择订单项目时间
     }
 }

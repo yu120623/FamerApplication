@@ -27,9 +27,9 @@ public class AppUtil {
 
     public static String getFarmSetTag(String tag) {
         if (tag.equals("1")) {
-            return "吃";
-        } else if (tag.equals("2")) {
             return "住";
+        } else if (tag.equals("2")) {
+            return "吃";
         } else if (tag.equals("3")) {
             return "玩";
         } else if (tag.equals("4")) {
@@ -64,9 +64,9 @@ public class AppUtil {
 
     public static int getFarmSetTagBg(String tag) {
         if (tag.equals("1")) {
-            return R.drawable.chi_bg;
-        } else if (tag.equals("2")) {
             return R.drawable.zhu_bg;
+        } else if (tag.equals("2")) {
+            return R.drawable.chi_bg;
         } else if (tag.equals("3")) {
             return R.drawable.wan_bg;
         } else if (tag.equals("4")) {

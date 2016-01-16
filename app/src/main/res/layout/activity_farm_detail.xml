@@ -148,12 +148,12 @@
                         app:stl_underlineThickness="1dp" />
                 </LinearLayout>
 
-                <android.support.v4.view.ViewPager
+                <com.baseandroid.view.HackyViewPager
                     android:id="@+id/details_content_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                </android.support.v4.view.ViewPager>
+                </com.baseandroid.view.HackyViewPager>
             </LinearLayout>
 
 
@@ -165,19 +165,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="5dp"
-            android:background="@color/white"
+            android:background="#e5ffffff"
+            android:orientation="vertical"
             android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            android:paddingBottom="4dp">
 
+            <TextView style="@style/line" android:layout_marginBottom="4dp"/>
             <Button
                 android:id="@+id/view_farm_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"
-                android:minWidth="250dp"
-                android:paddingLeft="45dp"
-                android:paddingRight="45dp"
+                android:minHeight="@dimen/button_min_height"
+                android:minWidth="@dimen/button_min_width"
                 android:text="@string/view_farm_set"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -200,7 +200,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/action_bar_defalut_bottom_padding"

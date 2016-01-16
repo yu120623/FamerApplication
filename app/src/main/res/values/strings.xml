@@ -24,6 +24,7 @@
     <string name="gua_pai_price">挂牌价:</string>
     <string name="view_farm_set">查看套餐</string>
     <string name="startring_qianggou">抢购中</string>
+    <string name="qianggou">立即抢购</string>
     <string name="end_qianggou">已经结束</string>
     <string name="not_start_qianggou">即将开始</string>
     <string name="navigation_line">线路</string>

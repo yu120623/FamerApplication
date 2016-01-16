@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -26,10 +28,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import github.chenupt.dragtoplayout.AttachUtil;
+
 public class TimingNavigationFragment extends Fragment {
     private MapView mapView;
     private AMap map;
     private View view;
+    private ScrollView scrollView;
     private FarmSetModel farmSetModel;
     private LinearLayout navContent;
     private LayoutInflater inflater;
@@ -113,12 +119,14 @@ public class TimingNavigationFragment extends Fragment {
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -127,9 +135,17 @@ public class TimingNavigationFragment extends Fragment {
         mapView.onDestroy();
     }
 
+    public void onEvent(Integer index){
+        if(index.intValue() == 2){
+            EventBus.getDefault().post(AttachUtil.isScrollViewAttach(scrollView));
+        }
+    }
+
+
     private void findViews() {
         navContent = (LinearLayout) view.findViewById(R.id.nav_content);
         mapView = (MapView) view.findViewById(R.id.map);
+        scrollView = (ScrollView) view.findViewById(R.id.scroll_view);
     }
 
 }

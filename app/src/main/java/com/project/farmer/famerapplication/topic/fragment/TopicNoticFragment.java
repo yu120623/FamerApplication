@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.entity.FarmStatement;
 import com.project.farmer.famerapplication.entity.FarmStatementModel;
 import com.project.farmer.famerapplication.entity.FarmTopicModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
@@ -22,6 +24,8 @@ import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +38,7 @@ public class TopicNoticFragment extends BaseFragment {
     private DisplayImageOptions options;
     private FarmTopicModel farmTopicModel;
     private XuZhiAdapter adapter;
-    private List<FarmStatementModel> stats = new ArrayList<>();
+    private List<FarmStatement> stats = new ArrayList<>();
     @Override
     protected void initViews() {
         findViews();
@@ -44,7 +48,7 @@ public class TopicNoticFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        xuzhiList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        xuzhiList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -81,7 +85,7 @@ public class TopicNoticFragment extends BaseFragment {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                stats = data.getFarmStatementModels();
+                stats = data.getFarmStatements();
                 if(stats != null && stats.size() > 0){
                     adapter.notifyDataSetChanged();;
                 }
@@ -107,15 +111,7 @@ public class TopicNoticFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(XuZhiViewHolder holder, int position) {
             holder.xuzhiTitle.setText(stats.get(position).getFarmStatementTitle());
-            holder.xuzhiContent.removeAllViews();
-            for(int i =0;i < stats.get(position).getDescs().size();i++){
-                TextView desc = new TextView(context);
-                desc.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-                desc.setTextColor(getResources().getColor(R.color.gray));
-                desc.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-                desc.setText(stats.get(position).getDescs().get(i));
-                holder.xuzhiContent.addView(desc);
-            }
+            holder.xuzhiContent.setText(Html.fromHtml(stats.get(position).getFarmStatementDesc()));
         }
 
         @Override
@@ -127,16 +123,33 @@ public class TopicNoticFragment extends BaseFragment {
 
     class XuZhiViewHolder extends RecyclerView.ViewHolder {
         private TextView xuzhiTitle;
-        private LinearLayout xuzhiContent;
+        private TextView xuzhiContent;
 
         public XuZhiViewHolder(View itemView) {
             super(itemView);
-            xuzhiContent = (LinearLayout) itemView.findViewById(R.id.xuzhi_desc_content);
+            xuzhiContent = (TextView) itemView.findViewById(R.id.xuzhi_desc_content);
             xuzhiTitle = (TextView) itemView.findViewById(R.id.xuzhi_title);
 
         }
     }
 
+    public void onEvent(Integer index){
+        if(index.intValue() == 2){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(xuzhiList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     protected int getContentView() {

@@ -21,7 +21,7 @@ public class Farm implements java.io.Serializable {
 	private String farmLevel;
 	private String farmInCharge;
 	private Integer farmInChargePhone;
-	private Integer quickPay;
+	private String quickPay;
 	private String isDeleted;
 	private String farmStatus;
 	private Date createdTime;
@@ -49,7 +49,7 @@ public class Farm implements java.io.Serializable {
 	public Farm(String farmAliasId, String farmName, String farmOwnerId,
 			String farmDesc, String farmAddress, String farmProvince,
 			String farmCity, String farmArea, String farmCode, Double farmLatitude, Double farmLongitude, String farmLevel,
-			String farmInCharge, Integer farmInChargePhone, Integer quickPay,
+			String farmInCharge, Integer farmInChargePhone, String quickPay,
 			String isDeleted, String farmStatus, Date createdTime,
 			String createdBy, Date updatedTime, String updatedBy) {
 		this.farmAliasId = farmAliasId;
@@ -235,11 +235,11 @@ public class Farm implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	public Integer getQuickPay() {
+	public String getQuickPay() {
 		return quickPay;
 	}
 
-	public void setQuickPay(Integer quickPay) {
+	public void setQuickPay(String quickPay) {
 		this.quickPay = quickPay;
 	}
 

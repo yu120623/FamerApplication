@@ -22,7 +22,6 @@
             android:id="@+id/details_drag_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/view1"
             android:background="@android:color/white">
 
             <!--top view-->
@@ -44,6 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <RelativeLayout
                             android:id="@+id/banner_container"
                             android:layout_width="match_parent"
@@ -55,6 +55,7 @@
                                 android:layout_height="wrap_content"
                                 app:canLoop="true" />
                         </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -166,39 +167,39 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="5dp"
-            android:background="#ffffffff"
+            android:background="#e5ffffff"
             android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            android:orientation="vertical"
+            android:paddingBottom="4dp">
+
+            <TextView style="@style/line" android:layout_marginBottom="4dp"/>
 
             <Button
                 android:id="@+id/topic_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"
-                android:minWidth="250dp"
-                android:paddingLeft="45dp"
-                android:paddingRight="45dp"
+                android:minHeight="@dimen/button_min_height"
+                android:minWidth="@dimen/button_min_width"
                 android:text="@string/view_farm_set"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/top_info_acion_bar"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:visibility="invisible">
 
         <RelativeLayout
             android:id="@+id/top_info_acion_bar_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0"
-            android:background="@color/action_bar_bg">
-        </RelativeLayout>
+            android:background="@color/action_bar_bg"></RelativeLayout>
 
         <RelativeLayout
 

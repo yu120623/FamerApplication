@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -84,6 +85,11 @@ public class TopicDescFragment extends BaseFragment {
                 holder.jieshaoText.setVisibility(View.VISIBLE);
                 holder.jieshaoText.setText(farmSetModels.getFarmSetDesc());
             } else {
+                if(position == farmSetModels.getDeResourceModels().size()){
+                    holder.itemView.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.button_min_height));
+                }else{
+                    holder.itemView.setPadding(0,0,0,0);
+                }
                 holder.jieshaoText.setVisibility(View.GONE);
                 ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation(), options);
             }
@@ -106,6 +112,24 @@ public class TopicDescFragment extends BaseFragment {
             jieshaoText = (TextView) itemView.findViewById(R.id.text_jieshao);
 
         }
+    }
+
+    public void onEvent(Integer index){
+        if(index.intValue() == 0){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(jieshaoList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

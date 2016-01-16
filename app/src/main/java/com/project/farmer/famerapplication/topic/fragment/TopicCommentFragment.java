@@ -8,6 +8,9 @@ import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
 import com.project.farmer.famerapplication.util.AppUtil;
 
+import de.greenrobot.event.EventBus;
+import github.chenupt.dragtoplayout.AttachUtil;
+
 public class TopicCommentFragment extends BaseCommentFragment {
 
     protected FarmTopicModel farmTopicModel;
@@ -31,5 +34,23 @@ public class TopicCommentFragment extends BaseCommentFragment {
             }
         },data);
         appRequest.execute();
+    }
+
+    public void onEvent(Integer index){
+        if(index.intValue() == 1){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(pingjiaList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 }

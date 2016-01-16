@@ -63,6 +63,7 @@ public class TransferObject implements Serializable {
     private List<SearchModel> searchModels;
     private SearchModel searchModel;
     private String farmItemAliasId;
+    private List<FarmStatement> farmStatements;
 
     public List<SearchModel> getSearchModels() {
         return searchModels;
@@ -184,12 +185,12 @@ public class TransferObject implements Serializable {
         this.score = score;
     }
 
-    public List<FarmStatementModel> getFarmStatements() {
-        return farmStatementModels;
+    public List<FarmStatement> getFarmStatements() {
+        return farmStatements;
     }
 
-    public void setFarmStatements(List<FarmStatementModel> farmStatementModels) {
-        this.farmStatementModels = farmStatementModels;
+    public void setFarmStatements(List<FarmStatement> farmStatement) {
+        this.farmStatements = farmStatement;
     }
 
     public Double getFarmLatitude() {

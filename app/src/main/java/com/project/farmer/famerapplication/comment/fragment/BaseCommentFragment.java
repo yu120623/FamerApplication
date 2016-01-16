@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.CommentModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
@@ -82,6 +83,11 @@ public abstract class BaseCommentFragment extends BaseFragment {
                 holder.highPraiseRate.setText("好评率："+resData.getFavorableRate());
                 holder.score.setText(resData.getScore());
             } else {
+                if(position == comments.size()){
+                    holder.itemView.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.button_min_height));
+                }else{
+                    holder.itemView.setPadding(0,0,0,0);
+                }
                 holder.commentHead.setVisibility(View.GONE);
                 holder.commentBody.setVisibility(View.VISIBLE);
                 holder.commentUserName.setText(comments.get(position-1).getCommentName());

@@ -183,10 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/details_btn1"
-                android:minHeight="40dp"
-                android:minWidth="200dp"
-                android:paddingLeft="45dp"
-                android:paddingRight="45dp"
+                android:minHeight="@dimen/button_min_height"
+                android:minWidth="@dimen/button_min_width"
                 android:text="@string/view_farm_set"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

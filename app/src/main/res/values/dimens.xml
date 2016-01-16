@@ -8,4 +8,6 @@
     <dimen name="set_open_h">15dp</dimen>
     <dimen name="progress_margin_top">20dp</dimen>
     <dimen name="order_process_width">50dp</dimen>
+    <dimen name="button_min_height">40dp</dimen>
+    <dimen name="button_min_width">280dp</dimen>
 </resources>

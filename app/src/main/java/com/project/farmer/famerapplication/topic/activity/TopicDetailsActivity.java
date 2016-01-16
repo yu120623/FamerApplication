@@ -144,9 +144,7 @@ public class TopicDetailsActivity extends BaseActivity {
 
     }
 
-    private void initTags() {
-        //List<Point> points = AppUtil.random(farmSetModels.getTags().size(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
-        for(int i =0; i < farmSetModels.getTags().size();i++){
+    private void initTags() { for(int i =0; i < farmSetModels.getTags().size();i++){
             inflater.inflate(R.layout.text,tagsContainer,true);
             final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
             tag.setText(farmSetModels.getTags().get(i));

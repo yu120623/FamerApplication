@@ -44,7 +44,7 @@ public class TopicNoticFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        xuzhiList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        xuzhiList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -137,6 +137,23 @@ public class TopicNoticFragment extends BaseFragment {
         }
     }
 
+    public void onEvent(Integer index){
+        if(index.intValue() == 2){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(xuzhiList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     protected int getContentView() {

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
+import com.baseandroid.view.HackyViewPager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.nineoldandroids.view.ViewHelper;
@@ -41,7 +42,7 @@ import github.chenupt.dragtoplayout.DragTopLayout;
 public class FarmDetailActivity extends BaseActivity {
     private DisplayImageOptions options;
     private DragTopLayout dragTopLayout;
-    private ViewPager contentViewPager;
+    private HackyViewPager contentViewPager;
     private ConvenientBanner banner;
     private SmartTabLayout smartTabLayout;
     private List<String> bannerUrls;
@@ -90,6 +91,25 @@ public class FarmDetailActivity extends BaseActivity {
                 Intent intent = new Intent(context, FarmSetActivity.class);
                 intent.putExtra("farmAliasId",farmModel.getFarmAliasId());
                 startActivity(intent);
+            }
+        });
+        contentViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 2){
+                    contentViewPager.setLocked(true);
+                }else{
+                    contentViewPager.setLocked(false);
+                }
+                EventBus.getDefault().post(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +213,7 @@ public class FarmDetailActivity extends BaseActivity {
     }
 
     private void findViews() {
-        contentViewPager = (ViewPager) this.findViewById(R.id.details_content_view_pager);
+        contentViewPager = (HackyViewPager) this.findViewById(R.id.details_content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.details_drag_layout);
         banner = (ConvenientBanner) this.findViewById(R.id.details_convenient_banner);
         smartTabLayout= (SmartTabLayout) this.findViewById(R.id.viewpagertab);

@@ -1,7 +1,9 @@
 package com.project.farmer.famerapplication.farm.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,9 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmModel;
+
+import de.greenrobot.event.EventBus;
+import github.chenupt.dragtoplayout.AttachUtil;
 
 public class FarmMapFragment extends Fragment {
     private MapView mapView;
@@ -30,6 +35,7 @@ public class FarmMapFragment extends Fragment {
         initData();
         return view;
     }
+
 
     private void initData() {
         map = mapView.getMap();
@@ -58,17 +64,25 @@ public class FarmMapFragment extends Fragment {
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+    }
+
+    public void onEvent(Integer index){
+        if(index.intValue() == 2){
+            EventBus.getDefault().post(false);
+        }
     }
 }

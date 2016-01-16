@@ -60,9 +60,9 @@
                 android:id="@+id/farmset_item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/order_time_bg"
                 android:gravity="center"
                 android:minHeight="35dp"
-                android:background="@drawable/order_time_bg"
                 android:minWidth="100dp"
                 android:textColor="@color/gray"
                 android:textSize="12sp"
@@ -83,8 +83,8 @@
             android:layout_height="87dp" />
 
         <TextView
+            android:padding="3dp"
             android:id="@+id/farmset_item_desclist"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autoLink="web"
@@ -93,7 +93,6 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <TextView
-        style="@style/line" />
+    <TextView style="@style/line" />
 
 </LinearLayout>

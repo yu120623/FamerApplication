@@ -76,7 +76,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
             if(endTime < now){
                 topicBtn.setText(R.string.end_qianggou);
             }else{
-                topicBtn.setText(R.string.startring_qianggou);
+                topicBtn.setText(R.string.qianggou);
             }
         }
     }
@@ -98,6 +98,20 @@ public class TimingTopicDetailsActivity extends BaseActivity{
 
             @Override
             public void onRefresh() {
+
+            }
+        });
+        contentViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+            @Override
+            public void onPageSelected(int position) {
+                EventBus.getDefault().post(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
             }
         });

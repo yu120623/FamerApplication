@@ -108,6 +108,24 @@ public class TopicDescFragment extends BaseFragment {
         }
     }
 
+    public void onEvent(Integer index){
+        if(index.intValue() == 0){
+            EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(jieshaoList));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     protected int getContentView() {
         return R.layout.frag_jieshao;

@@ -29,6 +29,7 @@ public class SearchResultsActivity extends BaseActivity {
     private List<SearchModel> searchModels;
     private SearchResultsAdapter adapter;
     private String key;
+    private String type;
 
     @Override
     protected void initViews() {
@@ -44,6 +45,7 @@ public class SearchResultsActivity extends BaseActivity {
     private void initDate() {
         Intent intent = getIntent();
         key = intent.getStringExtra("key");
+        type=intent.getStringExtra("type");
         searchModels = new ArrayList<SearchModel>();
         searchResultsList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new SearchResultsAdapter();
@@ -55,7 +57,7 @@ public class SearchResultsActivity extends BaseActivity {
         String url = API.URL + API.API_URL.SEARCH_RESULT_LIST;
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
-        data.setType("A");
+        data.setType(type);
         data.setCityCode("0512");
         data.setKey(key);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {

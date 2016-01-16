@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:background="#ECECEC"
                             android:orientation="horizontal"
-                            android:paddingBottom="5dp">
+                            android:paddingBottom="1dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                                 android:background="@color/white"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
-                                android:paddingBottom="5dp"
+                                android:paddingBottom="8dp"
                                 android:paddingTop="8dp">
 
                                 <LinearLayout
@@ -86,9 +86,7 @@
                                         android:text="288元"
                                         android:textColor="#ff6600"
                                         android:textSize="28sp" />
-
                                 </LinearLayout>
-
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -97,14 +95,12 @@
                                     android:layout_marginRight="10dp"
                                     android:background="@color/white"
                                     android:text="农庄的详细介绍，或者推荐理由农庄的详细介绍，或者推荐理由"
-                                    android:textColor="#CECECE"
-                                    android:textSize="12sp" />
+                                    android:textColor="#ababab"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
 
-
                     </LinearLayout>
-
 
                 </RelativeLayout>
 
@@ -170,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="5dp"
-            android:background="@color/white"
+            android:background="#ffffffff"
             android:gravity="center"
             android:paddingBottom="8dp"
             android:paddingTop="8dp">
@@ -178,14 +174,14 @@
             <Button
                 android:id="@+id/topic_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:background="@drawable/details_btn1"
                 android:minWidth="250dp"
                 android:paddingLeft="45dp"
                 android:paddingRight="45dp"
                 android:text="@string/view_farm_set"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
 

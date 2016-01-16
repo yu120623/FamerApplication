@@ -1,6 +1,7 @@
 package com.project.farmer.famerapplication.search.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,16 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends BaseActivity {
-    //    private String[] hotAreas = new String[]{};
-    //    private String[] hotTags = new String[]{};
-    private List<String> hotAreas = new ArrayList<String>();
-    private List<String> hotTags = new ArrayList<String>();
     private LinearLayout hotAreasLayout;
     private LinearLayout hotTagsLayout;
     private RecommendTagModel recommendTagModel;
     private List<Tag> areaTags;
     private List<Tag> serviceTags;
-    private Tag tags;
 
     @Override
     protected void initViews() {
@@ -63,34 +59,23 @@ public class SearchActivity extends BaseActivity {
                 areaTags = recommendTagModel.getAreaTags();
                 serviceTags = recommendTagModel.getServiceTags();
                 if (areaTags != null && areaTags.size() > 0) {
-                    for (int i = 0; i < areaTags.size(); i++) {
-                        tags = areaTags.get(i);
-                        hotAreas.add(tags.getTagName());
-                    }
                 }
                 if (serviceTags != null && serviceTags.size() > 0) {
-                    for (int i = 0; i < serviceTags.size(); i++) {
-                        tags = serviceTags.get(i);
-                        hotTags.add(tags.getTagName());
-                    }
                 }
-
-//        int areaLines = (hotAreas.length / 3) + (hotAreas.length % 3 > 0 ? 1 : 0);//计算热门区域有几行
-//        int tagLines = (hotTags.length / 3) + (hotTags.length % 3 > 0 ? 1 : 0);//计算热词有几行
-                int areaLines = (areaTags.size() / 3) + (areaTags.size() % 3 > 0 ? 1 : 0);
-                int tagLines = (serviceTags.size() / 3) + (serviceTags.size() % 3 > 0 ? 1 : 0);
+                int areaLines = (areaTags.size() / 3) + (areaTags.size() % 3 > 0 ? 1 : 0);//计算热门区域有几行
+                int tagLines = (serviceTags.size() / 3) + (serviceTags.size() % 3 > 0 ? 1 : 0);//计算热词有几行
                 for (int i = 0; i < areaLines; i++) {
-                    addTags(hotAreasLayout, hotAreas, i);
+                    addTags(hotAreasLayout, areaTags, i, AreaOnClickListener);
                 }
                 for (int i = 0; i < tagLines; i++) {
-                    addTags(hotTagsLayout, hotTags, i);
+                    addTags(hotTagsLayout, serviceTags, i, ServiceOnClickListener);
                 }
             }
         }, data);
         request.execute();
     }
 
-    private void addTags(LinearLayout contentLayout, List<String> strs, int lineIndex) {
+    private void addTags(LinearLayout contentLayout, List<Tag> tags, int lineIndex, View.OnClickListener listener) {
         LinearLayout tagsLineLayout = getLineLayout();//生成每行标签的layout
         for (int i = 0; i < 3; i++) {
             int index = i + (lineIndex * 3);
@@ -98,15 +83,43 @@ public class SearchActivity extends BaseActivity {
             View tagLayout = tagsLineLayout.getChildAt(tagsLineLayout.getChildCount() - 1);
             TextView hotNameTextView = (TextView) tagLayout.findViewById(R.id.hot_tag_name);
             String tagName = "";
-            if (index >= strs.size()) {
+            if (index >= tags.size()) {
                 tagName = "";
                 tagLayout.setVisibility(View.INVISIBLE);
-            } else
-                tagName = strs.get(i);
+            } else {
+                tagName = tags.get(i).getTagName();
+            }
             hotNameTextView.setText(tagName);
+            tagLayout.setTag(tags.get(i).getTagId());
+            Log.i("11111111111111111", "addTags: "+tags.get(i).getTagId());
+            tagLayout.setOnClickListener(listener);
         }
         contentLayout.addView(tagsLineLayout);
     }
+
+    public View.OnClickListener AreaOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String id = v.getTag().toString();
+            Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
+            intent.putExtra("key", id);
+            intent.putExtra("type", "B");
+            startActivity(intent);
+        }
+    };
+
+
+    private View.OnClickListener ServiceOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String id = v.getTag().toString();
+            Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
+            intent.putExtra("key", id);
+            intent.putExtra("type", "C");
+            startActivity(intent);
+        }
+    };
+
 
     private LinearLayout getLineLayout() {
         LinearLayout linearLayout = new LinearLayout(context);
@@ -141,6 +154,7 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
                     intent.putExtra("key", editText.getText().toString());
+                    intent.putExtra("type", "A");
                     startActivity(intent);
                 }
             }

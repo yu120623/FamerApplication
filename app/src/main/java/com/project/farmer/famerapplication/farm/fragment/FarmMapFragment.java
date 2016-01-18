@@ -46,7 +46,7 @@ public class FarmMapFragment extends Fragment {
         mark.icon(BitmapDescriptorFactory.defaultMarker());
         mark.position(latlng);
         map.addMarker(mark);
-        map.moveCamera(CameraUpdateFactory.zoomTo(20));
+        map.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     private void findViews() {

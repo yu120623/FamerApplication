@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.farm.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -59,6 +60,7 @@ public class FarmDetailActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViews();
         initData();
         initClick();

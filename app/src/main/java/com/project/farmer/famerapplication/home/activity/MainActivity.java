@@ -76,6 +76,11 @@ public class MainActivity extends BaseActivity {
         banner.getLayoutParams().height = (int) (200 * scale);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
     private void initClick() {
         jingxuan.setOnClickListener(new View.OnClickListener() {
             @Override

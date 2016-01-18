@@ -80,7 +80,7 @@
         <ImageView
             android:id="@+id/farmset_item_img"
             android:layout_width="160dp"
-            android:layout_height="87dp" />
+            android:layout_height="100dp" />
 
         <TextView
             android:padding="3dp"

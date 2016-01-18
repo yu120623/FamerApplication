@@ -1,8 +1,5 @@
 package com.project.farmer.famerapplication.http;
 
-/**
- * Created by Administrator on 2015/12/22.
- */
 public class API {
     public static final String URL = "http://121.40.91.182:8080/mycff/api/";
     //public static final String URL = "http://192.168.8.106:8080/mycff/api/";

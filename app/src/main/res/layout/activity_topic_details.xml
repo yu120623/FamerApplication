@@ -83,6 +83,8 @@
                                     android:layout_toRightOf="@id/farm_set_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:paddingTop="15dp"
+                                    android:textColor="#ababab"
                                     android:text="起" />
 
                                 <TextView

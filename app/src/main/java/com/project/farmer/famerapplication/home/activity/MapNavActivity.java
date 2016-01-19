@@ -1,6 +1,7 @@
 package com.project.farmer.famerapplication.home.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ import java.util.List;
 public class MapNavActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
     AMapNaviView mAMapNaviView;
     AMapNavi mAMapNavi;
-    NaviLatLng mEndLatlng = new NaviLatLng(40.925846, 116.432765);
+    NaviLatLng mEndLatlng;
     NaviLatLng mStartLatlng = new NaviLatLng(39.925041, 116.437901);
     List<NaviLatLng> mStartList = new ArrayList<NaviLatLng>();
     List<NaviLatLng> mEndList = new ArrayList<NaviLatLng>();
@@ -40,6 +41,8 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_nav);
+        Intent intent = getIntent();
+        mEndLatlng = new NaviLatLng(intent.getDoubleExtra("latitude", 39.925846), intent.getDoubleExtra("longitude", 116.432765));
         mAMapNaviView = (AMapNaviView) findViewById(R.id.navi_view);
         mAMapNaviView.onCreate(savedInstanceState);
         mAMapNavi = AMapNavi.getInstance(getApplicationContext());

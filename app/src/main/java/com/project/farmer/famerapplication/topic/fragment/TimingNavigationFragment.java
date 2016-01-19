@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.topic.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,8 @@ public class TimingNavigationFragment extends Fragment {
     private LayoutInflater inflater;
     private List<Marker> markers;
     private DecimalFormat decimalFormat;
-    private Button navBtn;
+    private Double farmLatitude;//经度
+    private Double farmLongitude;//纬度
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,12 +69,26 @@ public class TimingNavigationFragment extends Fragment {
             TextView itemTag = (TextView) view.findViewById(R.id.farmset_item_tag);
             TextView itemDesc = (TextView) view.findViewById(R.id.farmset_item_desc);
             TextView itemDistance = (TextView) view.findViewById(R.id.farm_set_distance);
+            Button navBtn = (Button) view.findViewById(R.id.nav_btn_bg);
+            farmLatitude = item.getFarmLatitude();
+            farmLongitude = item.getFarmLongitude();
             itemName.setText(item.getFarmName());
             itemTag.setText(AppUtil.getFarmSetTag(item.getFarmItemType()));
             itemTag.setBackgroundResource(AppUtil.getFarmSetTagBg(item.getFarmItemType()));
             itemDesc.setText(item.getFarmItemName());
             itemDistance.setText(decimalFormat.format(item.getDistance()));
+
+            navBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MapNavActivity.class);
+                    intent.putExtra("latitude", farmLatitude);
+                    intent.putExtra("longitude",farmLongitude);
+                    startActivity(intent);
+                }
+            });
         }
+
     }
 
     private void addMark() {
@@ -100,13 +116,7 @@ public class TimingNavigationFragment extends Fragment {
         map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(false);
         map.setOnMapLoadedListener(onloadListener);
-        navBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MapNavActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     private AMap.OnMapLoadedListener onloadListener = new AMap.OnMapLoadedListener() {
@@ -157,7 +167,7 @@ public class TimingNavigationFragment extends Fragment {
         navContent = (LinearLayout) view.findViewById(R.id.nav_content);
         mapView = (MapView) view.findViewById(R.id.map);
         scrollView = (ScrollView) view.findViewById(R.id.scroll_view);
-        navBtn = (Button) view.findViewById(R.id.nav_btn_bg);
+
     }
 
 }

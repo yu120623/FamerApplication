@@ -82,6 +82,9 @@
         <activity android:name=".order.actvity.OrderChooseDateActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name=".home.activity.MapNavActivity"
+            android:screenOrientation="portrait"
+            ></activity>
 
         <service android:name=".services.LocationService"></service>
 
@@ -89,7 +92,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="1951cd2699cf07ef97898dc32a296561" />
+            android:value="414af4196767e38654ba8e717267564a" />
     </application>
 
 </manifest>

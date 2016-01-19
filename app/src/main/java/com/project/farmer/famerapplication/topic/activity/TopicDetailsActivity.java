@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.topic.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -62,9 +63,12 @@ public class TopicDetailsActivity extends BaseActivity {
     private ImageView favouriteBtn;
     private RelativeLayout tagsContainer;
     private Button veiwFarmSetBtn;
+    private TextView farmSetPrice;
+    private TextView farmSetReason;
 
     @Override
     protected void initViews() {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViews();
         initData();
         initClick();
@@ -74,16 +78,16 @@ public class TopicDetailsActivity extends BaseActivity {
         dragTopLayout.listener(new DragTopLayout.PanelListener() {
             @Override
             public void onPanelStateChanged(DragTopLayout.PanelState panelState) {
-                if(panelState == DragTopLayout.PanelState.COLLAPSED){
+                if (panelState == DragTopLayout.PanelState.COLLAPSED) {
                     setActionBarIcon(true);
-                }else if(panelState == DragTopLayout.PanelState.EXPANDED){
+                } else if (panelState == DragTopLayout.PanelState.EXPANDED) {
                     setActionBarIcon(false);
                 }
             }
 
             @Override
             public void onSliding(float ratio) {
-                ViewHelper.setAlpha(actionBarBg,1-ratio);
+                ViewHelper.setAlpha(actionBarBg, 1 - ratio);
             }
 
             @Override
@@ -96,10 +100,12 @@ public class TopicDetailsActivity extends BaseActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 EventBus.getDefault().post(position);
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -115,13 +121,13 @@ public class TopicDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, FarmSetActivity.class);
-                intent.putExtra("farmTopicAliasId",farmTopicModel.getFarmTopicAliasId());
+                intent.putExtra("farmTopicAliasId", farmTopicModel.getFarmTopicAliasId());
                 startActivity(intent);
             }
         });
     }
 
-    private void setActionBarIcon(boolean flag){
+    private void setActionBarIcon(boolean flag) {
         backBtn.setSelected(flag);
         favouriteBtn.setSelected(flag);
         shareBtn.setSelected(flag);
@@ -139,26 +145,26 @@ public class TopicDetailsActivity extends BaseActivity {
         }, bannerUrls);
         banner.startTurning(3000);
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
-        double scale = screenWith/ (640*1.0);
-        banner.getLayoutParams().height = (int)(400*scale);
+        double scale = screenWith / (640 * 1.0);
+        banner.getLayoutParams().height = (int) (400 * scale);
 
     }
 
     private void initTags() {
-        if(null != farmSetModels.getTags() || farmSetModels.getTags().size() <= 0)return;
-        for(int i =0; i < farmSetModels.getTags().size();i++){
-            inflater.inflate(R.layout.text,tagsContainer,true);
-            final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+        if (null == farmSetModels.getTags() || farmSetModels.getTags().size() <= 0) return;
+        for (int i = 0; i < farmSetModels.getTags().size(); i++) {
+            inflater.inflate(R.layout.text, tagsContainer, true);
+            final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount() - 1);
             tag.setText(farmSetModels.getTags().get(i));
             tag.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Point point = AppUtil.random(tag.getWidth(),tag.getHeight(),CommonUtil.getScreenWith(getWindowManager()),banner.getLayoutParams().height);
+                    Point point = AppUtil.random(tag.getWidth(), tag.getHeight(), CommonUtil.getScreenWith(getWindowManager()), banner.getLayoutParams().height);
                     tag.setX(point.x);
                     tag.setY(point.y);
                     tag.setVisibility(View.VISIBLE);
                 }
-            },1000);
+            }, 1000);
         }
     }
 
@@ -171,20 +177,20 @@ public class TopicDetailsActivity extends BaseActivity {
 
     private void initFragments() {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("farmSet",farmSetModels);
+        bundle.putSerializable("farmSet", farmSetModels);
         Bundle bundle2 = new Bundle();
-        bundle2.putSerializable("farmTopic",farmTopicModel);
+        bundle2.putSerializable("farmTopic", farmTopicModel);
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.jieshao, TopicDescFragment.class,bundle)
-                .add(R.string.pingjia, TopicCommentFragment.class,bundle2)
-                .add(R.string.xuzhi, TopicNoticFragment.class,bundle2)
+                .add(R.string.jieshao, TopicDescFragment.class, bundle)
+                .add(R.string.pingjia, TopicCommentFragment.class, bundle2)
+                .add(R.string.xuzhi, TopicNoticFragment.class, bundle2)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);
     }
 
-    public void onEvent(Boolean flag){
+    public void onEvent(Boolean flag) {
         dragTopLayout.setTouchMode(flag);
     }
 
@@ -201,7 +207,7 @@ public class TopicDetailsActivity extends BaseActivity {
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         progressDrawable.start();
-        dragTopLayout.setCollapseOffset((int)getResources().getDimension(android.R.dimen.app_icon_size));
+        dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
         loadDataFromServer();
     }
 
@@ -224,8 +230,10 @@ public class TopicDetailsActivity extends BaseActivity {
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);
                 actionBar.setVisibility(View.VISIBLE);
+                farmSetPrice.setText(farmSetModels.getMinPrice() + "元");
+                farmSetReason.setText(farmSetModels.getFarmSetRecomReason());
             }
-        },data);
+        }, data);
         request.execute();
     }
 
@@ -245,7 +253,7 @@ public class TopicDetailsActivity extends BaseActivity {
         contentViewPager = (ViewPager) this.findViewById(R.id.details_content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.details_drag_layout);
         banner = (ConvenientBanner) this.findViewById(R.id.details_convenient_banner);
-        smartTabLayout= (SmartTabLayout) this.findViewById(R.id.viewpagertab);
+        smartTabLayout = (SmartTabLayout) this.findViewById(R.id.viewpagertab);
         progress = (ImageView) this.findViewById(R.id.progress);
         contentView = this.findViewById(R.id.topic_content);
         actionBar = this.findViewById(R.id.top_info_acion_bar);
@@ -255,6 +263,8 @@ public class TopicDetailsActivity extends BaseActivity {
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
         tagsContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
         veiwFarmSetBtn = (Button) this.findViewById(R.id.topic_btn);
+        farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);
+        farmSetReason = (TextView) this.findViewById(R.id.farm_set_reason);
     }
 
     @Override
@@ -274,7 +284,9 @@ public class TopicDetailsActivity extends BaseActivity {
 
     public void setUrlBanners(FarmSetModel farmSetModel) {
         bannerUrls = new ArrayList<String>();
-        for(int i = 0;i < farmSetModel.getBaResourceModels().size();i++){
+        if (null == farmSetModel.getBaResourceModels() || farmSetModel.getBaResourceModels().size() <= 0)
+            return;
+        for (int i = 0; i < farmSetModel.getBaResourceModels().size(); i++) {
             bannerUrls.add(farmSetModel.getBaResourceModels().get(i).getResourceLocation());
         }
     }

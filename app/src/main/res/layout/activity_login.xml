@@ -19,6 +19,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="@dimen/login_ico_height"
+            android:maxWidth="@dimen/login_ico_width"
             android:src="@mipmap/login_m" />
 
         <EditText
@@ -48,6 +52,10 @@
             android:id="@+id/ico_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="@dimen/login_ico_height"
+            android:maxWidth="@dimen/login_ico_width"
             android:src="@mipmap/login_pwd" />
 
         <EditText
@@ -66,8 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:button="@null"
-            android:background="@drawable/pwd_status" />
+            android:background="@drawable/pwd_status"
+            android:button="@null" />
 
     </RelativeLayout>
 

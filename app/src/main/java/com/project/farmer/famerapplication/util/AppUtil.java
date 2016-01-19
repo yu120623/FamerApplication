@@ -18,6 +18,7 @@ public class AppUtil {
     public static final String SP_CITY_NAME = "cn";
     public static final String SP_LAT = "t";
     public static final String SP_LOG = "g";
+    public static final String FARM_IMG_SIZE = "@!w150h150";
 
 
     public static final String SP_NEW_CITY_CODE = "n_c";
@@ -78,16 +79,16 @@ public class AppUtil {
     }
 
 
-    public static Point random(int viewWidth,int viewHeight,int width,int height){
+    public static Point random(int viewWidth, int viewHeight, int width, int height) {
         //List<Point> points = new ArrayList<>();
         Random random = new Random();
-        int x = random.nextInt(width-viewWidth-20)+20;
-        int y = random.nextInt(height-viewHeight-20)+20;
-        Point point = new Point(x,y);
+        int x = random.nextInt(width - viewWidth - 20) + 20;
+        int y = random.nextInt(height - viewHeight - 20) + 20;
+        Point point = new Point(x, y);
         return point;
     }
 
-    public static TransferObject getHttpData(Context context){
+    public static TransferObject getHttpData(Context context) {
         return new TransferObject();
     }
 }

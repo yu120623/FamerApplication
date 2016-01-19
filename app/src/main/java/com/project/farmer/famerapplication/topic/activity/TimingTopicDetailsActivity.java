@@ -1,6 +1,7 @@
 package com.project.farmer.famerapplication.topic.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -40,7 +41,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
-public class TimingTopicDetailsActivity extends BaseActivity{
+public class TimingTopicDetailsActivity extends BaseActivity {
     private DisplayImageOptions options;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
@@ -59,23 +60,27 @@ public class TimingTopicDetailsActivity extends BaseActivity{
     private ImageView favouriteBtn;
     private RelativeLayout bannerContainer;
     private Button topicBtn;
+
     @Override
     protected void initViews() {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViews();
         initData();
         initClick();
     }
 
     private void initTopicBtn() {
+        if (null == farmSetModels.getBeginTime() || null == farmSetModels.getEndTime() || null == farmSetModels.getNowTime())
+            return;
         long now = farmSetModels.getNowTime().getTime();
         long startTime = farmSetModels.getBeginTime().getTime();
         long endTime = farmSetModels.getEndTime().getTime();
-        if(now < startTime){
+        if (now < startTime) {
             topicBtn.setText(R.string.not_start_qianggou);
-        }else{
-            if(endTime < now){
+        } else {
+            if (endTime < now) {
                 topicBtn.setText(R.string.end_qianggou);
-            }else{
+            } else {
                 topicBtn.setText(R.string.qianggou);
             }
         }
@@ -85,15 +90,16 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         dragTopLayout.listener(new DragTopLayout.PanelListener() {
             @Override
             public void onPanelStateChanged(DragTopLayout.PanelState panelState) {
-                if(panelState == DragTopLayout.PanelState.COLLAPSED){
+                if (panelState == DragTopLayout.PanelState.COLLAPSED) {
                     setActionBarIcon(true);
-                }else if(panelState == DragTopLayout.PanelState.EXPANDED){
+                } else if (panelState == DragTopLayout.PanelState.EXPANDED) {
                     setActionBarIcon(false);
                 }
             }
+
             @Override
             public void onSliding(float ratio) {
-                ViewHelper.setAlpha(actionBarBg,1-ratio);
+                ViewHelper.setAlpha(actionBarBg, 1 - ratio);
             }
 
             @Override
@@ -106,10 +112,12 @@ public class TimingTopicDetailsActivity extends BaseActivity{
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 EventBus.getDefault().post(position);
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -134,8 +142,8 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         }, bannerUrls);
         banner.startTurning(3000);
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
-        double scale = screenWith/ (640*1.0);
-        banner.getLayoutParams().height = (int)(400*scale);
+        double scale = screenWith / (640 * 1.0);
+        banner.getLayoutParams().height = (int) (400 * scale);
     }
 
     @Override
@@ -146,20 +154,20 @@ public class TimingTopicDetailsActivity extends BaseActivity{
 
     private void initFragments() {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("farmSet",farmSetModels);
+        bundle.putSerializable("farmSet", farmSetModels);
         Bundle bundle2 = new Bundle();
-        bundle2.putSerializable("farmTopic",farmTopicModel);
+        bundle2.putSerializable("farmTopic", farmTopicModel);
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.jieshao, TimingDescFragment.class,bundle)
-                .add(R.string.pingjia, TimingCommentFragment.class,bundle2)
-                .add(R.string.navigation, TimingNavigationFragment.class,bundle)
+                .add(R.string.jieshao, TimingDescFragment.class, bundle)
+                .add(R.string.pingjia, TimingCommentFragment.class, bundle2)
+                .add(R.string.navigation, TimingNavigationFragment.class, bundle)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);
     }
 
-    public void onEvent(Boolean flag){
+    public void onEvent(Boolean flag) {
         dragTopLayout.setTouchMode(flag);
     }
 
@@ -176,7 +184,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         progressDrawable.start();
-        dragTopLayout.setCollapseOffset((int)getResources().getDimension(android.R.dimen.app_icon_size));
+        dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
         loadDataFromServer();
 
     }
@@ -186,8 +194,8 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         String url = API.URL + API.API_URL.FARM_TOPIC_INFO;
         TransferObject data = AppUtil.getHttpData(context);
         data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
-        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT,0)).doubleValue());
-        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG,0)).doubleValue());
+        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
+        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -201,12 +209,12 @@ public class TimingTopicDetailsActivity extends BaseActivity{
                 contentView.setVisibility(View.VISIBLE);
                 actionBar.setVisibility(View.VISIBLE);
             }
-        },data);
+        }, data);
         request.execute();
     }
 
 
-    private void setActionBarIcon(boolean flag){
+    private void setActionBarIcon(boolean flag) {
         backBtn.setSelected(flag);
         favouriteBtn.setSelected(flag);
         shareBtn.setSelected(flag);
@@ -228,7 +236,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
 
     public void setUrlBanners(FarmSetModel farmSetModel) {
         bannerUrls = new ArrayList<String>();
-        for(int i = 0;i < farmSetModel.getBaResourceModels().size();i++){
+        for (int i = 0; i < farmSetModel.getBaResourceModels().size(); i++) {
             bannerUrls.add(farmSetModel.getBaResourceModels().get(i).getResourceLocation());
         }
     }
@@ -237,7 +245,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
         contentViewPager = (ViewPager) this.findViewById(R.id.details_content_view_pager);
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.details_drag_layout);
         banner = (ConvenientBanner) this.findViewById(R.id.details_convenient_banner);
-        smartTabLayout= (SmartTabLayout) this.findViewById(R.id.viewpagertab);
+        smartTabLayout = (SmartTabLayout) this.findViewById(R.id.viewpagertab);
         progress = (ImageView) this.findViewById(R.id.progress);
         contentView = this.findViewById(R.id.topic_content);
         actionBar = this.findViewById(R.id.top_info_acion_bar);
@@ -254,6 +262,7 @@ public class TimingTopicDetailsActivity extends BaseActivity{
     protected int getContentView() {
         return R.layout.activity_topic_details;
     }
+
     @Override
     protected String setActionBarTitle() {
         return "";

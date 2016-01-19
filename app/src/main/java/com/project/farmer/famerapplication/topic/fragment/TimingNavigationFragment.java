@@ -1,14 +1,14 @@
 package com.project.farmer.famerapplication.topic.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -22,6 +22,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmItemsModel;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
+import com.project.farmer.famerapplication.home.activity.MapNavActivity;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.text.DecimalFormat;
@@ -41,6 +42,7 @@ public class TimingNavigationFragment extends Fragment {
     private LayoutInflater inflater;
     private List<Marker> markers;
     private DecimalFormat decimalFormat;
+    private Button navBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +59,7 @@ public class TimingNavigationFragment extends Fragment {
 
     private void addItem() {
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
+        if (null == farmItemsModels || farmItemsModels.size() <= 0) return;
         for (int i = 0; i < farmItemsModels.size(); i++) {
             FarmItemsModel item = farmItemsModels.get(i);
             View view = ((LinearLayout) inflater.inflate(R.layout.item_farm_set_nav, navContent, true)).getChildAt(navContent.getChildCount() - 1);
@@ -74,6 +77,7 @@ public class TimingNavigationFragment extends Fragment {
 
     private void addMark() {
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
+        if (null == farmItemsModels || farmItemsModels.size() <= 0) return;
         for (int i = 0; i < farmItemsModels.size(); i++) {
             MarkerOptions mark = new MarkerOptions();
             FarmItemsModel item = farmItemsModels.get(i);
@@ -96,13 +100,20 @@ public class TimingNavigationFragment extends Fragment {
         map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(false);
         map.setOnMapLoadedListener(onloadListener);
+        navBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapNavActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private AMap.OnMapLoadedListener onloadListener = new AMap.OnMapLoadedListener() {
         @Override
         public void onMapLoaded() {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for(int i =0; i < markers.size();i++){
+            for (int i = 0; i < markers.size(); i++) {
                 builder.include(markers.get(i).getPosition());
             }
             map.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
@@ -135,8 +146,8 @@ public class TimingNavigationFragment extends Fragment {
         mapView.onDestroy();
     }
 
-    public void onEvent(Integer index){
-        if(index.intValue() == 2){
+    public void onEvent(Integer index) {
+        if (index.intValue() == 2) {
             EventBus.getDefault().post(AttachUtil.isScrollViewAttach(scrollView));
         }
     }
@@ -146,6 +157,7 @@ public class TimingNavigationFragment extends Fragment {
         navContent = (LinearLayout) view.findViewById(R.id.nav_content);
         mapView = (MapView) view.findViewById(R.id.map);
         scrollView = (ScrollView) view.findViewById(R.id.scroll_view);
+        navBtn = (Button) view.findViewById(R.id.nav_btn_bg);
     }
 
 }

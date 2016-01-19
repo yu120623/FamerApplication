@@ -10,4 +10,6 @@
     <dimen name="order_process_width">50dp</dimen>
     <dimen name="button_min_height">40dp</dimen>
     <dimen name="button_min_width">280dp</dimen>
+    <dimen name="login_ico_height">30dp</dimen>
+    <dimen name="login_ico_width">30dp</dimen>
 </resources>

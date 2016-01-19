@@ -80,8 +80,8 @@ public class ZhouBianFragment extends BaseFragment {
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
         data.setType("around");
-        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT,0)).doubleValue());
-        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG,0)).doubleValue());
+        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
+        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -106,6 +106,7 @@ public class ZhouBianFragment extends BaseFragment {
             v.setOnClickListener(this);
             return holder;
         }
+
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
             FarmModel farmModel = farmAroundListModels.get(position);
@@ -131,7 +132,7 @@ public class ZhouBianFragment extends BaseFragment {
                 holder.flowLayout.addView(tv);
                 holder.flowLayout.addView(tv1);
             }
-            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath(), options);
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath() + AppUtil.FARM_IMG_SIZE, options);
         }
 
         @Override
@@ -143,7 +144,7 @@ public class ZhouBianFragment extends BaseFragment {
         public void onClick(View v) {
             FarmModel farmModel = (FarmModel) v.getTag();
             Intent intent = new Intent();
-            intent.putExtra("farmModel",farmModel);
+            intent.putExtra("farmModel", farmModel);
             intent.setClass(getActivity(), FarmDetailActivity.class);
             startActivity(intent);
         }

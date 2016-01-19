@@ -2,7 +2,7 @@ package com.project.farmer.famerapplication.http;
 
 public class API {
     public static final String URL = "http://121.40.91.182:8080/mycff/api/";
-    //public static final String URL = "http://192.168.8.106:8080/mycff/api/";
+//    public static final String URL = "http://192.168.8.106:8080/mycff/api/";
     public static final String PARAM_STR = "jsonStr";
 
     public static class API_URL {

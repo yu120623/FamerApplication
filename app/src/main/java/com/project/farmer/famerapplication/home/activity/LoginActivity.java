@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.topic.fragment.TimingNavigationFragment;
 
 /**
  * Created by gseoa on 2016/1/12.

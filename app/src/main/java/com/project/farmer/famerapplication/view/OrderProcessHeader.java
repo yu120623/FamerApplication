@@ -1,4 +1,4 @@
-package com.project.farmer.famerapplication.order.view;
+package com.project.farmer.famerapplication.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

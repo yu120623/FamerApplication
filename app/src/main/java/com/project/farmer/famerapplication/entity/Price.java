@@ -10,7 +10,7 @@ public class Price implements java.io.Serializable {
 	private String priceType;
 	private int referenceObjectId;
 	private Date priceDate;
-	private long price;
+	private Double price;
 	private Date createdTime;
 	private String cretedBy;
 	private Date updatedTime;
@@ -20,7 +20,7 @@ public class Price implements java.io.Serializable {
 	}
 
 	public Price(String priceType, int referenceObjectId, Date priceDate,
-			long price, Date createdTime, String cretedBy, Date updatedTime,
+				 Double price, Date createdTime, String cretedBy, Date updatedTime,
 			String updatedBy) {
 		this.priceType = priceType;
 		this.referenceObjectId = referenceObjectId;
@@ -64,11 +64,11 @@ public class Price implements java.io.Serializable {
 		this.priceDate = priceDate;
 	}
 
-	public long getPrice() {
+	public Double getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

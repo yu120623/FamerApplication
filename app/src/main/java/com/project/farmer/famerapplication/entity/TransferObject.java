@@ -48,6 +48,12 @@ public class TransferObject implements Serializable {
 
     private List<CodeModel> codeModels;
 
+    private Integer copies;
+
+    private String contactId;
+
+    private OrderModel orderModel;
+
     private List<Resource> resources;
 
     private CodeModel codeModel;
@@ -320,5 +326,29 @@ public class TransferObject implements Serializable {
 
     public void setDates(List<Date> dates) {
         this.dates = dates;
+    }
+
+    public Integer getCopies() {
+        return copies;
+    }
+
+    public void setCopies(Integer copies) {
+        this.copies = copies;
+    }
+
+    public String getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(String contactId) {
+        this.contactId = contactId;
+    }
+
+    public OrderModel getOrderModel() {
+        return orderModel;
+    }
+
+    public void setOrderModel(OrderModel orderModel) {
+        this.orderModel = orderModel;
     }
 }

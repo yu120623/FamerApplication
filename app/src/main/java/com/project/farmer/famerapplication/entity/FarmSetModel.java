@@ -8,10 +8,11 @@ public class FarmSetModel extends FarmSet{
 	private List<ResourseModel> deResourceModels;
 	private List<String> tags;
 	private List<FarmItemsModel> farmItemsModels;
-	private Integer minPrice;
+	private Double minPrice;
 	private Date nowTime;
 	private Date endTime;
 	private Date beginTime;
+	private Double fund;
 	
 	public List<ResourseModel> getBaResourceModels() {
 		return baResourceModels;
@@ -31,10 +32,10 @@ public class FarmSetModel extends FarmSet{
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-	public Integer getMinPrice() {
+	public Double getMinPrice() {
 		return minPrice;
 	}
-	public void setMinPrice(Integer minPrice) {
+	public void setMinPrice(Double minPrice) {
 		this.minPrice = minPrice;
 	}
 	public FarmSetModel(){
@@ -101,5 +102,13 @@ public class FarmSetModel extends FarmSet{
 
 	public void setBeginTime(Date beginTime) {
 		this.beginTime = beginTime;
+	}
+
+	public Double getFund() {
+		return fund;
+	}
+
+	public void setFund(Double fund) {
+		this.fund = fund;
 	}
 }

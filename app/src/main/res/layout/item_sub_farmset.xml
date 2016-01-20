@@ -79,8 +79,8 @@
 
         <ImageView
             android:id="@+id/farmset_item_img"
-            android:layout_width="160dp"
-            android:layout_height="100dp" />
+            android:layout_width="@dimen/farm_set_sub_item_img_width"
+            android:layout_height="@dimen/farm_set_sub_item_img_height" />
 
         <TextView
             android:padding="3dp"

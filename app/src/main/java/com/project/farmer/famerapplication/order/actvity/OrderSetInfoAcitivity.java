@@ -1,13 +1,14 @@
 package com.project.farmer.famerapplication.order.actvity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.TrafficStats;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,17 +20,18 @@ import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmItemsModel;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
 import com.project.farmer.famerapplication.entity.OrderDateModel;
+import com.project.farmer.famerapplication.entity.OrderModel;
 import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
-import com.project.farmer.famerapplication.order.view.OrderProcessHeader;
+import com.project.farmer.famerapplication.view.OrderProcessHeader;
 import com.project.farmer.famerapplication.util.AppUtil;
-import com.samsistemas.calendarview.widget.CalendarView;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderSetInfoAcitivity extends BaseActivity{
     private FarmSetModel farmSetModel;
@@ -44,20 +46,63 @@ public class OrderSetInfoAcitivity extends BaseActivity{
     private View cotentView;
     private LinearLayout farmSetItemContent;
     private SimpleDateFormat dateFormat;
+    private Button genOrder;
+    private TextView orderMoney;
     @Override
     protected void initViews() {
         findViews();
         initData();
+        initClick();
+    }
+
+    private void initClick() {
+        genOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = API.URL + API.API_URL.GEN_ORDER;
+                TransferObject data = buildGenOrderData();
+                AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+                    @Override
+                    public void onSuccess(TransferObject data) {
+                        OrderModel order = data.getOrderModel();
+                        Intent intent = new Intent(context,OrderChoosePayActivity.class);
+                        intent.putExtra("order",order);
+                        startActivity(intent);
+                        finish();
+                    }
+                },data);
+                request.execute();
+            }
+        });
+    }
+    //生成下单参数
+    private TransferObject buildGenOrderData() {
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setDate(orderDataModel.getDate());
+        data.setCopies(num);
+        data.setUserAliasId("aaa");
+        data.setContactId("4");
+        farmSetModel.setFund(10d);
+        List<FarmItemsModel> farmItemsModels = new ArrayList<>();
+        for(FarmItemsModel item : farmSetModel.getFarmItemsModels()){
+            FarmItemsModel farmItem = new FarmItemsModel();
+            farmItem.setFarmItemAliasId(item.getFarmItemAliasId());
+            farmItem.setConsumeTime(orderDataModel.getDate());
+            farmItemsModels.add(farmItem);
+        }
+        farmSetModel.setFarmItemsModels(farmItemsModels);
+        data.setFarmSetModel(farmSetModel);
+        return data;
     }
 
     private void checkNum() {
-        if(num <= 1){
+        if(num <= 1 && num < farmSetModel.getMaxCanBuy()){
             jianBtn.setImageResource(R.mipmap.jian);
             jianBtn.setOnClickListener(null);
             addBtn.setImageResource(R.mipmap.add_s);
             addBtn.setOnClickListener(onAddClick);
         }else{
-            if(num >= 5){
+            if(num >= farmSetModel.getMaxCanBuy()){
                 addBtn.setImageResource(R.mipmap.add);
                 addBtn.setOnClickListener(null);
             }else {
@@ -67,6 +112,9 @@ public class OrderSetInfoAcitivity extends BaseActivity{
             jianBtn.setImageResource(R.mipmap.jian_s);
             jianBtn.setOnClickListener(onJianClick);
         }
+        BigDecimal price = new BigDecimal(farmSetModel.getMinPrice());
+        BigDecimal money =  price.multiply(new BigDecimal(num));
+        orderMoney.setText("￥"+money.doubleValue()+"");
     }
 
     private void loadDataFromServer() {
@@ -81,6 +129,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                 farmSetModel = data.getFarmSetModel();
                 if(farmSetModel != null){
                     showFarmSet();
+                    checkNum();
                 }
             }
         },data);
@@ -224,6 +273,8 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         cotentView = this.findViewById(R.id.content);
         farmSetItemContent = (LinearLayout) this.findViewById(R.id.farm_set_item_content);
+        genOrder = (Button) this.findViewById(R.id.gen_order);
+        orderMoney = (TextView) this.findViewById(R.id.order_money);
     }
 
     private View.OnClickListener onAddClick = new View.OnClickListener() {
@@ -252,6 +303,6 @@ public class OrderSetInfoAcitivity extends BaseActivity{
 
     @Override
     protected String setActionBarTitle() {
-        return "预订流程";
+        return getString(R.string.order_pay_process);
     }
 }

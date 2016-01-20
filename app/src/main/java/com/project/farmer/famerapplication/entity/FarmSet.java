@@ -17,6 +17,7 @@ public class FarmSet implements java.io.Serializable {
 	private String createdBy;
 	private Date updatedTime;
 	private String updatedBy;
+	private int maxCanBuy;
 
 	public FarmSet() {
 	}
@@ -147,4 +148,12 @@ public class FarmSet implements java.io.Serializable {
 		this.isDeleted = isDeleted;
 	}
 
+
+	public int getMaxCanBuy() {
+		return maxCanBuy;
+	}
+
+	public void setMaxCanBuy(int maxCanBuy) {
+		this.maxCanBuy = maxCanBuy;
+	}
 }

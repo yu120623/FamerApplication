@@ -3,10 +3,12 @@ package com.project.farmer.famerapplication.http;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.baseandroid.util.Json;
@@ -24,14 +26,18 @@ public class PostRequest extends Request<TransferObject> {
     private Response.Listener<TransferObject> mListener;
     private Response.ErrorListener errorListener;
     private byte[] file;
+    public static final int DEFAULT_TIMEOUT_MS = 6000;
+    public static final int DEFAULT_MAX_RETRIES = 0;
+    public static final float DEFAULT_BACKOFF_MULT = 1f;
     public PostRequest(String url, Response.Listener<TransferObject> listener,
                        Response.ErrorListener errorListener, TransferObject data) {
         super(Method.POST, url, errorListener);
         mListener = listener;
         this.data = data;
         this.errorListener = errorListener;
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(DEFAULT_TIMEOUT_MS,DEFAULT_MAX_RETRIES,DEFAULT_BACKOFF_MULT);
+        setRetryPolicy(retryPolicy);
         setShouldCache(false);
-
     }
 
     public PostRequest(String url, Response.Listener<TransferObject> listener,
@@ -41,6 +47,8 @@ public class PostRequest extends Request<TransferObject> {
         this.data = data;
         this.errorListener = errorListener;
         this.file = file;
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(DEFAULT_TIMEOUT_MS,DEFAULT_MAX_RETRIES,DEFAULT_BACKOFF_MULT);
+        setRetryPolicy(retryPolicy);
         setShouldCache(false);
     }
 
@@ -86,4 +94,6 @@ public class PostRequest extends Request<TransferObject> {
         String msg = error.getMessage();
         errorListener.onErrorResponse(error);
     }
+
+
 }

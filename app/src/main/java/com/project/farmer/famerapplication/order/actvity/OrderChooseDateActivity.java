@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
-import com.baseandroid.util.CommonUtil;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
 import com.project.farmer.famerapplication.entity.OrderDateModel;
@@ -15,7 +14,7 @@ import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
-import com.project.farmer.famerapplication.order.view.OrderProcessHeader;
+import com.project.farmer.famerapplication.view.OrderProcessHeader;
 import com.project.farmer.famerapplication.util.AppUtil;
 import com.samsistemas.calendarview.util.CalendarUtil;
 import com.samsistemas.calendarview.widget.CalendarView;
@@ -113,6 +112,6 @@ public class OrderChooseDateActivity extends BaseActivity{
 
     @Override
     protected String setActionBarTitle() {
-        return "预订流程";
+        return getString(R.string.order_pay_process);
     }
 }

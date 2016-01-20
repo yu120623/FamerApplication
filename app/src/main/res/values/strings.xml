@@ -36,4 +36,10 @@
     <string name="other_msg">其他信息</string>
     <string name="contact_name">联系人</string>
     <string name="choose_use_time">请选择使用的时间</string>
+    <string name="farm_set_fund">农庄旅游基金</string>
+    <string name="need_pay">应付：</string>
+    <string name="gen_order">下单</string>
+    <string name="order_pay_process">预订流程</string>
+    <string name="pay">支付</string>
+    <string name="choose">请选择</string>
 </resources>

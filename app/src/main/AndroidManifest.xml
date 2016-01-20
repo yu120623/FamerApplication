@@ -85,6 +85,9 @@
         <activity
             android:name=".order.actvity.OrderChoosePayActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".contact.activity.ContactListAcitivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".home.activity.MapNavActivity"
             android:screenOrientation="portrait"

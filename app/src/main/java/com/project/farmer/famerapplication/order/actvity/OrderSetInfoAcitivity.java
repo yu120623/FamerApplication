@@ -17,6 +17,8 @@ import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.project.farmer.famerapplication.R;
+import com.project.farmer.famerapplication.contact.activity.ContactListAcitivity;
+import com.project.farmer.famerapplication.entity.Contact;
 import com.project.farmer.famerapplication.entity.FarmItemsModel;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
 import com.project.farmer.famerapplication.entity.OrderDateModel;
@@ -29,8 +31,10 @@ import com.project.farmer.famerapplication.view.OrderProcessHeader;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderSetInfoAcitivity extends BaseActivity{
@@ -48,6 +52,10 @@ public class OrderSetInfoAcitivity extends BaseActivity{
     private SimpleDateFormat dateFormat;
     private Button genOrder;
     private TextView orderMoney;
+    private TextView contactName;
+    private View changeContact;
+    private Contact contact;
+    private AlertDialog timeDialog;
     @Override
     protected void initViews() {
         findViews();
@@ -59,6 +67,11 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         genOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(contact == null) {
+                    CommonUtil.showMessage(context, getString(R.string.choose_contact));
+                    return;
+                }
+                CommonUtil.showSimpleProgressDialog("正在为您下单，请稍后...",activity);
                 String url = API.URL + API.API_URL.GEN_ORDER;
                 TransferObject data = buildGenOrderData();
                 AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
@@ -74,20 +87,41 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                 request.execute();
             }
         });
+        changeContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ContactListAcitivity.class);
+                startActivityForResult(intent,1);
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == 1){
+                contact = (Contact) data.getSerializableExtra("contact");
+                contactName.setText(contact.getConnectName()+","+contact.getConnectPhone());
+            }
+        }
+    }
+
     //生成下单参数
     private TransferObject buildGenOrderData() {
         TransferObject data = AppUtil.getHttpData(context);
         data.setDate(orderDataModel.getDate());
         data.setCopies(num);
         data.setUserAliasId("aaa");
-        data.setContactId("4");
-        farmSetModel.setFund(10d);
+        data.setContactId(contact.getContactId()+"");
+        farmSetModel.setFund(0d);
         List<FarmItemsModel> farmItemsModels = new ArrayList<>();
         for(FarmItemsModel item : farmSetModel.getFarmItemsModels()){
             FarmItemsModel farmItem = new FarmItemsModel();
             farmItem.setFarmItemAliasId(item.getFarmItemAliasId());
-            farmItem.setConsumeTime(orderDataModel.getDate());
+            if(item.getConsumeTime() != null){
+                farmItem.setConsumeTime(item.getConsumeTime());
+            }else
+                farmItem.setConsumeTime(orderDataModel.getDate());
             farmItemsModels.add(farmItem);
         }
         farmSetModel.setFarmItemsModels(farmItemsModels);
@@ -101,8 +135,11 @@ public class OrderSetInfoAcitivity extends BaseActivity{
             jianBtn.setOnClickListener(null);
             addBtn.setImageResource(R.mipmap.add_s);
             addBtn.setOnClickListener(onAddClick);
+        }else if(num == farmSetModel.getMaxCanBuy()){
+            addBtn.setImageResource(R.mipmap.add);
+            addBtn.setOnClickListener(null);
         }else{
-            if(num >= farmSetModel.getMaxCanBuy()){
+            if(num > farmSetModel.getMaxCanBuy()){
                 addBtn.setImageResource(R.mipmap.add);
                 addBtn.setOnClickListener(null);
             }else {
@@ -172,7 +209,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
 
     private void setFarmItemTime(TextView farmSetTime, FarmItemsModel farmItemsModel) {
         farmSetTime.setText(dateFormat.format(orderDataModel.getDate()));
-        if("1".equals(farmItemsModel.getFarmItemType())){
+        if("1".equals(farmItemsModel.getFarmItemType())){//如果是住 不允许更换时间
             farmSetTime.setTextColor(getResources().getColor(R.color.red));
             farmSetTime.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -201,16 +238,18 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         TextView timeText = getTimeText();
         timeText.setText(dateFormat.format(orderDataModel.getDate()));
         timeView.addView(timeText);
-        AlertDialog dialog = new AlertDialog.Builder(activity)
+        timeView.setOnClickListener(onTimeChangeClick);
+        timeView.setTag(farmItemsModel);
+        timeDialog = new AlertDialog.Builder(activity)
                 .setView(time_view)
                 .create();
-        dialog.getWindow().setWindowAnimations(R.style.dialog_time_style);
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        dialog.show();
+        timeDialog.getWindow().setWindowAnimations(R.style.dialog_time_style);
+        timeDialog.getWindow().setGravity(Gravity.BOTTOM);
+        timeDialog.show();
         loadTimeFromServer(view,timeView,farmItemsModel);
     }
 
-    private void loadTimeFromServer(View view,final LinearLayout timeView, FarmItemsModel farmItemsModel) {
+    private void loadTimeFromServer(final View view, final LinearLayout timeView, final FarmItemsModel farmItemsModel) {
         String url = API.URL + API.API_URL.ORDER_CHANGE_FARM_ITEM_DATE;
         TransferObject data = new TransferObject();
         data.setFarmSetAliasId(farmSetModel.getFarmSetAliasId());
@@ -224,6 +263,10 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                     TextView timeText = getTimeText();
                     timeText.setText(dateFormat.format(data.getDates().get(i)));
                     timeView.addView(timeText);
+                    timeText.setTag(R.id.tag_farm_sub_item,farmItemsModel);
+                    timeText.setTag(R.id.tag_farm_sub_item_time,data.getDates().get(i));
+                    timeText.setTag(R.id.tag_farm_sub_item_text,view);
+                    timeText.setOnClickListener(onTimeChangeClick);
                 }
             }
         },data);
@@ -241,6 +284,18 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         time.setGravity(Gravity.CENTER);
         return time;
     }
+
+    public View.OnClickListener onTimeChangeClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FarmItemsModel farmItemsModel = (FarmItemsModel) view.getTag(R.id.tag_farm_sub_item);
+            Date time = (Date) view.getTag(R.id.tag_farm_sub_item_time);
+            TextView farmSetTime = (TextView) view.getTag(R.id.tag_farm_sub_item_text);
+            farmItemsModel.setConsumeTime(time);
+            farmSetTime.setText(dateFormat.format(time));
+            timeDialog.dismiss();
+        }
+    };
 
     public View.OnClickListener onFarmSetItemClick = new View.OnClickListener() {
         @Override
@@ -275,6 +330,8 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         farmSetItemContent = (LinearLayout) this.findViewById(R.id.farm_set_item_content);
         genOrder = (Button) this.findViewById(R.id.gen_order);
         orderMoney = (TextView) this.findViewById(R.id.order_money);
+        contactName = (TextView) this.findViewById(R.id.contact_name);
+        changeContact = this.findViewById(R.id.change_contact);
     }
 
     private View.OnClickListener onAddClick = new View.OnClickListener() {

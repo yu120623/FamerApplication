@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tag_farm_sub_item_text" type="id"></item>
+    <item name="tag_farm_sub_item_time" type="id"></item>
+    <item name="tag_farm_sub_item" type="id"></item>
+</resources>

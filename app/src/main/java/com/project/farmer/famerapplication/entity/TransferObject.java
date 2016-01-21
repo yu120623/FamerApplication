@@ -54,8 +54,6 @@ public class TransferObject implements Serializable {
 
     private String contactId;
 
-    private OrderModel orderModel;
-
     private List<Resource> resources;
 
     private CodeModel codeModel;
@@ -72,6 +70,16 @@ public class TransferObject implements Serializable {
     private SearchModel searchModel;
     private String farmItemAliasId;
     private List<FarmStatement> farmStatements;
+    private List<OrderModel> orderModels;
+    private OrderModel orderModel;
+
+    public List<OrderModel> getOrderModels() {
+        return orderModels;
+    }
+
+    public void setOrderModels(List<OrderModel> orderModels) {
+        this.orderModels = orderModels;
+    }
 
     public List<SearchModel> getSearchModels() {
         return searchModels;

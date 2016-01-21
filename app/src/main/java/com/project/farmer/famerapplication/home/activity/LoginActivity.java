@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.baseandroid.BaseActivity;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.topic.fragment.TimingNavigationFragment;
+import com.project.farmer.famerapplication.user.activity.UserActivity;
 
 /**
  * Created by gseoa on 2016/1/12.
@@ -41,7 +42,7 @@ public class LoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                 intent.putExtra("in", true);
                 startActivity(intent);
             }

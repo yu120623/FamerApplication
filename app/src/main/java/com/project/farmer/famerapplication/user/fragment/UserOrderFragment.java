@@ -8,8 +8,10 @@ import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.home.fragment.JingXuanFragment;
+import com.project.farmer.famerapplication.user.orderfragment.ConsumedFragment;
 import com.project.farmer.famerapplication.user.orderfragment.PaidFragment;
 import com.project.farmer.famerapplication.user.orderfragment.ReFundFragment;
+import com.project.farmer.famerapplication.user.orderfragment.UnConsumedFragment;
 import com.project.farmer.famerapplication.user.orderfragment.UnPaidFragment;
 
 /**
@@ -32,8 +34,8 @@ public class UserOrderFragment extends BaseFragment {
                 getFragmentManager(), FragmentPagerItems.with(context)
                 .add("未付款", UnPaidFragment.class)
                 .add("已付款", PaidFragment.class)
-                .add("待消费", JingXuanFragment.class)
-                .add("已消费", JingXuanFragment.class)
+                .add("待消费", UnConsumedFragment.class)
+                .add("已消费", ConsumedFragment.class)
                 .add("退单区", ReFundFragment.class)
                 .create());
         contentViewPager.setAdapter(adapter);

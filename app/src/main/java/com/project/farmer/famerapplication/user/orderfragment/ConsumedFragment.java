@@ -1,6 +1,5 @@
 package com.project.farmer.famerapplication.user.orderfragment;
 
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -21,33 +20,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gseoa on 2016/1/14.
+ * Created by gseoa on 2016/1/21.
  */
-public class PaidFragment extends BaseFragment {
-    private RecyclerView paidList;
-    private PaidAdapter adapter;
+public class ConsumedFragment extends BaseFragment {
+    private RecyclerView consumedList;
+    private ConsumedAdapter adapter;
     private List<OrderModel> orderModels;
+
     @Override
     protected void initViews() {
         findViews();
         initData();
     }
+
     private void findViews() {
-        paidList = (RecyclerView) this.findViewById(R.id.paid_list);
+        consumedList = (RecyclerView) this.findViewById(R.id.consumed_list);
     }
 
     private void initData() {
         orderModels = new ArrayList<OrderModel>();
-        adapter = new PaidAdapter();
-        paidList.setLayoutManager(new LinearLayoutManager(context));
-        paidList.setAdapter(adapter);
+        adapter = new ConsumedAdapter();
+        consumedList.setLayoutManager(new LinearLayoutManager(context));
+        consumedList.setAdapter(adapter);
         loadDataFromServer();
     }
 
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setType("ordNC");
+        data.setType("ordHC");
         data.setUserAliasId("aaa");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
@@ -62,20 +63,22 @@ public class PaidFragment extends BaseFragment {
         request.execute();
     }
 
-    class PaidAdapter extends RecyclerView.Adapter<PaidViewHolder> {
+    class ConsumedAdapter extends RecyclerView.Adapter<ConsumedViewHolder> {
         @Override
-        public PaidViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.item_paid, null);
-            PaidViewHolder holder = new PaidViewHolder(v);
+        public ConsumedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = View.inflate(parent.getContext(), R.layout.item_consumed, null);
+            ConsumedViewHolder holder = new ConsumedViewHolder(v);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(PaidViewHolder holder, int position) {
+        public void onBindViewHolder(ConsumedViewHolder holder, int position) {
             OrderModel orderModel = orderModels.get(position);
-            holder.paidName.setText(orderModel.getFarmSetName());
-            holder.paidDesc.setText(orderModel.getFarmSetDesc());
-            holder.paidPrice.setText(orderModel.getOrdePrice() + "元");
+            holder.consumedName.setText(orderModel.getFarmSetName());
+            holder.consumedDesc.setText(orderModel.getFarmSetDesc());
+            holder.consumedPrice.setText(orderModel.getOrdePrice() + "元");
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//24小时制
+            holder.consumedTime.setText(sdformat.format(orderModel.getRecordTime()) + "使用");
         }
 
         @Override
@@ -84,22 +87,24 @@ public class PaidFragment extends BaseFragment {
         }
     }
 
-    class PaidViewHolder extends RecyclerView.ViewHolder {
-        private TextView paidName;
-        private TextView paidDesc;
-        private TextView paidPrice;
+    class ConsumedViewHolder extends RecyclerView.ViewHolder {
+        private TextView consumedName;
+        private TextView consumedDesc;
+        private TextView consumedPrice;
+        private TextView consumedTime;
 
-        public PaidViewHolder(View itemView) {
+        public ConsumedViewHolder(View itemView) {
             super(itemView);
-            paidName = (TextView) itemView.findViewById(R.id.paid_farm_set_name);
-            paidDesc = (TextView) itemView.findViewById(R.id.paid_farm_set_desc);
-            paidPrice = (TextView) itemView.findViewById(R.id.paid_farm_set_price);
+            consumedName = (TextView) itemView.findViewById(R.id.consumed_farm_set_name);
+            consumedDesc = (TextView) itemView.findViewById(R.id.consumed_farm_set_desc);
+            consumedPrice = (TextView) itemView.findViewById(R.id.consumed_farm_set_price);
+            consumedTime = (TextView) itemView.findViewById(R.id.consumed_farm_set_time);
 
         }
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.frag_user_order_paid;
+        return R.layout.frag_user_order_consumed;
     }
 }

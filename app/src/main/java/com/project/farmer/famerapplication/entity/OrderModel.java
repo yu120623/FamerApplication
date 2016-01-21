@@ -29,7 +29,7 @@ public class OrderModel extends Order{
 	
 	private FarmSetModel farmSetModel;
 	
-	//private RefundRequestModel refundRequestModel;
+	private RefundRequestModel refundRequestModel;
 
 	public FarmSetModel getFarmSetModel() {
 		return farmSetModel;
@@ -186,5 +186,16 @@ public class OrderModel extends Order{
 		this.recordTime = recordTime;
 	}
 
+
+
+	public RefundRequestModel getRefundRequestModel() {
+		return refundRequestModel;
+	}
+
+
+
+	public void setRefundRequestModel(RefundRequestModel refundRequestModel) {
+		this.refundRequestModel = refundRequestModel;
+	}
 
 }

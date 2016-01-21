@@ -18,7 +18,7 @@ public abstract class AppHttpResListener {
         }
     }
     public void onEnd(){
-
+        CommonUtil.dismissSimpleProgressDialog();
     }
 
     public void setContext(Context context) {

@@ -26,7 +26,7 @@ public class PostRequest extends Request<TransferObject> {
     private Response.Listener<TransferObject> mListener;
     private Response.ErrorListener errorListener;
     private byte[] file;
-    public static final int DEFAULT_TIMEOUT_MS = 6000;
+    public static final int DEFAULT_TIMEOUT_MS = 10000;
     public static final int DEFAULT_MAX_RETRIES = 0;
     public static final float DEFAULT_BACKOFF_MULT = 1f;
     public PostRequest(String url, Response.Listener<TransferObject> listener,

@@ -22,5 +22,6 @@ public class API {
         public static final String ORDER_CHANGE_FARM_ITEM_DATE = "changeFarmItemDate";//下单选择订单项目时间
         public static final String PERSON_ORDER = "personOrder";//我的订单
         public static final String GEN_ORDER = "placeAnOrder";//下单
+        public static final String CONTACT_LIST = "chooseContact";//联系人列表
     }
 }

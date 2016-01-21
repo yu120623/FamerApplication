@@ -48,6 +48,8 @@ public class TransferObject implements Serializable {
 
     private List<CodeModel> codeModels;
 
+    private List<Contact> contacts;
+
     private Integer copies;
 
     private String contactId;
@@ -358,5 +360,13 @@ public class TransferObject implements Serializable {
 
     public void setOrderModel(OrderModel orderModel) {
         this.orderModel = orderModel;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 }

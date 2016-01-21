@@ -4,31 +4,30 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
-import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmSetModel;
+import com.project.farmer.famerapplication.entity.ResourseModel;
+import com.project.farmer.famerapplication.util.AppUtil;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
 
-/**
- * Created by Administrator on 2015/12/22.
- */
 public class TopicDescFragment extends BaseFragment {
     private RecyclerView jieshaoList;
     private DisplayImageOptions options;
     private FarmSetModel farmSetModels;
-
     @Override
     protected void initViews() {
         findViews();
@@ -91,7 +90,7 @@ public class TopicDescFragment extends BaseFragment {
                     holder.itemView.setPadding(0,0,0,0);
                 }
                 holder.jieshaoText.setVisibility(View.GONE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation(), options);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation()+ AppUtil.DESC_IMG_SIZE, options);
             }
         }
 
@@ -130,6 +129,21 @@ public class TopicDescFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+       /* for(ResourseModel res : farmSetModels.getDeResourceModels()){
+            Bitmap bmp = ImageLoader.getInstance().getMemoryCache().get();
+            if(null != bmp && !bmp.isRecycled()){
+                Log.i("++++onDestroy+++++++","onDestroy img");
+                bmp.recycle();
+                bmp = null;
+            }
+        }
+        farmSetModels.getDeResourceModels().clear();
+        jieshaoList.getAdapter().notifyDataSetChanged();*/
     }
 
     @Override

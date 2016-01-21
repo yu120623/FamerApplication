@@ -35,7 +35,7 @@ public class TimingDescFragment extends BaseFragment {
     private DescDapter descDapter;
     private LinearLayout header;
     private LinearLayout farmSetContent;
-
+    private View currentItemView;
     @Override
     protected void initViews() {
         findViews();
@@ -102,7 +102,7 @@ public class TimingDescFragment extends BaseFragment {
         farmSetPrice.setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
         farmSetTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
         farmSetTag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
-        farmSetDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
+        farmSetDescList.setText(farmItemsModel.getFarmItemDesc());
         ImageLoaderUtil.getInstance().displayImg(farmSetImg, farmItemsModel.getResources().get(0).getResourceLocation());
         View setHeader = item.findViewById(R.id.farm_set_item_header);
         View setContent = item.findViewById(R.id.farm_set_item_content);
@@ -114,11 +114,15 @@ public class TimingDescFragment extends BaseFragment {
     public View.OnClickListener onFarmSetItemClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if(currentItemView == v)return;
             View view = (View) v.getTag();
             if (view.getVisibility() == View.VISIBLE) {
                 view.setVisibility(View.GONE);
             } else {
+                if(currentItemView != null)
+                    currentItemView.setVisibility(View.GONE);
                 view.setVisibility(View.VISIBLE);
+                currentItemView = view;
             }
         }
     };
@@ -139,7 +143,7 @@ public class TimingDescFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(JieShaoViewHolder holder, int position) {
             holder.jieshaoText.setVisibility(View.GONE);
-            ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModel.getDeResourceModels().get(position).getResourceLocation(), options);
+            ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModel.getDeResourceModels().get(position).getResourceLocation()+ AppUtil.DESC_IMG_SIZE, options);
         }
 
         @Override

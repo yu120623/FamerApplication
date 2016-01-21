@@ -83,14 +83,13 @@
             android:layout_height="@dimen/farm_set_sub_item_img_height" />
 
         <TextView
-            android:padding="3dp"
+            android:padding="8dp"
             android:id="@+id/farmset_item_desclist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autoLink="web"
             android:background="@color/orange"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView style="@style/line" />

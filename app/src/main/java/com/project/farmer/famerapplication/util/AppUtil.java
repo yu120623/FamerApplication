@@ -19,6 +19,7 @@ public class AppUtil {
     public static final String SP_LAT = "t";
     public static final String SP_LOG = "g";
     public static final String FARM_IMG_SIZE = "@!w150h150";
+    public static final String DESC_IMG_SIZE = "@!textimg";
 
 
     public static final String SP_NEW_CITY_CODE = "n_c";

@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.farm.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,9 +14,11 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.entity.FarmModel;
+import com.project.farmer.famerapplication.home.activity.MapNavActivity;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
@@ -47,6 +50,16 @@ public class FarmMapFragment extends Fragment {
         mark.position(latlng);
         map.addMarker(mark);
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
+        map.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Intent intent = new Intent(getActivity(), MapNavActivity.class);
+                intent.putExtra("latitude", farmModel.getFarmLatitude());
+                intent.putExtra("longitude",farmModel.getFarmLongitude());
+                startActivity(intent);
+                return false;
+            }
+        });
     }
 
     private void findViews() {

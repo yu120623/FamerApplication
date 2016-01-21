@@ -43,8 +43,6 @@ public class TimingNavigationFragment extends Fragment {
     private LayoutInflater inflater;
     private List<Marker> markers;
     private DecimalFormat decimalFormat;
-    private Double farmLatitude;//经度
-    private Double farmLongitude;//纬度
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,31 +63,33 @@ public class TimingNavigationFragment extends Fragment {
         for (int i = 0; i < farmItemsModels.size(); i++) {
             FarmItemsModel item = farmItemsModels.get(i);
             View view = ((LinearLayout) inflater.inflate(R.layout.item_farm_set_nav, navContent, true)).getChildAt(navContent.getChildCount() - 1);
+            if(i == farmItemsModels.size() -1)
+                view.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.button_min_height));
             TextView itemName = (TextView) view.findViewById(R.id.farmset_item_name);
             TextView itemTag = (TextView) view.findViewById(R.id.farmset_item_tag);
             TextView itemDesc = (TextView) view.findViewById(R.id.farmset_item_desc);
             TextView itemDistance = (TextView) view.findViewById(R.id.farm_set_distance);
             Button navBtn = (Button) view.findViewById(R.id.nav_btn_bg);
-            farmLatitude = item.getFarmLatitude();
-            farmLongitude = item.getFarmLongitude();
             itemName.setText(item.getFarmName());
             itemTag.setText(AppUtil.getFarmSetTag(item.getFarmItemType()));
             itemTag.setBackgroundResource(AppUtil.getFarmSetTagBg(item.getFarmItemType()));
             itemDesc.setText(item.getFarmItemName());
             itemDistance.setText(decimalFormat.format(item.getDistance()));
-
-            navBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), MapNavActivity.class);
-                    intent.putExtra("latitude", farmLatitude);
-                    intent.putExtra("longitude",farmLongitude);
-                    startActivity(intent);
-                }
-            });
+            navBtn.setTag(item);
+            navBtn.setOnClickListener(onNavBtnClick);
         }
-
     }
+
+    private View.OnClickListener onNavBtnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FarmItemsModel item = (FarmItemsModel) view.getTag();
+            Intent intent = new Intent(getActivity(), MapNavActivity.class);
+            intent.putExtra("latitude", item.getFarmLatitude());
+            intent.putExtra("longitude",item.getFarmLongitude());
+            startActivity(intent);
+        }
+    };
 
     private void addMark() {
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
@@ -116,7 +116,17 @@ public class TimingNavigationFragment extends Fragment {
         map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(false);
         map.setOnMapLoadedListener(onloadListener);
+        map.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
 
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });
     }
 
     private AMap.OnMapLoadedListener onloadListener = new AMap.OnMapLoadedListener() {

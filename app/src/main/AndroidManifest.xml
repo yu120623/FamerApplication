@@ -21,6 +21,8 @@
 
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+
     <application
         android:name=".AppApplication"
         android:allowBackup="true"
@@ -90,6 +92,7 @@
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".home.activity.MapNavActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             ></activity>
 
@@ -99,7 +102,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="1951cd2699cf07ef97898dc32a296561" />
+            android:value="4cc96f1f39e0d90af1e1f86b28524e49" />
     </application>
 
 </manifest>

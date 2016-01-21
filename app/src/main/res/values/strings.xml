@@ -54,4 +54,13 @@
     <string name="rmb">元</string>
     <string name="pay_by_wechat">微信支付</string>
     <string name="wechat_pay_desc">使用微信支付，完全便捷</string>
+    <string name="qi">起</string>
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">tts_speed</string>
+    <string name="preference_title_tts_speed">语速</string>
+    <string name="preference_default_tts_speed">50</string>
+    <string name="preference_dialog_title_tts_speed">选择语速</string>
+    <string name="preference_key_tts_volume">tts_volume</string>
+    <string name="preference_title_tts_volume">音量</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
 </resources>

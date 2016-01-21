@@ -65,7 +65,8 @@ public class TopicDetailsActivity extends BaseActivity {
     private Button veiwFarmSetBtn;
     private TextView farmSetPrice;
     private TextView farmSetReason;
-
+    private List<ImageView> bannerImages = new ArrayList<>();
+    private NetworkImageHolderView netWorkImageHolderView;
     @Override
     protected void initViews() {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -135,7 +136,7 @@ public class TopicDetailsActivity extends BaseActivity {
     }
 
     private void initBanner() {
-        final NetworkImageHolderView netWorkImageHolderView = new NetworkImageHolderView();
+        netWorkImageHolderView = new NetworkImageHolderView();
         netWorkImageHolderView.setImageOptions(options);
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -144,6 +145,7 @@ public class TopicDetailsActivity extends BaseActivity {
             }
         }, bannerUrls);
         banner.startTurning(3000);
+        banner.getViewPager();
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith / (640 * 1.0);
         banner.getLayoutParams().height = (int) (400 * scale);
@@ -280,6 +282,9 @@ public class TopicDetailsActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        /*for(){
+
+        }*/
     }
 
     public void setUrlBanners(FarmSetModel farmSetModel) {

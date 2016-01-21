@@ -2,6 +2,7 @@ package com.project.farmer.famerapplication.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,11 +14,15 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.project.farmer.famerapplication.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Sai on 15/8/4.
  * 网络图片加载例子
  */
 public class NetworkImageHolderView implements Holder<String> {
+    private List<ImageView> imageViews = new ArrayList<>();
     private ImageView imageView;
     private DisplayImageOptions options;
     @Override
@@ -33,6 +38,7 @@ public class NetworkImageHolderView implements Holder<String> {
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageViews.add(imageView);
         return imageView;
     }
 
@@ -43,5 +49,9 @@ public class NetworkImageHolderView implements Holder<String> {
     @Override
     public void UpdateUI(Context context,int position, String data) {
         ImageLoaderUtil.getInstance().displayImg(imageView,data,options);
+    }
+
+    public List<ImageView> getImageViews() {
+        return imageViews;
     }
 }

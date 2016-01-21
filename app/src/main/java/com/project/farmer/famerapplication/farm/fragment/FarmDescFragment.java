@@ -4,12 +4,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -83,7 +85,7 @@ public class FarmDescFragment extends BaseFragment {
         public void onBindViewHolder(JieShaoViewHolder holder, int position) {
             if (position == 0) {
                 holder.jieshaoText.setVisibility(View.VISIBLE);
-                holder.jieshaoText.setText(farmModel.getFarmDesc());
+                holder.jieshaoText.setText(Html.fromHtml(CommonUtil.toDBC(farmModel.getFarmDesc())));
             } else {
                 holder.jieshaoText.setVisibility(View.GONE);
                 ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmModel.getDeResourseModels().get(position-1).getResourceLocation(), options);

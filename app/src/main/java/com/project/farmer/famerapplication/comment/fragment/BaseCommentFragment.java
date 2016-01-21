@@ -54,7 +54,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
         adapter = new PingJiaAdapter();
         pingjiaList.setAdapter(adapter);
         dataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        comments = new ArrayList<CommentModel>();
+        comments = new ArrayList<>();
         loadDataFromServer();
     }
 
@@ -124,7 +124,6 @@ public abstract class BaseCommentFragment extends BaseFragment {
             commentDate = (TextView) itemView.findViewById(R.id.comment_date);
             commentContext = (TextView) itemView.findViewById(R.id.comment_context);
             commentBody = (LinearLayout) itemView.findViewById(R.id.comment_body);
-
         }
     }
 

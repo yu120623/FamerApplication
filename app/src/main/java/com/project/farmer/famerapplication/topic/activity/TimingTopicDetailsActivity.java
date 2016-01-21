@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
@@ -60,7 +61,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
     private ImageView favouriteBtn;
     private RelativeLayout bannerContainer;
     private Button topicBtn;
-
+    private TextView farmSetPrice;
+    private TextView farmSetReason;
     @Override
     protected void initViews() {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -208,6 +210,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);
                 actionBar.setVisibility(View.VISIBLE);
+                farmSetPrice.setText(farmSetModels.getMinPrice() + "元");
+                farmSetReason.setText(farmSetModels.getFarmSetRecomReason());
             }
         }, data);
         request.execute();
@@ -255,6 +259,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
         topicBtn = (Button) this.findViewById(R.id.topic_btn);
         bannerContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
+        farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);
+        farmSetReason = (TextView) this.findViewById(R.id.farm_set_reason);
     }
 
 

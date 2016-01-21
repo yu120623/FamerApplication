@@ -61,43 +61,45 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
                                 android:background="@color/white"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
-                                android:paddingBottom="8dp"
-                                android:paddingTop="8dp">
+                                android:padding="10dp">
 
                                 <TextView
                                     android:id="@+id/farm_set_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
                                     android:background="@color/white"
                                     android:textColor="#ff6600"
                                     android:textSize="28sp" />
 
                                 <TextView
-                                    android:layout_toRightOf="@id/farm_set_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingTop="15dp"
-                                    android:textColor="#ababab"
-                                    android:text="起" />
-
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginLeft="3dp"
+                                    android:text="@string/qi"
+                                    android:textColor="#ababab" />
+                                <TextView
+                                    android:layout_width="0.3dp"
+                                    android:background="@color/line"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_height="match_parent" />
                                 <TextView
                                     android:id="@+id/farm_set_reason"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"
                                     android:background="@color/white"
                                     android:textColor="#ababab"
                                     android:textSize="13sp" />
-                            </RelativeLayout>
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="match_parent"

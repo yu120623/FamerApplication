@@ -53,6 +53,7 @@ public class FarmSetActivity extends BaseActivity {
     private String farmAliasId;
     private ImageView progress;
     private AnimationDrawable progressDrawable;
+    private View currentItemView;
 
     @Override
     protected void initViews() {
@@ -121,7 +122,6 @@ public class FarmSetActivity extends BaseActivity {
         farmSetItemPrice.setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
         ImageLoaderUtil.getInstance().displayImg(farmSetItemImg, farmItemsModel.getResources().get(0).getResourceLocation());
         farmSetItemDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
-
         View setHeader = item.findViewById(R.id.farm_set_item_header);
         View setContent = item.findViewById(R.id.farm_set_item_content);
         setHeader.setTag(setContent);
@@ -131,11 +131,15 @@ public class FarmSetActivity extends BaseActivity {
     public View.OnClickListener onFarmSetItemClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if(currentItemView == v)return;
             View view = (View) v.getTag();
             if (view.getVisibility() == View.VISIBLE) {
                 view.setVisibility(View.GONE);
             } else {
+                if(currentItemView != null)
+                    currentItemView.setVisibility(View.GONE);
                 view.setVisibility(View.VISIBLE);
+                currentItemView = view;
             }
         }
     };

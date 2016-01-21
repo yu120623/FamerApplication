@@ -79,6 +79,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        loginBtn.setVisibility(View.GONE);
+        userBtn.setVisibility(View.VISIBLE);
+        userBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
 
     private void initClick() {
@@ -229,7 +238,7 @@ public class MainActivity extends BaseActivity {
         buttons.add(qianggou);
         buttons.add(zhoubian);
         buttons.add(tuijian);
-        area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "")));
+        area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
         setArrVisible(0);
     }
 
@@ -271,9 +280,6 @@ public class MainActivity extends BaseActivity {
         return "";
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+
 
 }

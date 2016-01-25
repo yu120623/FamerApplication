@@ -108,11 +108,11 @@ public class JingXuanFragment extends BaseFragment {
                     if(pageNumber > 0)
                         pageNumber--;
                 }
-                loadMoreFooter.hideLoadMore();
             }
             @Override
             public void onEnd() {
                 loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
             }
         },data);
         request.execute();

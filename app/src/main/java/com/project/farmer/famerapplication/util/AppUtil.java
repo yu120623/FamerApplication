@@ -27,6 +27,12 @@ public class AppUtil {
     public static final String SP_NEW_LAT = "n_t";
     public static final String SP_NEW_LOG = "n_g";
 
+    public static final String ordPD = "ordPD";//已过期
+    public static final String ordNP = "ordNP";//未付款
+    public static final String ordHC = "ordHC";//已消费
+    public static final String ordHP = "ordHP";//待消费
+    public static final String ordNC = "ordNC";//已支付
+
     public static String getFarmSetTag(String tag) {
         if (tag.equals("1")) {
             return "住";

@@ -238,8 +238,8 @@ public class MainActivity extends BaseActivity {
         buttons.add(qianggou);
         buttons.add(zhoubian);
         buttons.add(tuijian);
-        if (sp.getString(AppUtil.SP_CITY_NAME, "") != "")
-            area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0, 2)));
+        if(!"".equals(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, ""))))
+            area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
         setArrVisible(0);
     }
 
@@ -280,6 +280,7 @@ public class MainActivity extends BaseActivity {
     protected String setActionBarTitle() {
         return "";
     }
+
 
 
 }

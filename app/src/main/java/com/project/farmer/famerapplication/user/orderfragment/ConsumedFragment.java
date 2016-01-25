@@ -22,11 +22,12 @@ import java.util.List;
 /**
  * Created by gseoa on 2016/1/21.
  */
+//已消费
 public class ConsumedFragment extends BaseFragment {
     private RecyclerView consumedList;
     private ConsumedAdapter adapter;
     private List<OrderModel> orderModels;
-
+    private SimpleDateFormat sdformat;
     @Override
     protected void initViews() {
         findViews();
@@ -38,6 +39,7 @@ public class ConsumedFragment extends BaseFragment {
     }
 
     private void initData() {
+        sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//24小时制
         orderModels = new ArrayList<OrderModel>();
         adapter = new ConsumedAdapter();
         consumedList.setLayoutManager(new LinearLayoutManager(context));
@@ -48,7 +50,7 @@ public class ConsumedFragment extends BaseFragment {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setType("ordHC");
+        data.setType(AppUtil.ordHC);
         data.setUserAliasId("aaa");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
@@ -66,7 +68,7 @@ public class ConsumedFragment extends BaseFragment {
     class ConsumedAdapter extends RecyclerView.Adapter<ConsumedViewHolder> {
         @Override
         public ConsumedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.item_consumed, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_order, null);
             ConsumedViewHolder holder = new ConsumedViewHolder(v);
             return holder;
         }
@@ -77,8 +79,9 @@ public class ConsumedFragment extends BaseFragment {
             holder.consumedName.setText(orderModel.getFarmSetName());
             holder.consumedDesc.setText(orderModel.getFarmSetDesc());
             holder.consumedPrice.setText(orderModel.getOrdePrice() + "元");
-            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//24小时制
-            holder.consumedTime.setText(sdformat.format(orderModel.getRecordTime()) + "使用");
+            holder.consumedTime.setText(sdformat.format(orderModel.getRecordTime()) + context.getString(R.string.use));
+            holder.commentBtn.setText(R.string.comment);
+            holder.delBtn.setText(R.string.del);
         }
 
         @Override
@@ -92,14 +95,16 @@ public class ConsumedFragment extends BaseFragment {
         private TextView consumedDesc;
         private TextView consumedPrice;
         private TextView consumedTime;
-
+        private TextView commentBtn;
+        private TextView delBtn;
         public ConsumedViewHolder(View itemView) {
             super(itemView);
-            consumedName = (TextView) itemView.findViewById(R.id.consumed_farm_set_name);
-            consumedDesc = (TextView) itemView.findViewById(R.id.consumed_farm_set_desc);
-            consumedPrice = (TextView) itemView.findViewById(R.id.consumed_farm_set_price);
-            consumedTime = (TextView) itemView.findViewById(R.id.consumed_farm_set_time);
-
+            consumedName = (TextView) itemView.findViewById(R.id.order_item_name);
+            consumedDesc = (TextView) itemView.findViewById(R.id.order_item_desc);
+            consumedPrice = (TextView) itemView.findViewById(R.id.order_item_price);
+            consumedTime = (TextView) itemView.findViewById(R.id.order_item_time);
+            commentBtn = (TextView) itemView.findViewById(R.id.order_item_btn1);
+            delBtn = (TextView) itemView.findViewById(R.id.order_item_btn2);
         }
     }
 

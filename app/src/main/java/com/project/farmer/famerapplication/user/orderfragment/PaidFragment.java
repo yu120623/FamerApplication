@@ -1,5 +1,6 @@
 package com.project.farmer.famerapplication.user.orderfragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,15 +15,15 @@ import com.project.farmer.famerapplication.entity.TransferObject;
 import com.project.farmer.famerapplication.http.API;
 import com.project.farmer.famerapplication.http.AppHttpResListener;
 import com.project.farmer.famerapplication.http.AppRequest;
+import com.project.farmer.famerapplication.order.actvity.OrderDetailActivity;
 import com.project.farmer.famerapplication.util.AppUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by gseoa on 2016/1/14.
- */
+
+//已付款
 public class PaidFragment extends BaseFragment {
     private RecyclerView paidList;
     private PaidAdapter adapter;
@@ -47,7 +48,7 @@ public class PaidFragment extends BaseFragment {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setType("ordNC");
+        data.setType(AppUtil.ordNC);
         data.setUserAliasId("aaa");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
@@ -65,7 +66,8 @@ public class PaidFragment extends BaseFragment {
     class PaidAdapter extends RecyclerView.Adapter<PaidViewHolder> {
         @Override
         public PaidViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = View.inflate(parent.getContext(), R.layout.item_paid, null);
+            View v = View.inflate(parent.getContext(), R.layout.item_order, null);
+            v.setOnClickListener(onOrderClick);
             PaidViewHolder holder = new PaidViewHolder(v);
             return holder;
         }
@@ -73,9 +75,13 @@ public class PaidFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(PaidViewHolder holder, int position) {
             OrderModel orderModel = orderModels.get(position);
+            holder.itemView.setTag(orderModel);
             holder.paidName.setText(orderModel.getFarmSetName());
             holder.paidDesc.setText(orderModel.getFarmSetDesc());
-            holder.paidPrice.setText(orderModel.getOrdePrice() + "元");
+            holder.paidPrice.setText(orderModel.getOrdePrice() + context.getString(R.string.rmb));
+            holder.paidTime.setText(R.string.gening_order_pls_wait);
+            holder.okBtn.setText(R.string.oking);
+            holder.backOrder.setText(R.string.back_order_btn);
         }
 
         @Override
@@ -88,15 +94,31 @@ public class PaidFragment extends BaseFragment {
         private TextView paidName;
         private TextView paidDesc;
         private TextView paidPrice;
+        private TextView paidTime;
+        private TextView okBtn;
+        private TextView backOrder;
 
         public PaidViewHolder(View itemView) {
             super(itemView);
-            paidName = (TextView) itemView.findViewById(R.id.paid_farm_set_name);
-            paidDesc = (TextView) itemView.findViewById(R.id.paid_farm_set_desc);
-            paidPrice = (TextView) itemView.findViewById(R.id.paid_farm_set_price);
+            paidName = (TextView) itemView.findViewById(R.id.order_item_name);
+            paidDesc = (TextView) itemView.findViewById(R.id.order_item_desc);
+            paidPrice = (TextView) itemView.findViewById(R.id.order_item_price);
+            paidTime = (TextView) itemView.findViewById(R.id.order_item_time);
+            okBtn = (TextView) itemView.findViewById(R.id.order_item_btn1);
+            backOrder = (TextView) itemView.findViewById(R.id.order_item_btn2);
 
         }
     }
+
+    private View.OnClickListener onOrderClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OrderModel order = (OrderModel) view.getTag();
+            Intent intent = new Intent(context, OrderDetailActivity.class);
+            intent.putExtra("order",order);
+            startActivity(intent);
+        }
+    };
 
     @Override
     protected int getContentView() {

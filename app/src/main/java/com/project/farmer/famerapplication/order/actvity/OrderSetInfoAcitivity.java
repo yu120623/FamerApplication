@@ -78,8 +78,10 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                     @Override
                     public void onSuccess(TransferObject data) {
                         OrderModel order = data.getOrderModel();
+                        FarmSetModel farmSetModel = data.getFarmSetModel();
                         Intent intent = new Intent(context,OrderChoosePayActivity.class);
                         intent.putExtra("order",order);
+                        intent.putExtra("farmSetModel",farmSetModel);
                         startActivity(intent);
                         finish();
                     }
@@ -130,24 +132,21 @@ public class OrderSetInfoAcitivity extends BaseActivity{
     }
 
     private void checkNum() {
-        if(num <= 1 && num < farmSetModel.getMaxCanBuy()){
+        int max = farmSetModel.getMaxCanBuy();
+        if(num <=1){
             jianBtn.setImageResource(R.mipmap.jian);
             jianBtn.setOnClickListener(null);
-            addBtn.setImageResource(R.mipmap.add_s);
-            addBtn.setOnClickListener(onAddClick);
-        }else if(num == farmSetModel.getMaxCanBuy()){
-            addBtn.setImageResource(R.mipmap.add);
-            addBtn.setOnClickListener(null);
-        }else{
-            if(num > farmSetModel.getMaxCanBuy()){
-                addBtn.setImageResource(R.mipmap.add);
-                addBtn.setOnClickListener(null);
-            }else {
+            if(num > max){
                 addBtn.setImageResource(R.mipmap.add_s);
                 addBtn.setOnClickListener(onAddClick);
             }
+        }else{
             jianBtn.setImageResource(R.mipmap.jian_s);
             jianBtn.setOnClickListener(onJianClick);
+            if(num >= max){
+                addBtn.setImageResource(R.mipmap.add);
+                addBtn.setOnClickListener(null);
+            }
         }
         BigDecimal price = new BigDecimal(farmSetModel.getMinPrice());
         BigDecimal money =  price.multiply(new BigDecimal(num));

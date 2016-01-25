@@ -21,7 +21,7 @@ public class OrderModel extends Order{
 	
 	private Contact contact;
 	
-	private String Status;
+	private String status;
 	
 	private String farmSetDesc;
 	
@@ -153,13 +153,13 @@ public class OrderModel extends Order{
 
 
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 
 
 	public void setStatus(String status) {
-		Status = status;
+		status = status;
 	}
 
 

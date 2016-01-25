@@ -7,26 +7,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
         android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
+            android:layout_toLeftOf="@+id/unpaid_btns"
+            android:layout_toStartOf="@+id/unpaid_btns"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/unpaid_farm_set_name"
+                android:id="@+id/order_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/unpaid_farm_set_desc"
+                android:id="@+id/order_item_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -39,15 +40,16 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/unpaid_farm_set_price"
+                    android:id="@+id/order_item_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ff5e36" />
 
                 <TextView
-                    android:id="@+id/unpaid_farm_set_time"
+                    android:id="@+id/order_item_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:textColor="#5eaf36" />
             </LinearLayout>
         </LinearLayout>
@@ -60,28 +62,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/pay_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/order_item_btn1"
+                style="@style/order_item_btn_style"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/unpaid_p_btn_bg"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:text="去支付"
                 android:textColor="@color/white" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/order_item_btn2"
+                style="@style/order_item_btn_style"
                 android:background="@drawable/unpaid_d_btn_bg"
-                android:gravity="center"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:text="删除"
                 android:textColor="#aeaeae" />
         </LinearLayout>
     </RelativeLayout>

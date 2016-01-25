@@ -43,11 +43,11 @@ public class UserOrderFragment extends BaseFragment {
     private void initFragments() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(context)
-                .add("未付款", UnPaidFragment.class)
-                .add("已付款", PaidFragment.class)
-                .add("待消费", UnConsumedFragment.class)
-                .add("已消费", ConsumedFragment.class)
-                .add("退单区", ReFundFragment.class)
+                .add(R.string.no_pay, UnPaidFragment.class)
+                .add(R.string.paid, PaidFragment.class)
+                .add(R.string.wait_consumption, UnConsumedFragment.class)
+                .add(R.string.already_consumption, ConsumedFragment.class)
+                .add(R.string.back_order, ReFundFragment.class)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);

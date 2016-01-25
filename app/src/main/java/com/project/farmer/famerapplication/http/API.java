@@ -23,5 +23,6 @@ public class API {
         public static final String PERSON_ORDER = "personOrder";//我的订单
         public static final String GEN_ORDER = "placeAnOrder";//下单
         public static final String CONTACT_LIST = "chooseContact";//联系人列表
+        public static final String ORDER_INFO = "orderInfo";//订单详细
     }
 }

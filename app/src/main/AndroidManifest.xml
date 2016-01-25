@@ -90,6 +90,9 @@
         <activity
             android:name=".contact.activity.ContactListAcitivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".order.actvity.OrderDetailActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".home.activity.MapNavActivity"
             android:launchMode="singleTask"

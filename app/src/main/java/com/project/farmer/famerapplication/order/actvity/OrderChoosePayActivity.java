@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
@@ -15,11 +17,21 @@ import com.baseandroid.util.CommonUtil;
 import com.project.farmer.famerapplication.R;
 import com.project.farmer.famerapplication.alipay.PayResult;
 import com.project.farmer.famerapplication.alipay.SignUtils;
+import com.project.farmer.famerapplication.entity.FarmSetModel;
 import com.project.farmer.famerapplication.entity.OrderModel;
+import com.project.farmer.famerapplication.view.OrderProcessHeader;
+
+import java.text.SimpleDateFormat;
 
 public class OrderChoosePayActivity extends BaseActivity{
     private Button payBtn;
     private OrderModel order;
+    private FarmSetModel farmSetModel;
+    private OrderProcessHeader orderProcessHeader;
+    private TextView productInfo;
+    private TextView time;
+    private TextView orderMoney;
+    private SimpleDateFormat dateFormat;
     @Override
     protected void initViews() {
         findViews();
@@ -28,7 +40,13 @@ public class OrderChoosePayActivity extends BaseActivity{
     }
 
     private void initData() {
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
+        farmSetModel = (FarmSetModel) this.getIntent().getSerializableExtra("farmSetModel");
+        orderProcessHeader.setStep3();
+        productInfo.setText(getString(R.string.product_info)+order.getFarmSetName());
+        time.setText(getString(R.string.order_time)+dateFormat.format(order.getJourneyTime()));
+        orderMoney.setText(getString(R.string.order_money)+"￥"+order.getOrdePrice());
     }
 
     private void initClick() {
@@ -97,6 +115,10 @@ public class OrderChoosePayActivity extends BaseActivity{
 
     private void findViews() {
         payBtn = (Button) this.findViewById(R.id.pay_order);
+        orderProcessHeader = (OrderProcessHeader) this.findViewById(R.id.order_process_header);
+        productInfo = (TextView) this.findViewById(R.id.order_info_name);
+        orderMoney = (TextView) this.findViewById(R.id.order_money);
+        time = (TextView) this.findViewById(R.id.order_time);
     }
 
     @Override

@@ -82,8 +82,7 @@ public class QiangGouFragment extends BaseFragment {
         String url = API.URL + API.API_URL.FARM_TOPIC_PANICBUYING_LIST;
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(pageNumber);
-        //data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
-        data.setCityCode("0512");
+        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

@@ -1,9 +1,24 @@
 package com.project.farmer.famerapplication.user.activity;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.baseandroid.BaseActivity;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 import com.project.farmer.famerapplication.R;
@@ -36,10 +51,10 @@ public class UserActivity extends BaseActivity {
     private void initFragments() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add("我的订单", UserOrderFragment.class)
-                .add("我的信息", UserMsgFragment.class)
-                .add("我的收藏", UserFavoFragment.class)
-                .add("我的银行卡", UserBankCardFragment.class)
+                .add("订单", UserOrderFragment.class)
+                .add("信息", UserMsgFragment.class)
+                .add("收藏", UserFavoFragment.class)
+                .add("银行卡", UserBankCardFragment.class)
                 .create());
         contentViewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(contentViewPager);

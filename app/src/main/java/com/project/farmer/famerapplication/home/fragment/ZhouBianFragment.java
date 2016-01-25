@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
@@ -116,9 +117,10 @@ public class ZhouBianFragment extends BaseFragment {
             holder.recommendReason.setText(farmModel.getFarmDesc());
             holder.recommendTuijian.setVisibility(View.INVISIBLE);
             holder.recommendDistance.setText(decimalFormat.format(farmModel.getFarmDistance()) + "km");
+            holder.flowLayout.removeAllViews();
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = new TextView(getActivity());
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv1 = new TextView(getActivity());
                 tv1.setText("  ");
                 tv1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);

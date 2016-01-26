@@ -29,7 +29,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <com.project.farmer.famerapplication.view.OrderProcessHeader
+                <com.egceo.app.myfarm.view.OrderProcessHeader
                     android:id="@+id/order_process_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

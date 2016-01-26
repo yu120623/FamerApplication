@@ -6,7 +6,7 @@
 
     <include layout="@layout/item_topic"></include>
 
-    <com.project.farmer.famerapplication.view.QiangGouBtnView
+    <com.egceo.app.myfarm.view.QiangGouBtnView
         android:id="@+id/qianggou_btn_view"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

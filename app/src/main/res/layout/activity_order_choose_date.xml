@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <com.project.farmer.famerapplication.view.OrderProcessHeader
+        <com.egceo.app.myfarm.view.OrderProcessHeader
             android:id="@+id/order_process_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

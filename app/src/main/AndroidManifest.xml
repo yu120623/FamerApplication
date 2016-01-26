@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.farmer.famerapplication">
+    package="com.egceo.app.myfarm">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -105,7 +105,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="414af4196767e38654ba8e717267564a" />
+            android:value="4cc96f1f39e0d90af1e1f86b28524e49" />
     </application>
 
 </manifest>

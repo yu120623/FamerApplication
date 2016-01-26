@@ -7,15 +7,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/pay_layout">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.project.farmer.famerapplication.view.OrderProcessHeader
+            <com.egceo.app.myfarm.order.view.PayTypeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.egceo.app.myfarm.view.OrderProcessHeader
                 android:id="@+id/order_process_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +72,6 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <include layout="@layout/layout_pay_type"></include>
         </LinearLayout>
     </ScrollView>
 

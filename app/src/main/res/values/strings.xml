@@ -100,4 +100,5 @@
     <string name="pay_zhifubao_desc">支持各大银行信用卡、储蓄卡</string>
     <string name="pay_by_bank">银联支付</string>
     <string name="pay_bank_desc">支持国内20多家银行储蓄卡</string>
+    <string name="contact_delete">删除联系人</string>
 </resources>

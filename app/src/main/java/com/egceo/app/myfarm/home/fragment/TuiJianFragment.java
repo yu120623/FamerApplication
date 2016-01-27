@@ -117,6 +117,7 @@ public class TuiJianFragment extends BaseFragment {
             }
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath()+ AppUtil.FARM_IMG_SIZE, options);
             holder.recommendDistance.setText(new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
+            holder.flowLayout.removeAllViews();
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 TextView tv = new TextView(getActivity());

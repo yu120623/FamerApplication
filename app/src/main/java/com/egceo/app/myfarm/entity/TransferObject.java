@@ -73,6 +73,26 @@ public class TransferObject implements Serializable {
     private List<FarmStatement> farmStatements;
     private List<OrderModel> orderModels;
     private OrderModel orderModel;
+    private String name;
+
+    private String phoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 
     public List<OrderModel> getOrderModels() {
         return orderModels;

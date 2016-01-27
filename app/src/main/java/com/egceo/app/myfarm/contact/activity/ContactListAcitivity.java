@@ -1,13 +1,21 @@
 package com.egceo.app.myfarm.contact.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baseandroid.BaseActivity;
+import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.Contact;
 import com.egceo.app.myfarm.entity.TransferObject;
@@ -18,10 +26,16 @@ import com.egceo.app.myfarm.http.AppRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactListAcitivity extends BaseActivity{
+public class ContactListAcitivity extends BaseActivity {
     private RecyclerView contactListView;
+    private Button okBtn;
+    private EditText contactName;
+    private EditText contactPhone;
     private ContactAdapter adapter;
     private List<Contact> contactList = new ArrayList<>();
+    private int currentId;
+    private int pos;
+
     @Override
     protected void initViews() {
         findViews();
@@ -33,6 +47,38 @@ public class ContactListAcitivity extends BaseActivity{
         contactListView.setLayoutManager(new LinearLayoutManager(context));
         contactListView.setAdapter(adapter);
         loadDataFromServer();
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtil.hideKeyBoard(activity);
+                if ("".equals(contactName.getText().toString().trim()) || "".equals(contactPhone.getText().toString().trim())) {
+                    Toast.makeText(ContactListAcitivity.this, "联系人或手机号输入为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    addContact();
+                }
+            }
+        });
+
+    }
+
+    private void addContact() {
+        String url = API.URL + API.API_URL.ADD_CONTACT;
+        TransferObject data = new TransferObject();
+        data.setUserAliasId("aaa");
+        data.setName(contactName.getText().toString());
+        data.setPhoneNumber(contactPhone.getText().toString());
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                Contact contact = new Contact();
+                contact.setConnectName(contactName.getText().toString());
+                contact.setConnectPhone(contactPhone.getText().toString());
+                contactList.add(contactList.size(), contact);
+                adapter.notifyDataSetChanged();
+            }
+        }, data);
+        request.execute();
+
     }
 
     private void loadDataFromServer() {
@@ -42,24 +88,28 @@ public class ContactListAcitivity extends BaseActivity{
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                if(data.getContacts() != null && data.getContacts().size() > 0){
+                if (data.getContacts() != null && data.getContacts().size() > 0) {
                     contactList = data.getContacts();
                     adapter.notifyDataSetChanged();
                 }
             }
-        },data);
+        }, data);
         request.execute();
     }
 
     private void findViews() {
+        okBtn = (Button) this.findViewById(R.id.ok);
+        contactName = (EditText) this.findViewById(R.id.name);
+        contactPhone = (EditText) this.findViewById(R.id.phone);
         contactListView = (RecyclerView) this.findViewById(R.id.contact_list);
     }
 
-    class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder>{
+    class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
         @Override
         public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.item_contact,null,false);
+            View view = inflater.inflate(R.layout.item_contact, null, false);
             view.setOnClickListener(onContactClick);
+            view.setOnLongClickListener(onContactLongClick);
             return new ContactViewHolder(view);
         }
 
@@ -69,6 +119,7 @@ public class ContactListAcitivity extends BaseActivity{
             holder.phone.setText(contact.getConnectPhone());
             holder.name.setText(contact.getConnectName());
             holder.itemView.setTag(contact);
+            pos = position;
         }
 
         @Override
@@ -77,9 +128,10 @@ public class ContactListAcitivity extends BaseActivity{
         }
     }
 
-    class ContactViewHolder extends RecyclerView.ViewHolder{
+    class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView phone;
+
         public ContactViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.contact_name);
@@ -92,11 +144,45 @@ public class ContactListAcitivity extends BaseActivity{
         public void onClick(View view) {
             Contact contact = (Contact) view.getTag();
             Intent intent = new Intent();
-            intent.putExtra("contact",contact);
-            setResult(RESULT_OK,intent);
+            intent.putExtra("contact", contact);
+            setResult(RESULT_OK, intent);
             finish();
         }
     };
+
+    private View.OnLongClickListener onContactLongClick = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            Contact contact = contactList.get(pos);
+            currentId = contact.getContactId();
+            Log.i("11111111111111", "onLongClick: "+currentId);
+            Dialog alertDialog = new AlertDialog.Builder(ContactListAcitivity.this)
+                    .setItems(new String[]{getString(R.string.contact_delete)}, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteContact();
+                        }
+                    })
+                    .create();
+            alertDialog.show();
+            return false;
+        }
+    };
+
+    private void deleteContact() {
+        String url = API.URL + API.API_URL.DELETE_CONTACT;
+        TransferObject data = new TransferObject();
+        data.setUserAliasId("aaa");
+        data.setContactId(String.valueOf(currentId));
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                contactList.remove(pos);
+                adapter.notifyDataSetChanged();
+            }
+        }, data);
+        request.execute();
+    }
 
     @Override
     protected int getContentView() {
@@ -107,4 +193,5 @@ public class ContactListAcitivity extends BaseActivity{
     protected String setActionBarTitle() {
         return getString(R.string.choose);
     }
+
 }

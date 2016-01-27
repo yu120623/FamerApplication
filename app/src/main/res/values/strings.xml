@@ -45,6 +45,7 @@
     <string name="name">姓名</string>
     <string name="name_hit">请填写姓名</string>
     <string name="ok">确定</string>
+    <string name="cancel">取消</string>
     <string name="phone">手机</string>
     <string name="phone_hint">请填写手机号</string>
     <string name="used_contact">常用联系人</string>
@@ -101,4 +102,9 @@
     <string name="pay_by_bank">银联支付</string>
     <string name="pay_bank_desc">支持国内20多家银行储蓄卡</string>
     <string name="contact_delete">删除联系人</string>
+    <string name="pls_choose_pay_type">请选择支付方式</string>
+    <string name="del_success">删除成功</string>
+    <string name="deleting_order_hint">正在为您删除订单</string>
+    <string name="hint">提示</string>
+    <string name="del_order_hint">你确定要删除此订单么</string>
 </resources>

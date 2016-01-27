@@ -22,6 +22,7 @@ import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,6 @@ public class ContactListAcitivity extends BaseActivity {
     private EditText contactPhone;
     private ContactAdapter adapter;
     private List<Contact> contactList = new ArrayList<>();
-    private int currentId;
-    private int pos;
 
     @Override
     protected void initViews() {
@@ -70,9 +69,7 @@ public class ContactListAcitivity extends BaseActivity {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                Contact contact = new Contact();
-                contact.setConnectName(contactName.getText().toString());
-                contact.setConnectPhone(contactPhone.getText().toString());
+                Contact contact = data.getContact();
                 contactList.add(contactList.size(), contact);
                 adapter.notifyDataSetChanged();
             }
@@ -83,7 +80,7 @@ public class ContactListAcitivity extends BaseActivity {
 
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.CONTACT_LIST;
-        TransferObject data = new TransferObject();
+        TransferObject data = AppUtil.getHttpData(context);
         data.setUserAliasId("aaa");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
@@ -116,10 +113,10 @@ public class ContactListAcitivity extends BaseActivity {
         @Override
         public void onBindViewHolder(ContactViewHolder holder, int position) {
             Contact contact = contactList.get(position);
+            holder.itemView.setTag(contact);
             holder.phone.setText(contact.getConnectPhone());
             holder.name.setText(contact.getConnectName());
             holder.itemView.setTag(contact);
-            pos = position;
         }
 
         @Override
@@ -153,14 +150,12 @@ public class ContactListAcitivity extends BaseActivity {
     private View.OnLongClickListener onContactLongClick = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            Contact contact = contactList.get(pos);
-            currentId = contact.getContactId();
-            Log.i("11111111111111", "onLongClick: "+currentId);
+            final Contact contact = (Contact) v.getTag();
             Dialog alertDialog = new AlertDialog.Builder(ContactListAcitivity.this)
                     .setItems(new String[]{getString(R.string.contact_delete)}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            deleteContact();
+                            deleteContact(contact);
                         }
                     })
                     .create();
@@ -169,15 +164,15 @@ public class ContactListAcitivity extends BaseActivity {
         }
     };
 
-    private void deleteContact() {
+    private void deleteContact(final Contact contact) {
         String url = API.URL + API.API_URL.DELETE_CONTACT;
         TransferObject data = new TransferObject();
         data.setUserAliasId("aaa");
-        data.setContactId(String.valueOf(currentId));
+        data.setContactId(contact.getContactId().toString());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                contactList.remove(pos);
+                contactList.remove(contact);
                 adapter.notifyDataSetChanged();
             }
         }, data);

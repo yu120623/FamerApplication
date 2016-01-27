@@ -74,8 +74,8 @@ public class PaidFragment extends BaseFragment {
         public void onBindViewHolder(PaidViewHolder holder, int position) {
             OrderModel orderModel = orderModels.get(position);
             holder.itemView.setTag(orderModel);
-            holder.paidName.setText(orderModel.getFarmSetName());
-            holder.paidDesc.setText(orderModel.getFarmSetDesc());
+            holder.paidName.setText(orderModel.getFarmSetModel().getFarmSetName());
+            holder.paidDesc.setText(orderModel.getFarmSetModel().getFarmSetDesc());
             holder.paidPrice.setText(orderModel.getOrdePrice() + context.getString(R.string.rmb));
             holder.paidTime.setText(R.string.gening_order_pls_wait);
             holder.okBtn.setText(R.string.oking);

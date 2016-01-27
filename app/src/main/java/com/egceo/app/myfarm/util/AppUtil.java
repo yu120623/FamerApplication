@@ -31,6 +31,10 @@ public class AppUtil {
     public static final String ordHP = "ordHP";//待消费
     public static final String ordNC = "ordNC";//已支付
 
+    public static final class RES_STATUS{
+        public static final String STATUS_OK = "00000";
+    }
+
     public static String getFarmSetTag(String tag) {
         if (tag.equals("1")) {
             return "住";
@@ -94,6 +98,8 @@ public class AppUtil {
     }
 
     public static TransferObject getHttpData(Context context) {
-        return new TransferObject();
+        TransferObject data =  new TransferObject();
+        data.setUserAliasId("aaa");
+        return data;
     }
 }

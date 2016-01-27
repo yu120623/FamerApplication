@@ -17,6 +17,11 @@ import com.egceo.app.myfarm.alipay.PayResult;
 import com.egceo.app.myfarm.alipay.SignUtils;
 import com.egceo.app.myfarm.entity.FarmSetModel;
 import com.egceo.app.myfarm.entity.OrderModel;
+import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.http.API;
+import com.egceo.app.myfarm.http.AppHttpResListener;
+import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.order.view.PayTypeView;
 import com.egceo.app.myfarm.view.OrderProcessHeader;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +35,7 @@ public class OrderChoosePayActivity extends BaseActivity{
     private TextView time;
     private TextView orderMoney;
     private SimpleDateFormat dateFormat;
+    private PayTypeView payTypeView;
     @Override
     protected void initViews() {
         findViews();
@@ -42,7 +48,7 @@ public class OrderChoosePayActivity extends BaseActivity{
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         farmSetModel = (FarmSetModel) this.getIntent().getSerializableExtra("farmSetModel");
         orderProcessHeader.setStep3();
-        productInfo.setText(getString(R.string.product_info)+order.getFarmSetName());
+        productInfo.setText(getString(R.string.product_info)+order.getFarmSetModel().getFarmSetName());
         time.setText(getString(R.string.order_time)+dateFormat.format(order.getJourneyTime()));
         orderMoney.setText(getString(R.string.order_money)+"￥"+order.getOrdePrice());
     }
@@ -51,28 +57,59 @@ public class OrderChoosePayActivity extends BaseActivity{
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice()+"",order.getOrderSn());
-                final String payInfo = SignUtils.getPayInfo(orderInfo);
-                Runnable payRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        // 构造PayTask 对象
-                        PayTask alipay = new PayTask(activity);
-                        // 调用支付接口，获取支付结果
-                        String result = alipay.pay(payInfo);
-
-                        Message msg = new Message();
-                        msg.what = 1;
-                        msg.obj = result;
-                        mHandler.sendMessage(msg);
-                    }
-                };
-
-                // 必须异步调用
-                Thread payThread = new Thread(payRunnable);
-                payThread.start();
+               int type = payTypeView.getPayType();
+                if(type == PayTypeView.NO_PAY){//没选择付款方式
+                    CommonUtil.showMessage(context,getString(R.string.pls_choose_pay_type));
+                }else if(type == PayTypeView.PAY_BANK){//选择银联付款
+                    CommonUtil.showMessage(context,"银联付款");
+                }else if(type == PayTypeView.PAY_WALLET){//钱包付款
+                    payByWallet();
+                }else if(type == PayTypeView.PAY_WECHAT){//微信支付
+                    CommonUtil.showMessage(context,"微信付款");
+                }else if(type == PayTypeView.PAY_ZHIFUBAO){//支付宝付款
+                    payByZhiFuBao();
+                }
             }
         });
+    }
+
+    //钱包余额付款
+    private void payByWallet(){
+        String url = API.URL + API.API_URL.PAY_MENT;
+        TransferObject data = new TransferObject();
+        data.setUserAliasId("aaa");
+        data.setType("wallet");
+        data.setOrderSn(order.getOrderSn());
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+
+            }
+        },data);
+        request.execute();
+    }
+
+    //用支付宝付款
+    private void payByZhiFuBao(){
+        String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice()+"",order.getOrderSn());
+        final String payInfo = SignUtils.getPayInfo(orderInfo);
+        Runnable payRunnable = new Runnable() {
+            @Override
+            public void run() {
+                // 构造PayTask 对象
+                PayTask alipay = new PayTask(activity);
+                // 调用支付接口，获取支付结果
+                String result = alipay.pay(payInfo);
+
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
     }
 
     private Handler mHandler = new Handler() {
@@ -96,11 +133,9 @@ public class OrderChoosePayActivity extends BaseActivity{
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
                             Toast.makeText(context, "支付结果确认中",Toast.LENGTH_SHORT).show();
-
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(context, "支付失败",Toast.LENGTH_SHORT).show();
-
                         }
                     }
                     break;
@@ -117,6 +152,7 @@ public class OrderChoosePayActivity extends BaseActivity{
         productInfo = (TextView) this.findViewById(R.id.order_info_name);
         orderMoney = (TextView) this.findViewById(R.id.order_money);
         time = (TextView) this.findViewById(R.id.order_time);
+        payTypeView = (PayTypeView) this.findViewById(R.id.pay_type);
     }
 
     @Override

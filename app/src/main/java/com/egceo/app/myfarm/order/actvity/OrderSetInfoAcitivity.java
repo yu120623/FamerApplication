@@ -249,7 +249,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
 
     private void loadTimeFromServer(final View view, final LinearLayout timeView, final FarmItemsModel farmItemsModel) {
         String url = API.URL + API.API_URL.ORDER_CHANGE_FARM_ITEM_DATE;
-        TransferObject data = new TransferObject();
+        TransferObject data = AppUtil.getHttpData(context);
         data.setFarmSetAliasId(farmSetModel.getFarmSetAliasId());
         data.setFarmItemAliasId(farmItemsModel.getFarmItemAliasId());
         data.setDate(orderDataModel.getDate());

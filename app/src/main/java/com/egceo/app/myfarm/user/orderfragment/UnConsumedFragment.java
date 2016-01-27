@@ -79,8 +79,8 @@ public class UnConsumedFragment extends BaseFragment{
         public void onBindViewHolder(PaidViewHolder holder, int position) {
             OrderModel orderModel = orderModels.get(position);
             holder.itemView.setTag(orderModel);
-            holder.paidName.setText(orderModel.getFarmSetName());
-            holder.paidDesc.setText(orderModel.getFarmSetDesc());
+            holder.paidName.setText(orderModel.getFarmSetModel().getFarmSetName());
+            holder.paidDesc.setText(orderModel.getFarmSetModel().getFarmSetDesc());
             holder.paidPrice.setText(orderModel.getOrdePrice() + context.getString(R.string.rmb));
             holder.codeBtn.setText(R.string.order_code);
             if("1".equals(orderModel.getStatus())){

@@ -73,6 +73,12 @@ public class OrderProcessHeader extends RelativeLayout{
         orderProcessLine1.setBackgroundColor(getResources().getColor(R.color.order_process_seleted_bg));
     }
 
+    public void setText(String[] strs){
+        orderChooseTimeText.setText(strs[0]);
+        orderSetInfoText.setText(strs[1]);
+        orderPayText.setText(strs[2]);
+    }
+
     public void setStep2(){
         resetStep();
         orderProcessStep1.setSelected(true);

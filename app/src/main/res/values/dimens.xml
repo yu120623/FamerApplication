@@ -17,4 +17,10 @@
 
     <dimen name="ptr_loding_width">50dp</dimen>
     <dimen name="ptr_loding_height">50dp</dimen>
+
+    <dimen name="code_img_width">150dp</dimen>
+    <dimen name="code_img_height">150dp</dimen>
+
+    <dimen name="sub_item_tag_bg_size">30dp</dimen>
+    <dimen name="sub_item_tag_bg_small_size">20dp</dimen>
 </resources>

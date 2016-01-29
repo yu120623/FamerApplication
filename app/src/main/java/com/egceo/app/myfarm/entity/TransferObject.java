@@ -1,7 +1,5 @@
 package com.egceo.app.myfarm.entity;
 
-import com.egceo.app.myfarm.contact.activity.ContactListAcitivity;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -79,6 +77,7 @@ public class TransferObject implements Serializable {
     private OrderModel orderModel;
     private Message message;
     private String name;
+    private RefundRequestModel refundRequestModel;
 
     private String phoneNumber;
     public String getPhoneNumber() {
@@ -418,5 +417,13 @@ public class TransferObject implements Serializable {
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    public RefundRequestModel getRefundRequestModel() {
+        return refundRequestModel;
+    }
+
+    public void setRefundRequestModel(RefundRequestModel refundRequestModel) {
+        this.refundRequestModel = refundRequestModel;
     }
 }

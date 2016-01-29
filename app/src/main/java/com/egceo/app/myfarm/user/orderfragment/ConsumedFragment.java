@@ -76,8 +76,8 @@ public class ConsumedFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(ConsumedViewHolder holder, int position) {
             OrderModel orderModel = orderModels.get(position);
-            holder.consumedName.setText(orderModel.getFarmSetName());
-            holder.consumedDesc.setText(orderModel.getFarmSetDesc());
+            holder.consumedName.setText(orderModel.getFarmSetModel().getFarmSetName());
+            holder.consumedDesc.setText(orderModel.getFarmSetModel().getFarmSetDesc());
             holder.consumedPrice.setText(orderModel.getOrdePrice() + "元");
             holder.consumedTime.setText(sdformat.format(orderModel.getRecordTime()) + context.getString(R.string.use));
             holder.commentBtn.setText(R.string.comment);

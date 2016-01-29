@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="1.须在出游日前3天（工作时间：9:00-18:00）通知客服退订产品；"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="2.套餐是整体消费，如有某项已消费，则无法退款；"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="3.支付宝退款受理后5-7个工作日到账；信用卡、网银支付7-15个工作日到账。"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
+
+</LinearLayout>

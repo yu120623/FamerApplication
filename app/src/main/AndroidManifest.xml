@@ -77,9 +77,9 @@
             android:screenOrientation="portrait"></activity>
 
 
-        <activity android:name=".order.actvity.OrderSetInfoAcitivity"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity
+            android:name=".order.actvity.OrderSetInfoAcitivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".order.actvity.OrderChooseDateActivity"
@@ -89,16 +89,24 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".contact.activity.ContactListAcitivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".order.actvity.OrderDetailActivity"
             android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".home.activity.MapNavActivity"
+        <activity
+            android:name=".order.actvity.RefundOrderActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".order.actvity.SubmitRefundActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".order.actvity.OrderCodeActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.activity.MapNavActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
         <service android:name=".services.LocationService"></service>
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:layout_weight="3">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/farm_item_tag"
+            android:layout_width="@dimen/sub_item_tag_bg_small_size"
+            android:layout_height="@dimen/sub_item_tag_bg_small_size"
+            android:background="@drawable/zhu_bg"
+            android:gravity="center"
+            android:text="住"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/farm_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="dadada大大"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/farm_item_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="标准的角度"
+        android:textColor="@color/gray"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/farm_item_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="以消费"
+        android:textColor="@color/gray"
+        android:textSize="14sp" />
+</LinearLayout>

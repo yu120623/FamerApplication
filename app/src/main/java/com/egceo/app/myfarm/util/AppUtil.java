@@ -22,14 +22,18 @@ public class AppUtil {
 
     public static final String SP_NEW_CITY_CODE = "n_c";
     public static final String SP_NEW_CITY_NAME = "n_cn";
-    public static final String SP_NEW_LAT = "n_t";
-    public static final String SP_NEW_LOG = "n_g";
 
     public static final String ordPD = "ordPD";//已过期
     public static final String ordNP = "ordNP";//未付款
     public static final String ordHC = "ordHC";//已消费
     public static final String ordHP = "ordHP";//待消费
     public static final String ordNC = "ordNC";//已支付
+    public static final String ordRB = "ordRB";//已退款
+
+    public static final String rqAPY = "rqAPY";//申请
+    public static final String rqAGR = "rqAGR";//同意
+    public static final String reREF = "reREF";//拒绝
+    public static final String rqCOM = "rqCOM";//完成
 
     public static final class RES_STATUS{
         public static final String STATUS_OK = "00000";

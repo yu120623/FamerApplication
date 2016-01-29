@@ -58,6 +58,7 @@
             android:id="@+id/unpaid_btns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:layout_alignParentRight="true"
             android:orientation="vertical">
 

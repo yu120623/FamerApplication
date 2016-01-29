@@ -15,6 +15,7 @@ import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
+import com.egceo.app.myfarm.order.actvity.SubmitRefundActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 
 import java.util.ArrayList;
@@ -80,6 +81,8 @@ public class PaidFragment extends BaseFragment {
             holder.paidTime.setText(R.string.gening_order_pls_wait);
             holder.okBtn.setText(R.string.oking);
             holder.backOrder.setText(R.string.back_order_btn);
+            holder.backOrder.setTag(orderModel);
+            holder.backOrder.setOnClickListener(onBackClick);
         }
 
         @Override
@@ -107,6 +110,18 @@ public class PaidFragment extends BaseFragment {
 
         }
     }
+
+
+    private View.OnClickListener onBackClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OrderModel order = (OrderModel) view.getTag();
+            Intent intent = new Intent(context, SubmitRefundActivity.class);
+            intent.putExtra("order",order);
+            startActivity(intent);
+        }
+    };
+
 
     private View.OnClickListener onOrderClick = new View.OnClickListener() {
         @Override

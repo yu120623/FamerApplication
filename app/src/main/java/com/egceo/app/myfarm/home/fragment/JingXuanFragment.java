@@ -99,7 +99,7 @@ public class JingXuanFragment extends BaseFragment {
                 if (list != null && list.size() > 0) {
                     if(pageNumber == 0) {
                         farmTopicModels = list;
-                        hideProgress();
+                        hideProgress1();
                     }else{
                         farmTopicModels.addAll(list);
                     }
@@ -124,7 +124,7 @@ public class JingXuanFragment extends BaseFragment {
     }
 
 
-    private void hideProgress() {
+    private void hideProgress1() {
         progress.setVisibility(View.GONE);
         progressDrawable.stop();
     }

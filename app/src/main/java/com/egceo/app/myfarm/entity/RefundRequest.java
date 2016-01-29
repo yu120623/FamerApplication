@@ -10,7 +10,6 @@ public class RefundRequest implements java.io.Serializable {
 	private Integer refundId;
 	private int orderId;
 	private String refundDesc;
-	private String status;
 	private Date refundRequestTime;
 	private Date refundConfirmTime;
 	private Date refundCompletedTime;
@@ -20,6 +19,7 @@ public class RefundRequest implements java.io.Serializable {
 	private Date updatedTime;
 	private String updatedBy;
 
+	private String status;
 	public RefundRequest() {
 	}
 
@@ -77,13 +77,7 @@ public class RefundRequest implements java.io.Serializable {
 		this.refundDesc = refundDesc;
 	}
 
-	public String getStatus() {
-		return this.status;
-	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public Date getRefundRequestTime() {
 		return this.refundRequestTime;
@@ -149,4 +143,11 @@ public class RefundRequest implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

@@ -39,8 +39,6 @@ public class UnPaidFragment extends BaseFragment {
     private Integer pageNumber = 0;
     private SimpleDateFormat sdformat;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
-
-
     @Override
     protected void initViews() {
         findViews();

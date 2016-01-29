@@ -54,8 +54,8 @@
 
     <style name="farmset_zhu_bg">
         <item name="android:gravity">center</item>
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">@dimen/sub_item_tag_bg_size</item>
+        <item name="android:layout_height">@dimen/sub_item_tag_bg_size</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
     </style>

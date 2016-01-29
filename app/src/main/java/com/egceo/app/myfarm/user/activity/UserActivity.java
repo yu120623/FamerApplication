@@ -36,15 +36,16 @@ public class UserActivity extends BaseActivity {
     }
 
     private void initData() {
+
     }
 
     private void initFragments() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
-                .add("订单", UserOrderFragment.class)
-                .add("信息", UserMsgFragment.class)
-                .add("收藏", UserFavoFragment.class)
-                .add("银行卡", UserBankCardFragment.class)
+                .add(R.string.order, UserOrderFragment.class)
+                .add(R.string.info, UserMsgFragment.class)
+                .add(R.string.favourite, UserFavoFragment.class)
+                .add(R.string.bank_card, UserBankCardFragment.class)
                 .create());
         smartTabLayout.setCustomTabView(new SimpleTabProvider());
         contentViewPager.setAdapter(adapter);
@@ -59,16 +60,16 @@ public class UserActivity extends BaseActivity {
             ImageView tabIcon = (ImageView) view.findViewById(R.id.tab_icon);
             TextView tabTitle = (TextView) view.findViewById(R.id.tab_title);
             if (position == 0) {
-                tabTitle.setText("订单");
+                tabTitle.setText(R.string.order);
                 tabIcon.setImageResource(R.drawable.tab_item1);
             } else if (position == 1) {
-                tabTitle.setText("信息");
+                tabTitle.setText(R.string.info);
                 tabIcon.setImageResource(R.drawable.tab_item2);
             } else if (position == 2) {
-                tabTitle.setText("收藏");
+                tabTitle.setText(R.string.favourite);
                 tabIcon.setImageResource(R.drawable.tab_item3);
             } else if (position == 3) {
-                tabTitle.setText("银行卡");
+                tabTitle.setText(R.string.bank_card);
                 tabIcon.setImageResource(R.drawable.tab_item4);
             }
             return view;

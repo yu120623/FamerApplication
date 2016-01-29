@@ -28,5 +28,9 @@ public class API {
         public static final String DEL_ORDER = "deleteOrder";//删除订单
         public static final String ADD_CONTACT = "saveContact";//增加联系人
         public static final String DELETE_CONTACT = "deleteContact";//删除联系人
+        public static final String BACK_ORDER = "chargeback";//退单
+        public static final String BACK_ORDER_REASON = "examine";//退单理由
+        public static final String ORDER_CODE = "qrCode";//订单消费码
+
     }
 }

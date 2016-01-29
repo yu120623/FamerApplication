@@ -14,7 +14,10 @@ import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.order.actvity.OrderCodeActivity;
+import com.egceo.app.myfarm.order.actvity.RefundOrderActivity;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
+import com.egceo.app.myfarm.order.actvity.SubmitRefundActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 
 import java.text.SimpleDateFormat;
@@ -83,20 +86,44 @@ public class UnConsumedFragment extends BaseFragment{
             holder.paidDesc.setText(orderModel.getFarmSetModel().getFarmSetDesc());
             holder.paidPrice.setText(orderModel.getOrdePrice() + context.getString(R.string.rmb));
             holder.codeBtn.setText(R.string.order_code);
-            if("1".equals(orderModel.getStatus())){
+            holder.codeBtn.setTag(orderModel);
+            holder.backOrder.setTag(orderModel);
+            if("1".equals(orderModel.getStatus())){//使用中
                 holder.backOrder.setText(R.string.using_order);
+                holder.backOrder.setOnClickListener(null);
                 holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime())+" "+context.getString(R.string.use));
-            }else{
+            }else{//未使用
                 holder.backOrder.setText(R.string.back_order_btn);
                 holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime())+" "+context.getString(R.string.create));
+                holder.backOrder.setOnClickListener(onBackClick);
             }
+            holder.codeBtn.setOnClickListener(onCodeBtnClick);
         }
-
         @Override
         public int getItemCount() {
             return orderModels.size();
         }
     }
+
+    public View.OnClickListener onCodeBtnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OrderModel order = (OrderModel) view.getTag();
+            Intent intent = new Intent(context, OrderCodeActivity.class);
+            intent.putExtra("order",order);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener onBackClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OrderModel order = (OrderModel) view.getTag();
+            Intent intent = new Intent(context, SubmitRefundActivity.class);
+            intent.putExtra("order",order);
+            startActivity(intent);
+        }
+    };
 
     private View.OnClickListener onOrderClick = new View.OnClickListener() {
         @Override

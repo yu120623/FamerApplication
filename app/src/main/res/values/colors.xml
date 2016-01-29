@@ -6,4 +6,5 @@
     <color name="order_process_seleted_bg">#FF6600</color>
     <color name="order_process_no_seleted_bg">#979797</color>
     <color name="green2">#50B973</color>
+    <color name="pink">#FFF8E0</color>
 </resources>

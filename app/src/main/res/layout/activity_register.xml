@@ -23,11 +23,12 @@
             android:src="@mipmap/login_m" />
 
         <EditText
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@null"
-            android:hint="手机号"
+            android:hint="@string/phone_number"
             android:inputType="number"
             android:maxLength="11"
             android:textColor="@color/black"
@@ -52,13 +53,14 @@
             android:src="@mipmap/login_pwd" />
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
             android:layout_toRightOf="@id/ico_pwd"
             android:background="@null"
-            android:hint="密码(6-20字符)"
+            android:hint="@string/password"
             android:textColor="@color/black"
             android:textColorHint="#dbdbdb" />
 
@@ -90,10 +92,12 @@
             android:src="@mipmap/login_pin" />
 
         <EditText
+            android:id="@+id/code"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
-            android:hint="手机验证码"
+            android:hint="@string/phone_code"
+            android:maxLength="6"
             android:textColor="@color/black"
             android:textColorHint="#dbdbdb" />
 
@@ -102,19 +106,20 @@
             android:layout_height="match_parent"
             android:gravity="right">
 
-            <TextView
+            <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#ececec" />
 
             <TextView
+                android:id="@+id/get_code"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="获取验证码"
+                android:text="@string/get_code"
                 android:textColor="#ff6600" />
 
         </LinearLayout>
@@ -130,8 +135,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/reg_btn"
+        <Button
+            android:id="@+id/register_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -140,18 +145,16 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/login_btn_bg"
             android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="注册"
+            android:text="@string/register"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="点击注册按钮，即表示同意《我的农庄注册协议》"
             android:layout_marginLeft="20dp"
-            android:textSize="13sp"
-            android:textColor="#818484" />
+            android:text="@string/register_notic"
+            android:textColor="#818484"
+            android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

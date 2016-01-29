@@ -35,6 +35,8 @@ public class AppUtil {
     public static final String reREF = "reREF";//拒绝
     public static final String rqCOM = "rqCOM";//完成
 
+    public static final String REG_SMS_ID = "smsId";
+
     public static final class RES_STATUS{
         public static final String STATUS_OK = "00000";
     }

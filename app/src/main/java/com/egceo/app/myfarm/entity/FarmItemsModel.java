@@ -12,6 +12,7 @@ public class FarmItemsModel extends FarmItems{
 	private Double farmLongitude;
 	private String farmAddress;
 	private Double distance;
+	private String status;
 	private Date consumeTime;
 	public Double getFarmItemsprice() {
 		return FarmItemsprice;
@@ -76,4 +77,11 @@ public class FarmItemsModel extends FarmItems{
 		this.consumeTime = consumeTime;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

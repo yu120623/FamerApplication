@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.entity.FarmItemsModel;
+import com.egceo.app.myfarm.entity.FarmSetModel;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
@@ -16,6 +18,7 @@ import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.util.AppUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by FreeMason on 2016/1/28.
@@ -53,17 +56,26 @@ public class OrderCodeActivity extends BaseActivity {
 
     private void showData(TransferObject data) {
         ImageLoaderUtil.getInstance().displayImg(code,data.getResources().get(0).getResourceLocation());
-        for(int i = 0; i < 5;i++){
+        List<FarmItemsModel> farmItemsModelList = data.getOrderModels().get(0).getFarmItemsModels();
+        for(int i = 0; i < farmItemsModelList.size();i++){
+            FarmItemsModel farmItemsModel = farmItemsModelList.get(i);
             View view = inflater.inflate(R.layout.item_farm_code,null,false);
             TextView tag = (TextView) view.findViewById(R.id.farm_item_tag);
             TextView name = (TextView) view.findViewById(R.id.farm_item_name);
             TextView desc = (TextView) view.findViewById(R.id.farm_item_desc);
             TextView status = (TextView) view.findViewById(R.id.farm_item_status);
+            tag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
+            tag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
+            name.setText(farmItemsModel.getFarmName());
+            desc.setText(farmItemsModel.getFarmItemDesc());
+            status.setText(farmItemsModel.getStatus().equals("0")?getString(R.string.wait_consumption):getString(R.string.already_consumption));
+            status.setTextColor(farmItemsModel.getStatus().equals("0")?getResources().getColor(R.color.gray):getResources().getColor(R.color.green2));
             orderItemLayout.addView(view);
         }
     }
 
     private void initData() {
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         orderName.setText(getString(R.string.product_info)+order.getFarmSetModel().getFarmSetName());
         orderPrice.setText(getString(R.string.order_money)+getString(R.string.rmb)+order.getOrdePrice()+"");

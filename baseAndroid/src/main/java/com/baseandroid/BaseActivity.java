@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,6 +38,11 @@ public abstract class BaseActivity extends Activity {
 	protected TextView netWorkInfo;
 	protected Bundle savedInstanceState;
 	protected RelativeLayout actionbarView;
+	private ImageView progress;
+	private AnimationDrawable progressDrawable;
+	private View progressView;
+	private TextView progressText;
+	private View view;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -81,8 +87,12 @@ public abstract class BaseActivity extends Activity {
 		if(isAttachToLayout()){
 			this.setContentView(R.layout.base_activity);
 			LinearLayout layout = (LinearLayout) this.findViewById(R.id.base_framelayout);
-			View view = inflater.inflate(getContentView(), layout,false);		
-			layout.addView(view,new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT));
+			view = inflater.inflate(getContentView(), layout,false);
+			layout.addView(view,new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+			progress = (ImageView) this.findViewById(R.id.progress);
+			progressDrawable = (AnimationDrawable) progress.getDrawable();
+			progressView = this.findViewById(R.id.progress_view);
+			progressText = (TextView) this.findViewById(R.id.progress_text);
 		}else{
 			this.setContentView(getContentView());
 		}
@@ -167,7 +177,17 @@ public abstract class BaseActivity extends Activity {
 		super.onResume();
 	}
 	
+	protected void showProgress(){
+		progressView.setVisibility(View.VISIBLE);
+		progressDrawable.start();
+		view.setVisibility(View.GONE);
+	}
 
+	protected void hideProgress(){
+		progressView.setVisibility(View.GONE);
+		progressDrawable.stop();
+		view.setVisibility(View.VISIBLE);
+	}
 	
 	protected boolean isShowNetInfo() {
 		return false;

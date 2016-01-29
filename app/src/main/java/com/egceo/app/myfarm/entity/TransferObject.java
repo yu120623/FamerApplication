@@ -66,6 +66,12 @@ public class TransferObject implements Serializable {
 
     private String userAliasId;
 
+    private UserProfile userProfile;
+
+    private SMSObject smsObject;
+
+    private AaSubjectLogin aaSubjectLogin;
+
     private List<OrderDateModel> orderDateModels;
 
     private RecommendTagModel recommendTagModel;
@@ -425,5 +431,29 @@ public class TransferObject implements Serializable {
 
     public void setRefundRequestModel(RefundRequestModel refundRequestModel) {
         this.refundRequestModel = refundRequestModel;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public SMSObject getSmsObject() {
+        return smsObject;
+    }
+
+    public void setSmsObject(SMSObject smsObject) {
+        this.smsObject = smsObject;
+    }
+
+    public AaSubjectLogin getAaSubjectLogin() {
+        return aaSubjectLogin;
+    }
+
+    public void setAaSubjectLogin(AaSubjectLogin aaSubjectLogin) {
+        this.aaSubjectLogin = aaSubjectLogin;
     }
 }

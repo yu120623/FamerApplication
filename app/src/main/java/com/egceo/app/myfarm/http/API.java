@@ -31,6 +31,9 @@ public class API {
         public static final String BACK_ORDER = "chargeback";//退单
         public static final String BACK_ORDER_REASON = "examine";//退单理由
         public static final String ORDER_CODE = "qrCode";//订单消费码
+        public static final String SEND_SMS = "sendVCode";//发送验证码
+        public static final String REGISTER_USER = "register";//注册
+        public static final String LOGIN = "appLogin";//登陆
 
     }
 }

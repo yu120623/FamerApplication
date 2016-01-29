@@ -22,7 +22,7 @@ public class UserFavoFragment extends BaseFragment {
     }
 
     private void findViews() {
-        favoList = (RecyclerView) this.findViewById(R.id.msg_list);
+        favoList = (RecyclerView) this.findViewById(R.id.favo_list);
     }
 
     private void initData() {

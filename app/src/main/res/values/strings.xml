@@ -131,4 +131,13 @@
     <string name="order_code_title">订单二维码</string>
     <string name="shop_code_hint">让商家扫一扫，完成消费</string>
     <string name="pls_wait_submit_order">正在提交退单申请，请稍后</string>
+    <string name="phone_number">手机号</string>
+    <string name="password">密码(6-20字符)</string>
+    <string name="phone_code">手机验证码</string>
+    <string name="register">注册</string>
+    <string name="register_notic">点击注册按钮，即表示同意《我的农庄注册协议》</string>
+    <string name="get_code">获取验证码</string>
+    <string name="pls_enter_phone_number">请输入手机号</string>
+    <string name="pls_enter_password">请输入密码</string>
+    <string name="pls_enter_code">请输入正确的验证码</string>
 </resources>

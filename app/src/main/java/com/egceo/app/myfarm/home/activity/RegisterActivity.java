@@ -10,6 +10,7 @@ import com.amap.api.maps.model.Text;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.entity.Message;
 import com.egceo.app.myfarm.entity.SMSObject;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.entity.UserProfile;
@@ -17,6 +18,7 @@ import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.util.GetCodeBtnHandler;
 
 /**
  * Created by gseoa on 2016/1/13.
@@ -27,10 +29,19 @@ public class RegisterActivity extends BaseActivity {
     private EditText code;
     private Button registerBtn;
     private TextView getCode;
+    private GetCodeBtnHandler getCodeBtnHandler;
     @Override
     protected void initViews() {
         findViews();
         initClick();
+        initData();
+    }
+
+    private void initData() {
+        getCodeBtnHandler = new GetCodeBtnHandler(AppUtil.REG_SMS_TIME,sp,context);
+        android.os.Message msg = new android.os.Message();
+        msg.obj = getCode;
+        getCodeBtnHandler.sendMessage(msg);
     }
 
     private void initClick() {
@@ -51,6 +62,14 @@ public class RegisterActivity extends BaseActivity {
 
     private void sendSms() {
         String phoneText = phone.getText().toString();
+        if(phoneText.length() != 11){
+            CommonUtil.showMessage(context,getString(R.string.pls_enter_phone_number));
+            return;
+        }
+        android.os.Message msg = new android.os.Message();
+        msg.obj = getCode;
+        getCodeBtnHandler.setNextTime(AppUtil.SMS_TIME);
+        getCodeBtnHandler.sendMessage(msg);
         String url = API.URL + API.API_URL.SEND_SMS;
         TransferObject data = AppUtil.getHttpData(context);
         UserProfile user = new UserProfile();
@@ -68,6 +87,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void register() {
+        CommonUtil.showSimpleProgressDialog("正在注册，请稍后",activity);
         String url = API.URL + API.API_URL.REGISTER_USER;
         String phoneText = phone.getText().toString();
         String passwordText = password.getText().toString();
@@ -97,7 +117,7 @@ public class RegisterActivity extends BaseActivity {
         String phoneText = phone.getText().toString();
         String passwordText = password.getText().toString();
         String codeText = code.getText().toString();
-        if(TextUtils.isEmpty(phoneText)){
+        if(phoneText.length() != 11){
             CommonUtil.showMessage(context,getString(R.string.pls_enter_phone_number));
             return false;
         }

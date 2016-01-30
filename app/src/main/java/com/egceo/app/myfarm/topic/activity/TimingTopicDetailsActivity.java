@@ -173,6 +173,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
 
 
     private void initData() {
+        dragTopLayout.setOverDrag(false);
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)

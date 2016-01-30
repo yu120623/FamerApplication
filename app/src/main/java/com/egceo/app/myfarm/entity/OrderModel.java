@@ -159,7 +159,7 @@ public class OrderModel extends Order{
 
 
 	public void setStatus(String status) {
-		status = status;
+		this.status = status;
 	}
 
 

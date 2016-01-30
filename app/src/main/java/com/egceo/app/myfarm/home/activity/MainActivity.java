@@ -241,6 +241,7 @@ public class MainActivity extends BaseActivity {
         if(!"".equals(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, ""))))
             area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
         setArrVisible(0);
+        dragTopLayout.setOverDrag(false);
     }
 
     @Override

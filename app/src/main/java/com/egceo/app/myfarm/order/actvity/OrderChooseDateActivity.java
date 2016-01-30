@@ -52,7 +52,7 @@ public class OrderChooseDateActivity extends BaseActivity{
                         Intent intent = new Intent(context,OrderSetInfoAcitivity.class);
                         intent.putExtra("farmSetModel",farmSetModel);
                         intent.putExtra("orderDataModel",date);
-                        startActivity(intent);
+                        startActivityForResult(intent,1);
                     }
                 }
             }
@@ -103,6 +103,13 @@ public class OrderChooseDateActivity extends BaseActivity{
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         calendarView = (CalendarView) this.findViewById(R.id.calendar_view);
         cotentView = this.findViewById(R.id.content);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            finish();
+        }
     }
 
     @Override

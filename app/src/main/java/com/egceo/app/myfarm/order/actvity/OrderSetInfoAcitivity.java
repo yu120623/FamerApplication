@@ -82,6 +82,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                         intent.putExtra("order",order);
                         intent.putExtra("farmSetModel",farmSetModel);
                         startActivity(intent);
+                        setResult(RESULT_OK);
                         finish();
                     }
                 },data);

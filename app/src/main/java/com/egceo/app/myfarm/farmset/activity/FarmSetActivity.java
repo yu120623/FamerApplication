@@ -43,26 +43,22 @@ public class FarmSetActivity extends BaseActivity {
     private int curPosition = -1;
     private String farmTopicAliasId;
     private String farmAliasId;
-    private ImageView progress;
-    private AnimationDrawable progressDrawable;
     private View currentItemView;
 
     @Override
     protected void initViews() {
+        showProgress();
         findViews();
         initDate();
     }
 
     private void findViews() {
         farmSetList = (RecyclerView) findViewById(R.id.farmset_list);
-        progress = (ImageView) this.findViewById(R.id.progress);
     }
 
     private void initDate() {
         farmTopicAliasId = this.getIntent().getStringExtra("farmTopicAliasId");
         farmAliasId = this.getIntent().getStringExtra("farmAliasId");
-        progressDrawable = (AnimationDrawable) progress.getDrawable();
-        progressDrawable.start();
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
@@ -87,10 +83,14 @@ public class FarmSetActivity extends BaseActivity {
                 farmSetModels = data.getFarmSetModels();
                 if (farmSetModels != null && farmSetModels.size() > 0) {
                     adapter.notifyDataSetChanged();
-                    progressDrawable.stop();
-                    progress.setVisibility(View.GONE);
                     farmSetList.setVisibility(View.VISIBLE);
                 }
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                hideProgress();
             }
         }, data);
         request.execute();

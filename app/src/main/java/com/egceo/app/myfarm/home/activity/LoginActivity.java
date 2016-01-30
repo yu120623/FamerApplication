@@ -29,6 +29,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initData() {
+
     }
 
     private void initClick() {
@@ -75,7 +76,6 @@ public class LoginActivity extends BaseActivity {
         phone = (EditText) this.findViewById(R.id.phone);
         password = (EditText) this.findViewById(R.id.password);
     }
-
 
     @Override
     protected int getContentView() {

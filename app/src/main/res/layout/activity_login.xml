@@ -32,6 +32,7 @@
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:hint="手机号"
+            android:text="15950014502"
             android:inputType="number"
             android:maxLength="11"
             android:textColor="@color/black"
@@ -61,6 +62,7 @@
 
         <EditText
             android:id="@+id/password"
+            android:text="12345678"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

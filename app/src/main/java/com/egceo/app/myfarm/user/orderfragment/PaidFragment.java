@@ -8,18 +8,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.order.actvity.SubmitRefundActivity;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 
 //已付款
@@ -27,6 +35,10 @@ public class PaidFragment extends BaseFragment {
     private RecyclerView paidList;
     private PaidAdapter adapter;
     private List<OrderModel> orderModels;
+    private LoadMoreFooter loadMoreFooter;
+    private Integer pageNumber = 0;
+    private PtrFrameLayout frameLayout;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
     @Override
     protected void initViews() {
         findViews();
@@ -34,33 +46,79 @@ public class PaidFragment extends BaseFragment {
     }
     private void findViews() {
         paidList = (RecyclerView) this.findViewById(R.id.paid_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
     }
 
     private void initData() {
         orderModels = new ArrayList<OrderModel>();
         adapter = new PaidAdapter();
         paidList.setLayoutManager(new LinearLayoutManager(context));
-        paidList.setAdapter(adapter);
-        loadDataFromServer();
+        loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        paidList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(paidList,loadMoreFooter.getFooter());
+        paidList.addOnScrollListener(loadMoreListener);
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
+        loadMoreFooter.setIsLoading(true);
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordNC);
         data.setUserAliasId("aaa");
+        data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                orderModels = data.getOrderModels();
-                if (orderModels != null && orderModels.size() > 0) {
+                List<OrderModel> list = data.getOrderModels();
+                if (list != null && list.size() > 0) {
+                    if(pageNumber == 0) {
+                        orderModels = list;
+                    }else{
+                        orderModels.addAll(list);
+                    }
                     adapter.notifyDataSetChanged();
+                }else{
+                    if(pageNumber > 0)
+                        pageNumber--;
                 }
             }
-
+            @Override
+            public void onEnd() {
+                frameLayout.refreshComplete();
+                loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
+            }
         }, data);
         request.execute();
     }
+
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if(loadMoreFooter.isLoading())return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
 
     class PaidAdapter extends RecyclerView.Adapter<PaidViewHolder> {
         @Override

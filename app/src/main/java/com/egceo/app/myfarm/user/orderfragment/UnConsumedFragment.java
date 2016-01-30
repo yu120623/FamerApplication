@@ -8,38 +8,53 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.order.actvity.OrderCodeActivity;
 import com.egceo.app.myfarm.order.actvity.RefundOrderActivity;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.order.actvity.SubmitRefundActivity;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+
 /**
  * Created by gseoa on 2016/1/21.
  */
 //代销费
-public class UnConsumedFragment extends BaseFragment{
+public class UnConsumedFragment extends BaseFragment {
     private RecyclerView paidList;
     private PaidAdapter adapter;
     private List<OrderModel> orderModels;
     private SimpleDateFormat simpleDateFormat;
+    private PtrFrameLayout frameLayout;
+    private LoadMoreFooter loadMoreFooter;
+    private Integer pageNumber = 0;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
+
     @Override
     protected void initViews() {
         findViews();
         initData();
     }
+
     private void findViews() {
         paidList = (RecyclerView) this.findViewById(R.id.consumed_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
     }
 
     private void initData() {
@@ -47,27 +62,72 @@ public class UnConsumedFragment extends BaseFragment{
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd mm:HH");
         adapter = new PaidAdapter();
         paidList.setLayoutManager(new LinearLayoutManager(context));
-        paidList.setAdapter(adapter);
-        loadDataFromServer();
+        loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        paidList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(paidList, loadMoreFooter.getFooter());
+        paidList.addOnScrollListener(loadMoreListener);
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
+        loadMoreFooter.setIsLoading(true);
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordHP);
         data.setUserAliasId("aaa");
+        data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                orderModels = data.getOrderModels();
-                if (orderModels != null && orderModels.size() > 0) {
+                List<OrderModel> list = data.getOrderModels();
+                if (list != null && list.size() > 0) {
+                    if (pageNumber == 0) {
+                        orderModels = list;
+                    } else {
+                        orderModels.addAll(list);
+                    }
                     adapter.notifyDataSetChanged();
+                } else {
+                    if (pageNumber > 0)
+                        pageNumber--;
                 }
             }
 
+            @Override
+            public void onEnd() {
+                frameLayout.refreshComplete();
+                loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
+            }
         }, data);
         request.execute();
     }
+
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if (loadMoreFooter.isLoading()) return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
 
     class PaidAdapter extends RecyclerView.Adapter<PaidViewHolder> {
         @Override
@@ -88,17 +148,18 @@ public class UnConsumedFragment extends BaseFragment{
             holder.codeBtn.setText(R.string.order_code);
             holder.codeBtn.setTag(orderModel);
             holder.backOrder.setTag(orderModel);
-            if("1".equals(orderModel.getStatus())){//使用中
+            if ("1".equals(orderModel.getStatus())) {//使用中
                 holder.backOrder.setText(R.string.using_order);
                 holder.backOrder.setOnClickListener(null);
-                holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime())+" "+context.getString(R.string.use));
-            }else{//未使用
+                holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime()) + " " + context.getString(R.string.use));
+            } else {//未使用
                 holder.backOrder.setText(R.string.back_order_btn);
-                holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime())+" "+context.getString(R.string.create));
+                holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime()) + " " + context.getString(R.string.create));
                 holder.backOrder.setOnClickListener(onBackClick);
             }
             holder.codeBtn.setOnClickListener(onCodeBtnClick);
         }
+
         @Override
         public int getItemCount() {
             return orderModels.size();
@@ -110,7 +171,7 @@ public class UnConsumedFragment extends BaseFragment{
         public void onClick(View view) {
             OrderModel order = (OrderModel) view.getTag();
             Intent intent = new Intent(context, OrderCodeActivity.class);
-            intent.putExtra("order",order);
+            intent.putExtra("order", order);
             startActivity(intent);
         }
     };
@@ -120,7 +181,7 @@ public class UnConsumedFragment extends BaseFragment{
         public void onClick(View view) {
             OrderModel order = (OrderModel) view.getTag();
             Intent intent = new Intent(context, SubmitRefundActivity.class);
-            intent.putExtra("order",order);
+            intent.putExtra("order", order);
             startActivity(intent);
         }
     };
@@ -129,8 +190,9 @@ public class UnConsumedFragment extends BaseFragment{
         @Override
         public void onClick(View view) {
             OrderModel order = (OrderModel) view.getTag();
+            order.setStatus(AppUtil.ordHP);
             Intent intent = new Intent(context, OrderDetailActivity.class);
-            intent.putExtra("order",order);
+            intent.putExtra("order", order);
             startActivity(intent);
         }
     };

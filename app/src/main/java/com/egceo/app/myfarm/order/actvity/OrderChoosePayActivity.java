@@ -1,6 +1,7 @@
 package com.egceo.app.myfarm.order.actvity;
 
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -91,6 +92,8 @@ public class OrderChoosePayActivity extends BaseActivity{
 
     //用支付宝付款
     private void payByZhiFuBao(){
+        payBtn.setClickable(false);
+        CommonUtil.showSimpleProgressDialog(getString(R.string.go_to_zhifubao),activity,false);
         String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice()+"",order.getOrderSn());
         final String payInfo = SignUtils.getPayInfo(orderInfo);
         Runnable payRunnable = new Runnable() {
@@ -143,8 +146,15 @@ public class OrderChoosePayActivity extends BaseActivity{
                 default:
                     break;
             }
+            gotoOrderActivity();
         };
     };
+
+    private void gotoOrderActivity(){
+        Intent intent = new Intent(context,OrderDetailActivity.class);
+        intent.putExtra("order",order);
+        startActivity(intent);
+    }
 
     private void findViews() {
         payBtn = (Button) this.findViewById(R.id.pay_order);

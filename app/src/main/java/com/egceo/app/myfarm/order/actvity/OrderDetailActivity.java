@@ -1,6 +1,8 @@
 package com.egceo.app.myfarm.order.actvity;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,8 +30,11 @@ public class OrderDetailActivity extends BaseActivity {
     private SimpleDateFormat dataFormat;
     private TextView contactName;
     private TextView farmFund;
+    private Button orderBtn;
+    private View orderBtnLayout;
     @Override
     protected void initViews() {
+        showProgress();
         findViews();
         initData();
         loadDataFromServer();
@@ -38,6 +43,30 @@ public class OrderDetailActivity extends BaseActivity {
     private void initData() {
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if(order.getStatus().equals(AppUtil.ordNP)){
+            orderBtnLayout.setVisibility(View.VISIBLE);
+            orderBtn.setText(R.string.go_pay);
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderChoosePayActivity.class);
+                    intent.putExtra("order",order);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }else if(order.getStatus().equals(AppUtil.ordHP)){
+            orderBtnLayout.setVisibility(View.VISIBLE);
+            orderBtn.setText(R.string.order_code);
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderCodeActivity.class);
+                    intent.putExtra("order", order);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void findViews() {
@@ -47,6 +76,8 @@ public class OrderDetailActivity extends BaseActivity {
         orderMoney = (TextView) this.findViewById(R.id.order_total_money);
         farmFund = (TextView) this.findViewById(R.id.fund);
         contactName = (TextView) this.findViewById(R.id.contact_name);
+        orderBtn = (Button) this.findViewById(R.id.order_btn);
+        orderBtnLayout = this.findViewById(R.id.order_btn_layout);
     }
 
     private void loadDataFromServer() {
@@ -60,6 +91,12 @@ public class OrderDetailActivity extends BaseActivity {
                 if(data.getOrderModel() != null){
                     showOrderInfo(data.getOrderModel());
                 }
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                hideProgress();
             }
         },data);
         request.execute();

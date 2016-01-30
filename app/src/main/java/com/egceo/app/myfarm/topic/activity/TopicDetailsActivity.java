@@ -51,11 +51,7 @@ public class TopicDetailsActivity extends BaseActivity {
     private SmartTabLayout smartTabLayout;
     private FarmTopicModel farmTopicModel;
     private List<String> bannerUrls;
-    private ImageView progress;
-    private AnimationDrawable progressDrawable;
-    private View contentView;
     private FarmSetModel farmSetModels;
-    private View actionBar;
     private View actionBarBg;
     private ImageView backBtn;
     private ImageView shareBtn;
@@ -68,6 +64,7 @@ public class TopicDetailsActivity extends BaseActivity {
     private NetworkImageHolderView netWorkImageHolderView;
     @Override
     protected void initViews() {
+        showProgress();;
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViews();
         initData();
@@ -206,9 +203,8 @@ public class TopicDetailsActivity extends BaseActivity {
                 .showImageOnLoading(R.mipmap.default_banner_img)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
-        progressDrawable = (AnimationDrawable) progress.getDrawable();
-        progressDrawable.start();
         dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
+        dragTopLayout.setOverDrag(false);
         loadDataFromServer();
     }
 
@@ -227,12 +223,14 @@ public class TopicDetailsActivity extends BaseActivity {
                 initBanner();
                 initFragments();
                 initTags();
-                progressDrawable.stop();
-                progress.setVisibility(View.GONE);
-                contentView.setVisibility(View.VISIBLE);
-                actionBar.setVisibility(View.VISIBLE);
                 farmSetPrice.setText(farmSetModels.getMinPrice() + "元");
                 farmSetReason.setText(farmSetModels.getFarmSetRecomReason());
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                hideProgress();
             }
         }, data);
         request.execute();
@@ -255,9 +253,6 @@ public class TopicDetailsActivity extends BaseActivity {
         dragTopLayout = (DragTopLayout) this.findViewById(R.id.details_drag_layout);
         banner = (ConvenientBanner) this.findViewById(R.id.details_convenient_banner);
         smartTabLayout = (SmartTabLayout) this.findViewById(R.id.viewpagertab);
-        progress = (ImageView) this.findViewById(R.id.progress);
-        contentView = this.findViewById(R.id.topic_content);
-        actionBar = this.findViewById(R.id.top_info_acion_bar);
         actionBarBg = this.findViewById(R.id.top_info_acion_bar_bg);
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);

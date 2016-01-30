@@ -39,13 +39,12 @@ public class JingXuanFragment extends BaseFragment {
     private DisplayImageOptions options;
     private TopicAdapter adapter;
     private List<FarmTopicModel> farmTopicModels = new ArrayList<>();
-    private ImageView progress;
-    private AnimationDrawable progressDrawable;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
     private LoadMoreFooter loadMoreFooter;
     private Integer pageNumber = 0;
     @Override
     protected void initViews() {
+        showProgress();
         findViews();
         initData();
         initClick();
@@ -81,8 +80,6 @@ public class JingXuanFragment extends BaseFragment {
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
         topicList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
         RecyclerViewUtils.setFooterView(topicList,loadMoreFooter.getFooter());
-        progressDrawable = ((AnimationDrawable)progress.getDrawable());
-        progressDrawable.start();
         loadDataFromServer();
     }
 
@@ -99,7 +96,6 @@ public class JingXuanFragment extends BaseFragment {
                 if (list != null && list.size() > 0) {
                     if(pageNumber == 0) {
                         farmTopicModels = list;
-                        hideProgress1();
                     }else{
                         farmTopicModels.addAll(list);
                     }
@@ -113,6 +109,7 @@ public class JingXuanFragment extends BaseFragment {
             public void onEnd() {
                 loadMoreFooter.setIsLoading(false);
                 loadMoreFooter.hideLoadMore();
+                hideProgress();
             }
         },data);
         request.execute();
@@ -120,13 +117,6 @@ public class JingXuanFragment extends BaseFragment {
 
     private void findViews() {
         topicList = (RecyclerView) this.findViewById(R.id.topic_list);
-        progress = (ImageView) this.findViewById(R.id.progress);
-    }
-
-
-    private void hideProgress1() {
-        progress.setVisibility(View.GONE);
-        progressDrawable.stop();
     }
 
     //加载更多监听

@@ -25,10 +25,14 @@ import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.order.actvity.OrderChoosePayActivity;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 //未付款
 public class UnPaidFragment extends BaseFragment {
@@ -38,6 +42,7 @@ public class UnPaidFragment extends BaseFragment {
     private LoadMoreFooter loadMoreFooter;
     private Integer pageNumber = 0;
     private SimpleDateFormat sdformat;
+    private PtrFrameLayout frameLayout;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
     @Override
     protected void initViews() {
@@ -47,6 +52,7 @@ public class UnPaidFragment extends BaseFragment {
 
     private void findViews() {
         unPaidList = (RecyclerView) this.findViewById(R.id.unpaid_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
     }
 
     private void initData() {
@@ -59,7 +65,22 @@ public class UnPaidFragment extends BaseFragment {
         unPaidList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
         RecyclerViewUtils.setFooterView(unPaidList,loadMoreFooter.getFooter());
         unPaidList.addOnScrollListener(loadMoreListener);
-        loadDataFromServer();
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
@@ -87,6 +108,7 @@ public class UnPaidFragment extends BaseFragment {
             }
             @Override
             public void onEnd() {
+                frameLayout.refreshComplete();
                 loadMoreFooter.setIsLoading(false);
                 loadMoreFooter.hideLoadMore();
             }
@@ -229,6 +251,7 @@ public class UnPaidFragment extends BaseFragment {
         @Override
         public void onClick(View view) {
             OrderModel orderModel = (OrderModel) view.getTag();
+            orderModel.setStatus(AppUtil.ordNP);
             Intent intent = new Intent(context, OrderChoosePayActivity.class);
             intent.putExtra("order",orderModel);
             startActivity(intent);

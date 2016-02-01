@@ -90,6 +90,8 @@ public class PaidFragment extends BaseFragment {
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
                 if(pageNumber == 0){
+                    if(list == null)
+                        list = new ArrayList<>();
                     orderModels = list;
                 }else{
                     if(list.size() > 0){

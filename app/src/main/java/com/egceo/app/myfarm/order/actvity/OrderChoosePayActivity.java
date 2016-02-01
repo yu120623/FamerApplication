@@ -23,7 +23,10 @@ import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.order.view.PayTypeView;
+import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.OrderProcessHeader;
+import com.egceo.app.myfarm.wxapi.WXPayEntryActivity;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 
 import java.text.SimpleDateFormat;
 
@@ -37,6 +40,7 @@ public class OrderChoosePayActivity extends BaseActivity{
     private TextView orderMoney;
     private SimpleDateFormat dateFormat;
     private PayTypeView payTypeView;
+    private IWXAPI api;
     @Override
     protected void initViews() {
         findViews();
@@ -66,7 +70,7 @@ public class OrderChoosePayActivity extends BaseActivity{
                 }else if(type == PayTypeView.PAY_WALLET){//钱包付款
                     payByWallet();
                 }else if(type == PayTypeView.PAY_WECHAT){//微信支付
-                    CommonUtil.showMessage(context,"微信付款");
+                    payByWeChat();
                 }else if(type == PayTypeView.PAY_ZHIFUBAO){//支付宝付款
                     payByZhiFuBao();
                 }
@@ -74,11 +78,16 @@ public class OrderChoosePayActivity extends BaseActivity{
         });
     }
 
+    private void payByWeChat() {
+        Intent intent = new Intent(context, WXPayEntryActivity.class);
+        intent.putExtra("order",order);
+        startActivity(intent);
+        finish();
+    }
     //钱包余额付款
     private void payByWallet(){
         String url = API.URL + API.API_URL.PAY_MENT;
-        TransferObject data = new TransferObject();
-        data.setUserAliasId("aaa");
+        TransferObject data = AppUtil.getHttpData(context);
         data.setType("wallet");
         data.setOrderSn(order.getOrderSn());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
@@ -149,6 +158,16 @@ public class OrderChoosePayActivity extends BaseActivity{
             gotoOrderActivity();
         };
     };
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            finish();
+        }
+    }
+
 
     private void gotoOrderActivity(){
         Intent intent = new Intent(context,OrderDetailActivity.class);

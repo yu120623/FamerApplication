@@ -26,6 +26,8 @@ import com.egceo.app.myfarm.search.activity.SearchActivity;
 import com.egceo.app.myfarm.user.activity.UserActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.NetworkImageHolderView;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -151,27 +153,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        if (flag == false) {
-            loginBtn.setVisibility(View.VISIBLE);
-            userBtn.setVisibility(View.GONE);
-            loginBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            loginBtn.setVisibility(View.GONE);
-            userBtn.setVisibility(View.VISIBLE);
-            userBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent1 = new Intent(MainActivity.this, UserActivity.class);
-                    startActivity(intent1);
-                }
-            });
-        }
+
     }
 
     @Override
@@ -248,6 +230,27 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        if (!AppUtil.checkIsLogin(context)) {
+            loginBtn.setVisibility(View.VISIBLE);
+            userBtn.setVisibility(View.GONE);
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            loginBtn.setVisibility(View.GONE);
+            userBtn.setVisibility(View.VISIBLE);
+            userBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent1 = new Intent(MainActivity.this, UserActivity.class);
+                    startActivity(intent1);
+                }
+            });
+        }
     }
 
     @Override

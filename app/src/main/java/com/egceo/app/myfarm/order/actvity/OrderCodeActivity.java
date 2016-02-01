@@ -45,7 +45,7 @@ public class OrderCodeActivity extends BaseActivity {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                if(data.getResources() != null){
+                if(data.getQrCodeModel() != null){
                     showData(data);
                 }
             }
@@ -55,8 +55,8 @@ public class OrderCodeActivity extends BaseActivity {
     }
 
     private void showData(TransferObject data) {
-        ImageLoaderUtil.getInstance().displayImg(code,data.getResources().get(0).getResourceLocation());
-        List<FarmItemsModel> farmItemsModelList = data.getOrderModels().get(0).getFarmItemsModels();
+        ImageLoaderUtil.getInstance().displayImg(code,data.getQrCodeModel().getResource().getResourceLocation());
+        List<FarmItemsModel> farmItemsModelList = data.getQrCodeModel().getOrderModels().get(0).getFarmItemsModels();
         for(int i = 0; i < farmItemsModelList.size();i++){
             FarmItemsModel farmItemsModel = farmItemsModelList.get(i);
             View view = inflater.inflate(R.layout.item_farm_code,null,false);

@@ -15,6 +15,7 @@ import com.baseandroid.util.CommonUtil;
 import com.baseandroid.view.HackyViewPager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.egceo.app.myfarm.util.AppUtil;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -187,7 +188,7 @@ public class FarmDetailActivity extends BaseActivity {
     //获取专题详细
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_INFO;
-        TransferObject data = new TransferObject();
+        TransferObject data = AppUtil.getHttpData(context);
         data.setFarmAliasId(farmModel.getFarmAliasId());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override

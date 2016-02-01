@@ -84,23 +84,21 @@ public class ReFundFragment extends BaseFragment {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordRB);
-        data.setUserAliasId("aaa");
         data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
-                if (list != null && list.size() > 0) {
-                    if(pageNumber == 0) {
-                        orderModels = list;
-                    }else{
-                        orderModels.addAll(list);
-                    }
-                    adapter.notifyDataSetChanged();
+                if(pageNumber == 0){
+                    orderModels = list;
                 }else{
-                    if(pageNumber > 0)
+                    if(list.size() > 0){
+                        orderModels.addAll(list);
+                    }else{
                         pageNumber--;
+                    }
                 }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onEnd() {
@@ -142,8 +140,8 @@ public class ReFundFragment extends BaseFragment {
             holder.paidTime.setTextColor(context.getResources().getColor(R.color.green2));
             String orderText = "";
             if(orderModel.getStatus().equals(AppUtil.rqAGR)){//同意
-                holder.btn1.setText(R.string.cancel);
-                holder.btn1.setBackgroundResource(R.drawable.unpaid_d_btn_bg);
+                holder.btn1.setText(R.string.del);
+                holder.btn1.setBackgroundResource(R.drawable.unpaid_p_btn_bg);
                 holder.btn1.setTextColor(context.getResources().getColor(R.color.gray));
                 orderText = context.getString(R.string.refunding);
             }else if(orderModel.getStatus().equals(AppUtil.rqAPY)){//申请
@@ -202,6 +200,11 @@ public class ReFundFragment extends BaseFragment {
             startActivity(intent);
         }
     };
+
+    public void refresh(){
+        if(frameLayout != null)
+            frameLayout.autoRefresh(true);
+    }
 
     @Override
     protected int getContentView() {

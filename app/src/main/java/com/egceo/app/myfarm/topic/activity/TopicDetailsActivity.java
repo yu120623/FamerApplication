@@ -17,6 +17,7 @@ import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.egceo.app.myfarm.home.activity.LoginActivity;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -117,6 +118,11 @@ public class TopicDetailsActivity extends BaseActivity {
         veiwFarmSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!AppUtil.checkIsLogin(context)){
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 Intent intent = new Intent(context, FarmSetActivity.class);
                 intent.putExtra("farmTopicAliasId", farmTopicModel.getFarmTopicAliasId());
                 startActivity(intent);
@@ -276,9 +282,6 @@ public class TopicDetailsActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        /*for(){
-
-        }*/
     }
 
     public void setUrlBanners(FarmSetModel farmSetModel) {

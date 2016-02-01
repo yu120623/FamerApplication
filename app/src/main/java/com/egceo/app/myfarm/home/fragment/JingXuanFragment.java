@@ -15,6 +15,7 @@ import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -33,6 +34,8 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class JingXuanFragment extends BaseFragment {
     private RecyclerView topicList;
@@ -42,9 +45,9 @@ public class JingXuanFragment extends BaseFragment {
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
     private LoadMoreFooter loadMoreFooter;
     private Integer pageNumber = 0;
+    private PtrFrameLayout frameLayout;
     @Override
     protected void initViews() {
-        showProgress();
         findViews();
         initData();
         initClick();
@@ -80,7 +83,22 @@ public class JingXuanFragment extends BaseFragment {
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
         topicList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
         RecyclerViewUtils.setFooterView(topicList,loadMoreFooter.getFooter());
-        loadDataFromServer();
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
@@ -109,7 +127,7 @@ public class JingXuanFragment extends BaseFragment {
             public void onEnd() {
                 loadMoreFooter.setIsLoading(false);
                 loadMoreFooter.hideLoadMore();
-                hideProgress();
+                frameLayout.refreshComplete();
             }
         },data);
         request.execute();
@@ -117,6 +135,7 @@ public class JingXuanFragment extends BaseFragment {
 
     private void findViews() {
         topicList = (RecyclerView) this.findViewById(R.id.topic_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
     }
 
     //加载更多监听

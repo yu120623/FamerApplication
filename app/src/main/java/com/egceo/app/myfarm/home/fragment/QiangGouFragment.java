@@ -15,6 +15,7 @@ import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -39,6 +40,8 @@ import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class QiangGouFragment extends BaseFragment {
     private RecyclerView topicPanicBuyingList;
@@ -50,6 +53,7 @@ public class QiangGouFragment extends BaseFragment {
     private LoadMoreFooter loadMoreFooter;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
     private Integer pageNumber = 0;
+    private PtrFrameLayout frameLayout;
     @Override
     protected void initViews() {
         findViews();
@@ -73,7 +77,22 @@ public class QiangGouFragment extends BaseFragment {
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
         topicPanicBuyingList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
         RecyclerViewUtils.setFooterView(topicPanicBuyingList,loadMoreFooter.getFooter());
-        loadDataFromServer();
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
@@ -94,6 +113,9 @@ public class QiangGouFragment extends BaseFragment {
                         farmTopicPanicBuyingModels.addAll(list);
                     }
                     adapter.notifyDataSetChanged();
+                }else{
+                    if(pageNumber > 0)
+                        pageNumber--;
                 }
                 loadMoreFooter.hideLoadMore();
             }
@@ -102,6 +124,7 @@ public class QiangGouFragment extends BaseFragment {
             public void onEnd() {
                 loadMoreFooter.setIsLoading(false);
                 loadMoreFooter.hideLoadMore();
+                frameLayout.refreshComplete();
             }
         }, data);
         request.execute();
@@ -124,6 +147,7 @@ public class QiangGouFragment extends BaseFragment {
 
     private void findViews() {
         topicPanicBuyingList = (RecyclerView) this.findViewById(R.id.flash_sale_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
     }
 
 

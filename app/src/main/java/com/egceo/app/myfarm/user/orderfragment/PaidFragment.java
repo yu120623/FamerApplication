@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.user.orderfragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,12 +21,14 @@ import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.order.actvity.SubmitRefundActivity;
+import com.egceo.app.myfarm.user.fragment.UserOrderFragment;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.CustomUIHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
@@ -81,23 +84,21 @@ public class PaidFragment extends BaseFragment {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordNC);
-        data.setUserAliasId("aaa");
         data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
-                if (list != null && list.size() > 0) {
-                    if(pageNumber == 0) {
-                        orderModels = list;
-                    }else{
-                        orderModels.addAll(list);
-                    }
-                    adapter.notifyDataSetChanged();
+                if(pageNumber == 0){
+                    orderModels = list;
                 }else{
-                    if(pageNumber > 0)
+                    if(list.size() > 0){
+                        orderModels.addAll(list);
+                    }else{
                         pageNumber--;
+                    }
                 }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onEnd() {
@@ -169,6 +170,22 @@ public class PaidFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == 1){
+                OrderModel order = (OrderModel) data.getSerializableExtra("order");
+                for(int i = 0; i < orderModels.size();i++){
+                    if(order.getOrderSn().equals(orderModels.get(i).getOrderSn())){
+                        orderModels.remove(i);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+                EventBus.getDefault().post(new Integer(4));
+            }
+        }
+    }
 
     private View.OnClickListener onBackClick = new View.OnClickListener() {
         @Override
@@ -176,7 +193,7 @@ public class PaidFragment extends BaseFragment {
             OrderModel order = (OrderModel) view.getTag();
             Intent intent = new Intent(context, SubmitRefundActivity.class);
             intent.putExtra("order",order);
-            startActivity(intent);
+            startActivityForResult(intent,1);
         }
     };
 

@@ -1,5 +1,8 @@
 package com.egceo.app.myfarm.user.orderfragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
@@ -17,6 +21,7 @@ import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
+import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.CustomUIHandler;
 
@@ -62,6 +67,7 @@ public class ConsumedFragment extends BaseFragment {
         frameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
                 loadDataFromServer();
             }
         });
@@ -77,23 +83,21 @@ public class ConsumedFragment extends BaseFragment {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordHC);
-        data.setUserAliasId("aaa");
         data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
-                if (list != null && list.size() > 0) {
-                    if(pageNumber == 0) {
-                        orderModels = list;
-                    }else{
-                        orderModels.addAll(list);
-                    }
-                    adapter.notifyDataSetChanged();
+                if(pageNumber == 0){
+                    orderModels = list;
                 }else{
-                    if(pageNumber > 0)
+                    if(list.size() > 0){
+                        orderModels.addAll(list);
+                    }else{
                         pageNumber--;
+                    }
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -121,6 +125,7 @@ public class ConsumedFragment extends BaseFragment {
         @Override
         public ConsumedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.item_order, null);
+            v.setOnClickListener(onOrderClick);
             ConsumedViewHolder holder = new ConsumedViewHolder(v);
             return holder;
         }
@@ -128,18 +133,78 @@ public class ConsumedFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(ConsumedViewHolder holder, int position) {
             OrderModel orderModel = orderModels.get(position);
+            holder.itemView.setTag(orderModel);
             holder.consumedName.setText(orderModel.getFarmSetModel().getFarmSetName());
             holder.consumedDesc.setText(orderModel.getFarmSetModel().getFarmSetDesc());
             holder.consumedPrice.setText(orderModel.getOrdePrice() + "元");
             holder.consumedTime.setText(sdformat.format(orderModel.getRecordTime()) + context.getString(R.string.use));
             holder.commentBtn.setText(R.string.comment);
             holder.delBtn.setText(R.string.del);
+            holder.delBtn.setTag(orderModel);
+            holder.delBtn.setOnClickListener(onDelClick);
         }
 
         @Override
         public int getItemCount() {
             return orderModels.size();
         }
+    }
+
+    private View.OnClickListener onOrderClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OrderModel order = (OrderModel) view.getTag();
+            Intent intent = new Intent(context, OrderDetailActivity.class);
+            intent.putExtra("order", order);
+            startActivity(intent);
+        }
+    };
+
+    //删除订单
+    private View.OnClickListener onDelClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final OrderModel order = (OrderModel) view.getTag();
+            new AlertDialog.Builder(activity)
+                    .setTitle(context.getString(R.string.hint))
+                    .setMessage(context.getString(R.string.del_order_hint))
+                    .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    delOrder(order);
+                }
+            }).show();
+        }
+    };
+
+    private void delOrder(final OrderModel order) {
+        CommonUtil.showSimpleProgressDialog(context.getString(R.string.deleting_order_hint),activity);
+        String url = API.URL + API.API_URL.DEL_ORDER;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setOrderSn(order.getOrderSn());
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                if(data.getMessage().getStatus().equals("00000")){
+                    CommonUtil.showMessage(context,context.getString(R.string.del_success));
+                    orderModels.remove(order);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                CommonUtil.dismissSimpleProgressDialog();
+            }
+        },data);
+        request.execute();
     }
 
     class ConsumedViewHolder extends RecyclerView.ViewHolder {

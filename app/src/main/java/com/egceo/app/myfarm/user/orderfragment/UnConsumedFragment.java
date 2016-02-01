@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.user.orderfragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
@@ -59,7 +61,7 @@ public class UnConsumedFragment extends BaseFragment {
 
     private void initData() {
         orderModels = new ArrayList<OrderModel>();
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd mm:HH");
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         adapter = new PaidAdapter();
         paidList.setLayoutManager(new LinearLayoutManager(context));
         loadMoreFooter = new LoadMoreFooter(context);
@@ -73,6 +75,7 @@ public class UnConsumedFragment extends BaseFragment {
         frameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
                 loadDataFromServer();
             }
         });
@@ -89,23 +92,21 @@ public class UnConsumedFragment extends BaseFragment {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordHP);
-        data.setUserAliasId("aaa");
         data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
-                if (list != null && list.size() > 0) {
-                    if (pageNumber == 0) {
-                        orderModels = list;
-                    } else {
+                if(pageNumber == 0){
+                    orderModels = list;
+                }else{
+                    if(list.size() > 0){
                         orderModels.addAll(list);
-                    }
-                    adapter.notifyDataSetChanged();
-                } else {
-                    if (pageNumber > 0)
+                    }else{
                         pageNumber--;
+                    }
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -182,7 +183,7 @@ public class UnConsumedFragment extends BaseFragment {
             OrderModel order = (OrderModel) view.getTag();
             Intent intent = new Intent(context, SubmitRefundActivity.class);
             intent.putExtra("order", order);
-            startActivity(intent);
+            startActivityForResult(intent,1);
         }
     };
 
@@ -190,12 +191,28 @@ public class UnConsumedFragment extends BaseFragment {
         @Override
         public void onClick(View view) {
             OrderModel order = (OrderModel) view.getTag();
-            order.setStatus(AppUtil.ordHP);
             Intent intent = new Intent(context, OrderDetailActivity.class);
             intent.putExtra("order", order);
             startActivity(intent);
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == 1){
+                OrderModel order = (OrderModel) data.getSerializableExtra("order");
+                for(int i = 0; i < orderModels.size();i++){
+                    if(order.getOrderSn().equals(orderModels.get(i).getOrderSn())){
+                        orderModels.remove(i);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+                EventBus.getDefault().post(new Integer(4));
+            }
+        }
+    }
 
     class PaidViewHolder extends RecyclerView.ViewHolder {
         private TextView paidName;

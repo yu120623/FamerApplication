@@ -141,4 +141,5 @@
     <string name="pls_enter_password">请输入密码</string>
     <string name="pls_enter_code">请输入正确的验证码</string>
     <string name="go_to_zhifubao">正在跳转支付宝，请稍后</string>
+    <string name="login_now">正在登陆，请稍后</string>
 </resources>

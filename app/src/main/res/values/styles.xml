@@ -1,9 +1,11 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimaryDark">#2e2e2e</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
         <item name="selectableItemBackground">@color/white</item>
     </style>
 

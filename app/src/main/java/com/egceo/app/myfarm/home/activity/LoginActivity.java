@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
+import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.AaSubjectLogin;
 import com.egceo.app.myfarm.entity.TransferObject;
@@ -49,6 +50,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login() {
+        CommonUtil.showSimpleProgressDialog(getString(R.string.login_now),activity);
         String url = API.URL + API.API_URL.LOGIN;
         String phoneText = phone.getText().toString();
         String passwordText = password.getText().toString();
@@ -61,9 +63,11 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(TransferObject data) {
                 if(data.getMessage().getStatus().equals(AppUtil.RES_STATUS.STATUS_OK)) {
-                    Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+                    sp.edit().putString(AppUtil.L_N,data.getUserProfile().getUserAliasId()).commit();
+                    /*Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                     intent.putExtra("in", true);
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    finish();
                 }
             }
         },data);

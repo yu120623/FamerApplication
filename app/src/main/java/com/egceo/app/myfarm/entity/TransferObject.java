@@ -3,12 +3,15 @@ package com.egceo.app.myfarm.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 public class TransferObject implements Serializable {
     private Integer pageNumber;
 
     private String key;
+
+    private Map<String,String> map;
 
     private List<FarmTopicModel> farmTopicModels;
 
@@ -35,6 +38,8 @@ public class TransferObject implements Serializable {
     private List<FarmStatementModel> farmStatementModels;
 
     private Double farmLatitude;
+
+    private QRModel qrCodeModel;
 
     private Double farmLongitude;
 
@@ -455,5 +460,21 @@ public class TransferObject implements Serializable {
 
     public void setAaSubjectLogin(AaSubjectLogin aaSubjectLogin) {
         this.aaSubjectLogin = aaSubjectLogin;
+    }
+
+    public Map<String, String> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, String> map) {
+        this.map = map;
+    }
+
+    public QRModel getQrCodeModel() {
+        return qrCodeModel;
+    }
+
+    public void setQrCodeModel(QRModel qrCodeModel) {
+        this.qrCodeModel = qrCodeModel;
     }
 }

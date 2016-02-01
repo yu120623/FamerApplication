@@ -13,6 +13,11 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
+import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.egceo.app.myfarm.R;
@@ -32,6 +37,8 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by Administrator on 2015/12/16.
@@ -42,19 +49,18 @@ public class ZhouBianFragment extends BaseFragment {
     private List<FarmModel> farmAroundListModels;
     private NearAdapter adapter;
     private DecimalFormat decimalFormat;
-
+    private PtrFrameLayout frameLayout;
+    private LoadMoreFooter loadMoreFooter;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
+    private Integer pageNumber = 0;
     @Override
     protected void initViews() {
         findViews();
         initData();
+        initClick();
     }
 
-    private void initData() {
-        decimalFormat = new DecimalFormat("#.##");
-        nearList.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new NearAdapter();
-        farmAroundListModels = new ArrayList<FarmModel>();
-        nearList.setAdapter(adapter);
+    private void initClick() {
         nearList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -67,35 +73,90 @@ public class ZhouBianFragment extends BaseFragment {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
             }
         });
+        nearList.addOnScrollListener(loadMoreListener);
+    }
+
+    private void initData() {
+        decimalFormat = new DecimalFormat("#.##");
+        nearList.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new NearAdapter();
+        farmAroundListModels = new ArrayList<FarmModel>();
+        loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        nearList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(nearList,loadMoreFooter.getFooter());
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY).build();
-        loadDataFromServer();
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
+        loadMoreFooter.setIsLoading(true);
         String url = API.URL + API.API_URL.FARM_AROUND_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setPageNumber(0);
+        data.setPageNumber(pageNumber);
         data.setType("around");
         data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
         data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                farmAroundListModels = data.getFarmModels();
-                if (farmAroundListModels != null && farmAroundListModels.size() > 0) {
+                List<FarmModel> list = data.getFarmModels();
+                if (list != null && list.size() > 0) {
+                    if(pageNumber == 0) {
+                        farmAroundListModels = list;
+                    }else{
+                        farmAroundListModels.addAll(list);
+                    }
                     adapter.notifyDataSetChanged();
+                }else{
+                    if(pageNumber > 0)
+                        pageNumber--;
                 }
+                loadMoreFooter.hideLoadMore();
+            }
+            @Override
+            public void onEnd() {
+                loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
+                frameLayout.refreshComplete();
             }
         }, data);
         request.execute();
     }
 
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if(loadMoreFooter.isLoading() || farmAroundListModels.size() <= 0)return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
+
     private void findViews() {
         nearList = (RecyclerView) this.findViewById(R.id.near_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
     }
 
     class NearAdapter extends RecyclerView.Adapter<RecommendViewHolder> implements View.OnClickListener {

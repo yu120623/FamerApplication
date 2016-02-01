@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.home.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,12 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
 import com.baseandroid.util.ImageLoaderUtil;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
+import com.egceo.app.myfarm.farm.activity.FarmDetailActivity;
+import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
+import com.egceo.app.myfarm.view.CustomUIHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.egceo.app.myfarm.R;
@@ -30,6 +37,8 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.AttachUtil;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by Administrator on 2015/12/16.
@@ -39,19 +48,20 @@ public class TuiJianFragment extends BaseFragment {
     private DisplayImageOptions options;
     private List<FarmModel> farmTuiJianListModels;
     private RecommendAdapter adapter;
+    private PtrFrameLayout frameLayout;
+    private LoadMoreFooter loadMoreFooter;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
+    private Integer pageNumber = 0;
 
     @Override
     protected void initViews() {
         findViews();
         initData();
+        initClick();
     }
 
-    private void initData() {
-        recommendList.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new RecommendAdapter();
-        recommendList.setAdapter(adapter);
-        farmTuiJianListModels = new ArrayList<FarmModel>();
-        recommendList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+    private void initClick() {
+        recommendList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -63,19 +73,43 @@ public class TuiJianFragment extends BaseFragment {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
             }
         });
+        recommendList.addOnScrollListener(loadMoreListener);
+    }
+
+    private void initData() {
+        recommendList.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new RecommendAdapter();
+        farmTuiJianListModels = new ArrayList<FarmModel>();
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY).build();
-
-        loadDataFromServer();
+                .imageScaleType(ImageScaleType.EXACTLY).build();loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        recommendList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(recommendList,loadMoreFooter.getFooter());
+        CustomUIHandler header = new CustomUIHandler(context);
+        frameLayout.addPtrUIHandler(header);
+        frameLayout.setHeaderView(header);
+        frameLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pageNumber = 0;
+                loadDataFromServer();
+            }
+        });
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        },100);
     }
 
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_AROUND_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setPageNumber(0);
+        data.setPageNumber(pageNumber);
         data.setType("recommend");
         data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
         data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
@@ -83,32 +117,61 @@ public class TuiJianFragment extends BaseFragment {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                farmTuiJianListModels = data.getFarmModels();
-                if (farmTuiJianListModels != null && farmTuiJianListModels.size() > 0) {
+                List<FarmModel> list = data.getFarmModels();
+                if (list != null && list.size() > 0) {
+                    if(pageNumber == 0) {
+                        farmTuiJianListModels = list;
+                    }else{
+                        farmTuiJianListModels.addAll(list);
+                    }
                     adapter.notifyDataSetChanged();
+                }else{
+                    if(pageNumber > 0)
+                        pageNumber--;
                 }
+                loadMoreFooter.hideLoadMore();
+            }
+            @Override
+            public void onEnd() {
+                loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
+                frameLayout.refreshComplete();
             }
         }, data);
         request.execute();
     }
 
+
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if(loadMoreFooter.isLoading() || farmTuiJianListModels.size() <= 0)return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
+
     private void findViews() {
         recommendList = (RecyclerView) this.findViewById(R.id.recommend_list);
+        frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
 
     }
 
     class RecommendAdapter extends RecyclerView.Adapter<RecommendViewHolder> {
-
         @Override
         public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.item_recommend, null);
             RecommendViewHolder holder = new RecommendViewHolder(v);
+            v.setOnClickListener(onClick);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(RecommendViewHolder holder, int position) {
             FarmModel farmModel = farmTuiJianListModels.get(position);
+            holder.itemView.setTag(farmModel);
             holder.recommendName.setText(farmModel.getFarmName());
             holder.recommendArea.setText(farmModel.getFarmArea());
             holder.recommendReason.setText(farmModel.getFarmDesc());
@@ -135,8 +198,6 @@ public class TuiJianFragment extends BaseFragment {
                 holder.flowLayout.addView(tv);
                 holder.flowLayout.addView(tv1);
             }
-
-
         }
 
         @Override
@@ -167,6 +228,17 @@ public class TuiJianFragment extends BaseFragment {
         }
 
     }
+
+    public View.OnClickListener onClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FarmModel farmModel = (FarmModel) view.getTag();
+            Intent intent = new Intent();
+            intent.putExtra("farmModel", farmModel);
+            intent.setClass(getActivity(), FarmDetailActivity.class);
+            startActivity(intent);
+        }
+    };
 
     public void onEvent(Integer index) {
         if (index.intValue() == 3) {

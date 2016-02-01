@@ -62,8 +62,7 @@ public class ContactListAcitivity extends BaseActivity {
 
     private void addContact() {
         String url = API.URL + API.API_URL.ADD_CONTACT;
-        TransferObject data = new TransferObject();
-        data.setUserAliasId("aaa");
+        TransferObject data = AppUtil.getHttpData(context);
         data.setName(contactName.getText().toString());
         data.setPhoneNumber(contactPhone.getText().toString());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
@@ -81,7 +80,6 @@ public class ContactListAcitivity extends BaseActivity {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.CONTACT_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setUserAliasId("aaa");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -166,14 +164,15 @@ public class ContactListAcitivity extends BaseActivity {
 
     private void deleteContact(final Contact contact) {
         String url = API.URL + API.API_URL.DELETE_CONTACT;
-        TransferObject data = new TransferObject();
-        data.setUserAliasId("aaa");
+        TransferObject data = AppUtil.getHttpData(context);
         data.setContactId(contact.getContactId().toString());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                contactList.remove(contact);
-                adapter.notifyDataSetChanged();
+                if(data.getMessage().getStatus().equals("00000")) {
+                    contactList.remove(contact);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }, data);
         request.execute();

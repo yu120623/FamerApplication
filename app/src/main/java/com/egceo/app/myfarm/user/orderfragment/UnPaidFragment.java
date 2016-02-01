@@ -88,23 +88,21 @@ public class UnPaidFragment extends BaseFragment {
         String url = API.URL + API.API_URL.PERSON_ORDER;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType(AppUtil.ordNP);
-        data.setUserAliasId("aaa");
         data.setPageNumber(pageNumber);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
-                if (list != null && list.size() > 0) {
-                    if(pageNumber == 0) {
-                        orderModels = list;
-                    }else{
-                        orderModels.addAll(list);
-                    }
-                    adapter.notifyDataSetChanged();
+                if(pageNumber == 0){
+                    orderModels = list;
                 }else{
-                    if(pageNumber > 0)
+                    if(list.size() > 0){
+                        orderModels.addAll(list);
+                    }else{
                         pageNumber--;
+                    }
                 }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onEnd() {
@@ -251,7 +249,6 @@ public class UnPaidFragment extends BaseFragment {
         @Override
         public void onClick(View view) {
             OrderModel orderModel = (OrderModel) view.getTag();
-            orderModel.setStatus(AppUtil.ordNP);
             Intent intent = new Intent(context, OrderChoosePayActivity.class);
             intent.putExtra("order",orderModel);
             startActivity(intent);

@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.order.actvity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +63,10 @@ public class SubmitRefundActivity extends BaseActivity {
         AppRequest request  = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-
+                Intent intent = new Intent();
+                intent.putExtra("order",order);
+                setResult(RESULT_OK,intent);
+                finish();
             }
         },data);
         request.execute();

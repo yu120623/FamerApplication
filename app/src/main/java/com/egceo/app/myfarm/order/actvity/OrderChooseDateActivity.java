@@ -34,6 +34,7 @@ public class OrderChooseDateActivity extends BaseActivity{
     private List<OrderDateModel> orderDataModels;
     @Override
     protected void initViews() {
+        showProgress();
         findViews();
         initData();
         initClick();
@@ -80,6 +81,13 @@ public class OrderChooseDateActivity extends BaseActivity{
                     progress.setVisibility(View.GONE);
                     cotentView.setVisibility(View.VISIBLE);
                 }
+
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                hideProgress();
             }
         },data);
         request.execute();

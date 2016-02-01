@@ -1,6 +1,7 @@
 package com.egceo.app.myfarm.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 
 import com.egceo.app.myfarm.R;
@@ -8,9 +9,6 @@ import com.egceo.app.myfarm.entity.TransferObject;
 
 import java.util.Random;
 
-/**
- * Created by Administrator on 2015/12/22.
- */
 public class AppUtil {
     public static final String SP_CITY_CODE = "c";
     public static final String SP_CITY_NAME = "cn";
@@ -18,10 +16,15 @@ public class AppUtil {
     public static final String SP_LOG = "g";
     public static final String FARM_IMG_SIZE = "@!w150h150";
     public static final String DESC_IMG_SIZE = "@!textimg";
-
+    public static final String APP_ID = "wxb7092588e08a7e4f";
 
     public static final String SP_NEW_CITY_CODE = "n_c";
     public static final String SP_NEW_CITY_NAME = "n_cn";
+
+    public static final String DEFAULT_CITY_CODE = "0512";
+    public static final String DEFAULT_CITY_NAME = "苏州市";
+
+    public static final String L_N = "l_n";
 
     public static final String ordPD = "ordPD";//已过期
     public static final String ordNP = "ordNP";//未付款
@@ -107,8 +110,20 @@ public class AppUtil {
     }
 
     public static TransferObject getHttpData(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("sp", Context.MODE_PRIVATE);
         TransferObject data =  new TransferObject();
-        data.setUserAliasId("aaa");
+        if(!"".equals(sp.getString(L_N,""))) {
+            data.setUserAliasId(sp.getString(L_N,""));
+            //ddata.setUserAliasId("aaa");
+        }
         return data;
+    }
+
+    public static boolean checkIsLogin(Context context){
+        SharedPreferences sp = context.getSharedPreferences("sp", Context.MODE_PRIVATE);
+        if("".equals(sp.getString(L_N,""))){
+            return false;
+        }
+        return true;
     }
 }

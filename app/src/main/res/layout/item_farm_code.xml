@@ -36,17 +36,17 @@
         android:id="@+id/farm_item_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:gravity="center"
         android:text="标准的角度"
         android:textColor="@color/gray"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/farm_item_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:text="以消费"
         android:textColor="@color/gray"

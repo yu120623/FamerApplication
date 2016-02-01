@@ -43,30 +43,7 @@ public class OrderDetailActivity extends BaseActivity {
     private void initData() {
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         dataFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if(order.getStatus().equals(AppUtil.ordNP)){
-            orderBtnLayout.setVisibility(View.VISIBLE);
-            orderBtn.setText(R.string.go_pay);
-            orderBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, OrderChoosePayActivity.class);
-                    intent.putExtra("order",order);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }else if(order.getStatus().equals(AppUtil.ordHP)){
-            orderBtnLayout.setVisibility(View.VISIBLE);
-            orderBtn.setText(R.string.order_code);
-            orderBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, OrderCodeActivity.class);
-                    intent.putExtra("order", order);
-                    startActivity(intent);
-                }
-            });
-        }
+
     }
 
     private void findViews() {
@@ -82,9 +59,8 @@ public class OrderDetailActivity extends BaseActivity {
 
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.ORDER_INFO;
-        TransferObject data = new TransferObject();
+        TransferObject data = AppUtil.getHttpData(context);
         data.setOrderSn(order.getOrderSn());
-        data.setUserAliasId("aaa");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -104,12 +80,36 @@ public class OrderDetailActivity extends BaseActivity {
 
     private void showOrderInfo(OrderModel orderModel) {
         orderSN.setText(orderModel.getOrderSn());
-        orderMoney.setText(orderModel.getPrice()+"×"+orderModel.getCopies());
+        orderMoney.setText(orderModel.getOrdePrice()+"×"+orderModel.getCopies());
         buyNum.setText(orderModel.getCopies()+"");
         farmFund.setText(orderModel.getFund()+"");
         contactName.setText(orderModel.getContact().getConnectName());
         for(FarmItemsModel farmItemsModel : orderModel.getFarmItemsModels()){
             getFarmSetSubItem(farmItemsModel);
+        }
+        if(AppUtil.ordNP.equals(orderModel.getStatus())){
+            orderBtnLayout.setVisibility(View.VISIBLE);
+            orderBtn.setText(R.string.go_pay);
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderChoosePayActivity.class);
+                    intent.putExtra("order",order);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }else if(AppUtil.ordHP.equals(orderModel.getStatus())){
+            orderBtnLayout.setVisibility(View.VISIBLE);
+            orderBtn.setText(R.string.order_code);
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderCodeActivity.class);
+                    intent.putExtra("order", order);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

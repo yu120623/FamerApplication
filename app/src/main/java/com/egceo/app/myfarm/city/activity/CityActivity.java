@@ -23,6 +23,7 @@ import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +119,7 @@ public class CityActivity extends BaseActivity {
     //获取城市列表和推荐城市
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.CITY_LIST;
-        TransferObject data = new TransferObject();
+        TransferObject data = AppUtil.getHttpData(context);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

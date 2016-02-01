@@ -57,6 +57,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
     private AlertDialog timeDialog;
     @Override
     protected void initViews() {
+        showProgress();
         findViews();
         initData();
         initClick();
@@ -113,7 +114,6 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         TransferObject data = AppUtil.getHttpData(context);
         data.setDate(orderDataModel.getDate());
         data.setCopies(num);
-        data.setUserAliasId("aaa");
         data.setContactId(contact.getContactId()+"");
         farmSetModel.setFund(0d);
         List<FarmItemsModel> farmItemsModels = new ArrayList<>();
@@ -158,7 +158,6 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         TransferObject data = AppUtil.getHttpData(context);
         data.setFarmSetAliasId(farmSetModel.getFarmSetAliasId());
         data.setDate(orderDataModel.getDate());
-        data.setUserAliasId("aaa");
         AppRequest requset = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -167,6 +166,12 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                     showFarmSet();
                     checkNum();
                 }
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                hideProgress();
             }
         },data);
         requset.execute();

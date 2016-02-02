@@ -1,8 +1,8 @@
 package com.egceo.app.myfarm.http;
 
 public class API {
-    public static final String URL = "http://121.40.91.182:8080/mycff/api/";
-    //public static final String URL = "http://192.168.8.106:8080/mycff/api/";
+    //public static final String URL = "http://121.40.91.182:8080/mycff/api/";
+    public static final String URL = "http://192.168.8.106:8080/mycff/api/";
     public static final String PARAM_STR = "jsonStr";
 
     public static class API_URL {
@@ -35,6 +35,6 @@ public class API {
         public static final String REGISTER_USER = "register";//注册
         public static final String LOGIN = "appLogin";//登陆
         public static final String WECHAT_ORDER = "weChatPayData";//微信付款
-
+        public static final String PAY_BANK = "bankTn";//银联支付
     }
 }

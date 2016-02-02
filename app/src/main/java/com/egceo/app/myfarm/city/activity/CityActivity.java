@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.city.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -42,6 +43,7 @@ public class CityActivity extends BaseActivity {
     private CityAdapter adapter;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
     private View header;
+    private AMapLocation location;
     protected void initViews() {
         findViews();
         initData();
@@ -55,6 +57,12 @@ public class CityActivity extends BaseActivity {
                 if(isLocation)
                     return;
                 if(isLocationSuccess){
+                    Intent intent = new Intent();
+                    Code code = new Code();
+                    code.setCodeDesc(location.getCity());
+                    code.setCodeName(location.getCityCode());
+                    intent.putExtra("city",code);
+                    setResult(RESULT_OK,intent);
                     finish();
                     return;
                 }
@@ -99,8 +107,11 @@ public class CityActivity extends BaseActivity {
                 tagName = "";
                 hotNameTextView.setVisibility(View.INVISIBLE);
             }
-            else
+            else {
                 tagName = hotCity.get(i).getCodeDesc();
+                hotNameTextView.setTag(hotCity.get(i));
+                hotNameTextView.setOnClickListener(onChangeCity);
+            }
             hotNameTextView.setText(tagName);
             tagsLineLayout.addView(hotNameTextView);
         }
@@ -146,6 +157,7 @@ public class CityActivity extends BaseActivity {
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
+                location = aMapLocation;
                 if(aMapLocation.getErrorCode() == 0){
                     lat = aMapLocation.getLatitude();
                     log = aMapLocation.getLongitude();
@@ -176,12 +188,14 @@ public class CityActivity extends BaseActivity {
             RecyclerView.LayoutParams param = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT);
             param.bottomMargin = CommonUtil.Dp2Px(context,10);
             view.setLayoutParams(param);
+            view.setOnClickListener(onChangeCity);
             return new CityViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(CityViewHolder holder, int position) {
             holder.cityName.setText(allCity.get(position).getCodeDesc());
+            holder.itemView.setTag(allCity.get(position));
         }
 
         @Override
@@ -189,6 +203,17 @@ public class CityActivity extends BaseActivity {
             return allCity.size();
         }
     }
+
+    public View.OnClickListener onChangeCity = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            Code city = (Code) view.getTag();
+            intent.putExtra("city",city);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+    };
 
     class CityViewHolder extends RecyclerView.ViewHolder{
         private TextView cityName;

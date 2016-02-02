@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.home.activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,15 @@ import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.egceo.app.myfarm.entity.Code;
+import com.egceo.app.myfarm.entity.FarmTopicModel;
+import com.egceo.app.myfarm.entity.Resource;
+import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.http.API;
+import com.egceo.app.myfarm.http.AppHttpResListener;
+import com.egceo.app.myfarm.http.AppRequest;
+import com.html.HtmlActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
@@ -51,31 +61,65 @@ public class MainActivity extends BaseActivity {
     private View searchBtn;
     private View loginBtn;
     private List<RelativeLayout> buttons;
-    private String[] url = {"http://oss.mycff.com/images/000014.png", "http://oss.mycff.com/images/000015.png"};
     private Boolean flag = false;
     private View userBtn;
-
+    private List<Resource> resources;
+    private FragmentPagerItemAdapter adapter;
     @Override
     protected void initViews() {
         findViews();
         initData();
         initFragments();
-        initBanner();
         initClick();
+        initBannerSize();
+        loadDataFromServer();
     }
 
-
-    private void initBanner() {
-        banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-            @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
-            }
-        }, Arrays.asList(url));
+    private void initBannerSize() {
         banner.startTurning(3000);
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith / (444 * 1.0);
         banner.getLayoutParams().height = (int) (200 * scale);
+    }
+
+    private void initBanner(List<String> url) {
+        banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+            @Override
+            public NetworkImageHolderView createHolder() {
+                return new NetworkImageHolderView(activity,resources);
+            }
+        }, url);
+        /*banner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if(resources != null && resources.size() > 0){
+                    Intent intent = new Intent(context, HtmlActivity.class);
+                    intent.putExtra("url",resources.get(position).getResourceLocation());
+                    startActivity(intent);
+                }
+            }
+        });*/
+    }
+
+    private void loadDataFromServer() {
+        String url = API.URL + API.API_URL.FARM_TOPIC_LIST;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                resources = data.getResources();
+                List<String> urls = new ArrayList<>();
+                for(Resource resource : resources){
+                    urls.add(resource.getResourceLocation());
+                }
+                initBanner(urls);
+            }
+            @Override
+            public void onEnd() {
+            }
+        },data);
+        request.execute();
     }
 
     @Override
@@ -149,7 +193,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CityActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -163,7 +207,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragments() {
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
                 .add("", JingXuanFragment.class)
                 .add("", QiangGouFragment.class)
@@ -180,13 +224,11 @@ public class MainActivity extends BaseActivity {
     private void setArrVisible(int index) {
         arrContent.getChildAt(index).setVisibility(View.VISIBLE);
         buttons.get(index).setSelected(true);
-        //buttons.get(index).getChildAt(0).setSelected(true);
         for (int i = 0; i < arrContent.getChildCount(); i++) {
             if (index == i) {
                 continue;
             }
             buttons.get(i).setSelected(false);
-            //buttons.get(index).getChildAt(0).setSelected(false);
             arrContent.getChildAt(i).setVisibility(View.INVISIBLE);
         }
     }
@@ -259,6 +301,24 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == 1){
+                Code code = (Code) data.getSerializableExtra("city");
+                sp.edit().putString(AppUtil.SP_CITY_CODE,code.getCodeName()).commit();
+                sp.edit().putString(AppUtil.SP_CITY_NAME,code.getCodeDesc()).commit();
+                /*if(!"".equals(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, ""))))
+                    area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
+                contentViewPager.removeAllViews();
+                initFragments();*/
+                Intent intent = new Intent(context,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
+
     private void findViews() {
         jingxuan = (RelativeLayout) this.findViewById(R.id.jingxuan);
         qianggou = (RelativeLayout) this.findViewById(R.id.qianggou);
@@ -284,7 +344,5 @@ public class MainActivity extends BaseActivity {
     protected String setActionBarTitle() {
         return "";
     }
-
-
 
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.util.AppUtil;
 
 /**
  * Created by Administrator on 2015/12/29.
@@ -16,6 +17,13 @@ public class LaunchActivity extends BaseActivity {
     private ImageView home;
     @Override
     protected void initViews() {
+        if(sp.getBoolean(AppUtil.IS_FIRST_APP,true)){
+            sp.edit().putBoolean(AppUtil.IS_FIRST_APP,false).commit();
+            if("".equals(sp.getString(AppUtil.SP_CITY_CODE,""))) {
+                sp.edit().putString(AppUtil.SP_CITY_CODE, AppUtil.DEFAULT_CITY_CODE).commit();
+                sp.edit().putString(AppUtil.SP_CITY_NAME, AppUtil.DEFAULT_CITY_NAME).commit();
+            }
+        }
         home = (ImageView) this.findViewById(R.id.home);
         AnimationSet anim = (AnimationSet) AnimationUtils.loadAnimation(context,R.anim.launch_anim);
         home.startAnimation(anim);

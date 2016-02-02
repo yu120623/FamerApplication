@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,7 +58,7 @@ public class TopicDetailsActivity extends BaseActivity {
     private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView favouriteBtn;
-    private RelativeLayout tagsContainer;
+    private LinearLayout tagsContainer;
     private Button veiwFarmSetBtn;
     private TextView farmSetPrice;
     private TextView farmSetReason;
@@ -160,7 +161,7 @@ public class TopicDetailsActivity extends BaseActivity {
             inflater.inflate(R.layout.text, tagsContainer, true);
             final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount() - 1);
             tag.setText(farmSetModels.getTags().get(i));
-            tag.postDelayed(new Runnable() {
+            /*tag.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Point point = AppUtil.random(tag.getWidth(), tag.getHeight(), CommonUtil.getScreenWith(getWindowManager()), banner.getLayoutParams().height);
@@ -168,7 +169,7 @@ public class TopicDetailsActivity extends BaseActivity {
                     tag.setY(point.y);
                     tag.setVisibility(View.VISIBLE);
                 }
-            }, 1000);
+            }, 1000);*/
         }
     }
 
@@ -263,7 +264,7 @@ public class TopicDetailsActivity extends BaseActivity {
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
-        tagsContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
+        tagsContainer = (LinearLayout) this.findViewById(R.id.tags_container);
         veiwFarmSetBtn = (Button) this.findViewById(R.id.topic_btn);
         farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);
         farmSetReason = (TextView) this.findViewById(R.id.farm_set_reason);

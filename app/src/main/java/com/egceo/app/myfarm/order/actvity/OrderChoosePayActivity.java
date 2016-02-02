@@ -24,9 +24,14 @@ import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.order.view.PayTypeView;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.util.RSAUtil;
 import com.egceo.app.myfarm.view.OrderProcessHeader;
 import com.egceo.app.myfarm.wxapi.WXPayEntryActivity;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.unionpay.UPPayAssistEx;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 
@@ -40,7 +45,7 @@ public class OrderChoosePayActivity extends BaseActivity{
     private TextView orderMoney;
     private SimpleDateFormat dateFormat;
     private PayTypeView payTypeView;
-    private IWXAPI api;
+    private String mode = "01";//00生产 01测试
     @Override
     protected void initViews() {
         findViews();
@@ -66,7 +71,7 @@ public class OrderChoosePayActivity extends BaseActivity{
                 if(type == PayTypeView.NO_PAY){//没选择付款方式
                     CommonUtil.showMessage(context,getString(R.string.pls_choose_pay_type));
                 }else if(type == PayTypeView.PAY_BANK){//选择银联付款
-                    CommonUtil.showMessage(context,"银联付款");
+                    payByBank();
                 }else if(type == PayTypeView.PAY_WALLET){//钱包付款
                     payByWallet();
                 }else if(type == PayTypeView.PAY_WECHAT){//微信支付
@@ -76,6 +81,28 @@ public class OrderChoosePayActivity extends BaseActivity{
                 }
             }
         });
+    }
+
+    private void payByBank() {
+        CommonUtil.showSimpleProgressDialog("正在启动银联支付，请稍后",activity);
+        String url = API.URL + API.API_URL.PAY_BANK;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setOrderSn(order.getOrderSn());
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                if(data.getTn() != null){
+                    UPPayAssistEx.startPay(activity, null, null, data.getTn(), mode);
+                }
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                CommonUtil.dismissSimpleProgressDialog();
+            }
+        },data);
+        request.execute();
     }
 
     private void payByWeChat() {
@@ -163,9 +190,49 @@ public class OrderChoosePayActivity extends BaseActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK){
-            finish();
+        if (data == null) {
+            return;
         }
+        String msg = "";
+        /*
+         * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
+         */
+        String str = data.getExtras().getString("pay_result");
+        if (str.equalsIgnoreCase("success")) {
+            // 支付成功后，extra中如果存在result_data，取出校验
+            // result_data结构见c）result_data参数说明
+            if (data.hasExtra("result_data")) {
+                String result = data.getExtras().getString("result_data");
+                try {
+                    JSONObject resultJson = new JSONObject(result);
+                    String sign = resultJson.getString("sign");
+                    String dataOrg = resultJson.getString("data");
+                    // 验签证书同后台验签证书
+                    // 此处的verify，商户需送去商户后台做验签
+                    boolean ret = RSAUtil.verify(dataOrg, sign, mode);
+                    if (ret) {
+                        // 验证通过后，显示支付结果
+                        msg = "支付成功！";
+                    } else {
+                        // 验证不通过后的处理
+                        // 建议通过商户后台查询支付结果
+                        msg = "支付失败！";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // 未收到签名信息
+                // 建议通过商户后台查询支付结果
+                msg = "支付成功！";
+            }
+        } else if (str.equalsIgnoreCase("fail")) {
+            msg = "支付失败！";
+        } else if (str.equalsIgnoreCase("cancel")) {
+            msg = "用户取消了支付";
+        }
+        CommonUtil.showMessage(context,msg);
+        finish();
     }
 
 

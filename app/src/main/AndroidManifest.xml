@@ -24,6 +24,8 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+
 
     <application
         android:name=".AppApplication"
@@ -32,6 +34,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+        <uses-library android:name="org.simalliance.openmobileapi" android:required="false"/>
         <activity
             android:name=".home.activity.LaunchActivity"
             android:screenOrientation="portrait"
@@ -44,7 +47,6 @@
         </activity>
         <activity
             android:name=".home.activity.MainActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".search.activity.SearchActivity"
@@ -106,6 +108,22 @@
             android:name=".order.actvity.OrderCodeActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name="com.html.HtmlActivity"
+            android:screenOrientation="portrait"></activity>
+        <!--银联 -->
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden|fontScale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
@@ -126,7 +144,10 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="4cc96f1f39e0d90af1e1f86b28524e49" />
+            android:value="6374a3b6afa36b5a1381fa970f2da4e5" />
+
+        <!-- 6374a3b6afa36b5a1381fa970f2da4e5 发布-->
+        <!-- 4cc96f1f39e0d90af1e1f86b28524e49 发布-->
     </application>
 
 </manifest>

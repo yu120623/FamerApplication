@@ -24,6 +24,8 @@ public class AppUtil {
     public static final String DEFAULT_CITY_CODE = "0512";
     public static final String DEFAULT_CITY_NAME = "苏州市";
 
+    public static final String IS_FIRST_APP ="is_first";
+
     public static final String L_N = "l_n";
 
     public static final String ordPD = "ordPD";//已过期

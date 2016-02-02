@@ -58,6 +58,8 @@ public class TransferObject implements Serializable {
 
     private Integer copies;
 
+    private String tn;
+
     private String contactId;
 
     private Contact contact;
@@ -476,5 +478,13 @@ public class TransferObject implements Serializable {
 
     public void setQrCodeModel(QRModel qrCodeModel) {
         this.qrCodeModel = qrCodeModel;
+    }
+
+    public String getTn() {
+        return tn;
+    }
+
+    public void setTn(String tn) {
+        this.tn = tn;
     }
 }

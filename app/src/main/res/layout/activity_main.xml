@@ -30,13 +30,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.bigkoo.convenientbanner.ConvenientBanner
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/convenient_banner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:canLoop="true"
-                    />
+                        app:canLoop="true" />
 
                     <RelativeLayout
                         android:id="@+id/postion_container"
@@ -60,8 +58,8 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/jingxuan_btn_bg"
-                            android:textColor="@color/home_btn_text_color0"
-                            android:text="精选" />
+                            android:text="精选"
+                            android:textColor="@color/home_btn_text_color0" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -73,8 +71,8 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/qianggou_btn_bg"
-                            android:textColor="@color/home_btn_text_color1"
-                            android:text="抢购" />
+                            android:text="抢购"
+                            android:textColor="@color/home_btn_text_color1" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -86,8 +84,8 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/zhoubian_btn_bg"
-                            android:textColor="@color/home_btn_text_color2"
-                            android:text="周边" />
+                            android:text="周边"
+                            android:textColor="@color/home_btn_text_color2" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -98,25 +96,25 @@
                         <TextView
                             style="@style/home_btn_style"
                             android:background="@drawable/tuijian_btn_bg"
-                            android:textColor="@color/home_btn_text_color3"
-                            android:text="推荐" />
+                            android:text="推荐"
+                            android:textColor="@color/home_btn_text_color3" />
                     </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>
 
             <LinearLayout
-                android:visibility="gone"
+                android:id="@+id/arr_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/arr_content"
+                android:visibility="gone"
                 android:weightSum="4">
 
                 <RelativeLayout
                     style="@style/home_btn_arr_container_style"
                     android:layout_marginRight="@dimen/home_btn_margin_half">
 
-                    <ImageView style="@style/home_btn_arr_style"/>
+                    <ImageView style="@style/home_btn_arr_style" />
 
                 </RelativeLayout>
 
@@ -125,7 +123,7 @@
                     android:layout_marginLeft="@dimen/home_btn_margin_half"
                     android:layout_marginRight="@dimen/home_btn_margin_half">
 
-                    <ImageView style="@style/home_btn_arr_style"/>
+                    <ImageView style="@style/home_btn_arr_style" />
 
                 </RelativeLayout>
 
@@ -134,7 +132,7 @@
                     android:layout_marginLeft="@dimen/home_btn_margin_half"
                     android:layout_marginRight="@dimen/home_btn_margin_half">
 
-                    <ImageView style="@style/home_btn_arr_style"/>
+                    <ImageView style="@style/home_btn_arr_style" />
 
                 </RelativeLayout>
 
@@ -142,7 +140,7 @@
                     style="@style/home_btn_arr_container_style"
                     android:layout_marginLeft="@dimen/home_btn_margin_half">
 
-                    <ImageView style="@style/home_btn_arr_style"/>
+                    <ImageView style="@style/home_btn_arr_style" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -165,6 +163,4 @@
 
 
     </github.chenupt.dragtoplayout.DragTopLayout>
-
-
 </RelativeLayout>

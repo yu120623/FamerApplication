@@ -39,7 +39,6 @@ public class LocationService extends Service {
 
 
     public class LocationModeSource implements AMapLocationListener {
-
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
             Log.i("11111111111111111111", "onLocationChanged: "+aMapLocation.getErrorInfo());
@@ -54,9 +53,6 @@ public class LocationService extends Service {
                 }
                 sp.edit().putFloat(AppUtil.SP_LAT, Double.valueOf(aMapLocation.getLatitude()).floatValue()).commit();
                 sp.edit().putFloat(AppUtil.SP_LOG, Double.valueOf(aMapLocation.getLongitude()).floatValue()).commit();
-            }else{
-                sp.edit().putString(AppUtil.SP_CITY_CODE, AppUtil.DEFAULT_CITY_CODE).commit();
-                sp.edit().putString(AppUtil.SP_CITY_NAME, AppUtil.DEFAULT_CITY_NAME).commit();
             }
         }
     }

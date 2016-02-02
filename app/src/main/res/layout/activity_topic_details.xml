@@ -45,6 +45,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:canLoop="true" />
+                            <LinearLayout
+                                android:paddingTop="@android:dimen/app_icon_size"
+                                android:id="@+id/tags_container"
+                                android:gravity="center_vertical|right"
+                                android:layout_alignParentRight="true"
+                                android:orientation="vertical"
+                                android:layout_alignBottom="@+id/details_convenient_banner"
+                                android:layout_width="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_height="wrap_content">
+
+                            </LinearLayout>
                         </RelativeLayout>
 
                         <LinearLayout

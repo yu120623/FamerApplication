@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.egceo.app.myfarm.entity.Error;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.util.AppUtil;
 
 /**
  * Created by Administrator on 2015/12/22.
@@ -44,13 +46,24 @@ public class AppRequest {
         PostRequest postRequest = new PostRequest(url, new Response.Listener<TransferObject>() {
             @Override
             public void onResponse(TransferObject data) {
-                responseListener.onSuccess(data);
-                responseListener.onEnd();
+                if(data.getMessage() == null || !AppUtil.RES_STATUS.STATUS_OK.equals(data.getMessage().getStatus())){
+                    Error e = new Error();
+                    e.setErrorMsg(data.getMessage().getMessage());
+                    e.setErrorType(Error.API_ERROR);
+                    responseListener.onFailed(e);
+                    responseListener.onEnd();
+                }else {
+                    responseListener.onSuccess(data);
+                    responseListener.onEnd();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseListener.onFailed(error);
+                Error e = new Error();
+                e.setErrorMsg(error.getMessage());
+                e.setErrorType(Error.SERVER_ERROR);
+                responseListener.onFailed(e);
                 responseListener.onEnd();
             }
         }, data,file);

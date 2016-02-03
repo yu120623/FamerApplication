@@ -15,15 +15,17 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/msg_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2015-12-31 12:22"
-            android:textColor="#ff7450" />
+            android:textColor="#ff7450"
+            android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/msg_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="您的订单XXXXX中的XXX内容 ，已大XXXXX某使用，如果疑问请及时与我联系。"
-            android:textColor="#949494" />
+            android:textColor="#949494"
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

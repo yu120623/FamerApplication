@@ -74,7 +74,6 @@ public class AppUtil {
         }
         return "";
     }
-
     public static int getSearchTagBg(String tag) {
         if (tag.equals("p")) {
             return R.drawable.tag_p_bg;

@@ -23,4 +23,6 @@
 
     <dimen name="sub_item_tag_bg_size">30dp</dimen>
     <dimen name="sub_item_tag_bg_small_size">20dp</dimen>
+
+    <dimen name="user_tab_icon_size">35dp</dimen>
 </resources>

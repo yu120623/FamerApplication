@@ -114,7 +114,7 @@
     <string name="order">订单</string>
     <string name="info">信息</string>
     <string name="favourite">收藏</string>
-    <string name="bank_card">银行卡</string>
+    <string name="fund">基金</string>
     <string name="all_travel_fund">农庄旅游基金总共:</string>
     <string name="back_order_process">退单进程</string>
     <string name="refund_info">退单详细</string>
@@ -142,4 +142,7 @@
     <string name="pls_enter_code">请输入正确的验证码</string>
     <string name="go_to_zhifubao">正在跳转支付宝，请稍后</string>
     <string name="login_now">正在登陆，请稍后</string>
+    <string name="user_info_num">我的信息总数</string>
+    <string name="user_favourite_num">我的收藏总数</string>
+    <string name="user_fund_num">旅游基金总数</string>
 </resources>

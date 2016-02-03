@@ -87,7 +87,6 @@ public class SearchActivity extends BaseActivity {
             }
             hotNameTextView.setText(tagName);
             tagLayout.setTag(tags.get(i).getTagId());
-            Log.i("11111111111111111", "addTags: "+tags.get(i).getTagId());
             tagLayout.setOnClickListener(listener);
         }
         contentLayout.addView(tagsLineLayout);
@@ -146,7 +145,7 @@ public class SearchActivity extends BaseActivity {
             public void onClick(View v) {
                 String str = editText.getText().toString();
                 if (str == null || str.equals("") || str.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "输入为空", Toast.LENGTH_LONG).show();
+                    CommonUtil.showMessage(context,"输入为空");
                 } else {
                     Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
                     intent.putExtra("key", editText.getText().toString());

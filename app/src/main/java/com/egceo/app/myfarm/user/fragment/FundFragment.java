@@ -6,7 +6,7 @@ import com.egceo.app.myfarm.R;
 /**
  * Created by gseoa on 2016/1/14.
  */
-public class UserBankCardFragment extends BaseFragment {
+public class FundFragment extends BaseFragment {
     @Override
     protected void initViews() {
 

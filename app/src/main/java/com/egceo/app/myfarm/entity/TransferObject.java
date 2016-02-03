@@ -29,6 +29,8 @@ public class TransferObject implements Serializable {
 
     private String commentCount;
 
+    private List<Sysinfo> sysinfos;
+
     private List<CommentModel> commentModels;
 
     private String favorableRate;
@@ -52,6 +54,9 @@ public class TransferObject implements Serializable {
     private String cityCodeName;
 
     private List<CodeModel> codeModels;
+    private List<CollectModel> collectModels;
+
+    private String totalNum;
 
     private List<Contact> contacts;
     private String orderSn;
@@ -486,5 +491,29 @@ public class TransferObject implements Serializable {
 
     public void setTn(String tn) {
         this.tn = tn;
+    }
+
+    public List<Sysinfo> getSysinfos() {
+        return sysinfos;
+    }
+
+    public void setSysinfos(List<Sysinfo> sysinfos) {
+        this.sysinfos = sysinfos;
+    }
+
+    public String getTotalNum() {
+        return totalNum;
+    }
+
+    public void setTotalNum(String totalNum) {
+        this.totalNum = totalNum;
+    }
+
+    public List<CollectModel> getCollectModels() {
+        return collectModels;
+    }
+
+    public void setCollectModels(List<CollectModel> collectModels) {
+        this.collectModels = collectModels;
     }
 }

@@ -1,6 +1,8 @@
 package com.egceo.app.myfarm.user.orderfragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
@@ -141,28 +144,35 @@ public class ReFundFragment extends BaseFragment {
             holder.paidPrice.setText(orderModel.getOrdePrice() + context.getString(R.string.rmb));
             holder.paidTime.setTextColor(context.getResources().getColor(R.color.green2));
             String orderText = "";
+            holder.btn1.setVisibility(View.VISIBLE);
             if(orderModel.getStatus().equals(AppUtil.rqAGR)){//同意
-                holder.btn1.setText(R.string.del);
+                holder.btn1.setVisibility(View.GONE);
+                /*holder.btn1.setText(R.string.del);
+                holder.btn1.setOnClickListener(delRefund);
                 holder.btn1.setBackgroundResource(R.drawable.unpaid_p_btn_bg);
-                holder.btn1.setTextColor(context.getResources().getColor(R.color.gray));
+                holder.btn1.setTextColor(context.getResources().getColor(R.color.gray));*/
                 orderText = context.getString(R.string.refunding);
             }else if(orderModel.getStatus().equals(AppUtil.rqAPY)){//申请
                 holder.btn1.setText(R.string.cancel);
                 holder.btn1.setBackgroundResource(R.drawable.unpaid_d_btn_bg);
                 holder.btn1.setTextColor(context.getResources().getColor(R.color.gray));
+                holder.btn1.setOnClickListener(cancelRefund);
                 orderText = context.getString(R.string.already_aply);
             }else if(orderModel.getStatus().equals(AppUtil.reREF)){//拒绝
                 holder.btn1.setText(R.string.del);
+                holder.btn1.setOnClickListener(delRefund);
                 holder.btn1.setBackgroundResource(R.drawable.unpaid_p_btn_bg);
                 holder.btn1.setTextColor(context.getResources().getColor(R.color.white));
                 orderText = context.getString(R.string.refund_failed);
                 holder.paidTime.setTextColor(context.getResources().getColor(R.color.order_process_seleted_bg));
             }else if(orderModel.getStatus().equals(AppUtil.rqCOM)){//完成
                 holder.btn1.setText(R.string.del);
+                holder.btn1.setOnClickListener(delRefund);
                 holder.btn1.setBackgroundResource(R.drawable.unpaid_p_btn_bg);
                 holder.btn1.setTextColor(context.getResources().getColor(R.color.white));
                 orderText = context.getString(R.string.already_refund);
             }
+            holder.btn1.setTag(orderModel);
             holder.paidTime.setText(dateFormat.format(orderModel.getRecordTime())+orderText);
             holder.btn2.setVisibility(View.GONE);
         }
@@ -191,6 +201,90 @@ public class ReFundFragment extends BaseFragment {
             btn2 = (TextView) itemView.findViewById(R.id.order_item_btn2);
 
         }
+    }
+
+    //删除退单
+    public View.OnClickListener delRefund = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final OrderModel order = (OrderModel) view.getTag();
+            new AlertDialog.Builder(activity)
+                    .setTitle(context.getString(R.string.hint))
+                    .setMessage(context.getString(R.string.del_order_hint))
+                    .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    delOrder(order);
+                }
+            }).show();
+        }
+    };
+
+    private void delOrder(final OrderModel order) {
+        CommonUtil.showSimpleProgressDialog(context.getString(R.string.deleting_order_hint),activity);
+        String url = API.URL + API.API_URL.DEL_ORDER;
+        TransferObject data = AppUtil.getHttpData(context);
+        data.setOrderSn(order.getOrderSn());
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                CommonUtil.showMessage(context,context.getString(R.string.del_success));
+                orderModels.remove(order);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                CommonUtil.dismissSimpleProgressDialog();
+            }
+        },data);
+        request.execute();
+    }
+
+
+    //取消退单
+    private View.OnClickListener cancelRefund = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final OrderModel orderModel = (OrderModel) view.getTag();
+            new AlertDialog.Builder(activity)
+                    .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String url = API.URL + API.API_URL.CANCEL_REFUND;
+                            TransferObject data = new TransferObject();
+                            data.setOrderSn(orderModel.getOrderSn());
+                            AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+                                @Override
+                                public void onSuccess(TransferObject data) {
+                                    remove(orderModel);
+                                }
+                            },data);
+                            request.execute();
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setMessage(context.getString(R.string.is_cancel_refund))
+                    .setTitle(R.string.hint).show();
+        }
+    };
+
+    private void remove(OrderModel orderModel) {
+        orderModels.remove(orderModel);
+        adapter.notifyDataSetChanged();
     }
 
     private View.OnClickListener onOrderClick = new View.OnClickListener() {

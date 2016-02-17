@@ -61,7 +61,7 @@ public class AppRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Error e = new Error();
-                e.setErrorMsg(error.getMessage());
+                e.setErrorMsg(error.toString());
                 e.setErrorType(Error.SERVER_ERROR);
                 responseListener.onFailed(e);
                 responseListener.onEnd();

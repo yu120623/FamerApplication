@@ -19,7 +19,6 @@ public class HtmlActivity extends BaseActivity {
 		webView = (WebView) this.findViewById(R.id.webview);
 		progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
 		String url = getIntent().getStringExtra("url");
-		Log.i("++++++++++",url);
 		String title = getIntent().getStringExtra("title");
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setAllowFileAccess(true);

@@ -6,6 +6,7 @@ public class CollectModel {
 	private String status;
 	private String title;
 	private Date collectDate;
+	private String collectAliasId;
 	public String getStatus() {
 		return status;
 	}
@@ -31,4 +32,12 @@ public class CollectModel {
 		this.desc = desc;
 	}
 	private String desc;
+
+	public String getCollectAliasId() {
+		return collectAliasId;
+	}
+
+	public void setCollectAliasId(String collectAliasId) {
+		this.collectAliasId = collectAliasId;
+	}
 }

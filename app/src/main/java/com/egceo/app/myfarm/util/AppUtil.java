@@ -47,7 +47,7 @@ public class AppUtil {
 
     public static final String HANDLER_CHANGE_CITY = "h_c_c";//手动选择城市
 
-    public static final String BANK_MODE = "01";//测试
+    public static final String BANK_MODE = "00";//测试 01 上线00
 
     public static final class RES_STATUS{
         public static final String STATUS_OK = "00000";

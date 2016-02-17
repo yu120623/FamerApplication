@@ -184,7 +184,6 @@ public class FarmDetailActivity extends BaseActivity {
         loadDataFromServer();
     }
 
-
     //获取专题详细
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_INFO;

@@ -88,6 +88,7 @@ public class OrderChoosePayActivity extends BaseActivity {
         String url = API.URL + API.API_URL.PAY_BANK;
         TransferObject data = AppUtil.getHttpData(context);
         data.setOrderSn(order.getOrderSn());
+        data.setType(" ");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -116,6 +117,7 @@ public class OrderChoosePayActivity extends BaseActivity {
         String url = API.URL + API.API_URL.PAY_MENT;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType("wallet");
+        data.setType("");
         data.setOrderSn(order.getOrderSn());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override

@@ -42,10 +42,6 @@ public class UserActivity extends BaseActivity {
         smartTabLayout = (SmartTabLayout) this.findViewById(R.id.viewpagertab1);
     }
 
-    private void initData() {
-
-    }
-
     private void initFragments() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)

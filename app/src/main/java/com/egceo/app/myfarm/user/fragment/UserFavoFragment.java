@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.user.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,12 +14,17 @@ import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.CollectModel;
+import com.egceo.app.myfarm.entity.FarmModel;
+import com.egceo.app.myfarm.entity.FarmTopicModel;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.farm.activity.FarmDetailActivity;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
+import com.egceo.app.myfarm.topic.activity.TimingTopicDetailsActivity;
+import com.egceo.app.myfarm.topic.activity.TopicDetailsActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.CustomUIHandler;
 
@@ -41,6 +47,7 @@ public class UserFavoFragment extends BaseFragment {
     private Integer pageNumber = 0;
     private PtrFrameLayout frameLayout;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
+    private TextView favouriteNum;
     @Override
     protected void initViews() {
         findViews();
@@ -50,6 +57,7 @@ public class UserFavoFragment extends BaseFragment {
     private void findViews() {
         favoList = (RecyclerView) this.findViewById(R.id.favo_list);
         frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
+        favouriteNum = (TextView) this.findViewById(R.id.user_favourite_num);
     }
 
     private void initData() {
@@ -87,6 +95,7 @@ public class UserFavoFragment extends BaseFragment {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
+                favouriteNum.setText(data.getTotalNum());
                 List<CollectModel> list = data.getCollectModels();
                 if(pageNumber == 0){
                     if(list == null)
@@ -129,6 +138,7 @@ public class UserFavoFragment extends BaseFragment {
             View v = View.inflate(parent.getContext(), R.layout.item_favourite, null);
             RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT);
             v.setLayoutParams(layoutParams);
+            v.setOnClickListener(onFavClick);
             FavoViewHolder holder = new FavoViewHolder(v);
             return holder;
         }
@@ -136,6 +146,7 @@ public class UserFavoFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(FavoViewHolder holder, int position) {
             CollectModel collectModel = collectModels.get(position);
+            holder.itemView.setTag(collectModel);
             holder.favTag.setText(getFavTag(collectModel.getStatus()));
             holder.favTag.setBackgroundResource(getFavTagBg(collectModel.getStatus()));
             holder.favTime.setText(dataDateFormat.format(collectModel.getCollectDate()));
@@ -163,12 +174,46 @@ public class UserFavoFragment extends BaseFragment {
         }
     }
 
+    private View.OnClickListener onFavClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            CollectModel collectModel = (CollectModel) view.getTag();
+            Intent intent = null;
+            switch (collectModel.getStatus()){
+                case "0":
+                    intent = new Intent(context, TopicDetailsActivity.class);
+                    FarmTopicModel farmTopicModel = new FarmTopicModel();
+                    farmTopicModel.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                    intent.putExtra("farmTopic",farmTopicModel);
+                    break;
+                case "1":
+                    intent = new Intent(context, TimingTopicDetailsActivity.class);
+                    farmTopicModel = new FarmTopicModel();
+                    farmTopicModel.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                    intent.putExtra("farmTopic",farmTopicModel);
+                    break;
+                case "2":
+                    intent = new Intent(context, FarmDetailActivity.class);
+                    FarmModel farmModel = new FarmModel();
+                    farmModel.setFarmAliasId(collectModel.getCollectAliasId());
+                    intent.putExtra("farmModel",farmModel);
+                    break;
+                case "3":
+                    break;
+            }
+            if(intent != null)
+                startActivity(intent);
+        }
+    };
+
     private String getFavTag(String type){
         switch (type){
+            case "0":
+                return "精选";
             case "1":
                 return "农庄";
             case "2":
-                return "专题";
+                return "抢购";
             case "3":
                 return "过期";
         }
@@ -177,6 +222,8 @@ public class UserFavoFragment extends BaseFragment {
 
     private int getFavTagBg(String type){
         switch (type){
+            case "0":
+                return R.drawable.tag_n_bg;
             case "1":
                 return R.drawable.tag_s_bg;
             case "2":

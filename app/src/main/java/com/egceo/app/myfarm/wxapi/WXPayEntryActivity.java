@@ -45,6 +45,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         String url = API.URL + API.API_URL.WECHAT_ORDER;
         TransferObject data = AppUtil.getHttpData(getApplicationContext());
         data.setOrderSn(order.getOrderSn());
+        data.setType(" ");
         AppRequest request = new AppRequest(getApplicationContext(), url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

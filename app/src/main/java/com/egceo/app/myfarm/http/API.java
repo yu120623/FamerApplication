@@ -38,5 +38,6 @@ public class API {
         public static final String PAY_BANK = "bankTn";//银联支付
         public static final String SYS_INFO = "sysInfoList";//系统消息
         public static final String MY_FAVOURITE = "collectInfo";//收藏列表
+        public static final String CANCEL_REFUND = "cancelChargeback";//取消退单
     }
 }

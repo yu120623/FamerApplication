@@ -219,11 +219,9 @@ public class UnPaidFragment extends BaseFragment {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                if(data.getMessage().getStatus().equals("00000")){
-                    CommonUtil.showMessage(context,context.getString(R.string.del_success));
-                    orderModels.remove(order);
-                    adapter.notifyDataSetChanged();
-                }
+                CommonUtil.showMessage(context,context.getString(R.string.del_success));
+                orderModels.remove(order);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

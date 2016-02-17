@@ -68,7 +68,7 @@
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
     <color name="holo_green_light">#ff99cc00</color>
     <color name="light_green">#FF73F200</color>
-    <color name="line">#cccccc</color>
+    <color name="line">#ececec</color>
     <color name="list_divider">#D3D3D3</color>
     <color name="main_menu_color_history">#66CCFF</color>
     <color name="main_menu_color_scan">#CCFF66</color>

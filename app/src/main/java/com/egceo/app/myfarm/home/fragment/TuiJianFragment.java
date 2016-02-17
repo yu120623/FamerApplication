@@ -111,7 +111,6 @@ public class TuiJianFragment extends BaseFragment {
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(pageNumber);
         data.setType("recommend");
-        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
         data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
         data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {

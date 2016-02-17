@@ -31,8 +31,6 @@ import java.util.Map;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
-    private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
-
     private IWXAPI api;
     private OrderModel order;
 
@@ -61,8 +59,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 req.packageValue = map.get("packageValue");
                 req.sign = map.get("sign");
                 req.extData	= "app data"; // optional
-                boolean flag = api.sendReq(req);
-                Log.i("dsadsadasdasda",flag+"");
+                api.sendReq(req);
             }
         },data);
         request.execute();

@@ -35,7 +35,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 
-public class OrderChoosePayActivity extends BaseActivity{
+public class OrderChoosePayActivity extends BaseActivity {
     private Button payBtn;
     private OrderModel order;
     private FarmSetModel farmSetModel;
@@ -45,7 +45,7 @@ public class OrderChoosePayActivity extends BaseActivity{
     private TextView orderMoney;
     private SimpleDateFormat dateFormat;
     private PayTypeView payTypeView;
-    private String mode = "01";//00生产 01测试
+
     @Override
     protected void initViews() {
         findViews();
@@ -58,25 +58,25 @@ public class OrderChoosePayActivity extends BaseActivity{
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         farmSetModel = (FarmSetModel) this.getIntent().getSerializableExtra("farmSetModel");
         orderProcessHeader.setStep3();
-        productInfo.setText(getString(R.string.product_info)+order.getFarmSetModel().getFarmSetName());
-        time.setText(getString(R.string.order_time)+dateFormat.format(order.getJourneyTime()));
-        orderMoney.setText(getString(R.string.order_money)+"￥"+order.getOrdePrice());
+        productInfo.setText(getString(R.string.product_info) + order.getFarmSetModel().getFarmSetName());
+        time.setText(getString(R.string.order_time) + dateFormat.format(order.getJourneyTime()));
+        orderMoney.setText(getString(R.string.order_money) + "￥" + order.getOrdePrice());
     }
 
     private void initClick() {
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               int type = payTypeView.getPayType();
-                if(type == PayTypeView.NO_PAY){//没选择付款方式
-                    CommonUtil.showMessage(context,getString(R.string.pls_choose_pay_type));
-                }else if(type == PayTypeView.PAY_BANK){//选择银联付款
+                int type = payTypeView.getPayType();
+                if (type == PayTypeView.NO_PAY) {//没选择付款方式
+                    CommonUtil.showMessage(context, getString(R.string.pls_choose_pay_type));
+                } else if (type == PayTypeView.PAY_BANK) {//选择银联付款
                     payByBank();
-                }else if(type == PayTypeView.PAY_WALLET){//钱包付款
+                } else if (type == PayTypeView.PAY_WALLET) {//钱包付款
                     payByWallet();
-                }else if(type == PayTypeView.PAY_WECHAT){//微信支付
+                } else if (type == PayTypeView.PAY_WECHAT) {//微信支付
                     payByWeChat();
-                }else if(type == PayTypeView.PAY_ZHIFUBAO){//支付宝付款
+                } else if (type == PayTypeView.PAY_ZHIFUBAO) {//支付宝付款
                     payByZhiFuBao();
                 }
             }
@@ -84,35 +84,35 @@ public class OrderChoosePayActivity extends BaseActivity{
     }
 
     private void payByBank() {
-        CommonUtil.showSimpleProgressDialog("正在启动银联支付，请稍后",activity);
+        CommonUtil.showSimpleProgressDialog("正在启动银联支付，请稍后", activity);
         String url = API.URL + API.API_URL.PAY_BANK;
         TransferObject data = AppUtil.getHttpData(context);
         data.setOrderSn(order.getOrderSn());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                if(data.getTn() != null){
-                    UPPayAssistEx.startPay(activity, null, null, data.getTn(), mode);
+                if (data.getTn() != null) {
+                    UPPayAssistEx.startPay(activity, null, null, data.getTn(), AppUtil.BANK_MODE);
                 }
             }
-
             @Override
             public void onEnd() {
                 super.onEnd();
                 CommonUtil.dismissSimpleProgressDialog();
             }
-        },data);
+        }, data);
         request.execute();
     }
 
     private void payByWeChat() {
         Intent intent = new Intent(context, WXPayEntryActivity.class);
-        intent.putExtra("order",order);
+        intent.putExtra("order", order);
         startActivity(intent);
         finish();
     }
+
     //钱包余额付款
-    private void payByWallet(){
+    private void payByWallet() {
         String url = API.URL + API.API_URL.PAY_MENT;
         TransferObject data = AppUtil.getHttpData(context);
         data.setType("wallet");
@@ -122,15 +122,15 @@ public class OrderChoosePayActivity extends BaseActivity{
             public void onSuccess(TransferObject data) {
 
             }
-        },data);
+        }, data);
         request.execute();
     }
 
     //用支付宝付款
-    private void payByZhiFuBao(){
+    private void payByZhiFuBao() {
         payBtn.setClickable(false);
-        CommonUtil.showSimpleProgressDialog(getString(R.string.go_to_zhifubao),activity,false);
-        String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice()+"",order.getOrderSn());
+        CommonUtil.showSimpleProgressDialog(getString(R.string.go_to_zhifubao), activity, false);
+        String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice() + "", order.getOrderSn());
         final String payInfo = SignUtils.getPayInfo(orderInfo);
         Runnable payRunnable = new Runnable() {
             @Override
@@ -166,15 +166,15 @@ public class OrderChoosePayActivity extends BaseActivity{
 
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        CommonUtil.showMessage(context,"成功");
+                        CommonUtil.showMessage(context, "成功");
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                            Toast.makeText(context, "支付结果确认中",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "支付结果确认中", Toast.LENGTH_SHORT).show();
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(context, "支付失败",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
@@ -183,9 +183,10 @@ public class OrderChoosePayActivity extends BaseActivity{
                     break;
             }
             gotoOrderActivity();
-        };
-    };
+        }
 
+        ;
+    };
 
 
     @Override
@@ -194,9 +195,9 @@ public class OrderChoosePayActivity extends BaseActivity{
     }
 
 
-    private void gotoOrderActivity(){
-        Intent intent = new Intent(context,OrderDetailActivity.class);
-        intent.putExtra("order",order);
+    private void gotoOrderActivity() {
+        Intent intent = new Intent(context, OrderDetailActivity.class);
+        intent.putExtra("order", order);
         startActivity(intent);
     }
 

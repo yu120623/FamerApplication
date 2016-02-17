@@ -54,6 +54,7 @@ public class NetworkImageHolderView implements Holder<String> {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(view.getTag() == null)return;
                 Intent intent = new Intent(activity, HtmlActivity.class);
                 intent.putExtra("url",(String)view.getTag());
                 activity.startActivity(intent);

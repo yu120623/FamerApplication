@@ -16,7 +16,7 @@ public class AppUtil {
     public static final String SP_LOG = "g";
     public static final String FARM_IMG_SIZE = "@!w150h150";
     public static final String DESC_IMG_SIZE = "@!textimg";
-    public static final String APP_ID = "wxb7092588e08a7e4f";
+    public static final String APP_ID = "wxb7092588e08a7e4f";//微信ID
 
     public static final String SP_NEW_CITY_CODE = "n_c";
     public static final String SP_NEW_CITY_NAME = "n_cn";
@@ -44,6 +44,10 @@ public class AppUtil {
 
     public static final String REG_SMS_ID = "sms_id";
     public static final String REG_SMS_TIME = "reg_sms_time";
+
+    public static final String HANDLER_CHANGE_CITY = "h_c_c";//手动选择城市
+
+    public static final String BANK_MODE = "01";//测试
 
     public static final class RES_STATUS{
         public static final String STATUS_OK = "00000";
@@ -113,6 +117,9 @@ public class AppUtil {
     public static TransferObject getHttpData(Context context) {
         SharedPreferences sp = context.getSharedPreferences("sp", Context.MODE_PRIVATE);
         TransferObject data =  new TransferObject();
+        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
+        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
+        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,AppUtil.DEFAULT_CITY_CODE));
         if(!"".equals(sp.getString(L_N,""))) {
             data.setUserAliasId(sp.getString(L_N,""));
             //ddata.setUserAliasId("aaa");

@@ -9,11 +9,16 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.entity.FarmModel;
+import com.egceo.app.myfarm.entity.FarmTopicModel;
 import com.egceo.app.myfarm.entity.SearchModel;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.farm.activity.FarmDetailActivity;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.topic.activity.TimingTopicDetailsActivity;
+import com.egceo.app.myfarm.topic.activity.TopicDetailsActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 
 import java.util.ArrayList;
@@ -29,7 +34,6 @@ public class SearchResultsActivity extends BaseActivity {
     private SearchResultsAdapter adapter;
     private String key;
     private String type;
-
     @Override
     protected void initViews() {
         findViews();
@@ -57,7 +61,6 @@ public class SearchResultsActivity extends BaseActivity {
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(0);
         data.setType(type);
-        data.setCityCode("0512");
         data.setKey(key);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
@@ -81,6 +84,7 @@ public class SearchResultsActivity extends BaseActivity {
         public SearchResultsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.item_search_result, null);
             v.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
+            v.setOnClickListener(onSearchResultClick);
             SearchResultsViewHolder holder = new SearchResultsViewHolder(v);
             return holder;
         }
@@ -88,6 +92,7 @@ public class SearchResultsActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(SearchResultsViewHolder holder, int position) {
             SearchModel searchModel = searchModels.get(position);
+            holder.itemView.setTag(searchModel);
             holder.resultName.setText(searchModel.getSearchTitle());
             holder.resultDesc.setText(searchModel.getSearchDesc());
             holder.resultTag.setText(AppUtil.getSearchTag(searchModel.getSearchType()));
@@ -112,6 +117,31 @@ public class SearchResultsActivity extends BaseActivity {
             resultDesc = (TextView) itemView.findViewById(R.id.search_results_desc);
         }
     }
+
+    private View.OnClickListener onSearchResultClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            SearchModel searchModel = (SearchModel) view.getTag();
+            Intent intent = null;
+            if(searchModel.getSearchType().equals("p")){
+                intent = new Intent(context, TopicDetailsActivity.class);
+                FarmTopicModel farmTopicModel = new FarmTopicModel();
+                farmTopicModel.setFarmTopicAliasId(searchModel.getSearchId());
+                intent.putExtra("farmTopic",farmTopicModel);
+            }else if(searchModel.getSearchType().equals("n")){
+                intent = new Intent(context, TimingTopicDetailsActivity.class);
+                FarmTopicModel farmTopicModel = new FarmTopicModel();
+                farmTopicModel.setFarmTopicAliasId(searchModel.getSearchId());
+                intent.putExtra("farmTopic",farmTopicModel);
+            }else if(searchModel.getSearchType().equals("s")){
+                intent = new Intent(context, FarmDetailActivity.class);
+                FarmModel farmModel = new FarmModel();
+                farmModel.setFarmAliasId(searchModel.getSearchId());
+                intent.putExtra("farmModel",farmModel);
+            }
+            startActivity(intent);
+        }
+    };
 
     @Override
     protected int getContentView() {

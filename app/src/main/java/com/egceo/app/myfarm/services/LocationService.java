@@ -47,7 +47,7 @@ public class LocationService extends Service {
                 if(!"".equals(sp.getString(AppUtil.SP_CITY_CODE,""))){
                     sp.edit().putString(AppUtil.SP_NEW_CITY_CODE, aMapLocation.getCityCode()).commit();
                     sp.edit().putString(AppUtil.SP_NEW_CITY_NAME, aMapLocation.getCity()).commit();
-                }else {
+                }else{
                     sp.edit().putString(AppUtil.SP_CITY_CODE, aMapLocation.getCityCode()).commit();
                     sp.edit().putString(AppUtil.SP_CITY_NAME, aMapLocation.getCity()).commit();
                 }

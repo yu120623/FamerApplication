@@ -1,9 +1,11 @@
 package com.egceo.app.myfarm.home.activity;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -73,6 +75,34 @@ public class MainActivity extends BaseActivity {
         initClick();
         initBannerSize();
         loadDataFromServer();
+        checkLocationChange();
+    }
+
+    private void checkLocationChange() {
+        String code = sp.getString(AppUtil.SP_CITY_CODE,AppUtil.DEFAULT_CITY_CODE);
+        final String newCode = sp.getString(AppUtil.SP_NEW_CITY_CODE,"");
+        final String newCity = sp.getString(AppUtil.SP_NEW_CITY_NAME,"");
+        if(!"".equals(newCode) && !code.equals(newCode)){
+            new AlertDialog.Builder(activity)
+            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            })
+            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Code code = new Code();
+                    code.setCodeName(newCode);
+                    code.setCodeDesc(newCity);
+                    changeCity(code);
+                    dialogInterface.dismiss();
+                }
+            })
+            .setMessage("您现在的位置是"+newCity+"是否切换?")
+            .setTitle("提示").show();
+        }
     }
 
     private void initBannerSize() {
@@ -262,8 +292,9 @@ public class MainActivity extends BaseActivity {
         buttons.add(qianggou);
         buttons.add(zhoubian);
         buttons.add(tuijian);
-        if(!"".equals(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, ""))))
-            area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
+        String city = CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, AppUtil.DEFAULT_CITY_NAME));
+        if(!"".equals(city))
+            area.setText(city.substring(0,2));
         setArrVisible(0);
         dragTopLayout.setOverDrag(false);
     }
@@ -306,17 +337,21 @@ public class MainActivity extends BaseActivity {
         if(resultCode == RESULT_OK){
             if(requestCode == 1){
                 Code code = (Code) data.getSerializableExtra("city");
-                sp.edit().putString(AppUtil.SP_CITY_CODE,code.getCodeName()).commit();
-                sp.edit().putString(AppUtil.SP_CITY_NAME,code.getCodeDesc()).commit();
+                changeCity(code);
+            }
+        }
+    }
+
+    private void changeCity(Code code){
+        sp.edit().putString(AppUtil.SP_CITY_CODE,code.getCodeName()).commit();
+        sp.edit().putString(AppUtil.SP_CITY_NAME,code.getCodeDesc()).commit();
                 /*if(!"".equals(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, ""))))
                     area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
                 contentViewPager.removeAllViews();
                 initFragments();*/
-                Intent intent = new Intent(context,MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
+        Intent intent = new Intent(context,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void findViews() {

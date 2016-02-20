@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,19 +34,22 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private IWXAPI api;
     private OrderModel order;
-
+    private String type;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_result);
         order = (OrderModel) getIntent().getSerializableExtra("order");
+        type = this.getIntent().getStringExtra("type");
+        if(TextUtils.isEmpty(type))
+            type= "";
         api = WXAPIFactory.createWXAPI(this, AppUtil.APP_ID);
         api.handleIntent(getIntent(), this);
         CommonUtil.showSimpleProgressDialog("正在跳转微信支付，请稍后",this);
         String url = API.URL + API.API_URL.WECHAT_ORDER;
         TransferObject data = AppUtil.getHttpData(getApplicationContext());
         data.setOrderSn(order.getOrderSn());
-        data.setType(" ");
+        data.setType(type);
         AppRequest request = new AppRequest(getApplicationContext(), url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -96,9 +100,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             default:
                 break;
         }
-        Intent intent = new Intent(getApplicationContext(),OrderDetailActivity.class);
-        intent.putExtra("order",order);
-        startActivity(intent);
+        if(type.equals("")) {
+            Intent intent = new Intent(getApplicationContext(), OrderDetailActivity.class);
+            intent.putExtra("order", order);
+            startActivity(intent);
+        }
         finish();
     }
 }

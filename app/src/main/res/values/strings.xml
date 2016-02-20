@@ -162,4 +162,11 @@
     <string name="login1">立即登录</string>
     <string name="login_out">安全退出</string>
     <string name="cancel_favourite">已取消</string>
+    <string name="old_price">原价</string>
+    <string name="fast_pay">快速买单</string>
+    <string name="gen_ordering">正在为您下单，请稍后...</string>
+    <string name="farm_name">农庄名称</string>
+    <string name="order_notic">订单由中国人民财产保险股份有限公司承担食品安全保险</string>
+    <string name="plz_enter_money">请输入正确的金额</string>
+    <string name="pay_money">消费金额</string>
 </resources>

@@ -74,7 +74,7 @@ public class NetworkImageHolderView implements Holder<String> {
             url = url.substring(url.indexOf(";") + 1, url.length());
             imageView.setTag(url);
         }
-        ImageLoaderUtil.getInstance().displayImg(imageView,data,options);
+        ImageLoaderUtil.getInstance().displayImg(imageView,data+AppUtil.BANNER_IMG_SIZE,options);
     }
 
     public List<ImageView> getImageViews() {

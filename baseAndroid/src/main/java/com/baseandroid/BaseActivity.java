@@ -11,6 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public abstract class BaseActivity extends Activity {
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public abstract class BaseActivity extends SwipeBackActivity {
 	protected Context context;
 	protected Activity activity;
 	protected LayoutInflater inflater;
@@ -114,7 +117,7 @@ public abstract class BaseActivity extends Activity {
 		back.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				finish();
+				scrollToFinishActivity();
 			}
 		});
 	}
@@ -213,8 +216,7 @@ public abstract class BaseActivity extends Activity {
 	}
 	
 	protected void onKeyBack(){
-		finish();
-		backEffect();
+		scrollToFinishActivity();
 	}
 	protected void onKeyHome(){}
 	protected void onKeyMenu(){}

@@ -3,14 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/loading" />
-
-
     <RelativeLayout
         android:id="@+id/topic_content"
         android:layout_width="match_parent"
@@ -79,11 +71,12 @@
                                     android:background="@color/line" />
 
                                 <Button
+                                    android:id="@+id/fast_pay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/button_min_height"
                                     android:background="@drawable/login_btn_bg"
                                     android:minWidth="100dp"
-                                    android:text="快速买单"
+                                    android:text="@string/fast_pay"
                                     android:textColor="@color/white"
                                     android:textSize="18sp" />
                             </LinearLayout>

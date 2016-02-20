@@ -71,7 +71,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                     CommonUtil.showMessage(context, getString(R.string.choose_contact));
                     return;
                 }
-                CommonUtil.showSimpleProgressDialog("正在为您下单，请稍后...",activity);
+                CommonUtil.showSimpleProgressDialog(getString(R.string.gen_ordering),activity);
                 String url = API.URL + API.API_URL.GEN_ORDER;
                 TransferObject data = buildGenOrderData();
                 AppRequest request = new AppRequest(context, url, new AppHttpResListener() {

@@ -53,6 +53,8 @@ public class TransferObject implements Serializable {
 
     private String cityCodeName;
 
+    private FarmQuickPayModel farmQuickPayModel;
+
     private List<CodeModel> codeModels;
     private List<CollectModel> collectModels;
 
@@ -520,5 +522,13 @@ public class TransferObject implements Serializable {
 
     public void setCollectStatus(String collectStatus) {
         this.collectStatus = collectStatus;
+    }
+
+    public FarmQuickPayModel getFarmQuickPayModel() {
+        return farmQuickPayModel;
+    }
+
+    public void setFarmQuickPayModel(FarmQuickPayModel farmQuickPayModel) {
+        this.farmQuickPayModel = farmQuickPayModel;
     }
 }

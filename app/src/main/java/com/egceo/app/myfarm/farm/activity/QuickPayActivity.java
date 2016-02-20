@@ -1,5 +1,4 @@
-package com.egceo.app.myfarm.order.actvity;
-
+package com.egceo.app.myfarm.farm.activity;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -7,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +16,8 @@ import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.alipay.PayResult;
 import com.egceo.app.myfarm.alipay.SignUtils;
+import com.egceo.app.myfarm.entity.FarmModel;
+import com.egceo.app.myfarm.entity.FarmQuickPayModel;
 import com.egceo.app.myfarm.entity.FarmSetModel;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
@@ -24,28 +26,18 @@ import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.order.view.PayTypeView;
 import com.egceo.app.myfarm.util.AppUtil;
-import com.egceo.app.myfarm.util.RSAUtil;
-import com.egceo.app.myfarm.view.OrderProcessHeader;
 import com.egceo.app.myfarm.wxapi.WXPayEntryActivity;
-import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.unionpay.UPPayAssistEx;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-
-public class OrderChoosePayActivity extends BaseActivity {
-    private Button payBtn;
-    private OrderModel order;
-    private FarmSetModel farmSetModel;
-    private OrderProcessHeader orderProcessHeader;
-    private TextView productInfo;
-    private TextView time;
-    private TextView orderMoney;
-    private SimpleDateFormat dateFormat;
+/**
+ * Created by FreeMason on 2016/2/20.
+ */
+public class QuickPayActivity extends BaseActivity {
+    private EditText quickPayPrice;
+    private Button quickPayBtn;
     private PayTypeView payTypeView;
-
+    private FarmModel farmModel;
+    private TextView farmName;
     @Override
     protected void initViews() {
         findViews();
@@ -54,46 +46,68 @@ public class OrderChoosePayActivity extends BaseActivity {
     }
 
     private void initData() {
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        order = (OrderModel) this.getIntent().getSerializableExtra("order");
-        farmSetModel = (FarmSetModel) this.getIntent().getSerializableExtra("farmSetModel");
-        orderProcessHeader.setStep3();
-        productInfo.setText(getString(R.string.product_info) + order.getFarmSetModel().getFarmSetName());
-        time.setText(getString(R.string.order_time) + dateFormat.format(order.getJourneyTime()));
-        orderMoney.setText(getString(R.string.order_money) + "￥" + order.getOrdePrice());
+        farmModel = (FarmModel) this.getIntent().getSerializableExtra("farmModel");
+        farmName.setText(farmModel.getFarmName());
     }
 
     private void initClick() {
-        payBtn.setOnClickListener(new View.OnClickListener() {
+        quickPayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int type = payTypeView.getPayType();
+            public void onClick(View v) {
+                final int type = payTypeView.getPayType();
+                String price = quickPayPrice.getText().toString();
                 if (type == PayTypeView.NO_PAY) {//没选择付款方式
                     CommonUtil.showMessage(context, getString(R.string.pls_choose_pay_type));
-                } else if (type == PayTypeView.PAY_BANK) {//选择银联付款
-                    payByBank();
-                } else if (type == PayTypeView.PAY_WALLET) {//钱包付款
-                    payByWallet();
-                } else if (type == PayTypeView.PAY_WECHAT) {//微信支付
-                    payByWeChat();
-                } else if (type == PayTypeView.PAY_ZHIFUBAO) {//支付宝付款
-                    payByZhiFuBao();
+                    return;
                 }
+                if(TextUtils.isEmpty(price)){
+                    CommonUtil.showMessage(context, getString(R.string.plz_enter_money));
+                    return;
+                }
+                try {
+                    Double.parseDouble(price);
+                }catch (NumberFormatException e){
+                    CommonUtil.showMessage(context, getString(R.string.plz_enter_money));
+                    return;
+                }
+                CommonUtil.showSimpleProgressDialog(getString(R.string.gen_ordering),activity);
+                String url =  API.URL + API.API_URL.QUICK_PAY;
+                TransferObject data = AppUtil.getHttpData(context);
+                FarmQuickPayModel farmQuickPayModel = new FarmQuickPayModel();
+                farmQuickPayModel.setFarmAliasId(farmModel.getFarmAliasId());
+                farmQuickPayModel.setUserAliasId(data.getUserAliasId());
+                farmQuickPayModel.setPrice(price);
+                data.setFarmQuickPayModel(farmQuickPayModel);
+                AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+                    @Override
+                    public void onSuccess(TransferObject data) {
+                        FarmQuickPayModel farmQuickPayModel = data.getFarmQuickPayModel();
+                        if (type == PayTypeView.PAY_BANK) {//选择银联付款
+                            payByBank(farmQuickPayModel);
+                        } else if (type == PayTypeView.PAY_WECHAT) {//微信支付
+                            payByWeChat(farmQuickPayModel);
+                        } else if (type == PayTypeView.PAY_ZHIFUBAO) {//支付宝付款
+                            payByZhiFuBao(farmQuickPayModel);
+                        }
+                    }
+                },data);
+                request.execute();
             }
         });
     }
 
-    private void payByBank() {
+    private void payByBank(FarmQuickPayModel farmQuickPayModel) {
         CommonUtil.showSimpleProgressDialog("正在启动银联支付，请稍后", activity);
         String url = API.URL + API.API_URL.PAY_BANK;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setOrderSn(order.getOrderSn());
-        data.setType(" ");
+        data.setOrderSn(farmQuickPayModel.getQuickPaySn());
+        data.setType("quick");
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
                 if (data.getTn() != null) {
                     UPPayAssistEx.startPay(activity, null, null, data.getTn(), AppUtil.BANK_MODE);
+                    finish();
                 }
             }
             @Override
@@ -105,34 +119,20 @@ public class OrderChoosePayActivity extends BaseActivity {
         request.execute();
     }
 
-    private void payByWeChat() {
+    private void payByWeChat(FarmQuickPayModel farmQuickPayModel) {
         Intent intent = new Intent(context, WXPayEntryActivity.class);
+        OrderModel order = new OrderModel();
+        order.setOrderSn(farmQuickPayModel.getQuickPaySn());
         intent.putExtra("order", order);
+        intent.putExtra("type","quick");
         startActivity(intent);
         finish();
     }
 
-    //钱包余额付款
-    private void payByWallet() {
-        String url = API.URL + API.API_URL.PAY_MENT;
-        TransferObject data = AppUtil.getHttpData(context);
-        data.setType("wallet");
-        data.setType("");
-        data.setOrderSn(order.getOrderSn());
-        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
-            @Override
-            public void onSuccess(TransferObject data) {
-
-            }
-        }, data);
-        request.execute();
-    }
-
     //用支付宝付款
-    private void payByZhiFuBao() {
-        payBtn.setClickable(false);
+    private void payByZhiFuBao(FarmQuickPayModel farmQuickPayModel) {
         CommonUtil.showSimpleProgressDialog(getString(R.string.go_to_zhifubao), activity, false);
-        String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice() + "", order.getOrderSn(),"normal");
+        String orderInfo = SignUtils.getOrderInfo("测试", "测试", farmQuickPayModel.getPrice() + "", farmQuickPayModel.getQuickPaySn(),"quick");
         final String payInfo = SignUtils.getPayInfo(orderInfo);
         Runnable payRunnable = new Runnable() {
             @Override
@@ -152,6 +152,7 @@ public class OrderChoosePayActivity extends BaseActivity {
         Thread payThread = new Thread(payRunnable);
         payThread.start();
     }
+
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -184,41 +185,26 @@ public class OrderChoosePayActivity extends BaseActivity {
                 default:
                     break;
             }
-            gotoOrderActivity();
         }
 
         ;
     };
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        finish();
-    }
-
-
-    private void gotoOrderActivity() {
-        Intent intent = new Intent(context, OrderDetailActivity.class);
-        intent.putExtra("order", order);
-        startActivity(intent);
-    }
-
     private void findViews() {
-        payBtn = (Button) this.findViewById(R.id.pay_order);
-        orderProcessHeader = (OrderProcessHeader) this.findViewById(R.id.order_process_header);
-        productInfo = (TextView) this.findViewById(R.id.order_info_name);
-        orderMoney = (TextView) this.findViewById(R.id.order_money);
-        time = (TextView) this.findViewById(R.id.order_time);
+        quickPayPrice = (EditText) this.findViewById(R.id.quick_pay_price);
+        quickPayBtn = (Button) this.findViewById(R.id.quick_pay_btn);
         payTypeView = (PayTypeView) this.findViewById(R.id.pay_type);
+        farmName = (TextView) this.findViewById(R.id.farm_name);
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_order_choose_pay;
+        return R.layout.activity_quickpay;
     }
 
     @Override
     protected String setActionBarTitle() {
-        return getString(R.string.order_pay_process);
+        return getString(R.string.fast_pay);
     }
 }

@@ -234,7 +234,7 @@ public class TopicDetailsActivity extends BaseActivity {
                 initBanner();
                 initFragments();
                 initTags();
-                farmSetPrice.setText(farmSetModels.getMinPrice() + "元");
+                farmSetPrice.setText(farmSetModels.getMinPrice() + getString(R.string.rmb));
                 farmSetReason.setText(farmSetModels.getFarmSetRecomReason());
             }
 

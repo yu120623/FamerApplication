@@ -36,7 +36,7 @@ public class SignUtils {
             "nP8CmX4Ze9XtIE8DUfDipvn8jDnmQ4fmc8PXB6UGqHgNo5LcEc7NfT8qGq+2Vcu0" +
             "oBWyNtXAv4Gqog==";
 
-    public static String getOrderInfo(String subject, String body, String price,String no) {
+    public static String getOrderInfo(String subject, String body, String price,String no,String type) {
 
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + PARTNER + "\"";
@@ -57,8 +57,13 @@ public class SignUtils {
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + API.URL+"payAli"
-                + "\"";
+        if(!type.equals("quick")) {
+            orderInfo += "&notify_url=" + "\"" + API.URL + "payAli"
+                    + "\"";
+        }else{
+            orderInfo += "&notify_url=" + "\"" + API.URL + "payAliQuick"
+                    + "\"";
+        }
 
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";

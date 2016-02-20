@@ -17,6 +17,7 @@ import com.baseandroid.util.CommonUtil;
 import com.baseandroid.view.HackyViewPager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.egceo.app.myfarm.entity.FarmQuickPayModel;
 import com.egceo.app.myfarm.listener.OnFavouriteClick;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.FavouriteBtn;
@@ -61,7 +62,7 @@ public class FarmDetailActivity extends BaseActivity {
     private ImageView shareBtn;
     private FavouriteBtn favouriteBtn;
     private FarmModel farmModel;
-
+    private Button fastPay;
     @Override
     protected void initViews() {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -127,6 +128,14 @@ public class FarmDetailActivity extends BaseActivity {
         });
         favouriteBtn.setTag(R.id.favourite_id,farmModel.getFarmAliasId());
         favouriteBtn.setTag(R.id.favourite_type,OnFavouriteClick.FARM);
+        fastPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity,QuickPayActivity.class);
+                intent.putExtra("farmModel",farmModel);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setActionBarIcon(boolean flag){
@@ -237,6 +246,7 @@ public class FarmDetailActivity extends BaseActivity {
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
         favouriteBtn = (FavouriteBtn) this.findViewById(R.id.favourite_btn);
         viewFarmSet = (Button) this.findViewById(R.id.view_farm_set);
+        fastPay = (Button) this.findViewById(R.id.fast_pay);
     }
 
     @Override

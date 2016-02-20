@@ -9,6 +9,7 @@ public class FarmSetModel extends FarmSet{
 	private List<String> tags;
 	private List<FarmItemsModel> farmItemsModels;
 	private Double minPrice;
+	private Double conPrice;
 	private Date nowTime;
 	private Date endTime;
 	private Date beginTime;
@@ -119,5 +120,13 @@ public class FarmSetModel extends FarmSet{
 
 	public void setCollectStatus(String collectStatus) {
 		this.collectStatus = collectStatus;
+	}
+
+	public Double getConPrice() {
+		return conPrice;
+	}
+
+	public void setConPrice(Double conPrice) {
+		this.conPrice = conPrice;
 	}
 }

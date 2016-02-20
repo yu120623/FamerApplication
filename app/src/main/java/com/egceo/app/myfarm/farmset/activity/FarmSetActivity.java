@@ -169,8 +169,8 @@ public class FarmSetActivity extends BaseActivity {
             FarmSetModel farmSetModel = farmSetModels.get(position);
             List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
             holder.farmSetName.setText(farmSetModel.getFarmSetName());
-            holder.farmSetMinPrice.setText(farmSetModel.getMinPrice() + "");
-            holder.farmSetConPrice.setText("原价200元");
+            holder.farmSetMinPrice.setText(farmSetModel.getMinPrice() + getString(R.string.rmb));
+            holder.farmSetConPrice.setText(getString(R.string.old_price)+farmSetModel.getConPrice()+getString(R.string.rmb));
             holder.farmSetConPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.farmSetDesc.setText(farmSetModel.getFarmSetDesc());
             holder.navBtn.setTag(farmSetModel);

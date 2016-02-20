@@ -284,5 +284,9 @@ public class CommonUtil {
 		}
 		return new String(c);
 	}
+
+	public static int getProgress(int current,int total){
+		return (int) (((current*1.0)/total)*100);
+	}
 }
 

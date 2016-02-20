@@ -79,7 +79,6 @@ public abstract class BaseCommentFragment extends BaseFragment {
                 holder.commentHead.setVisibility(View.VISIBLE);
                 holder.commentBody.setVisibility(View.GONE);
                 holder.totalComment.setText("共有"+resData.getCommentCount()+"人评价");
-                holder.highPraiseRate.setText("好评率："+resData.getFavorableRate());
                 holder.score.setText(resData.getScore());
             } else {
                 if(position == comments.size()){
@@ -107,7 +106,6 @@ public abstract class BaseCommentFragment extends BaseFragment {
         private LinearLayout commentBody;
         private LinearLayout commentHead;
         private TextView totalComment;
-        private TextView highPraiseRate;
         private TextView score;
         private TextView commentUserName;
         private TextView commentDate;
@@ -117,7 +115,6 @@ public abstract class BaseCommentFragment extends BaseFragment {
             super(itemView);
             commentHead = (LinearLayout) itemView.findViewById(R.id.comment_head);
             totalComment = (TextView) itemView.findViewById(R.id.total_comment);
-            highPraiseRate = (TextView) itemView.findViewById(R.id.high_praise_rate);
             score = (TextView) itemView.findViewById(R.id.score);
             commentUserName = (TextView) itemView.findViewById(R.id.comment_user_name);
             commentDate = (TextView) itemView.findViewById(R.id.comment_date);

@@ -8,8 +8,6 @@ public class FarmTopicModel extends FarmTopic{
 	private Date nowTime;
 
 	private String tagName;
-
-	
 	
 	public Date getNowTime() {
 		return nowTime;
@@ -81,6 +79,5 @@ public class FarmTopicModel extends FarmTopic{
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
-
 
 }

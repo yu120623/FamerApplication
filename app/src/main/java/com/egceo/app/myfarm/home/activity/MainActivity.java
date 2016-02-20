@@ -223,7 +223,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CityActivity.class);
-                startActivityForResult(intent,1);
+                startActivity(intent);
             }
         });
 
@@ -332,24 +332,11 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == 1){
-                Code code = (Code) data.getSerializableExtra("city");
-                changeCity(code);
-            }
-        }
-    }
-
     private void changeCity(Code code){
         sp.edit().putString(AppUtil.SP_CITY_CODE,code.getCodeName()).commit();
         sp.edit().putString(AppUtil.SP_CITY_NAME,code.getCodeDesc()).commit();
-                /*if(!"".equals(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, ""))))
-                    area.setText(CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, "").substring(0,2)));
-                contentViewPager.removeAllViews();
-                initFragments();*/
-        Intent intent = new Intent(context,MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

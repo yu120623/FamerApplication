@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.ImageLoaderUtil;
+import com.egceo.app.myfarm.entity.Resource;
+import com.egceo.app.myfarm.home.activity.FarmSetNavListActivity;
+import com.egceo.app.myfarm.view.PhotoViewPageActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.egceo.app.myfarm.R;
@@ -112,13 +115,29 @@ public class FarmSetActivity extends BaseActivity {
         farmSetItemName.setText(farmItemsModel.getFarmName());
         farmSetItemDesc.setText(farmItemsModel.getFarmItemName());
         farmSetItemPrice.setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
+        farmSetItemImg.setTag(farmItemsModel.getResources());
         ImageLoaderUtil.getInstance().displayImg(farmSetItemImg, farmItemsModel.getResources().get(0).getResourceLocation());
         farmSetItemDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
         View setHeader = item.findViewById(R.id.farm_set_item_header);
         View setContent = item.findViewById(R.id.farm_set_item_content);
         setHeader.setTag(setContent);
         setHeader.setOnClickListener(onFarmSetItemClick);
+        farmSetItemImg.setOnClickListener(onFarmSetImgClick);
     }
+
+    public View.OnClickListener onFarmSetImgClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            List<Resource> resources = (List<Resource>) view.getTag();
+            ArrayList<String> urls = new ArrayList<>();
+            for(Resource res : resources){
+                urls.add(res.getResourceLocation());
+            }
+            Intent intent = new Intent(context, PhotoViewPageActivity.class);
+            intent.putExtra("urls",urls);
+            startActivity(intent);
+        }
+    };
 
     public View.OnClickListener onFarmSetItemClick = new View.OnClickListener() {
         @Override
@@ -161,17 +180,14 @@ public class FarmSetActivity extends BaseActivity {
                 FarmItemsModel farmItemsModel = farmItemsModels.get(i);
                 addTags(holder, farmItemsModel);
             }
-
             if (position == curPosition) {
                 tmp = holder.linearLayout4;
                 ((CheckBox) holder.linearLayout4.findViewById(R.id.checkbox1)).setChecked(true);
             } else {
                 ((CheckBox) holder.linearLayout4.findViewById(R.id.checkbox1)).setChecked(false);
             }
-
             holder.linearLayout4.setTag(holder);
             holder.linearLayout4.setOnClickListener(this);
-
             holder.checkBox.setTag(holder);
             holder.checkBox.setOnCheckedChangeListener(this);
             holder.navBtn.setOnClickListener(onNavBtnClick);
@@ -230,7 +246,10 @@ public class FarmSetActivity extends BaseActivity {
     private View.OnClickListener onNavBtnClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            FarmSetModel farmSetModel = (FarmSetModel) view.getTag();
+            Intent intent = new Intent(context, FarmSetNavListActivity.class);
+            intent.putExtra("farmSetModel",farmSetModel);
+            startActivity(intent);
         }
     };
 
@@ -270,6 +289,6 @@ public class FarmSetActivity extends BaseActivity {
 
     @Override
     protected String setActionBarTitle() {
-        return "某个玩的地方的套餐";
+        return getIntent().getStringExtra("title");
     }
 }

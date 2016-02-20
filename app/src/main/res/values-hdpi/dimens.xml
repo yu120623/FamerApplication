@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="user_order_tab_size">12sp</dimen>
+    <dimen name="line_size">0.3dp</dimen>
+</resources>

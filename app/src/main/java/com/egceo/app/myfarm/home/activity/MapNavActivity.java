@@ -42,11 +42,12 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_nav);
+        mTtsManager = TTSController.getInstance(getApplicationContext());
+        mTtsManager.init();
         mAMapNaviView = (AMapNaviView) findViewById(R.id.navi_view);
         mAMapNavi = AMapNavi.getInstance(getApplicationContext());
         mAMapNaviView.onCreate(savedInstanceState);
         requestLocation();
-
     }
 
     private void requestLocation() {
@@ -66,8 +67,6 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
                 mEndLatlng = new NaviLatLng(getIntent().getDoubleExtra("latitude",0), getIntent().getDoubleExtra("longitude", 0));
                 mStartList.add(mStartLatlng);
                 mEndList.add(mEndLatlng);
-                mTtsManager = TTSController.getInstance(getApplicationContext());
-                mTtsManager.init();
                 mAMapNavi.setAMapNaviListener(MapNavActivity.this);
                 mAMapNavi.setAMapNaviListener(mTtsManager);
                 mTtsManager.startSpeaking();

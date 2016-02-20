@@ -15,7 +15,7 @@
     <string name="loding_more_data">正在加载更多</string>
     <string name="hot_city">推荐地区</string>
     <string name="other_city">其他地区</string>
-    <string name="gsp">GSP定位</string>
+    <string name="gsp">GPS定位</string>
     <string name="location_now">正在定位</string>
     <string name="location_failed">定位失败</string>
     <string name="choose_ctiy">城市选择</string>
@@ -146,4 +146,20 @@
     <string name="user_favourite_num">我的收藏总数</string>
     <string name="user_fund_num">旅游基金总数</string>
     <string name="is_cancel_refund">您确定要取消该退单申请么？</string>
+    <string name="favourite_success">已收藏</string>
+    <string name="setting">设置</string>
+    <string name="forget_pwd_title">忘记密码</string>
+    <string name="register_plz_wait">正在注册，请稍后</string>
+    <string name="register_success">注册成功</string>
+    <string name="forget_pwd_plz_wait">正在重置密码，请稍后</string>
+    <string name="forget_pwd_success">重置成功</string>
+    <string name="forget_pwd_btn">立即重置</string>
+    <string name="change_name">修改昵称</string>
+    <string name="change_pwd">修改登录密码</string>
+    <string name="update_app">应用更新</string>
+    <string name="clear_cache">清除缓存数据</string>
+    <string name="about_app">关于[我的农庄]</string>
+    <string name="login1">立即登录</string>
+    <string name="login_out">安全退出</string>
+    <string name="cancel_favourite">已取消</string>
 </resources>

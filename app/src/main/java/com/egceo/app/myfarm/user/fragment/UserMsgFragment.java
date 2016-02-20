@@ -1,5 +1,7 @@
 package com.egceo.app.myfarm.user.fragment;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -128,6 +130,7 @@ public class UserMsgFragment extends BaseFragment {
         @Override
         public MsgViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = View.inflate(parent.getContext(), R.layout.item_msg, null);
+            v.setOnLongClickListener(onDelMsgClick);
             MsgViewHolder holder = new MsgViewHolder(v);
             RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT);
             v.setLayoutParams(layoutParams);
@@ -137,6 +140,7 @@ public class UserMsgFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(MsgViewHolder holder, int position) {
             Sysinfo sysInfo = sysinfos.get(position);
+            holder.itemView.setTag(sysInfo);
             holder.msgTime.setText(dateFormat.format(sysInfo.getCreatedTime()));
             holder.msgContent.setText(sysInfo.getSysinfoContent());
         }
@@ -156,6 +160,21 @@ public class UserMsgFragment extends BaseFragment {
             msgTime = (TextView) itemView.findViewById(R.id.msg_time);
         }
     }
+
+    private View.OnLongClickListener onDelMsgClick = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            Sysinfo sysInfo = (Sysinfo) view.getTag();
+            new AlertDialog.Builder(activity)
+                    .setItems(new String[]{getString(R.string.del)}, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            return false;
+        }
+    };
 
     @Override
     protected int getContentView() {

@@ -29,7 +29,7 @@ public class GetCodeBtnHandler extends Handler {
 			textView.setText(R.string.get_code);
 			textView.setClickable(true);
 		}else{
-			textView.setText(time+context.getResources().getString(R.string.get_code));
+			textView.setText(time+"秒");
 			textView.setClickable(false);
 			Message message = new Message();
 			message.obj = textView;

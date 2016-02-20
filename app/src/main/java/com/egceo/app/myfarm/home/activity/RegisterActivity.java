@@ -1,6 +1,7 @@
 package com.egceo.app.myfarm.home.activity;
 
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,7 +88,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void register() {
-        CommonUtil.showSimpleProgressDialog("正在注册，请稍后",activity);
+        CommonUtil.showSimpleProgressDialog(getString(R.string.register_plz_wait),activity);
         String url = API.URL + API.API_URL.REGISTER_USER;
         String phoneText = phone.getText().toString();
         String passwordText = password.getText().toString();
@@ -105,8 +106,8 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onSuccess(TransferObject data) {
                 if(data.getMessage().getStatus().equals(AppUtil.RES_STATUS.STATUS_OK)){
-                    CommonUtil.showMessage(context,"成功");
-                    finish();;
+                    CommonUtil.showMessage(context,getString(R.string.register_success));
+                    finish();
                 }
             }
         },data);
@@ -138,6 +139,14 @@ public class RegisterActivity extends BaseActivity {
         code = (EditText) this.findViewById(R.id.code);
         registerBtn = (Button) this.findViewById(R.id.register_btn);
         getCode = (TextView) this.findViewById(R.id.get_code);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            CommonUtil.hideKeyBoard(activity);
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override

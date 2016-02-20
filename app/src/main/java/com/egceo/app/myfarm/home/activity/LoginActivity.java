@@ -1,7 +1,13 @@
 package com.egceo.app.myfarm.home.activity;
 
 import android.content.Intent;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,8 +26,9 @@ public class LoginActivity extends BaseActivity {
     private EditText phone;
     private EditText password;
     private TextView registerBtn;
+    private TextView forgetBtn;
     private TextView loginBtn;
-
+    private CheckBox viewPwd;
     @Override
     protected void initViews() {
         findViews();
@@ -47,6 +54,30 @@ public class LoginActivity extends BaseActivity {
                 login();
             }
         });
+        viewPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                else
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
+        forgetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ForgetPwdActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            CommonUtil.hideKeyBoard(activity);
+        }
+        return super.onTouchEvent(event);
     }
 
     private void login() {
@@ -79,6 +110,8 @@ public class LoginActivity extends BaseActivity {
         loginBtn = (TextView) this.findViewById(R.id.login_btn);
         phone = (EditText) this.findViewById(R.id.phone);
         password = (EditText) this.findViewById(R.id.password);
+        viewPwd = (CheckBox) this.findViewById(R.id.view_pwd);
+        forgetBtn = (TextView) this.findViewById(R.id.forget_pwd_btn);
     }
 
     @Override

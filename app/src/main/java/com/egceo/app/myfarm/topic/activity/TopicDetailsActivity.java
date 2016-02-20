@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,6 +20,8 @@ import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.egceo.app.myfarm.home.activity.LoginActivity;
+import com.egceo.app.myfarm.listener.OnFavouriteClick;
+import com.egceo.app.myfarm.view.FavouriteBtn;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -57,12 +60,12 @@ public class TopicDetailsActivity extends BaseActivity {
     private View actionBarBg;
     private ImageView backBtn;
     private ImageView shareBtn;
-    private ImageView favouriteBtn;
+    private TextView title;
+    private FavouriteBtn favouriteBtn;
     private LinearLayout tagsContainer;
     private Button veiwFarmSetBtn;
     private TextView farmSetPrice;
     private TextView farmSetReason;
-    private List<ImageView> bannerImages = new ArrayList<>();
     private NetworkImageHolderView netWorkImageHolderView;
     @Override
     protected void initViews() {
@@ -83,7 +86,6 @@ public class TopicDetailsActivity extends BaseActivity {
                     setActionBarIcon(false);
                 }
             }
-
             @Override
             public void onSliding(float ratio) {
                 ViewHelper.setAlpha(actionBarBg, 1 - ratio);
@@ -125,17 +127,24 @@ public class TopicDetailsActivity extends BaseActivity {
                     return;
                 }
                 Intent intent = new Intent(context, FarmSetActivity.class);
+                intent.putExtra("title",farmTopicModel.getFarmTopicName());
                 intent.putExtra("farmTopicAliasId", farmTopicModel.getFarmTopicAliasId());
                 startActivity(intent);
             }
         });
+        favouriteBtn.setTag(R.id.favourite_id,farmTopicModel.getFarmTopicAliasId());
+        favouriteBtn.setTag(R.id.favourite_type, OnFavouriteClick.FARM_TOPIC);
     }
 
     private void setActionBarIcon(boolean flag) {
         backBtn.setSelected(flag);
         favouriteBtn.setSelected(flag);
         shareBtn.setSelected(flag);
-
+        if(flag){
+            title.setVisibility(View.VISIBLE);
+        }else{
+            title.setVisibility(View.GONE);
+        }
     }
 
     private void initBanner() {
@@ -161,15 +170,6 @@ public class TopicDetailsActivity extends BaseActivity {
             inflater.inflate(R.layout.text, tagsContainer, true);
             final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount() - 1);
             tag.setText(farmSetModels.getTags().get(i));
-            /*tag.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Point point = AppUtil.random(tag.getWidth(), tag.getHeight(), CommonUtil.getScreenWith(getWindowManager()), banner.getLayoutParams().height);
-                    tag.setX(point.x);
-                    tag.setY(point.y);
-                    tag.setVisibility(View.VISIBLE);
-                }
-            }, 1000);*/
         }
     }
 
@@ -177,7 +177,6 @@ public class TopicDetailsActivity extends BaseActivity {
     public void initActonBar() {
         super.initActonBar();
         this.actionbarView.setVisibility(View.GONE);
-
     }
 
     private void initFragments() {
@@ -212,6 +211,7 @@ public class TopicDetailsActivity extends BaseActivity {
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
         dragTopLayout.setOverDrag(false);
+        title.setText(farmTopicModel.getFarmTopicName());
         loadDataFromServer();
     }
 
@@ -226,6 +226,10 @@ public class TopicDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(TransferObject data) {
                 farmSetModels = data.getFarmSetModel();
+                if(farmSetModels.getCollectStatus().equals("1")){
+                    favouriteBtn.setChecked(true);
+                }
+                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick());
                 setUrlBanners(farmSetModels);
                 initBanner();
                 initFragments();
@@ -263,11 +267,12 @@ public class TopicDetailsActivity extends BaseActivity {
         actionBarBg = this.findViewById(R.id.top_info_acion_bar_bg);
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
-        favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
+        favouriteBtn = (FavouriteBtn) this.findViewById(R.id.favourite_btn);
         tagsContainer = (LinearLayout) this.findViewById(R.id.tags_container);
         veiwFarmSetBtn = (Button) this.findViewById(R.id.topic_btn);
         farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);
         farmSetReason = (TextView) this.findViewById(R.id.farm_set_reason);
+        title = (TextView) this.findViewById(R.id.title);
     }
 
     @Override

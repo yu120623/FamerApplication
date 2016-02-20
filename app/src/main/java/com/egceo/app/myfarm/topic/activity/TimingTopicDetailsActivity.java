@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.egceo.app.myfarm.listener.OnFavouriteClick;
+import com.egceo.app.myfarm.view.FavouriteBtn;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -54,7 +57,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
     private View actionBarBg;
     private ImageView backBtn;
     private ImageView shareBtn;
-    private ImageView favouriteBtn;
+    private FavouriteBtn favouriteBtn;
     private RelativeLayout bannerContainer;
     private Button topicBtn;
     private TextView farmSetPrice;
@@ -128,6 +131,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
                 finish();
             }
         });
+        favouriteBtn.setTag(R.id.favourite_id,farmTopicModel.getFarmTopicAliasId());
+        favouriteBtn.setTag(R.id.favourite_type, OnFavouriteClick.FARM_TOPIC);
     }
 
     private void initBanner() {
@@ -198,6 +203,10 @@ public class TimingTopicDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(TransferObject data) {
                 farmSetModels = data.getFarmSetModel();
+                if(farmSetModels.getCollectStatus().equals("1")){
+                    favouriteBtn.setChecked(true);
+                }
+                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick());
                 initTopicBtn();
                 setUrlBanners(farmSetModels);
                 initBanner();
@@ -255,7 +264,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         actionBarBg = this.findViewById(R.id.top_info_acion_bar_bg);
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
-        favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
+        favouriteBtn = (FavouriteBtn) this.findViewById(R.id.favourite_btn);
         topicBtn = (Button) this.findViewById(R.id.topic_btn);
         bannerContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
         farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);

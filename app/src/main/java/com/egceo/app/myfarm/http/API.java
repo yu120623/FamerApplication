@@ -12,6 +12,7 @@ public class API {
         public static final String FARM_TOPIC_COMMENT_LIST = "farmSetCommentList";//专题评论列表
         public static final String FARM_TOPIC_KONW = "farmStatementList";//专题须知
         public static final String FARM_AROUND_LIST = "farmAroundList";//首页周边列表
+        public static final String FARM_HOT_LIST = "farmRecommend";//首页农庄推荐
         public static final String CITY_LIST = "intoCitySearch";//城市列表
         public static final String FARMSET_LIST = "intoFarmTopic";//套餐列表
         public static final String FARM_INFO = "clickFarm";//农庄详细
@@ -34,10 +35,13 @@ public class API {
         public static final String SEND_SMS = "sendVCode";//发送验证码
         public static final String REGISTER_USER = "register";//注册
         public static final String LOGIN = "appLogin";//登陆
+        public static final String FORGET_PWD = "forgetPassword";//重置密码
         public static final String WECHAT_ORDER = "weChatPayData";//微信付款
         public static final String PAY_BANK = "bankTn";//银联支付
         public static final String SYS_INFO = "sysInfoList";//系统消息
         public static final String MY_FAVOURITE = "collectInfo";//收藏列表
         public static final String CANCEL_REFUND = "cancelChargeback";//取消退单
+        public static final String FAVOURITE = "collectAdd";//收藏
+        public static final String COLLECT_CANCEL = "collectCancel";//取消收藏
     }
 }

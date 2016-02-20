@@ -107,7 +107,8 @@ public abstract class BaseActivity extends Activity {
 	public void initActonBar() {
 		actionbarView = (RelativeLayout) this.findViewById(R.id.action_bar_view);
 		inflater.inflate(R.layout.action_bar,actionbarView,true);
-		TextView actionBarTitle = (TextView) this.findViewById(R.id.action_bar_title);
+		rightTextBtn = (TextView) actionbarView.findViewById(R.id.action_bar_right_btn);
+		actionBarTitle = (TextView) this.findViewById(R.id.action_bar_title);
 		actionBarTitle.setText(setActionBarTitle());
 		ImageView back = (ImageView) this.findViewById(R.id.back_btn);
 		back.setOnClickListener(new OnClickListener() {

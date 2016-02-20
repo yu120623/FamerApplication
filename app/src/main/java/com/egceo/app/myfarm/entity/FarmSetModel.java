@@ -13,6 +13,7 @@ public class FarmSetModel extends FarmSet{
 	private Date endTime;
 	private Date beginTime;
 	private Double fund;
+	private String collectStatus;
 	
 	public List<ResourseModel> getBaResourceModels() {
 		return baResourceModels;
@@ -110,5 +111,13 @@ public class FarmSetModel extends FarmSet{
 
 	public void setFund(Double fund) {
 		this.fund = fund;
+	}
+
+	public String getCollectStatus() {
+		return collectStatus;
+	}
+
+	public void setCollectStatus(String collectStatus) {
+		this.collectStatus = collectStatus;
 	}
 }

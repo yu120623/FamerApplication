@@ -40,10 +40,12 @@ public class AppUtil {
     public static final String reREF = "reREF";//拒绝
     public static final String rqCOM = "rqCOM";//完成
 
-    public static final int SMS_TIME = 120;//短信倒计时
+    public static final int SMS_TIME = 60;//短信倒计时
 
-    public static final String REG_SMS_ID = "sms_id";
+    public static final String REG_SMS_ID = "reg_sms_id";
+    public static final String PWD_SMS_ID = "pwd_sms_id";
     public static final String REG_SMS_TIME = "reg_sms_time";
+    public static final String PWD_SMS_TIME = "pwd_sms_time";
 
     public static final String HANDLER_CHANGE_CITY = "h_c_c";//手动选择城市
 

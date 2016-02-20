@@ -1,6 +1,7 @@
 package com.egceo.app.myfarm.user.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -34,7 +35,20 @@ public class UserActivity extends BaseActivity {
     @Override
     protected void initViews() {
         findViews();
+        initData();
         initFragments();
+    }
+
+    private void initData() {
+        rightTextBtn.setVisibility(View.VISIBLE);
+        rightTextBtn.setText(R.string.setting);
+        rightTextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,UserSettingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews() {

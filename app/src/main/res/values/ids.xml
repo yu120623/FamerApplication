@@ -3,4 +3,7 @@
     <item name="tag_farm_sub_item_text" type="id"></item>
     <item name="tag_farm_sub_item_time" type="id"></item>
     <item name="tag_farm_sub_item" type="id"></item>
+
+    <item name="favourite_id" type="id"></item>
+    <item name="favourite_type" type="id"></item>
 </resources>

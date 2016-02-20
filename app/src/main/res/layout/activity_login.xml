@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,12 +19,7 @@
         android:padding="5dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:adjustViewBounds="true"
-            android:maxHeight="@dimen/login_ico_height"
-            android:maxWidth="@dimen/login_ico_width"
+            style="@style/user_btn_style"
             android:src="@mipmap/login_m" />
 
         <EditText
@@ -52,12 +48,7 @@
 
         <ImageView
             android:id="@+id/ico_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:adjustViewBounds="true"
-            android:maxHeight="@dimen/login_ico_height"
-            android:maxWidth="@dimen/login_ico_width"
+            style="@style/user_btn_style"
             android:src="@mipmap/login_pwd" />
 
         <EditText
@@ -75,6 +66,7 @@
 
 
         <CheckBox
+            android:id="@+id/view_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -105,7 +97,7 @@
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="立即登录"
+            android:text="@string/login1"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -121,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="忘记密码"
+                android:textSize="14sp"
                 android:textColor="#ff6600" />
 
             <TextView
@@ -129,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="免费注册"
+                android:textSize="14sp"
                 android:textColor="#ff6600" />
         </RelativeLayout>
     </LinearLayout>

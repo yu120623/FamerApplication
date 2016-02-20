@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.baseandroid.BaseActivity;
@@ -15,7 +17,9 @@ import com.baseandroid.util.CommonUtil;
 import com.baseandroid.view.HackyViewPager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.egceo.app.myfarm.listener.OnFavouriteClick;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.view.FavouriteBtn;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -55,7 +59,7 @@ public class FarmDetailActivity extends BaseActivity {
     private Button viewFarmSet;
     private ImageView backBtn;
     private ImageView shareBtn;
-    private ImageView favouriteBtn;
+    private FavouriteBtn favouriteBtn;
     private FarmModel farmModel;
 
     @Override
@@ -91,6 +95,7 @@ public class FarmDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, FarmSetActivity.class);
+                intent.putExtra("title",farmModel.getFarmName());
                 intent.putExtra("farmAliasId",farmModel.getFarmAliasId());
                 startActivity(intent);
             }
@@ -120,6 +125,8 @@ public class FarmDetailActivity extends BaseActivity {
                 finish();
             }
         });
+        favouriteBtn.setTag(R.id.favourite_id,farmModel.getFarmAliasId());
+        favouriteBtn.setTag(R.id.favourite_type,OnFavouriteClick.FARM);
     }
 
     private void setActionBarIcon(boolean flag){
@@ -194,6 +201,10 @@ public class FarmDetailActivity extends BaseActivity {
             public void onSuccess(TransferObject data) {
                 farmModel = data.getFarmModel();
                 farmModel.setFarmAliasId(data.getFarmAliasId());
+                if(farmModel.getCollectStatus().equals("1")){
+                    favouriteBtn.setChecked(true);
+                }
+                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick());
                 setUrlBanners(farmModel);
                 initBanner();
                 initFragments();
@@ -224,7 +235,7 @@ public class FarmDetailActivity extends BaseActivity {
         actionBarBg = this.findViewById(R.id.top_info_acion_bar_bg);
         backBtn = (ImageView) this.findViewById(R.id.topic_back_btn);
         shareBtn = (ImageView) this.findViewById(R.id.share_btn);
-        favouriteBtn = (ImageView) this.findViewById(R.id.favourite_btn);
+        favouriteBtn = (FavouriteBtn) this.findViewById(R.id.favourite_btn);
         viewFarmSet = (Button) this.findViewById(R.id.view_farm_set);
     }
 

@@ -85,6 +85,7 @@ public class TransferObject implements Serializable {
     private AaSubjectLogin aaSubjectLogin;
 
     private List<OrderDateModel> orderDateModels;
+    private String collectStatus;
 
     private RecommendTagModel recommendTagModel;
     private List<SearchModel> searchModels;
@@ -515,5 +516,9 @@ public class TransferObject implements Serializable {
 
     public void setCollectModels(List<CollectModel> collectModels) {
         this.collectModels = collectModels;
+    }
+
+    public void setCollectStatus(String collectStatus) {
+        this.collectStatus = collectStatus;
     }
 }

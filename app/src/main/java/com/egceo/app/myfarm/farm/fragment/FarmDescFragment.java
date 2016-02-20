@@ -14,6 +14,7 @@ import com.baseandroid.BaseFragment;
 import com.baseandroid.util.CommonUtil;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.egceo.app.myfarm.util.AppUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -86,9 +87,11 @@ public class FarmDescFragment extends BaseFragment {
             if (position == 0) {
                 holder.jieshaoText.setVisibility(View.VISIBLE);
                 holder.jieshaoText.setText(Html.fromHtml(CommonUtil.toDBC(farmModel.getFarmDesc())));
+                holder.jieshaoImage.setVisibility(View.GONE);
             } else {
                 holder.jieshaoText.setVisibility(View.GONE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmModel.getDeResourseModels().get(position-1).getResourceLocation(), options);
+                holder.jieshaoImage.setVisibility(View.VISIBLE);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmModel.getDeResourseModels().get(position-1).getResourceLocation()+ AppUtil.DESC_IMG_SIZE, options);
             }
         }
 

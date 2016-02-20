@@ -13,6 +13,7 @@ public class FarmModel extends Farm{
 	private List<Resource> baResources;
 	private String farmIntruDesc;
 	private String farmEva;
+	private String collectStatus;
 	public Float getFarmDistance() {
 		return farmDistance;
 	}
@@ -135,6 +136,14 @@ public class FarmModel extends Farm{
 	}
 	public void setFarmEva(String farmEva) {
 		this.farmEva = farmEva;
+	}
+
+	public String getCollectStatus() {
+		return collectStatus;
+	}
+
+	public void setCollectStatus(String collectStatus) {
+		this.collectStatus = collectStatus;
 	}
 }
 

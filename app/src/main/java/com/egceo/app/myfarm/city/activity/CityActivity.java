@@ -3,10 +3,14 @@ package com.egceo.app.myfarm.city.activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +25,7 @@ import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.Code;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.home.activity.MainActivity;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -44,6 +49,8 @@ public class CityActivity extends BaseActivity {
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
     private View header;
     private AMapLocation location;
+    private EditText cityText;
+    private ImageView searchCityBtn;
     protected void initViews() {
         findViews();
         initData();
@@ -69,11 +76,38 @@ public class CityActivity extends BaseActivity {
                 location();
             }
         });
+        searchCityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String city = cityText.getText().toString();
+                if(TextUtils.isEmpty(city)){
+                    adapter.notifyDataSetChanged(allCity);
+                }else{
+                    List<Code> searchCity = new ArrayList<Code>();
+                    for(Code code : allCity){
+                        if(code.getCodeDesc().contains(city)){
+                            searchCity.add(code);
+                        }
+                    }
+                    adapter.notifyDataSetChanged(searchCity);
+                }
+                CommonUtil.hideKeyBoard(activity);
+            }
+        });
+        cityList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    CommonUtil.hideKeyBoard(activity);
+                }
+                return false;
+            }
+        });
     }
 
     private void initCityList() {
         cityList.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new CityAdapter();
+        adapter = new CityAdapter(allCity);
         header = inflater.inflate(R.layout.city_header,null);
         header.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT));
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
@@ -87,7 +121,6 @@ public class CityActivity extends BaseActivity {
         for(int i = 0;i < lines;i++){
             addHotCity(i);
         }
-        adapter.notifyDataSetChanged();;
     }
 
     private void addHotCity(int lineIndex){
@@ -140,7 +173,7 @@ public class CityActivity extends BaseActivity {
                     showHotCity();
                 }
                 if(allCity != null && allCity.size() > 0){
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged(allCity);
                 }
 
             }
@@ -181,6 +214,11 @@ public class CityActivity extends BaseActivity {
 
 
     class CityAdapter extends RecyclerView.Adapter<CityViewHolder>{
+        private List<Code> city;
+
+        public CityAdapter(List<Code> city){
+            this.city = city;
+        }
 
         @Override
         public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -194,23 +232,31 @@ public class CityActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(CityViewHolder holder, int position) {
-            holder.cityName.setText(allCity.get(position).getCodeDesc());
-            holder.itemView.setTag(allCity.get(position));
+            holder.cityName.setText(city.get(position).getCodeDesc());
+            holder.itemView.setTag(city.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return allCity.size();
+            return city.size();
+        }
+
+        public void notifyDataSetChanged(List<Code> city){
+            this.city = city;
+            notifyDataSetChanged();
         }
     }
 
     public View.OnClickListener onChangeCity = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent();
             Code city = (Code) view.getTag();
+            sp.edit().putString(AppUtil.SP_CITY_CODE,city.getCodeName()).commit();
+            sp.edit().putString(AppUtil.SP_CITY_NAME,city.getCodeDesc()).commit();
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("city",city);
-            setResult(RESULT_OK,intent);
+            startActivity(intent);
             finish();
         }
     };
@@ -228,6 +274,8 @@ public class CityActivity extends BaseActivity {
         locationBtn = this.findViewById(R.id.location_btn);
         locationName = (TextView) this.findViewById(R.id.location_name);
         cityList = (RecyclerView) this.findViewById(R.id.city_list);
+        cityText = (EditText) this.findViewById(R.id.city_text);
+        searchCityBtn = (ImageView) this.findViewById(R.id.search_city_btn);
     }
 
     @Override

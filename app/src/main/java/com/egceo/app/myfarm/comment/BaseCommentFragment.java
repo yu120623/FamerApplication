@@ -6,11 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.CommentModel;
+import com.egceo.app.myfarm.entity.Resource;
 import com.egceo.app.myfarm.entity.TransferObject;
 
 import java.text.SimpleDateFormat;
@@ -79,6 +82,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
                 holder.commentHead.setVisibility(View.VISIBLE);
                 holder.commentBody.setVisibility(View.GONE);
                 holder.totalComment.setText("共有"+resData.getCommentCount()+"人评价");
+                holder.ratingBar.setRating(Float.parseFloat(resData.getScore()));
                 holder.score.setText(resData.getScore());
             } else {
                 if(position == comments.size()){
@@ -104,22 +108,23 @@ public abstract class BaseCommentFragment extends BaseFragment {
 
     class PingJiaViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout commentBody;
-        private LinearLayout commentHead;
+        private RelativeLayout commentHead;
         private TextView totalComment;
         private TextView score;
         private TextView commentUserName;
         private TextView commentDate;
         private TextView commentContext;
-
+        private RatingBar ratingBar;
         public PingJiaViewHolder(View itemView) {
             super(itemView);
-            commentHead = (LinearLayout) itemView.findViewById(R.id.comment_head);
+            commentHead = (RelativeLayout) itemView.findViewById(R.id.comment_head);
             totalComment = (TextView) itemView.findViewById(R.id.total_comment);
             score = (TextView) itemView.findViewById(R.id.score);
             commentUserName = (TextView) itemView.findViewById(R.id.comment_user_name);
             commentDate = (TextView) itemView.findViewById(R.id.comment_date);
             commentContext = (TextView) itemView.findViewById(R.id.comment_context);
             commentBody = (LinearLayout) itemView.findViewById(R.id.comment_body);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
         }
     }
 

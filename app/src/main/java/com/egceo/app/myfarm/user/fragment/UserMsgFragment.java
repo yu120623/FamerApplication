@@ -164,11 +164,22 @@ public class UserMsgFragment extends BaseFragment {
     private View.OnLongClickListener onDelMsgClick = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            Sysinfo sysInfo = (Sysinfo) view.getTag();
+            final Sysinfo sysInfo = (Sysinfo) v.getTag();
             new AlertDialog.Builder(activity)
                     .setItems(new String[]{getString(R.string.del)}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            String url = API.URL + API.API_URL.DEL_MSG;
+                            TransferObject data = AppUtil.getHttpData(context);
+                            data.setSysinfoId(sysInfo.getSysinfoId()+"");
+                            AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+                                @Override
+                                public void onSuccess(TransferObject data) {
+                                    sysinfos.remove(sysInfo);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            },data);
+                            request.execute();
                             dialog.dismiss();
                         }
                     }).show();

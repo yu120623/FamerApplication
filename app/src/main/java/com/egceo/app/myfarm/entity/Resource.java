@@ -6,12 +6,12 @@ import java.util.Date;
 
 public class Resource implements java.io.Serializable {
 
-	private Integer resourceId;
+	private int resourceId;
 	private String resourceName;
 	private String resourceType;
 	private String resourceLocation;
 	private String resourceProperty;
-	private Integer referrenceObjectId;
+	private int referrenceObjectId;
 	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
@@ -32,10 +32,6 @@ public class Resource implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	
-
-	
-
 	public Resource(String resourceName, String resourceType,
 			String resourceLocation, String resourceProperty,
 			Integer referrenceObjectId, String isDeleted, Date createdTime,
@@ -50,6 +46,20 @@ public class Resource implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
+	}
+
+	public Resource(Integer resourceId, String resourceName, String resourceType, String resourceLocation, String resourceProperty, Integer referrenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
+		this.resourceId = resourceId;
+		this.resourceName = resourceName;
+		this.resourceType = resourceType;
+		this.resourceLocation = resourceLocation;
+		this.resourceProperty = resourceProperty;
+		this.referrenceObjectId = referrenceObjectId;
+		this.isDeleted = isDeleted;
+		this.createdBy = createdBy;
+		this.createdTime = createdTime;
+		this.updatedBy = updatedBy;
+		this.updatedTime = updatedTime;
 	}
 
 	public Integer getResourceId() {

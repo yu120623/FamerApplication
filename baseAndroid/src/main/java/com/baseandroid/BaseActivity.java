@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends Activity {
 	protected Context context;
 	protected Activity activity;
 	protected LayoutInflater inflater;
@@ -117,7 +117,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
 		back.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				scrollToFinishActivity();
+				//scrollToFinishActivity();
+				finish();
 			}
 		});
 	}
@@ -216,7 +217,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
 	}
 	
 	protected void onKeyBack(){
-		scrollToFinishActivity();
+		finish();
 	}
 	protected void onKeyHome(){}
 	protected void onKeyMenu(){}

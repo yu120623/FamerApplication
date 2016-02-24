@@ -14,9 +14,13 @@ public class AppUtil {
     public static final String SP_CITY_NAME = "cn";
     public static final String SP_LAT = "t";
     public static final String SP_LOG = "g";
-    public static final String FARM_IMG_SIZE = "@!w150h150";
-    public static final String DESC_IMG_SIZE = "@!textimg";
-    public static final String BANNER_IMG_SIZE = "@!banner";
+    public static final String DETAIL_IMG_SIZE = "@!detail-image";
+    public static final String HOME_BANNER_IMG_SIZE = "@!home-banner";
+    public static final String INNER_BANNER_IMG_SIZE = "@!detail-banner";
+    public static final String TOPIC_IMG_SIZE = "@!topic-image";
+    public static final String FARM_FACE = "@!farm-face";
+    public static final String FARM_SET_FACE_IMG_SIZE = "@!set-face";
+    public static final String FARM_SET_DETAIL_IMG_SIZE = "@!set-detail-image";
     public static final String APP_ID = "wxb7092588e08a7e4f";//微信ID
 
     public static final String SP_NEW_CITY_CODE = "n_c";
@@ -125,7 +129,6 @@ public class AppUtil {
         data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,AppUtil.DEFAULT_CITY_CODE));
         if(!"".equals(sp.getString(L_N,""))) {
             data.setUserAliasId(sp.getString(L_N,""));
-            //ddata.setUserAliasId("aaa");
         }
         return data;
     }

@@ -1,13 +1,10 @@
 package com.egceo.app.myfarm.entity;
-
-// Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
-
 import java.util.Date;
 
 public class UserProfile implements java.io.Serializable {
 
-	private Integer userId;
-	private Integer userSubjectId;
+	private int userId;
+	private int userSubjectId;
 	private String userOpenId;
 	private String userAliasId;
 	private String userName;
@@ -76,6 +73,29 @@ public class UserProfile implements java.io.Serializable {
 		this.updatedTime = updatedTime;
 		this.updatedBy = updatedBy;
 	}
+
+	public UserProfile(String userOpenId, String userAliasId, String userName, String userRealName, String userPassword, String userGender, String userPic, String userProfession, String userBindingPhone, String userCity, String userAddress, String userInviteCodeAssigned, String userInviteCodeUsed, String userLevel, String userStatus, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
+		this.userOpenId = userOpenId;
+		this.userAliasId = userAliasId;
+		this.userName = userName;
+		this.userRealName = userRealName;
+		this.userPassword = userPassword;
+		this.userGender = userGender;
+		this.userPic = userPic;
+		this.userProfession = userProfession;
+		this.userBindingPhone = userBindingPhone;
+		this.userCity = userCity;
+		this.userAddress = userAddress;
+		this.userInviteCodeAssigned = userInviteCodeAssigned;
+		this.userInviteCodeUsed = userInviteCodeUsed;
+		this.userLevel = userLevel;
+		this.userStatus = userStatus;
+		this.createdBy = createdBy;
+		this.createdTime = createdTime;
+		this.updatedBy = updatedBy;
+		this.updatedTime = updatedTime;
+	}
+
 
 	public Integer getUserId() {
 		return this.userId;

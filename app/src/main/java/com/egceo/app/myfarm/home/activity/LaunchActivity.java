@@ -31,7 +31,7 @@ public class LaunchActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(context,MainActivity.class);
+                Intent intent = new Intent(context,MainActivityNew.class);
                 startActivity(intent);
                 finish();
             }

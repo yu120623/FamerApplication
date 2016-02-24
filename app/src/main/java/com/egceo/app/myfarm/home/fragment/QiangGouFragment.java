@@ -193,7 +193,7 @@ public class QiangGouFragment extends BaseFragment {
             holder.flashSaleArea.setText(farmTopicModel.getTagName());
             holder.flashSaleReason.setText(farmTopicModel.getFarmTopicRecomReason());
             holder.qiangGouBtnView.setTime(nowTime.getTime(),farmTopicModel.getFarmTopicBeginTime().getTime(),farmTopicModel.getFarmTopicEndTime().getTime());
-            ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath(), options);
+            ImageLoaderUtil.getInstance().displayImg(holder.flashSaleImage, farmTopicModel.getResourcePath()+AppUtil.TOPIC_IMG_SIZE, options);
         }
 
         @Override

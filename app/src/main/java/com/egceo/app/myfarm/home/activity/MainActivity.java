@@ -116,19 +116,9 @@ public class MainActivity extends BaseActivity {
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
             public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView(activity,resources);
+                return new NetworkImageHolderView(activity,resources,AppUtil.HOME_BANNER_IMG_SIZE);
             }
         }, url);
-        /*banner.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                if(resources != null && resources.size() > 0){
-                    Intent intent = new Intent(context, HtmlActivity.class);
-                    intent.putExtra("url",resources.get(position).getResourceLocation());
-                    startActivity(intent);
-                }
-            }
-        });*/
     }
 
     private void loadDataFromServer() {

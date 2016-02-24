@@ -194,7 +194,7 @@ public class ZhouBianFragment extends BaseFragment {
                 holder.flowLayout.addView(tv);
                 holder.flowLayout.addView(tv1);
             }
-            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath() + AppUtil.FARM_IMG_SIZE, options);
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath() + AppUtil.FARM_FACE, options);
         }
 
         @Override

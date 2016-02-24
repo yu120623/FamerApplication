@@ -12,7 +12,7 @@
     <dimen name="button_min_width">280dp</dimen>
     <dimen name="login_ico_height">40dp</dimen>
     <dimen name="login_ico_width">40dp</dimen>
-    <dimen name="farm_set_sub_item_img_width">160dp</dimen><!-- 吃喝玩乐图片的宽度-->
+    <dimen name="farm_set_sub_item_img_width">140dp</dimen><!-- 吃喝玩乐图片的宽度-->
     <dimen name="farm_set_sub_item_img_height">95dp</dimen><!-- 吃喝玩乐图片的高度-->
 
     <dimen name="ptr_loding_width">150dp</dimen>
@@ -29,4 +29,13 @@
     <dimen name="sp14">14sp</dimen>
     <dimen name="user_order_tab_size">14sp</dimen>
     <dimen name="line_size">0.5dp</dimen>
+
+
+    <dimen name="gf_title_bar_height">56dp</dimen>
+
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_shadow_offset">3dp</dimen>
+    <dimen name="fab_shadow_radius">9dp</dimen>
+    <dimen name="fab_stroke_width">0.0dp</dimen>
 </resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_bottom_bar">
+
+        <GridView
+            android:id="@+id/gv_photo_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:clipToPadding="false"
+            android:fadingEdge="none"
+            android:horizontalSpacing="2dp"
+            android:listSelector="@drawable/gf_bg_list_item_selector"
+            android:numColumns="3"
+            android:verticalSpacing="2dp" />
+
+        <TextView
+            android:id="@+id/tv_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="请稍后…"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gf_title_bar_height"
+        android:layout_alignParentBottom="true"
+        android:background="#E6000000"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_choose_folder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="全部图片"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-2.5dp"
+            android:src="@mipmap/ic_gf_corner_mark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_folder_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_bottom_bar"
+        android:layout_marginTop="@dimen/gf_title_bar_height"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/lv_folder_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:backgroundTint="@android:color/white"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@color/gf_gray"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@drawable/gf_bg_list_item_selector" />
+    </LinearLayout>
+
+</RelativeLayout>

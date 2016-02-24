@@ -15,6 +15,7 @@ import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.comment.SendCommentActivity;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
@@ -24,6 +25,7 @@ import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.CustomUIHandler;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -141,9 +143,11 @@ public class ConsumedFragment extends BaseFragment {
             holder.consumedPrice.setText(orderModel.getOrdePrice() + "元");
             holder.consumedTime.setText(sdformat.format(orderModel.getRecordTime()) + context.getString(R.string.use));
             holder.commentBtn.setText(R.string.comment);
+            holder.commentBtn.setTag(orderModel);
             holder.delBtn.setText(R.string.del);
             holder.delBtn.setTag(orderModel);
             holder.delBtn.setOnClickListener(onDelClick);
+            holder.commentBtn.setOnClickListener(onCommentClick);
         }
 
         @Override
@@ -151,6 +155,16 @@ public class ConsumedFragment extends BaseFragment {
             return orderModels.size();
         }
     }
+
+    private View.OnClickListener onCommentClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            OrderModel order = (OrderModel) view.getTag();
+            Intent intent = new Intent(context, SendCommentActivity.class);
+            intent.putExtra("order", order);
+            startActivity(intent);
+        }
+    };
 
     private View.OnClickListener onOrderClick = new View.OnClickListener() {
         @Override

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <EditText
+        android:id="@+id/comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="@string/enter_comment"
+        android:lines="5"
+        android:maxLength="100"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="14sp" />
+
+    <com.baseandroid.view.InScrollViewGridView
+        android:id="@+id/photo_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:clipToPadding="false"
+        android:fadingEdge="none"
+        android:horizontalSpacing="2dp"
+        android:listSelector="@drawable/gf_bg_list_item_selector"
+        android:numColumns="5"
+        android:verticalSpacing="2dp"></com.baseandroid.view.InScrollViewGridView>
+
+    <View style="@style/line" android:layout_marginTop="3dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/comment_start"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:padding="0dp"
+            android:numStars="5"
+            style="@style/rating_bar"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+</LinearLayout>

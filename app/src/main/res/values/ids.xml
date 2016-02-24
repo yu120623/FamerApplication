@@ -6,4 +6,5 @@
 
     <item name="favourite_id" type="id"></item>
     <item name="favourite_type" type="id"></item>
+    <item name="fab_label" type="id"/>
 </resources>

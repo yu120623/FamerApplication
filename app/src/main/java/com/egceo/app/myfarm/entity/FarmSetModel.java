@@ -15,6 +15,7 @@ public class FarmSetModel extends FarmSet{
 	private Date beginTime;
 	private Double fund;
 	private String collectStatus;
+	private List<Resource> thResource;
 	
 	public List<ResourseModel> getBaResourceModels() {
 		return baResourceModels;
@@ -128,5 +129,13 @@ public class FarmSetModel extends FarmSet{
 
 	public void setConPrice(Double conPrice) {
 		this.conPrice = conPrice;
+	}
+
+	public List<Resource> getThResource() {
+		return thResource;
+	}
+
+	public void setThResource(List<Resource> thResource) {
+		this.thResource = thResource;
 	}
 }

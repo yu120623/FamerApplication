@@ -21,6 +21,7 @@ import com.egceo.app.myfarm.entity.FarmQuickPayModel;
 import com.egceo.app.myfarm.entity.FarmSetModel;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.home.activity.LoginActivity;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -65,7 +66,7 @@ public class QuickPayActivity extends BaseActivity {
                     return;
                 }
                 try {
-                    Double.parseDouble(price);
+                    price = Double.parseDouble(price)+"";
                 }catch (NumberFormatException e){
                     CommonUtil.showMessage(context, getString(R.string.plz_enter_money));
                     return;
@@ -169,7 +170,7 @@ public class QuickPayActivity extends BaseActivity {
 
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        CommonUtil.showMessage(context, "支付成功");
+                        CommonUtil.showMessage(context, getString(R.string.order_pay_success));
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -177,7 +178,7 @@ public class QuickPayActivity extends BaseActivity {
                             Toast.makeText(context, "支付结果确认中", Toast.LENGTH_SHORT).show();
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
+                            CommonUtil.showMessage(context, getString(R.string.order_pay_failed));
                         }
                     }
                     break;

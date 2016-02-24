@@ -67,10 +67,7 @@ public class RegisterActivity extends BaseActivity {
             CommonUtil.showMessage(context,getString(R.string.pls_enter_phone_number));
             return;
         }
-        android.os.Message msg = new android.os.Message();
-        msg.obj = getCode;
-        getCodeBtnHandler.setNextTime(AppUtil.SMS_TIME);
-        getCodeBtnHandler.sendMessage(msg);
+        getCode.setEnabled(false);
         String url = API.URL + API.API_URL.SEND_SMS;
         TransferObject data = AppUtil.getHttpData(context);
         UserProfile user = new UserProfile();
@@ -82,6 +79,16 @@ public class RegisterActivity extends BaseActivity {
             public void onSuccess(TransferObject data) {
                 SMSObject sms = data.getSmsObject();
                 sp.edit().putString(AppUtil.REG_SMS_ID,sms.getSmsId()).commit();
+                android.os.Message msg = new android.os.Message();
+                msg.obj = getCode;
+                getCodeBtnHandler.setNextTime(AppUtil.SMS_TIME);
+                getCodeBtnHandler.sendMessage(msg);
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                getCode.setEnabled(true);
             }
         },data);
         request.execute();
@@ -122,7 +129,7 @@ public class RegisterActivity extends BaseActivity {
             CommonUtil.showMessage(context,getString(R.string.pls_enter_phone_number));
             return false;
         }
-        if(TextUtils.isEmpty(passwordText)){
+        if(passwordText.length() < 6 || passwordText.length() > 20){
             CommonUtil.showMessage(context,getString(R.string.pls_enter_password));
             return false;
         }

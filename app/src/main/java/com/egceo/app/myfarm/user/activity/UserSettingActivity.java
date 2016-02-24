@@ -1,6 +1,7 @@
 package com.egceo.app.myfarm.user.activity;
 
 import android.content.Intent;
+import android.transition.ChangeBounds;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.home.activity.ForgetPwdActivity;
 import com.egceo.app.myfarm.home.activity.MainActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 
@@ -16,6 +18,8 @@ import com.egceo.app.myfarm.util.AppUtil;
  */
 public class UserSettingActivity extends BaseActivity{
     private TextView loginOutBtn;
+    private View changeUserName;
+    private View changePwd;
     @Override
     protected void initViews() {
         findViews();
@@ -35,10 +39,27 @@ public class UserSettingActivity extends BaseActivity{
                 finish();
             }
         });
+        changeUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,SetUserNameActivity.class);
+                startActivity(intent);
+            }
+        });
+        changePwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ForgetPwdActivity.class);
+                intent.putExtra("type","changePwd");
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews() {
         loginOutBtn = (TextView) this.findViewById(R.id.login_out_btn);
+        changeUserName = this.findViewById(R.id.change_user_name);
+        changePwd = this.findViewById(R.id.change_pwd);
     }
 
     @Override

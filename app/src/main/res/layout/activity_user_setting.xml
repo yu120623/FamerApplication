@@ -1,99 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <ImageView
-            style="@style/user_btn_style"
-            android:src="@mipmap/change_name" />
+        <include layout="@layout/header_user_setting"></include>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/user_btn_style"
+                android:src="@mipmap/change_name" />
+
+            <TextView
+                android:id="@+id/change_user_name"
+                style="@style/user_setting_text_style"
+                android:text="@string/change_name" />
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/user_btn_style"
+                android:src="@mipmap/change_pwd" />
+
+            <TextView
+                android:id="@+id/change_pwd"
+                style="@style/user_setting_text_style"
+                android:text="@string/change_pwd" />
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/user_btn_style"
+                android:src="@mipmap/app_update" />
+
+            <TextView
+                style="@style/user_setting_text_style"
+                android:text="@string/update_app" />
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/user_btn_style"
+                android:src="@mipmap/clear_cache" />
+
+            <TextView
+                style="@style/user_setting_text_style"
+                android:text="@string/clear_cache" />
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/user_btn_style"
+                android:src="@mipmap/about_app" />
+
+            <TextView
+                style="@style/user_setting_text_style"
+                android:text="@string/about_app" />
+        </LinearLayout>
+
+        <View style="@style/line" />
 
         <TextView
-            style="@style/user_setting_text_style"
-            android:text="@string/change_name" />
+            android:id="@+id/login_out_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_btn_bg"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/login_out"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </LinearLayout>
-
-    <View style="@style/line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            style="@style/user_btn_style"
-            android:src="@mipmap/change_pwd" />
-
-        <TextView
-            style="@style/user_setting_text_style"
-            android:text="@string/change_pwd" />
-    </LinearLayout>
-
-    <View style="@style/line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            style="@style/user_btn_style"
-            android:src="@mipmap/app_update" />
-
-        <TextView
-            style="@style/user_setting_text_style"
-            android:text="@string/update_app" />
-    </LinearLayout>
-
-    <View style="@style/line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            style="@style/user_btn_style"
-            android:src="@mipmap/clear_cache" />
-
-        <TextView
-            style="@style/user_setting_text_style"
-            android:text="@string/clear_cache" />
-    </LinearLayout>
-
-    <View style="@style/line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            style="@style/user_btn_style"
-            android:src="@mipmap/about_app" />
-
-        <TextView
-            style="@style/user_setting_text_style"
-            android:text="@string/about_app" />
-    </LinearLayout>
-
-    <View style="@style/line" />
-
-    <TextView
-        android:id="@+id/login_out_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/login_btn_bg"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="@string/login_out"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-</LinearLayout>
+</ScrollView>

@@ -84,4 +84,5 @@ public class FarmItemsModel extends FarmItems{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 }

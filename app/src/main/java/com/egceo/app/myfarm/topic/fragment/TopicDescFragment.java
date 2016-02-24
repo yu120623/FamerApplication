@@ -87,7 +87,7 @@ public class TopicDescFragment extends BaseFragment {
                     holder.itemView.setPadding(0,0,0,0);
                 }
                 holder.jieshaoText.setVisibility(View.GONE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation()+ AppUtil.DESC_IMG_SIZE, options);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModels.getDeResourceModels().get(position-1).getResourceLocation()+ AppUtil.DETAIL_IMG_SIZE, options);
             }
         }
 

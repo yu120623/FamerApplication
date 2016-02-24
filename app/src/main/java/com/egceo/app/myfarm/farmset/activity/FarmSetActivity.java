@@ -31,6 +31,7 @@ import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.order.actvity.OrderChooseDateActivity;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.nostra13.universalimageloader.core.decode.ImageDecodingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class FarmSetActivity extends BaseActivity {
     private String farmTopicAliasId;
     private String farmAliasId;
     private View currentItemView;
-
+    private ImageView currentFaceImg;
     @Override
     protected void initViews() {
         showProgress();
@@ -66,7 +67,7 @@ public class FarmSetActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY).build();
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2).build();
         farmSetList.setLayoutManager(new LinearLayoutManager(context));
         farmSetModels = new ArrayList<FarmSetModel>();
         farmItemsModels = new ArrayList<FarmItemsModel>();
@@ -116,7 +117,7 @@ public class FarmSetActivity extends BaseActivity {
         farmSetItemDesc.setText(farmItemsModel.getFarmItemName());
         farmSetItemPrice.setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
         farmSetItemImg.setTag(farmItemsModel.getResources());
-        ImageLoaderUtil.getInstance().displayImg(farmSetItemImg, farmItemsModel.getResources().get(0).getResourceLocation());
+        ImageLoaderUtil.getInstance().displayImg(farmSetItemImg, farmItemsModel.getResources().get(0).getResourceLocation()+AppUtil.FARM_SET_DETAIL_IMG_SIZE);
         farmSetItemDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
         View setHeader = item.findViewById(R.id.farm_set_item_header);
         View setContent = item.findViewById(R.id.farm_set_item_content);
@@ -168,6 +169,8 @@ public class FarmSetActivity extends BaseActivity {
         public void onBindViewHolder(final FarmSetViewHolder holder, int position) {
             FarmSetModel farmSetModel = farmSetModels.get(position);
             List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
+            String imageUrl = farmSetModel.getThResource().get(0).getResourceLocation()+AppUtil.FARM_SET_FACE_IMG_SIZE;
+            ImageLoaderUtil.getInstance().displayImg(holder.farmSetItemImage,imageUrl,options);
             holder.farmSetName.setText(farmSetModel.getFarmSetName());
             holder.farmSetMinPrice.setText(farmSetModel.getMinPrice() + getString(R.string.rmb));
             holder.farmSetConPrice.setText(getString(R.string.old_price)+farmSetModel.getConPrice()+getString(R.string.rmb));
@@ -204,18 +207,23 @@ public class FarmSetActivity extends BaseActivity {
         public void onClick(View v) {
             FarmSetViewHolder farmSetViewHolder = (FarmSetViewHolder) v.getTag();
             curPosition = farmSetViewHolder.getAdapterPosition();
-
             if (tmp != farmSetViewHolder.linearLayout4 && tmp != null) {
-//                tmp.findViewById(R.id.linearlayout1).setVisibility(View.GONE);
-
                 tmp.findViewById(R.id.btn_farmset).setVisibility(View.GONE);
                 ((CheckBox) tmp.findViewById(R.id.checkbox1)).setChecked(false);
             }
             tmp = farmSetViewHolder.linearLayout4;
-            if (farmSetViewHolder.checkBox.isChecked())
+            if (farmSetViewHolder.checkBox.isChecked()) {
                 farmSetViewHolder.checkBox.setChecked(false);
-            else
+                farmSetViewHolder.farmSetItemImage.setVisibility(View.VISIBLE);
+            }
+            else {
                 farmSetViewHolder.checkBox.setChecked(true);
+                farmSetViewHolder.farmSetItemImage.setVisibility(View.GONE);
+                if(currentFaceImg != null && currentFaceImg != farmSetViewHolder.farmSetItemImage){
+                    currentFaceImg.setVisibility(View.VISIBLE);
+                }
+                currentFaceImg = farmSetViewHolder.farmSetItemImage;
+            }
         }
 
         @Override
@@ -265,7 +273,7 @@ public class FarmSetActivity extends BaseActivity {
         private TextView farmSetMinPrice;
         private TextView navBtn;
         private TextView orderBtn;
-
+        private ImageView farmSetItemImage;
         public FarmSetViewHolder(View itemView) {
             super(itemView);
             farmSetLine = (TextView) itemView.findViewById(R.id.farm_set_line);
@@ -279,6 +287,7 @@ public class FarmSetActivity extends BaseActivity {
             linearLayout4 = (LinearLayout) itemView.findViewById(R.id.lin4);
             navBtn = (TextView) itemView.findViewById(R.id.navigation_btn);
             orderBtn = (TextView) itemView.findViewById(R.id.order_btn);
+            farmSetItemImage = (ImageView) itemView.findViewById(R.id.farm_set_item_img);
         }
     }
 

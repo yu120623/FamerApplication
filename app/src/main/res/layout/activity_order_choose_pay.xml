@@ -112,10 +112,11 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/actual_money"
+                    android:textColor="@color/order_process_seleted_bg"
+                    android:textSize="16sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:textSize="16sp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <Button

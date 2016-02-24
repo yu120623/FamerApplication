@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.db.DBHelper;
+import com.egceo.app.myfarm.db.UserProfileDao;
 import com.egceo.app.myfarm.entity.AaSubjectLogin;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
@@ -94,15 +96,18 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(TransferObject data) {
                 if(data.getMessage().getStatus().equals(AppUtil.RES_STATUS.STATUS_OK)) {
-                    sp.edit().putString(AppUtil.L_N,data.getUserProfile().getUserAliasId()).commit();
-                    /*Intent intent = new Intent(LoginActivity.this, UserActivity.class);
-                    intent.putExtra("in", true);
-                    startActivity(intent);*/
+                    saveLoginInfo(data);
                     finish();
                 }
             }
         },data);
         request.execute();
+    }
+
+    private void saveLoginInfo(TransferObject data) {
+        sp.edit().putString(AppUtil.L_N,data.getUserProfile().getUserAliasId()).commit();
+        UserProfileDao userProfileDao = DBHelper.getUserDaoSession(context,data.getUserProfile().getUserAliasId()).getUserProfileDao();
+        userProfileDao.insertOrReplace(data.getUserProfile());
     }
 
     private void findViews() {

@@ -178,7 +178,7 @@ public class TuiJianFragment extends BaseFragment {
             if (farmModel.getRecommend() != null) {
                 holder.recommendTuijian.setVisibility(View.VISIBLE);
             }
-            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath()+ AppUtil.FARM_IMG_SIZE, options);
+            ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath()+ AppUtil.FARM_FACE, options);
             holder.recommendDistance.setText(new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
             holder.flowLayout.removeAllViews();
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+
+    <include layout="@layout/gf_template_titlebar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:text="请稍后…"
+            android:visibility="gone"
+            />
+
+        <!--<galleryfinal.widget.FloatingActionButton
+            android:id="@+id/fab_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabIcon="@mipmap/ic_gf_done"
+            app:fabColorNormal="?attr/colorTheme"
+            app:fabColorPressed="?attr/colorThemeDark"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            />-->
+    </FrameLayout>
+
+</LinearLayout>

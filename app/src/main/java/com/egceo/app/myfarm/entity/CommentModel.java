@@ -40,7 +40,7 @@ public class CommentModel extends Comment{
 		this.setIsDeleted(comment.getIsDeleted());
 		this.setReferenceObjectId(comment.getReferenceObjectId());
 		this.setUpdatedBy(comment.getUpdatedBy());
-		this.setUpdatedtime(comment.getUpdatedtime());
+		this.setUpdatedTime(comment.getUpdatedTime());
 		
 	}
 	
@@ -57,7 +57,7 @@ public class CommentModel extends Comment{
 		comment.setIsDeleted(this.getIsDeleted());
 		comment.setReferenceObjectId(this.getReferenceObjectId());
 		comment.setUpdatedBy(this.getUpdatedBy());
-		comment.setUpdatedtime(this.getUpdatedtime());
+		comment.setUpdatedTime(this.getUpdatedTime());
 		return comment;
 	}
 	

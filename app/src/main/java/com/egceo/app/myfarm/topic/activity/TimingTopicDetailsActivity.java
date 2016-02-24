@@ -62,6 +62,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
     private Button topicBtn;
     private TextView farmSetPrice;
     private TextView farmSetReason;
+    private TextView title;
+
     @Override
     protected void initViews() {
         showProgress();
@@ -136,7 +138,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
     }
 
     private void initBanner() {
-        final NetworkImageHolderView netWorkImageHolderView = new NetworkImageHolderView();
+        final NetworkImageHolderView netWorkImageHolderView = new NetworkImageHolderView(AppUtil.INNER_BANNER_IMG_SIZE);
         netWorkImageHolderView.setImageOptions(options);
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -148,6 +150,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith / (640 * 1.0);
         banner.getLayoutParams().height = (int) (400 * scale);
+        banner.setPageIndicator(new int[]{R.mipmap.banner_i,R.mipmap.banner_i_s});
     }
 
     @Override
@@ -188,8 +191,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
+        title.setText(farmTopicModel.getFarmTopicName());
         loadDataFromServer();
-
     }
 
     //获取专题详细
@@ -231,7 +234,11 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         backBtn.setSelected(flag);
         favouriteBtn.setSelected(flag);
         shareBtn.setSelected(flag);
-
+        if(flag){
+            title.setVisibility(View.VISIBLE);
+        }else{
+            title.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -269,6 +276,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         bannerContainer = (RelativeLayout) this.findViewById(R.id.banner_container);
         farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);
         farmSetReason = (TextView) this.findViewById(R.id.farm_set_reason);
+        title = (TextView) this.findViewById(R.id.title);
     }
 
 

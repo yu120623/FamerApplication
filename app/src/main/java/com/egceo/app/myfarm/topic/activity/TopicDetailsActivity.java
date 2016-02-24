@@ -148,7 +148,7 @@ public class TopicDetailsActivity extends BaseActivity {
     }
 
     private void initBanner() {
-        netWorkImageHolderView = new NetworkImageHolderView();
+        netWorkImageHolderView = new NetworkImageHolderView(AppUtil.INNER_BANNER_IMG_SIZE);
         netWorkImageHolderView.setImageOptions(options);
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -161,7 +161,7 @@ public class TopicDetailsActivity extends BaseActivity {
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith / (640 * 1.0);
         banner.getLayoutParams().height = (int) (400 * scale);
-
+        banner.setPageIndicator(new int[]{R.mipmap.banner_i,R.mipmap.banner_i_s});
     }
 
     private void initTags() {

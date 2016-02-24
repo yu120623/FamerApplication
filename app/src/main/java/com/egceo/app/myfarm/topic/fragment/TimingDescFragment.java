@@ -102,7 +102,7 @@ public class TimingDescFragment extends BaseFragment {
         farmSetTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
         farmSetTag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
         farmSetDescList.setText(farmItemsModel.getFarmItemDesc());
-        ImageLoaderUtil.getInstance().displayImg(farmSetImg, farmItemsModel.getResources().get(0).getResourceLocation());
+        ImageLoaderUtil.getInstance().displayImg(farmSetImg, farmItemsModel.getResources().get(0).getResourceLocation()+AppUtil.FARM_SET_DETAIL_IMG_SIZE);
         View setHeader = item.findViewById(R.id.farm_set_item_header);
         View setContent = item.findViewById(R.id.farm_set_item_content);
         setHeader.setTag(setContent);
@@ -142,7 +142,7 @@ public class TimingDescFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(JieShaoViewHolder holder, int position) {
             holder.jieshaoText.setVisibility(View.GONE);
-            ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModel.getDeResourceModels().get(position).getResourceLocation()+ AppUtil.DESC_IMG_SIZE, options);
+            ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmSetModel.getDeResourceModels().get(position).getResourceLocation()+ AppUtil.DETAIL_IMG_SIZE, options);
         }
 
         @Override

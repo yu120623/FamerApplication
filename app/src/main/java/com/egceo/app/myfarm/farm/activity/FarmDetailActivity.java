@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
@@ -18,6 +19,7 @@ import com.baseandroid.view.HackyViewPager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.egceo.app.myfarm.entity.FarmQuickPayModel;
+import com.egceo.app.myfarm.home.activity.LoginActivity;
 import com.egceo.app.myfarm.listener.OnFavouriteClick;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.FavouriteBtn;
@@ -62,6 +64,7 @@ public class FarmDetailActivity extends BaseActivity {
     private ImageView shareBtn;
     private FavouriteBtn favouriteBtn;
     private FarmModel farmModel;
+    private TextView title;
     private Button fastPay;
     @Override
     protected void initViews() {
@@ -131,6 +134,11 @@ public class FarmDetailActivity extends BaseActivity {
         fastPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!AppUtil.checkIsLogin(context)){
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 Intent intent = new Intent(activity,QuickPayActivity.class);
                 intent.putExtra("farmModel",farmModel);
                 startActivity(intent);
@@ -142,10 +150,15 @@ public class FarmDetailActivity extends BaseActivity {
         backBtn.setSelected(flag);
         favouriteBtn.setSelected(flag);
         shareBtn.setSelected(flag);
+        if(flag){
+            title.setVisibility(View.VISIBLE);
+        }else{
+            title.setVisibility(View.GONE);
+        }
     }
 
     private void initBanner() {
-        final NetworkImageHolderView netWorkImageHolderView = new NetworkImageHolderView();
+        final NetworkImageHolderView netWorkImageHolderView = new NetworkImageHolderView(AppUtil.INNER_BANNER_IMG_SIZE);
         netWorkImageHolderView.setImageOptions(options);
         banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -157,6 +170,7 @@ public class FarmDetailActivity extends BaseActivity {
         int screenWith = CommonUtil.getScreenWith(getWindowManager());
         double scale = screenWith/ (640*1.0);
         banner.getLayoutParams().height = (int)(400*scale);
+        banner.setPageIndicator(new int[]{R.mipmap.banner_i,R.mipmap.banner_i_s});
     }
 
     @Override
@@ -197,6 +211,7 @@ public class FarmDetailActivity extends BaseActivity {
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         progressDrawable.start();
         dragTopLayout.setCollapseOffset((int)getResources().getDimension(android.R.dimen.app_icon_size));
+        title.setText(farmModel.getFarmName());
         loadDataFromServer();
     }
 
@@ -247,6 +262,7 @@ public class FarmDetailActivity extends BaseActivity {
         favouriteBtn = (FavouriteBtn) this.findViewById(R.id.favourite_btn);
         viewFarmSet = (Button) this.findViewById(R.id.view_farm_set);
         fastPay = (Button) this.findViewById(R.id.fast_pay);
+        title = (TextView) this.findViewById(R.id.title);
     }
 
     @Override

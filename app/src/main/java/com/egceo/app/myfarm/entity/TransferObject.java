@@ -39,6 +39,8 @@ public class TransferObject implements Serializable {
 
     private List<FarmStatementModel> farmStatementModels;
 
+    private String sysinfoId;
+
     private Double farmLatitude;
 
     private QRModel qrCodeModel;
@@ -530,5 +532,13 @@ public class TransferObject implements Serializable {
 
     public void setFarmQuickPayModel(FarmQuickPayModel farmQuickPayModel) {
         this.farmQuickPayModel = farmQuickPayModel;
+    }
+
+    public String getSysinfoId() {
+        return sysinfoId;
+    }
+
+    public void setSysinfoId(String sysinfoId) {
+        this.sysinfoId = sysinfoId;
     }
 }

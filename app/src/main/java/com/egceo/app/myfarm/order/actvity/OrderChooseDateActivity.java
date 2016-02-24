@@ -11,6 +11,7 @@ import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.FarmSetModel;
 import com.egceo.app.myfarm.entity.OrderDateModel;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.home.activity.LoginActivity;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -44,6 +45,11 @@ public class OrderChooseDateActivity extends BaseActivity{
         calendarView.setOnDateSelectedListener(new CalendarView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull Date selectedDate) {
+                if(!AppUtil.checkIsLogin(context)){
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 for(OrderDateModel date : orderDataModels){
                     Calendar calendar1 = Calendar.getInstance();
                     Calendar calendar2 = Calendar.getInstance();

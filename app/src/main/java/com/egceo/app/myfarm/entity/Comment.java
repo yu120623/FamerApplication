@@ -3,18 +3,18 @@ package com.egceo.app.myfarm.entity;
 import java.util.Date;
 
 public class Comment implements java.io.Serializable{
-	private Integer commentId;
+	private int commentId;
 	private String commentContent;
 	private String commnetType;
 	private Integer commentScore;
 	private Integer commenter;
 	private String commentStatus;
-	private Integer referenceObjectId;
+	private int referenceObjectId;
 	private String isDeleted;
 	private String createdBy;
 	private Date createdTime;
 	private String updatedBy;
-	private Date updatedtime;
+	private Date updatedTime;
 	
 	public Comment() {
 		
@@ -33,8 +33,25 @@ public class Comment implements java.io.Serializable{
 		this.createdBy = createdBy;
 		this.createdTime = createdTime;
 		this.updatedBy = updatedBy;
-		this.updatedtime = updatedtime;
+		this.updatedTime = updatedtime;
 	}
+
+	public Comment(Integer commentId, String commentContent, String commnetType, Integer commentScore, Integer commenter, String commentStatus, Integer referenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
+		this.commentId = commentId;
+		this.commentContent = commentContent;
+		this.commnetType = commnetType;
+		this.commentScore = commentScore;
+		this.commenter = commenter;
+		this.commentStatus = commentStatus;
+		this.referenceObjectId = referenceObjectId;
+		this.isDeleted = isDeleted;
+		this.createdBy = createdBy;
+		this.createdTime = createdTime;
+		this.updatedBy = updatedBy;
+		this.updatedTime = updatedTime;
+	}
+
+
 
 	public Integer getCommentId() {
 		return commentId;
@@ -112,11 +129,11 @@ public class Comment implements java.io.Serializable{
 		this.updatedBy = updatedBy;
 	}
 
-	public Date getUpdatedtime() {
-		return updatedtime;
+	public Date getUpdatedTime() {
+		return updatedTime;
 	}
-	public void setUpdatedtime(Date updatedtime) {
-		this.updatedtime = updatedtime;
+	public void setUpdatedTime(Date updatedtime) {
+		this.updatedTime = updatedtime;
 	}
 	
 	

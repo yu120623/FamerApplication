@@ -126,6 +126,17 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="rating_bar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="small_rating_bar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/small_ratingbar</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
     <style name="line">
         <item name="android:layout_width">match_parent</item>

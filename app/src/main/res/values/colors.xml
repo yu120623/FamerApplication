@@ -8,4 +8,6 @@
     <color name="green2">#50B973</color>
     <color name="pink">#FFF8E0</color>
     <color name="comment_color">#909090</color>
+    <color name="gf_gray">#d2d2d7</color>
+    <color name="gf_list_item_pressed">#F0F1F3</color>
 </resources>

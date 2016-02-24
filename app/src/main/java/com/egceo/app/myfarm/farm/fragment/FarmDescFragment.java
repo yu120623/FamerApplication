@@ -91,7 +91,7 @@ public class FarmDescFragment extends BaseFragment {
             } else {
                 holder.jieshaoText.setVisibility(View.GONE);
                 holder.jieshaoImage.setVisibility(View.VISIBLE);
-                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmModel.getDeResourseModels().get(position-1).getResourceLocation()+ AppUtil.DESC_IMG_SIZE, options);
+                ImageLoaderUtil.getInstance().displayImg(holder.jieshaoImage, farmModel.getDeResourseModels().get(position-1).getResourceLocation()+ AppUtil.DETAIL_IMG_SIZE, options);
             }
         }
 

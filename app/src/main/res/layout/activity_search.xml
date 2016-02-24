@@ -12,7 +12,7 @@
         android:padding="15dp"
         android:text="@string/hot_area"
         android:gravity="center_horizontal"
-        android:textColor="@color/line"
+        android:textColor="@color/gray"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -32,7 +32,7 @@
         android:padding="15dp"
         android:text="@string/hot_tag"
         android:gravity="center_horizontal"
-        android:textColor="@color/line"
+        android:textColor="@color/gray"
         android:textSize="16sp" />
 
     <LinearLayout

@@ -53,6 +53,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".home.activity.MainActivityNew"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".search.activity.SearchActivity"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -64,8 +68,8 @@
 
         <activity
             android:name=".city.activity.CityActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".topic.activity.TimingTopicDetailsActivity"
             android:screenOrientation="portrait"></activity>
@@ -129,6 +133,15 @@
         <activity
             android:name=".farm.activity.QuickPayActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".comment.SendCommentActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="galleryfinal.PhotoChooseActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".user.activity.SetUserNameActivity"
+            android:screenOrientation="portrait"></activity>
         <!--银联 -->
         <activity
             android:name="com.unionpay.uppay.PayActivity"
@@ -161,7 +174,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="6374a3b6afa36b5a1381fa970f2da4e5" />
+            android:value="4cc96f1f39e0d90af1e1f86b28524e49" />
 
         <!-- 6374a3b6afa36b5a1381fa970f2da4e5 发布-->
         <!-- 4cc96f1f39e0d90af1e1f86b28524e49 debug-->

@@ -56,12 +56,12 @@
         "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_layout.xml",
-        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_layout.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_up_container.xml",
         "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_layout.xml",
+        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
         "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_layout.xml",
@@ -202,6 +202,10 @@
     {
         "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_material.xml",
         "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\swipeback_layout.xml",
+        "source": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\exploded-aar\\me.imid.swipebacklayout.lib\\library\\1.0.0\\res\\layout\\swipeback_layout.xml"
     },
     {
         "merged": "D:\\AndroidStudioProject\\FamerApplication\\baseAndroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",

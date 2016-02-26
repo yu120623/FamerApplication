@@ -1,3 +1,4 @@
-include ':app', ':HeaderAndFooterRecyclerViewLibrary', ':calendarview'
+include ':app', ':HeaderAndFooterRecyclerViewLibrary', ':calendarview', ':onekeyshare'
 include ':baseAndroid'
 include ':HeaderAndFooterRecyclerViewLibrary'
+include ':shareSDK'

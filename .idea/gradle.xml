@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baseAndroid" />
             <option value="$PROJECT_DIR$/calendarview" />
+            <option value="$PROJECT_DIR$/onekeyshare" />
+            <option value="$PROJECT_DIR$/shareSDK" />
           </set>
         </option>
         <option name="myModules">
@@ -23,6 +25,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baseAndroid" />
             <option value="$PROJECT_DIR$/calendarview" />
+            <option value="$PROJECT_DIR$/onekeyshare" />
+            <option value="$PROJECT_DIR$/shareSDK" />
           </set>
         </option>
       </GradleProjectSettings>

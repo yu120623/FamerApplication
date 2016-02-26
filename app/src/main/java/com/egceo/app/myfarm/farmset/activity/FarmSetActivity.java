@@ -214,15 +214,10 @@ public class FarmSetActivity extends BaseActivity {
             tmp = farmSetViewHolder.linearLayout4;
             if (farmSetViewHolder.checkBox.isChecked()) {
                 farmSetViewHolder.checkBox.setChecked(false);
-                farmSetViewHolder.farmSetItemImage.setVisibility(View.VISIBLE);
             }
             else {
                 farmSetViewHolder.checkBox.setChecked(true);
                 farmSetViewHolder.farmSetItemImage.setVisibility(View.GONE);
-                if(currentFaceImg != null && currentFaceImg != farmSetViewHolder.farmSetItemImage){
-                    currentFaceImg.setVisibility(View.VISIBLE);
-                }
-                currentFaceImg = farmSetViewHolder.farmSetItemImage;
             }
         }
 

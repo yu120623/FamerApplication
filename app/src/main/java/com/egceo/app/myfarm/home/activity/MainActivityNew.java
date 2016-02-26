@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,6 +55,7 @@ public class MainActivityNew extends BaseActivity {
     private View userBtn;
     private List<Resource> resources;
     private FragmentPagerItemAdapter adapter;
+    private RadioGroup radioButtonGroup;
     @Override
     protected void initViews() {
         findViews();
@@ -173,8 +177,21 @@ public class MainActivityNew extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-
+        radioButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.jingxuan_btn){
+                    contentViewPager.setCurrentItem(0);
+                }else if(checkedId == R.id.qianggou_btn){
+                    contentViewPager.setCurrentItem(1);
+                }else if(checkedId == R.id.tuijian_btn){
+                    contentViewPager.setCurrentItem(2);
+                }else if(checkedId == R.id.zhoubian_btn){
+                    contentViewPager.setCurrentItem(3);
+                }
+            }
+        });
+        ((RadioButton)radioButtonGroup.getChildAt(0)).setChecked(true);
     }
 
     @Override
@@ -260,6 +277,7 @@ public class MainActivityNew extends BaseActivity {
         loginBtn = this.findViewById(R.id.user_login);
         userBtn = this.findViewById(R.id.user_btn);
         area = (TextView) this.findViewById(R.id.area);
+        radioButtonGroup = (RadioGroup) this.findViewById(R.id.bottom_radio_group);
     }
 
     @Override

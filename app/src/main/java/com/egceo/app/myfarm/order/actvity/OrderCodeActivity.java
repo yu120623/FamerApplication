@@ -78,7 +78,7 @@ public class OrderCodeActivity extends BaseActivity {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         orderName.setText(getString(R.string.product_info)+order.getFarmSetModel().getFarmSetName());
-        orderPrice.setText(getString(R.string.order_money)+getString(R.string.rmb)+order.getOrdePrice()+"");
+        orderPrice.setText(getString(R.string.order_money)+order.getOrdePrice()+getString(R.string.rmb));
         orderTime.setText(getString(R.string.order_time)+dateFormat.format(order.getJourneyTime()));
     }
 

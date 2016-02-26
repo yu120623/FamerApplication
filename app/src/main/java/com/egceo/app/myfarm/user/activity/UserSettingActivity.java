@@ -11,6 +11,7 @@ import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.home.activity.ForgetPwdActivity;
 import com.egceo.app.myfarm.home.activity.MainActivity;
+import com.egceo.app.myfarm.home.activity.MainActivityNew;
 import com.egceo.app.myfarm.util.AppUtil;
 
 /**
@@ -32,7 +33,7 @@ public class UserSettingActivity extends BaseActivity{
             public void onClick(View v) {
                 CommonUtil.showSimpleProgressDialog("正在安全退出,请稍后",activity);
                 sp.edit().remove(AppUtil.L_N).commit();
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, MainActivityNew.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 CommonUtil.dismissSimpleProgressDialog();
                 startActivity(intent);

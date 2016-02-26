@@ -7,83 +7,27 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-From BaseAndroid:
-* ic_launcher-web.png
+* build.xml
 * proguard-project.txt
-From ImageLoader:
-* pom.xml
-* test-gen\
-* test-gen\com\
-* test-gen\com\nostra13\
-* test-gen\com\nostra13\universalimageloader\
-* test-gen\com\nostra13\universalimageloader\R.java
-* test\
-* test\com\
-* test\com\nostra13\
-* test\com\nostra13\universalimageloader\
-* test\com\nostra13\universalimageloader\core\
-* test\com\nostra13\universalimageloader\core\assist\
-* test\com\nostra13\universalimageloader\core\assist\ImageSizeTest.java
-* test\com\nostra13\universalimageloader\core\download\
-* test\com\nostra13\universalimageloader\core\download\BaseImageDownloaderTest.java
-
-Replaced Jars with Dependencies:
---------------------------------
-The importer recognized the following .jar files as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the .jar file in your project was of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the jar replacement in the import wizard and try again:
-
-android-support-v7-appcompat.jar => com.android.support:appcompat-v7:19.1.0
-gson-2.2.4.jar => com.google.code.gson:gson:2.2.4
-
-Potentially Missing Dependency:
--------------------------------
-When we replaced the following .jar files with a Gradle dependency, we
-inferred the dependency version number from the filename. This
-specific version may not actually be available from the repository.
-If you get a build error stating that the dependency is missing, edit
-the version number to for example "+" to pick up the latest version
-instead. (This may require you to update your code if the library APIs
-have changed.)
-
-gson-2.2.4.jar => version 2.2.4 in com.google.code.gson:gson:2.2.4
-
-Replaced Libraries with Dependencies:
--------------------------------------
-The importer recognized the following library projects as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the source files in your project were of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the library replacement in the import wizard and try
-again:
-
-android-support-v7-appcompat => [com.android.support:appcompat-v7:19.1.0]
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-In ImageLoader:
-* AndroidManifest.xml => imageLoader\src\main\AndroidManifest.xml
-* assets\ => imageLoader\src\main\assets
-* res\ => imageLoader\src\main\res
-* src\ => imageLoader\src\main\java\
-In BaseAndroid:
-* AndroidManifest.xml => baseAndroid\src\main\AndroidManifest.xml
-* assets\ => baseAndroid\src\main\assets
-* libs\android-viewbadger.jar => baseAndroid\libs\android-viewbadger.jar
-* libs\nineoldandroids-2.4.0.jar => baseAndroid\libs\nineoldandroids-2.4.0.jar
-* libs\volley.jar => baseAndroid\libs\volley.jar
-* lint.xml => baseAndroid\lint.xml
-* res\ => baseAndroid\src\main\res\
-* src\ => baseAndroid\src\main\java\
+* AndroidManifest.xml => shareSDK\src\main\AndroidManifest.xml
+* libs\MobCommons.jar => shareSDK\libs\MobCommons.jar
+* libs\MobTools.jar => shareSDK\libs\MobTools.jar
+* libs\ShareSDK-Core-2.6.6.jar => shareSDK\libs\ShareSDK-Core-2.6.6.jar
+* libs\ShareSDK-QQ-2.6.6.jar => shareSDK\libs\ShareSDK-QQ-2.6.6.jar
+* libs\ShareSDK-QZone-2.6.6.jar => shareSDK\libs\ShareSDK-QZone-2.6.6.jar
+* libs\ShareSDK-SinaWeibo-2.6.6.jar => shareSDK\libs\ShareSDK-SinaWeibo-2.6.6.jar
+* libs\ShareSDK-Wechat-2.6.6.jar => shareSDK\libs\ShareSDK-Wechat-2.6.6.jar
+* libs\ShareSDK-Wechat-Core-2.6.6.jar => shareSDK\libs\ShareSDK-Wechat-Core-2.6.6.jar
+* libs\ShareSDK-Wechat-Favorite-2.6.6.jar => shareSDK\libs\ShareSDK-Wechat-Favorite-2.6.6.jar
+* libs\ShareSDK-Wechat-Moments-2.6.6.jar => shareSDK\libs\ShareSDK-Wechat-Moments-2.6.6.jar
+* res\ => shareSDK\src\main\res\
+* src\ => shareSDK\src\main\java
 
 Next Steps:
 -----------

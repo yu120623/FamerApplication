@@ -3,24 +3,32 @@ package com.egceo.app.myfarm.topic.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
-import android.graphics.Point;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.egceo.app.myfarm.home.activity.LoginActivity;
+import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.entity.FarmSetModel;
+import com.egceo.app.myfarm.entity.FarmTopicModel;
+import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.farmset.activity.FarmSetActivity;
+import com.egceo.app.myfarm.http.API;
+import com.egceo.app.myfarm.http.AppHttpResListener;
+import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.listener.OnFavouriteClick;
+import com.egceo.app.myfarm.topic.fragment.TopicCommentFragment;
+import com.egceo.app.myfarm.topic.fragment.TopicDescFragment;
+import com.egceo.app.myfarm.topic.fragment.TopicNoticFragment;
+import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.util.NetworkImageHolderView;
 import com.egceo.app.myfarm.view.FavouriteBtn;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,23 +36,12 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
-import com.egceo.app.myfarm.R;
-import com.egceo.app.myfarm.farmset.activity.FarmSetActivity;
-import com.egceo.app.myfarm.topic.fragment.TopicCommentFragment;
-import com.egceo.app.myfarm.topic.fragment.TopicDescFragment;
-import com.egceo.app.myfarm.topic.fragment.TopicNoticFragment;
-import com.egceo.app.myfarm.entity.FarmSetModel;
-import com.egceo.app.myfarm.entity.FarmTopicModel;
-import com.egceo.app.myfarm.entity.TransferObject;
-import com.egceo.app.myfarm.http.API;
-import com.egceo.app.myfarm.http.AppHttpResListener;
-import com.egceo.app.myfarm.http.AppRequest;
-import com.egceo.app.myfarm.util.AppUtil;
-import com.egceo.app.myfarm.util.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
@@ -69,7 +66,7 @@ public class TopicDetailsActivity extends BaseActivity {
     private NetworkImageHolderView netWorkImageHolderView;
     @Override
     protected void initViews() {
-        showProgress();;
+        showProgress();
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViews();
         initData();
@@ -121,11 +118,6 @@ public class TopicDetailsActivity extends BaseActivity {
         veiwFarmSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!AppUtil.checkIsLogin(context)){
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    startActivity(intent);
-                    return;
-                }
                 Intent intent = new Intent(context, FarmSetActivity.class);
                 intent.putExtra("title",farmTopicModel.getFarmTopicName());
                 intent.putExtra("farmTopicAliasId", farmTopicModel.getFarmTopicAliasId());
@@ -134,6 +126,21 @@ public class TopicDetailsActivity extends BaseActivity {
         });
         favouriteBtn.setTag(R.id.favourite_id,farmTopicModel.getFarmTopicAliasId());
         favouriteBtn.setTag(R.id.favourite_type, OnFavouriteClick.FARM_TOPIC);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               OnekeyShare oks = new OnekeyShare();
+                oks.disableSSOWhenAuthorize();
+                oks.setTitle("农庄分享");
+                oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.setText("我收藏了好久，今天分享给大家");
+                oks.setUrl("http://sharesdk.cn");
+                oks.setComment("我收藏了好久，今天分享给大家");
+                oks.setSite(getString(R.string.app_name));
+                oks.setSiteUrl("http://sharesdk.cn");
+                oks.show(activity);
+            }
+        });
     }
 
     private void setActionBarIcon(boolean flag) {
@@ -200,6 +207,7 @@ public class TopicDetailsActivity extends BaseActivity {
 
 
     private void initData() {
+        ShareSDK.initSDK(this);
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
@@ -287,7 +295,7 @@ public class TopicDetailsActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        super.onDestroy();ShareSDK.stopSDK(this);
     }
 
     public void setUrlBanners(FarmSetModel farmSetModel) {
@@ -298,4 +306,6 @@ public class TopicDetailsActivity extends BaseActivity {
             bannerUrls.add(farmSetModel.getBaResourceModels().get(i).getResourceLocation());
         }
     }
+
+
 }

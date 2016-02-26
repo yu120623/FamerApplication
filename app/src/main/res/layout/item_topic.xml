@@ -58,8 +58,10 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/topic_area_bg"
             android:padding="3dp"
+            android:minWidth="50dp"
+            android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -70,7 +72,7 @@
             android:gravity="center_vertical"
             android:minHeight="30dp"
             android:minWidth="80dp"
-            android:text="800元"
+            android:text="800元起"
             android:paddingLeft="5dp"
             android:layout_marginTop="30dp"
             android:textColor="@color/white" />

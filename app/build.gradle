@@ -12,13 +12,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    useLibrary 'org.apache.http.legacy'
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 
@@ -43,7 +50,8 @@ dependencies {
     compile files('libs/alipaySdk-20151112.jar')
     compile files('libs/Msc.jar')
     compile files('libs/libammsdk.jar')
+    compile files('libs/ToolsFinal-1.0.8-release.jar')
     compile files('libs/UPPayAssistEx.jar')
     compile files('libs/UPPayPluginExPro.jar')
-    compile files('libs/ToolsFinal-1.0.8-release.jar')
+    compile project(':onekeyshare')
 }

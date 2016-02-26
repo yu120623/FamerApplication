@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.topic.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
@@ -17,6 +18,7 @@ import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.egceo.app.myfarm.listener.OnFavouriteClick;
+import com.egceo.app.myfarm.order.actvity.OrderChooseDateActivity;
 import com.egceo.app.myfarm.view.FavouriteBtn;
 import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -86,6 +88,14 @@ public class TimingTopicDetailsActivity extends BaseActivity {
                 topicBtn.setText(R.string.end_qianggou);
             } else {
                 topicBtn.setText(R.string.qianggou);
+                topicBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, OrderChooseDateActivity.class);
+                        intent.putExtra("farmSetModel",farmSetModels);
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }

@@ -31,7 +31,7 @@
             android:id="@+id/drag_content_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:background="#ECECEC"
             android:orientation="vertical">
 
@@ -46,58 +46,71 @@
     </github.chenupt.dragtoplayout.DragTopLayout>
 
     <LinearLayout
-        android:background="#7dffffff"
         android:id="@+id/bottom_btn"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#7dffffff"
         android:orientation="vertical">
 
         <View style="@style/line" />
 
         <RadioGroup
+            android:id="@+id/bottom_radio_group"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
             android:weightSum="4">
 
             <RadioButton
+                android:id="@+id/jingxuan_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@null"
+                android:drawableTop="@drawable/jingxuan_btn"
                 android:gravity="center"
                 android:text="精选"
-                android:textColor="@color/black" />
+                android:textColor="@color/home_btn_text_color"
+                android:textSize="14sp" />
 
             <RadioButton
+                android:id="@+id/qianggou_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@null"
+                android:drawableTop="@drawable/qianggou_btn"
                 android:gravity="center"
-                android:text="精选"
-                android:textColor="@color/black" />
+                android:text="抢购"
+                android:textColor="@color/home_btn_text_color"
+                android:textSize="14sp" />
 
             <RadioButton
+                android:id="@+id/tuijian_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@null"
+                android:drawableTop="@drawable/nongzhuang_btn"
                 android:gravity="center"
-                android:text="精选"
-                android:textColor="@color/black" />
+                android:text="推荐"
+                android:textColor="@color/home_btn_text_color"
+                android:textSize="14sp" />
 
             <RadioButton
+                android:id="@+id/zhoubian_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@null"
+                android:drawableTop="@drawable/zhoubian_btn"
                 android:gravity="center"
-                android:text="精选"
-                android:textColor="@color/black" />
+                android:text="周边"
+                android:textColor="@color/home_btn_text_color"
+                android:textSize="14sp" />
         </RadioGroup>
     </LinearLayout>
 </RelativeLayout>

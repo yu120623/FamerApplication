@@ -1,7 +1,6 @@
 <resources>
 
     <style name="MyAppTheme" parent="Theme.AppCompat.Light">
-        <item name="android:windowIsTranslucent">true</item>
         <item name="colorPrimaryDark">#2e2e2e</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

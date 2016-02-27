@@ -199,7 +199,6 @@ public class ReFundFragment extends BaseFragment {
             paidTime = (TextView) itemView.findViewById(R.id.order_item_time);
             btn1 = (TextView) itemView.findViewById(R.id.order_item_btn1);
             btn2 = (TextView) itemView.findViewById(R.id.order_item_btn2);
-
         }
     }
 

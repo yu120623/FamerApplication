@@ -96,7 +96,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/nongzhuang_btn"
                 android:gravity="center"
-                android:text="推荐"
+                android:text="发现"
                 android:textColor="@color/home_btn_text_color"
                 android:textSize="14sp" />
 

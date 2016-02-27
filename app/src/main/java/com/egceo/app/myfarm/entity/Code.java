@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Code implements java.io.Serializable{
 
-	private Integer codeId;
+	private long codeId;
 	private String codeName;
 	private String codeDesc;
 	private String codetype;
@@ -13,15 +13,25 @@ public class Code implements java.io.Serializable{
 	private Date createdTime;
 	private String updatedBy;
 	private Date updatedTime;
+	private boolean isCurrent;
 	public Code() {
 
 	}
-	
+	public Code(Long codeId, String codeName, String codeDesc, String codetype, String createdBy, String updatedBy, java.util.Date updatedTime, java.util.Date createdTime, Boolean isCurrent) {
+		this.codeId = codeId;
+		this.codeName = codeName;
+		this.codeDesc = codeDesc;
+		this.codetype = codetype;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.updatedTime = updatedTime;
+		this.createdTime = createdTime;
+		this.isCurrent = isCurrent;
+	}
 
 	public Code(String codeName, String codeDesc, String codetype,
 			Integer parentId, String createdBy, Date createdTime,
 			String updatedBy, Date updatedTime) {
-	
 		this.codeName = codeName;
 		this.codeDesc = codeDesc;
 		this.codetype = codetype;
@@ -33,10 +43,10 @@ public class Code implements java.io.Serializable{
 	}
 
 
-	public Integer getCodeId() {
+	public long getCodeId() {
 		return codeId;
 	}
-	public void setCodeId(Integer codeId) {
+	public void setCodeId(long codeId) {
 		this.codeId = codeId;
 	}
 
@@ -107,9 +117,13 @@ public class Code implements java.io.Serializable{
 	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-	
-	
-	
-	
-	
+
+
+	public boolean getIsCurrent() {
+		return isCurrent;
+	}
+
+	public void setIsCurrent(boolean current) {
+		isCurrent = current;
+	}
 }

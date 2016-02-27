@@ -48,6 +48,7 @@ public class RefundOrderActivity extends BaseActivity{
             }
         },data);
         request.execute();
+        header.setStep2();
     }
 
     private void showRefundReason(RefundRequestModel refundRequestModel) {
@@ -55,8 +56,10 @@ public class RefundOrderActivity extends BaseActivity{
         if(refundRequestModel.getStatus().equals("2")){//同意退款
             setRefundStatus(getString(R.string.agree_refund),getString(R.string.admin_examine),refundRequestModel.getRefundConfirmTime());
         }else if(refundRequestModel.getStatus().equals("1")){//拒绝退款
+            header.setStep3();
             setRefundStatus("拒绝退单",getString(R.string.admin_examine),refundRequestModel.getRefundConfirmTime());
         }else if(refundRequestModel.getStatus().equals("3")){//退单完成
+            header.setStep3();
             setRefundStatus(getString(R.string.agree_refund),getString(R.string.admin_examine),refundRequestModel.getRefundConfirmTime());
             setRefundStatus(getString(R.string.refund_success),getString(R.string.result),refundRequestModel.getRefundCompletedTime());
         }

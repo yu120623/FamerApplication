@@ -18,6 +18,7 @@ public class FavouriteBtn extends ImageView implements Checkable{
     private boolean mChecked = false;
     private Drawable mButtonDrawable;
     private OnCheckedChangeListener onCheckedChangeListener;
+    private OnClickListener onLoginCheckClickListener;
     public FavouriteBtn(Context context) {
         super(context);
         init(context);
@@ -50,6 +51,7 @@ public class FavouriteBtn extends ImageView implements Checkable{
         mChecked = b;
         refreshDrawableState();
     }
+
 
     @Override
     public int[] onCreateDrawableState(int extraSpace) {

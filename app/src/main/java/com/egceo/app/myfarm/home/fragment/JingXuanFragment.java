@@ -164,6 +164,7 @@ public class JingXuanFragment extends BaseFragment {
             holder.topicReason.setText(farmTopicModel.getFarmTopicRecomReason());
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(this);
+            holder.topicMoney.setText(farmTopicModel.getFarmsetMinPrice()+context.getString(R.string.up));
             ImageLoaderUtil.getInstance().displayImg(holder.topicImage,farmTopicModel.getResourcePath()+AppUtil.TOPIC_IMG_SIZE, options);
         }
 
@@ -188,6 +189,7 @@ public class JingXuanFragment extends BaseFragment {
         private TextView topicArea;
         private TextView topicReason;
         private ImageView topicImage;
+        private TextView topicMoney;
 
         public TopicViewHolder(View itemView) {
             super(itemView);
@@ -195,6 +197,7 @@ public class JingXuanFragment extends BaseFragment {
             topicArea = (TextView) itemView.findViewById(R.id.topic_area);
             topicReason = (TextView) itemView.findViewById(R.id.topic_reason);
             topicImage = (ImageView) itemView.findViewById(R.id.topic_img);
+            topicMoney = (TextView) itemView.findViewById(R.id.topic_money);
         }
     }
 

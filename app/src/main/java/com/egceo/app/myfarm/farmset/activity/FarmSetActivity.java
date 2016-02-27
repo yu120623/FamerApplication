@@ -195,6 +195,8 @@ public class FarmSetActivity extends BaseActivity {
             holder.checkBox.setOnCheckedChangeListener(this);
             holder.navBtn.setOnClickListener(onNavBtnClick);
             holder.orderBtn.setOnClickListener(onOrderBtnClick);
+            holder.farmSetItemImage.setOnClickListener(this);
+            holder.farmSetItemImage.setTag(holder);
         }
 
 
@@ -217,7 +219,6 @@ public class FarmSetActivity extends BaseActivity {
             }
             else {
                 farmSetViewHolder.checkBox.setChecked(true);
-                farmSetViewHolder.farmSetItemImage.setVisibility(View.GONE);
             }
         }
 

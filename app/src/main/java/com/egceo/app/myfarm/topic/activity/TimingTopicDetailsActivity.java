@@ -42,6 +42,7 @@ import com.egceo.app.myfarm.util.NetworkImageHolderView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
@@ -145,6 +146,22 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         });
         favouriteBtn.setTag(R.id.favourite_id,farmTopicModel.getFarmTopicAliasId());
         favouriteBtn.setTag(R.id.favourite_type, OnFavouriteClick.FARM_TOPIC);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnekeyShare oks = new OnekeyShare();
+                oks.disableSSOWhenAuthorize();
+                oks.setTitle("农庄分享");
+                oks.setImageUrl(farmTopicModel.getResourcePath()+AppUtil.FARM_FACE);
+                oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.setText("我收藏了好久，今天分享给大家");
+                oks.setUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.setComment("我收藏了好久，今天分享给大家");
+                oks.setSite(getString(R.string.app_name));
+                oks.setSiteUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.show(activity);
+            }
+        });
     }
 
     private void initBanner() {
@@ -219,7 +236,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
                 if(farmSetModels.getCollectStatus().equals("1")){
                     favouriteBtn.setChecked(true);
                 }
-                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick());
+                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick(activity));
                 initTopicBtn();
                 setUrlBanners(farmSetModels);
                 initBanner();

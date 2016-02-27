@@ -90,20 +90,32 @@ public class FarmSetNavListActivity extends Activity {
     private void addMark() {
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
         if (null == farmItemsModels || farmItemsModels.size() <= 0) return;
+        /*map.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return inflater.inflate(R.layout.item_nav_map_text_bg,null,false);
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });*/
         for (int i = 0; i < farmItemsModels.size(); i++) {
             MarkerOptions mark = new MarkerOptions();
             FarmItemsModel item = farmItemsModels.get(i);
             mark.position(new LatLng(item.getFarmLatitude(), item.getFarmLongitude()));
             mark.icon(BitmapDescriptorFactory.defaultMarker());
             mark.title(item.getFarmItemName());
-            markers.add(map.addMarker(mark));
+            Marker marker = map.addMarker(mark);
+            markers.add(marker);
+            marker.showInfoWindow();
         }
     }
 
     private void addItem() {
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
         if (null == farmItemsModels || farmItemsModels.size() <= 0) return;
-        //LatLng local = new LatLng(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue(),Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         for (int i = 0; i < farmItemsModels.size(); i++) {
             FarmItemsModel item = farmItemsModels.get(i);
             View view = ((LinearLayout) inflater.inflate(R.layout.item_farm_set_nav, navContent, true)).getChildAt(navContent.getChildCount() - 1);
@@ -118,7 +130,6 @@ public class FarmSetNavListActivity extends Activity {
             itemTag.setText(AppUtil.getFarmSetTag(item.getFarmItemType()));
             itemTag.setBackgroundResource(AppUtil.getFarmSetTagBg(item.getFarmItemType()));
             itemDesc.setText(item.getFarmItemName());
-            //LatLng latLng = new LatLng(item.getFarmLatitude(),item.getFarmLongitude());
             itemDistance.setText(decimalFormat.format(item.getDistance()));
             navBtn.setTag(item);
             navBtn.setOnClickListener(onNavBtnClick);

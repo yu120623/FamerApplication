@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:layout_weight="3">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal"
+        android:layout_toLeftOf="@+id/farm_item_status"
+        android:layout_toStartOf="@+id/farm_item_status">
 
         <TextView
             android:id="@+id/farm_item_tag"
@@ -22,33 +25,40 @@
             android:textColor="@color/white"
             android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/farm_item_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="dadada大大"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/farm_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dadada大大"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/farm_item_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="标准的角度"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/farm_item_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:gravity="center"
-        android:text="标准的角度"
-        android:textColor="@color/gray"
-        android:textSize="12sp" />
-
-    <TextView
         android:id="@+id/farm_item_status"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:text="以消费"
         android:textColor="@color/gray"
         android:textSize="14sp" />
-</LinearLayout>
+</RelativeLayout>

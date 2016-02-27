@@ -58,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/gray"
                     android:text="亲，半小时内我是你的，快快付款把我带回家吧，不然我飞走了"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -93,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#e5ffffff"
-            android:padding="10dp">
+            android:padding="5dp">
 
 
             <LinearLayout
@@ -105,7 +106,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_actual_money"
                     android:textColor="@color/black"

@@ -2,6 +2,8 @@ package com.egceo.app.myfarm.db;
 
 import android.content.Context;
 
+import com.egceo.app.myfarm.util.AppUtil;
+
 public class DBHelper {
 	private static DaoMaster daoMaster;
 	private static DaoSession daoSession;
@@ -9,18 +11,18 @@ public class DBHelper {
 	private static DaoMaster userDaoMaster;
 	private static DaoSession userDaoSession;
 
-	public static synchronized DaoMaster getDaoMaster(Context context,String dbName) {
+	public static synchronized DaoMaster getDaoMaster(Context context) {
 		if (daoMaster == null) {
-			DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context,dbName, null);
+			DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, AppUtil.DB_NAME, null);
 			daoMaster = new DaoMaster(helper.getWritableDatabase());
 		}
 		return daoMaster;
 	}
 
-	public static synchronized DaoSession getDaoSession(Context context,String dbName) {
+	public static synchronized DaoSession getDaoSession(Context context) {
 		if (daoSession == null) {
 			if (daoMaster == null) {
-				daoMaster = getDaoMaster(context,dbName);
+				daoMaster = getDaoMaster(context);
 			}
 			daoSession = daoMaster.newSession();
 		}

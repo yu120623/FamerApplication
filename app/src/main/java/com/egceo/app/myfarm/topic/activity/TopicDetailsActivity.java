@@ -129,16 +129,17 @@ public class TopicDetailsActivity extends BaseActivity {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               OnekeyShare oks = new OnekeyShare();
+                OnekeyShare oks = new OnekeyShare();
                 oks.disableSSOWhenAuthorize();
-                oks.setTitle("农庄分享");
+                oks.setTitle(farmTopicModel.getFarmTopicName());
+                oks.setImageUrl(farmTopicModel.getResourcePath()+AppUtil.FARM_FACE);
                 oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
                 oks.setText("我收藏了好久，今天分享给大家");
-                oks.setUrl("http://sharesdk.cn");
+                oks.setUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
                 oks.setComment("我收藏了好久，今天分享给大家");
                 oks.setSite(getString(R.string.app_name));
-                oks.setSiteUrl("http://sharesdk.cn");
-                oks.show(activity);
+                oks.setSiteUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                        oks.show(activity);
             }
         });
     }
@@ -237,7 +238,7 @@ public class TopicDetailsActivity extends BaseActivity {
                 if(farmSetModels.getCollectStatus().equals("1")){
                     favouriteBtn.setChecked(true);
                 }
-                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick());
+                favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick(activity));
                 setUrlBanners(farmSetModels);
                 initBanner();
                 initFragments();

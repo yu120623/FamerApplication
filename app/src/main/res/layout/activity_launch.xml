@@ -10,21 +10,4 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@mipmap/home" />
-
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:src="@mipmap/icon" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:text="第六产业先行 乡村旅游创新"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
 </RelativeLayout>

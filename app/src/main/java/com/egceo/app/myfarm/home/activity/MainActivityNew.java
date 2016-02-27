@@ -19,6 +19,8 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.city.activity.CityActivity;
+import com.egceo.app.myfarm.db.CodeDao;
+import com.egceo.app.myfarm.db.DBHelper;
 import com.egceo.app.myfarm.entity.Code;
 import com.egceo.app.myfarm.entity.Resource;
 import com.egceo.app.myfarm.entity.TransferObject;
@@ -56,6 +58,7 @@ public class MainActivityNew extends BaseActivity {
     private List<Resource> resources;
     private FragmentPagerItemAdapter adapter;
     private RadioGroup radioButtonGroup;
+    private CodeDao codeDao;
     @Override
     protected void initViews() {
         findViews();
@@ -68,29 +71,30 @@ public class MainActivityNew extends BaseActivity {
     }
 
     private void checkLocationChange() {
-        String code = sp.getString(AppUtil.SP_CITY_CODE,AppUtil.DEFAULT_CITY_CODE);
-        final String newCode = sp.getString(AppUtil.SP_NEW_CITY_CODE,"");
-        final String newCity = sp.getString(AppUtil.SP_NEW_CITY_NAME,"");
-        if(!"".equals(newCode) && !code.equals(newCode)){
-            new AlertDialog.Builder(activity)
-            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            })
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Code code = new Code();
-                    code.setCodeName(newCode);
-                    code.setCodeDesc(newCity);
-                    changeCity(code);
-                    dialogInterface.dismiss();
-                }
-            })
-            .setMessage("您现在的位置是"+newCity+"是否切换?")
-            .setTitle("提示").show();
+        final Code sysCode = codeDao.load(2l);
+        Code code = codeDao.load(1l);
+        if(sysCode != null && code != null && code.getCodetype().equals(AppUtil.CODE_TYPE_AUTO)){
+            if(!code.getCodeDesc().equals(sysCode.getCodeDesc())){
+                new AlertDialog.Builder(activity)
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Code code = new Code();
+                                code.setCodeName(sysCode.getCodeName());
+                                code.setCodeDesc(sysCode.getCodeDesc());
+                                changeCity(code);
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setMessage("您现在的位置是"+sysCode.getCodeDesc()+"是否切换?")
+                        .setTitle("提示").show();
+            }
         }
     }
 
@@ -114,7 +118,6 @@ public class MainActivityNew extends BaseActivity {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_TOPIC_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,""));
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
@@ -156,6 +159,7 @@ public class MainActivityNew extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 EventBus.getDefault().post(position);
+                ((RadioButton)radioButtonGroup.getChildAt(position)).setChecked(true);
             }
 
             @Override
@@ -216,12 +220,19 @@ public class MainActivityNew extends BaseActivity {
     }
 
     private void initData() {
+        codeDao = DBHelper.getDaoSession(context).getCodeDao();
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
-        String city = CommonUtil.toDBC(sp.getString(AppUtil.SP_CITY_NAME, AppUtil.DEFAULT_CITY_NAME));
+        Code code = codeDao.load(1l);
+        String city = "";
+        if(code != null) {
+            city = CommonUtil.toDBC(code.getCodeDesc());
+        }else{
+            city = CommonUtil.toDBC(AppUtil.DEFAULT_CITY_NAME);
+        }
         if(!"".equals(city))
             area.setText(city.substring(0,2));
         dragTopLayout.setOverDrag(false);
@@ -261,8 +272,9 @@ public class MainActivityNew extends BaseActivity {
     }
 
     private void changeCity(Code code){
-        sp.edit().putString(AppUtil.SP_CITY_CODE,code.getCodeName()).commit();
-        sp.edit().putString(AppUtil.SP_CITY_NAME,code.getCodeDesc()).commit();
+        code.setCodeId(1l);
+        code.setCodetype(AppUtil.CODE_TYPE_AUTO);
+        codeDao.update(code);
         Intent intent = new Intent(context, MainActivityNew.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

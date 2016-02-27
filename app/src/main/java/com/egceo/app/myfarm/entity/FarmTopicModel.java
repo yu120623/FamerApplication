@@ -8,6 +8,8 @@ public class FarmTopicModel extends FarmTopic{
 	private Date nowTime;
 
 	private String tagName;
+
+	private String farmsetMinPrice;
 	
 	public Date getNowTime() {
 		return nowTime;
@@ -80,4 +82,11 @@ public class FarmTopicModel extends FarmTopic{
 		this.tagName = tagName;
 	}
 
+	public String getFarmsetMinPrice() {
+		return farmsetMinPrice;
+	}
+
+	public void setFarmsetMinPrice(String farmsetMinPrice) {
+		this.farmsetMinPrice = farmsetMinPrice;
+	}
 }

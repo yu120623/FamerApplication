@@ -23,9 +23,12 @@ import com.baseandroid.util.CommonUtil;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.db.CodeDao;
+import com.egceo.app.myfarm.db.DBHelper;
 import com.egceo.app.myfarm.entity.Code;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.home.activity.MainActivity;
+import com.egceo.app.myfarm.home.activity.MainActivityNew;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -51,6 +54,7 @@ public class CityActivity extends BaseActivity {
     private AMapLocation location;
     private EditText cityText;
     private ImageView searchCityBtn;
+    private CodeDao codeDao;
     protected void initViews() {
         findViews();
         initData();
@@ -207,6 +211,7 @@ public class CityActivity extends BaseActivity {
 
 
     private void initData() {
+        codeDao = DBHelper.getDaoSession(context).getCodeDao();
         location();
         initCityList();
         loadDataFromServer();
@@ -251,9 +256,13 @@ public class CityActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
             Code city = (Code) view.getTag();
-            sp.edit().putString(AppUtil.SP_CITY_CODE,city.getCodeName()).commit();
-            sp.edit().putString(AppUtil.SP_CITY_NAME,city.getCodeDesc()).commit();
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(context, MainActivityNew.class);
+            Code code = new Code();
+            code.setCodeId(1l);
+            code.setCodeDesc(city.getCodeDesc());
+            code.setCodeName(city.getCodeName());
+            code.setCodetype(AppUtil.CODE_TYPE_HANDLE);
+            codeDao.insertOrReplace(code);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("city",city);
             startActivity(intent);

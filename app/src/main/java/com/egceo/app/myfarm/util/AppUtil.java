@@ -5,8 +5,12 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.db.CodeDao;
+import com.egceo.app.myfarm.db.DBHelper;
+import com.egceo.app.myfarm.entity.Code;
 import com.egceo.app.myfarm.entity.TransferObject;
 
+import java.util.List;
 import java.util.Random;
 
 public class AppUtil {
@@ -56,9 +60,16 @@ public class AppUtil {
 
     public static final String BANK_MODE = "00";//测试 01 上线00
 
+    public static final String DB_NAME = "farmDB";
+
     public static final class RES_STATUS{
         public static final String STATUS_OK = "00000";
     }
+
+    public static final String CODE_TYEP_C_S = "SYSTEM";//当前城市系统检测
+
+    public static final String CODE_TYPE_AUTO ="auto";
+    public static final String CODE_TYPE_HANDLE ="handle";
 
     public static String getFarmSetTag(String tag) {
         if (tag.equals("1")) {
@@ -124,9 +135,15 @@ public class AppUtil {
     public static TransferObject getHttpData(Context context) {
         SharedPreferences sp = context.getSharedPreferences("sp", Context.MODE_PRIVATE);
         TransferObject data =  new TransferObject();
+        CodeDao codeDao = DBHelper.getDaoSession(context).getCodeDao();
+        Code code = codeDao.load(1l);
         data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
         data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
-        data.setCityCode(sp.getString(AppUtil.SP_CITY_CODE,AppUtil.DEFAULT_CITY_CODE));
+        if(code != null) {
+            data.setCityCode(code.getCodeName());
+        }else{
+            data.setCityCode(DEFAULT_CITY_CODE);
+        }
         if(!"".equals(sp.getString(L_N,""))) {
             data.setUserAliasId(sp.getString(L_N,""));
         }

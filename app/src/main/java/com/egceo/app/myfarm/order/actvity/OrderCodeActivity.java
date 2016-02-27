@@ -56,21 +56,23 @@ public class OrderCodeActivity extends BaseActivity {
 
     private void showData(TransferObject data) {
         ImageLoaderUtil.getInstance().displayImg(code,data.getQrCodeModel().getResource().getResourceLocation());
-        List<FarmItemsModel> farmItemsModelList = data.getQrCodeModel().getOrderModels().get(0).getFarmItemsModels();
-        for(int i = 0; i < farmItemsModelList.size();i++){
-            FarmItemsModel farmItemsModel = farmItemsModelList.get(i);
-            View view = inflater.inflate(R.layout.item_farm_code,null,false);
-            TextView tag = (TextView) view.findViewById(R.id.farm_item_tag);
-            TextView name = (TextView) view.findViewById(R.id.farm_item_name);
-            TextView desc = (TextView) view.findViewById(R.id.farm_item_desc);
-            TextView status = (TextView) view.findViewById(R.id.farm_item_status);
-            tag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
-            tag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
-            name.setText(farmItemsModel.getFarmName());
-            desc.setText(farmItemsModel.getFarmItemDesc());
-            status.setText(farmItemsModel.getStatus().equals("0")?getString(R.string.wait_consumption):getString(R.string.already_consumption));
-            status.setTextColor(farmItemsModel.getStatus().equals("0")?getResources().getColor(R.color.gray):getResources().getColor(R.color.green2));
-            orderItemLayout.addView(view);
+        for(OrderModel orderModel : data.getQrCodeModel().getOrderModels()){
+            List<FarmItemsModel> farmItemsModelList = orderModel.getFarmItemsModels();
+            for(int i = 0; i < farmItemsModelList.size();i++){
+                FarmItemsModel farmItemsModel = farmItemsModelList.get(i);
+                View view = inflater.inflate(R.layout.item_farm_code,null,false);
+                TextView tag = (TextView) view.findViewById(R.id.farm_item_tag);
+                TextView name = (TextView) view.findViewById(R.id.farm_item_name);
+                TextView desc = (TextView) view.findViewById(R.id.farm_item_desc);
+                TextView status = (TextView) view.findViewById(R.id.farm_item_status);
+                tag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
+                tag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
+                name.setText(farmItemsModel.getFarmName());
+                desc.setText(farmItemsModel.getFarmItemDesc());
+                status.setText(farmItemsModel.getStatus().equals("0")?getString(R.string.wait_consumption):getString(R.string.already_consumption));
+                status.setTextColor(farmItemsModel.getStatus().equals("0")?getResources().getColor(R.color.gray):getResources().getColor(R.color.green2));
+                orderItemLayout.addView(view);
+            }
         }
     }
 

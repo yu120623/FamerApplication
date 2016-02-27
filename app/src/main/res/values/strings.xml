@@ -183,4 +183,5 @@
     <string name="order_pay_success">订单支付成功</string>
     <string name="order_pay_failed">支付失败</string>
     <string name="change_pwd_title">修改密码</string>
+    <string name="up">起</string>
 </resources>

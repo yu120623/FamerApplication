@@ -26,6 +26,7 @@
             android:background="@null"
             android:hint="请输入手机号"
             android:inputType="number"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:maxLength="11"
             android:textColor="@color/black"
             android:textColorHint="#dbdbdb" />
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:layout_toRightOf="@+id/ico_pwd"
             android:background="@null"
             android:maxLength="20"
@@ -92,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:hint="@string/phone_code"
             android:maxLength="6"
             android:textColor="@color/black"

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 
+import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.db.CodeDao;
 import com.egceo.app.myfarm.db.DBHelper;
@@ -122,6 +124,20 @@ public class AppUtil {
             return R.drawable.wan_bg;
     }
 
+    public static BitmapDescriptor getMarkResource(String tag) {
+        if (tag.equals("1")) {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.zhu_nav);
+        } else if (tag.equals("2")) {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.chi_nav);
+        } else if (tag.equals("3")) {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.wan_nav);
+        } else if (tag.equals("4")) {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.ti_nav);
+        } else if (tag.equals("5")) {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.pin_nav);
+        } else
+            return BitmapDescriptorFactory.fromResource(R.mipmap.zhu_nav);
+    }
 
     public static Point random(int viewWidth, int viewHeight, int width, int height) {
         //List<Point> points = new ArrayList<>();

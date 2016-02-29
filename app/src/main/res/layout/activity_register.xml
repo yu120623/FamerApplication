@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:background="@null"
             android:hint="@string/phone_number"
             android:inputType="number"
@@ -49,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:layout_gravity="center_vertical"
             android:layout_toRightOf="@id/ico_pwd"
             android:background="@null"
@@ -89,6 +91,7 @@
             android:background="@null"
             android:hint="@string/phone_code"
             android:maxLength="6"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:textColor="@color/black"
             android:textColorHint="#dbdbdb" />
 

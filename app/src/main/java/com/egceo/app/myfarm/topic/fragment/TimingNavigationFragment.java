@@ -97,7 +97,7 @@ public class TimingNavigationFragment extends Fragment {
             MarkerOptions mark = new MarkerOptions();
             FarmItemsModel item = farmItemsModels.get(i);
             mark.position(new LatLng(item.getFarmLatitude(), item.getFarmLongitude()));
-            mark.icon(BitmapDescriptorFactory.defaultMarker());
+            mark.icon(AppUtil.getMarkResource(item.getFarmItemType()));
             mark.title(item.getFarmItemName());
             markers.add(map.addMarker(mark));
         }

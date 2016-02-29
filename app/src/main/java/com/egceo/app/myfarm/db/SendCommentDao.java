@@ -14,7 +14,7 @@ import com.egceo.app.myfarm.db.SendComment;
 /** 
  * DAO for table "SEND_COMMENT".
 */
-public class SendCommentDao extends AbstractDao<SendComment, Integer> {
+public class SendCommentDao extends AbstractDao<SendComment, Long> {
 
     public static final String TABLENAME = "SEND_COMMENT";
 
@@ -23,7 +23,7 @@ public class SendCommentDao extends AbstractDao<SendComment, Integer> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property CommentId = new Property(0, Integer.class, "commentId", true, "COMMENT_ID");
+        public final static Property CommentId = new Property(0, Long.class, "commentId", true, "COMMENT_ID");
         public final static Property CommentContent = new Property(1, String.class, "commentContent", false, "COMMENT_CONTENT");
         public final static Property CommnetType = new Property(2, String.class, "commnetType", false, "COMMNET_TYPE");
         public final static Property CommentScore = new Property(3, Integer.class, "commentScore", false, "COMMENT_SCORE");
@@ -50,7 +50,7 @@ public class SendCommentDao extends AbstractDao<SendComment, Integer> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SEND_COMMENT\" (" + //
-                "\"COMMENT_ID\" INTEGER PRIMARY KEY ," + // 0: commentId
+                "\"COMMENT_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: commentId
                 "\"COMMENT_CONTENT\" TEXT," + // 1: commentContent
                 "\"COMMNET_TYPE\" TEXT," + // 2: commnetType
                 "\"COMMENT_SCORE\" INTEGER," + // 3: commentScore
@@ -75,7 +75,7 @@ public class SendCommentDao extends AbstractDao<SendComment, Integer> {
     protected void bindValues(SQLiteStatement stmt, SendComment entity) {
         stmt.clearBindings();
  
-        Integer commentId = entity.getCommentId();
+        Long commentId = entity.getCommentId();
         if (commentId != null) {
             stmt.bindLong(1, commentId);
         }
@@ -138,15 +138,15 @@ public class SendCommentDao extends AbstractDao<SendComment, Integer> {
 
     /** @inheritdoc */
     @Override
-    public Integer readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0);
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public SendComment readEntity(Cursor cursor, int offset) {
         SendComment entity = new SendComment( //
-            cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // commentId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // commentId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // commentContent
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // commnetType
             cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // commentScore
@@ -165,7 +165,7 @@ public class SendCommentDao extends AbstractDao<SendComment, Integer> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, SendComment entity, int offset) {
-        entity.setCommentId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
+        entity.setCommentId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCommentContent(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setCommnetType(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setCommentScore(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
@@ -181,13 +181,14 @@ public class SendCommentDao extends AbstractDao<SendComment, Integer> {
     
     /** @inheritdoc */
     @Override
-    protected Integer updateKeyAfterInsert(SendComment entity, long rowId) {
-        return entity.getCommentId();
+    protected Long updateKeyAfterInsert(SendComment entity, long rowId) {
+        entity.setCommentId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Integer getKey(SendComment entity) {
+    public Long getKey(SendComment entity) {
         if(entity != null) {
             return entity.getCommentId();
         } else {

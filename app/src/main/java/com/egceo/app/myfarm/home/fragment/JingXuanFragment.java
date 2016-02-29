@@ -3,6 +3,8 @@ package com.egceo.app.myfarm.home.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.Image;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +17,11 @@ import com.baseandroid.util.ImageLoaderUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
+import com.egceo.app.myfarm.db.CodeDao;
+import com.egceo.app.myfarm.db.DBHelper;
+import com.egceo.app.myfarm.entity.Code;
+import com.egceo.app.myfarm.entity.CodeModel;
+import com.egceo.app.myfarm.home.activity.MainActivityNew;
 import com.egceo.app.myfarm.view.CustomUIHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -46,6 +53,8 @@ public class JingXuanFragment extends BaseFragment {
     private LoadMoreFooter loadMoreFooter;
     private Integer pageNumber = 0;
     private PtrFrameLayout frameLayout;
+    private RecyclerView cityList;
+    private CodeDao codeDao;
     @Override
     protected void initViews() {
         findViews();
@@ -68,6 +77,7 @@ public class JingXuanFragment extends BaseFragment {
 
 
     private void initData() {
+        codeDao = DBHelper.getDaoSession(context).getCodeDao();
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
@@ -78,7 +88,9 @@ public class JingXuanFragment extends BaseFragment {
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicList.setLayoutManager(new LinearLayoutManager(context));
+        cityList.setLayoutManager(new GridLayoutManager(context,2));
         adapter = new TopicAdapter();
+        cityList.setAdapter(new CityAdapter(new ArrayList<CodeModel>()));
         loadMoreFooter = new LoadMoreFooter(context);
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
         topicList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
@@ -118,8 +130,11 @@ public class JingXuanFragment extends BaseFragment {
                     }
                     adapter.notifyDataSetChanged();
                 }else{
-                    if(pageNumber > 0)
+                    if(pageNumber > 0) {
                         pageNumber--;
+                    }else{
+                        showCity(data);
+                    }
                 }
             }
             @Override
@@ -132,9 +147,18 @@ public class JingXuanFragment extends BaseFragment {
         request.execute();
     }
 
+    private void showCity(TransferObject data) {
+        cityList.setVisibility(View.VISIBLE);
+        frameLayout.setVisibility(View.GONE);
+        if(data.getCodeModels() == null)
+            data.setCodeModels(new ArrayList<CodeModel>());
+        cityList.setAdapter(new CityAdapter(data.getCodeModels()));
+    }
+
     private void findViews() {
         topicList = (RecyclerView) this.findViewById(R.id.topic_list);
         frameLayout = (PtrFrameLayout) this.findViewById(R.id.ptr);
+        cityList = (RecyclerView) this.findViewById(R.id.city_list);
     }
 
     //加载更多监听
@@ -148,6 +172,64 @@ public class JingXuanFragment extends BaseFragment {
         }
     };
 
+    class CityAdapter extends RecyclerView.Adapter<CityViewHolder>{
+
+        private List<CodeModel> codeModels;
+
+        public CityAdapter(List<CodeModel> codeModels){
+            this.codeModels = codeModels;
+        }
+
+        @Override
+        public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = inflater.inflate(R.layout.item_home_city,null,false);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CodeModel city = (CodeModel) v.getTag();
+                    Intent intent = new Intent(context, MainActivityNew.class);
+                    Code code = new Code();
+                    code.setCodeId(1l);
+                    code.setCodeDesc(city.getCityName());
+                    code.setCodeName(city.getCodeName());
+                    code.setCodetype(AppUtil.CODE_TYPE_HANDLE);
+                    codeDao.insertOrReplace(code);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("city",code);
+                    startActivity(intent);
+                }
+            });
+            CityViewHolder cityViewHolder = new CityViewHolder(view);
+            return cityViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(CityViewHolder holder, int position) {
+            CodeModel codeModel = codeModels.get(position);
+            holder.itemView.setTag(codeModel);
+            ImageLoaderUtil.getInstance().displayImg(holder.cityImg,codeModel.getResourcePath(),options);
+            holder.cityDesc.setText(codeModel.getCodeContent());
+            holder.cityName.setText(codeModel.getCityName());
+        }
+
+        @Override
+        public int getItemCount() {
+            return codeModels.size();
+        }
+    }
+
+
+    class CityViewHolder extends RecyclerView.ViewHolder{
+        private TextView cityName;
+        private TextView cityDesc;
+        private ImageView cityImg;
+        public CityViewHolder(View itemView) {
+            super(itemView);
+            cityDesc = (TextView) itemView.findViewById(R.id.city_desc);
+            cityName = (TextView) itemView.findViewById(R.id.city_name);
+            cityImg = (ImageView) itemView.findViewById(R.id.city_img);
+        }
+    }
     class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> implements View.OnClickListener {
         @Override
         public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

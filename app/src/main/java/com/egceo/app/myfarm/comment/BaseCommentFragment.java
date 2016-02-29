@@ -1,20 +1,31 @@
 package com.egceo.app.myfarm.comment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.CommentModel;
 import com.egceo.app.myfarm.entity.Resource;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
+import com.egceo.app.myfarm.util.AppUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +40,11 @@ public abstract class BaseCommentFragment extends BaseFragment {
     public PingJiaAdapter adapter;
     public SimpleDateFormat dataFormat;
     public TransferObject resData;
+    protected LoadMoreFooter loadMoreFooter;
+    protected Integer pageNumber = 0;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
+    private DisplayImageOptions options;
+
     @Override
     protected void initViews() {
         findViews();
@@ -52,13 +68,36 @@ public abstract class BaseCommentFragment extends BaseFragment {
     }
 
     protected void initData() {
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(false)
+                .showImageOnLoading(R.mipmap.ic_gf_default_photo)
+                .showImageForEmptyUri(R.mipmap.ic_gf_default_photo)
+                .showImageOnFail(R.mipmap.ic_gf_default_photo)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+        comments = new ArrayList<>();
         pingjiaList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new PingJiaAdapter();
-        pingjiaList.setAdapter(adapter);
+        loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        pingjiaList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(pingjiaList,loadMoreFooter.getFooter());
+        pingjiaList.addOnScrollListener(loadMoreListener);
         dataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        comments = new ArrayList<>();
         loadDataFromServer();
     }
+
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if(loadMoreFooter.isLoading())return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
 
     protected abstract void loadDataFromServer();
 
@@ -84,17 +123,19 @@ public abstract class BaseCommentFragment extends BaseFragment {
                 holder.totalComment.setText("共有"+resData.getCommentCount()+"人评价");
                 holder.ratingBar.setRating(Float.parseFloat(resData.getScore()));
                 holder.score.setText(resData.getScore());
+                holder.photoGrid.setVisibility(View.GONE);
             } else {
-                if(position == comments.size()){
-                    holder.itemView.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.button_min_height));
-                }else{
-                    holder.itemView.setPadding(0,0,0,0);
-                }
                 holder.commentHead.setVisibility(View.GONE);
                 holder.commentBody.setVisibility(View.VISIBLE);
                 holder.commentUserName.setText(comments.get(position-1).getCommentName());
                 holder.commentDate.setText(dataFormat.format(comments.get(position-1).getCreatedTime()));
                 holder.commentContext.setText(comments.get(position-1).getComment().getCommentContent());
+                if(comments.get(position-1).getResoursePath() != null && comments.get(position-1).getResoursePath().size() > 0) {
+                    holder.photoGrid.setVisibility(View.VISIBLE);
+                    holder.photoGrid.setAdapter(new PhotoAdapter(comments.get(position - 1).getResoursePath()));
+                }else{
+                    holder.photoGrid.setVisibility(View.GONE);
+                }
             }
         }
 
@@ -115,6 +156,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
         private TextView commentDate;
         private TextView commentContext;
         private RatingBar ratingBar;
+        private GridView photoGrid;
         public PingJiaViewHolder(View itemView) {
             super(itemView);
             commentHead = (RelativeLayout) itemView.findViewById(R.id.comment_head);
@@ -125,7 +167,51 @@ public abstract class BaseCommentFragment extends BaseFragment {
             commentContext = (TextView) itemView.findViewById(R.id.comment_context);
             commentBody = (LinearLayout) itemView.findViewById(R.id.comment_body);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
+            photoGrid = (GridView) itemView.findViewById(R.id.photo_grid);
         }
+    }
+
+    class PhotoAdapter extends BaseAdapter {
+        private List<Resource> photos;
+        public PhotoAdapter(List<Resource> photos){
+            this.photos = photos;
+        }
+
+        @Override
+        public int getCount() {
+            return photos.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder = null;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.gf_adapter_photo_list_item, parent,false);
+                viewHolder = new ViewHolder();
+                viewHolder.mIvThumb = (ImageView) convertView.findViewById(R.id.iv_thumb);
+                viewHolder.mIvCheck = (ImageView) convertView.findViewById(R.id.iv_check);
+                convertView.setTag(viewHolder);
+            }
+            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder.mIvCheck.setVisibility(View.GONE);
+            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(photos.get(position).getResourceLocation()+ AppUtil.FARM_FACE, new ImageViewAware(viewHolder.mIvThumb), options);
+            return convertView;
+        }
+    }
+
+    class ViewHolder {
+        public ImageView mIvThumb;
+        public ImageView mIvCheck;
     }
 
     public void refreshComment(){

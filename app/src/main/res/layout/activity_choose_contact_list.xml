@@ -24,7 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:background="@null"
+            android:maxLength="10"
             android:hint="@string/name_hit"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="14sp" />

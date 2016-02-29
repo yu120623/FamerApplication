@@ -55,8 +55,10 @@ public class SearchActivity extends BaseActivity {
                 areaTags = recommendTagModel.getAreaTags();
                 serviceTags = recommendTagModel.getServiceTags();
                 if (areaTags != null && areaTags.size() > 0) {
+
                 }
                 if (serviceTags != null && serviceTags.size() > 0) {
+
                 }
                 int areaLines = (areaTags.size() / 3) + (areaTags.size() % 3 > 0 ? 1 : 0);//计算热门区域有几行
                 int tagLines = (serviceTags.size() / 3) + (serviceTags.size() % 3 > 0 ? 1 : 0);//计算热词有几行
@@ -84,9 +86,9 @@ public class SearchActivity extends BaseActivity {
                 tagLayout.setVisibility(View.INVISIBLE);
             } else {
                 tagName = tags.get(i).getTagName();
+                tagLayout.setTag(tags.get(i).getTagId());
             }
             hotNameTextView.setText(tagName);
-            tagLayout.setTag(tags.get(i).getTagId());
             tagLayout.setOnClickListener(listener);
         }
         contentLayout.addView(tagsLineLayout);
@@ -145,7 +147,7 @@ public class SearchActivity extends BaseActivity {
             public void onClick(View v) {
                 String str = editText.getText().toString();
                 if (str == null || str.equals("") || str.length() == 0) {
-                    CommonUtil.showMessage(context,"输入为空");
+                    CommonUtil.showMessage(context, "输入为空");
                 } else {
                     Intent intent = new Intent(SearchActivity.this, SearchResultsActivity.class);
                     intent.putExtra("key", editText.getText().toString());

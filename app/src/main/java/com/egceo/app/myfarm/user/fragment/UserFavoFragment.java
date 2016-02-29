@@ -186,13 +186,13 @@ public class UserFavoFragment extends BaseFragment {
                     farmTopicModel.setFarmTopicAliasId(collectModel.getCollectAliasId());
                     intent.putExtra("farmTopic",farmTopicModel);
                     break;
-                case "1":
+                case "2":
                     intent = new Intent(context, TimingTopicDetailsActivity.class);
                     farmTopicModel = new FarmTopicModel();
                     farmTopicModel.setFarmTopicAliasId(collectModel.getCollectAliasId());
                     intent.putExtra("farmTopic",farmTopicModel);
                     break;
-                case "2":
+                case "1":
                     intent = new Intent(context, FarmDetailActivity.class);
                     FarmModel farmModel = new FarmModel();
                     farmModel.setFarmAliasId(collectModel.getCollectAliasId());

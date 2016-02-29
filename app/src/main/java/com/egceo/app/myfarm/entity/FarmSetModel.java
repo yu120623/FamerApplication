@@ -13,7 +13,7 @@ public class FarmSetModel extends FarmSet{
 	private Date nowTime;
 	private Date endTime;
 	private Date beginTime;
-	private Double fund;
+	private float fund;
 	private String collectStatus;
 	private List<Resource> thResource;
 	
@@ -107,11 +107,11 @@ public class FarmSetModel extends FarmSet{
 		this.beginTime = beginTime;
 	}
 
-	public Double getFund() {
+	public float getFund() {
 		return fund;
 	}
 
-	public void setFund(Double fund) {
+	public void setFund(float fund) {
 		this.fund = fund;
 	}
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.baseandroid.BaseActivity;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.util.AppUtil;
 
 public class PhotoViewPageActivity extends BaseActivity {
 	private ViewPager pager;
@@ -75,7 +76,7 @@ public class PhotoViewPageActivity extends BaseActivity {
 		public Object instantiateItem(ViewGroup container, final int position) {
 			View view = inflater.inflate(R.layout.page_imager, null, false);
 			PhotoImageView imageView = (PhotoImageView) view.findViewById(R.id.photo_img);
-			imageView.loadImage(urls.get(position));
+			imageView.loadImage(urls.get(position)+ AppUtil.DETAIL_IMG_SIZE);
 			container.addView(view);
 			return view;
 		}

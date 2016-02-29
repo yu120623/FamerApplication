@@ -2,7 +2,7 @@ package com.egceo.app.myfarm.http;
 
 public class API {
     public static final String URL = "http://121.40.91.182:8080/mycff/api/";
-    //public static final String URL = "http://192.168.1.118:8080/mycff/api/";
+    //public static final String URL = "http://192.168.1.24:8080/mycff/api/";
     public static final String PARAM_STR = "jsonStr";
 
     public static class API_URL {
@@ -39,6 +39,7 @@ public class API {
         public static final String WECHAT_ORDER = "weChatPayData";//微信付款
         public static final String PAY_BANK = "bankTn";//银联支付
         public static final String SYS_INFO = "sysInfoList";//系统消息
+        public static final String FUND_LIST = "consumptionInfo";//基金列表
         public static final String MY_FAVOURITE = "collectInfo";//收藏列表
         public static final String CANCEL_REFUND = "cancelChargeback";//取消退单
         public static final String FAVOURITE = "collectAdd";//收藏

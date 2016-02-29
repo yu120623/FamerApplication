@@ -6,12 +6,14 @@ package com.egceo.app.myfarm.db;
  */
 public class SendResource {
 
-    private Integer resourceId;
+    private Long resourceId;
     private String resourceName;
     private String resourceType;
     private String resourceLocation;
     private String resourceProperty;
-    private Integer referrenceObjectId;
+    private Long referrenceObjectId;
+    private Boolean isUpload;
+    private Boolean isCrop;
     private String isDeleted;
     private String createdBy;
     private java.util.Date createdTime;
@@ -21,17 +23,19 @@ public class SendResource {
     public SendResource() {
     }
 
-    public SendResource(Integer resourceId) {
+    public SendResource(Long resourceId) {
         this.resourceId = resourceId;
     }
 
-    public SendResource(Integer resourceId, String resourceName, String resourceType, String resourceLocation, String resourceProperty, Integer referrenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
+    public SendResource(Long resourceId, String resourceName, String resourceType, String resourceLocation, String resourceProperty, Long referrenceObjectId, Boolean isUpload, Boolean isCrop, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
         this.resourceId = resourceId;
         this.resourceName = resourceName;
         this.resourceType = resourceType;
         this.resourceLocation = resourceLocation;
         this.resourceProperty = resourceProperty;
         this.referrenceObjectId = referrenceObjectId;
+        this.isUpload = isUpload;
+        this.isCrop = isCrop;
         this.isDeleted = isDeleted;
         this.createdBy = createdBy;
         this.createdTime = createdTime;
@@ -39,11 +43,11 @@ public class SendResource {
         this.updatedTime = updatedTime;
     }
 
-    public Integer getResourceId() {
+    public Long getResourceId() {
         return resourceId;
     }
 
-    public void setResourceId(Integer resourceId) {
+    public void setResourceId(Long resourceId) {
         this.resourceId = resourceId;
     }
 
@@ -79,12 +83,28 @@ public class SendResource {
         this.resourceProperty = resourceProperty;
     }
 
-    public Integer getReferrenceObjectId() {
+    public Long getReferrenceObjectId() {
         return referrenceObjectId;
     }
 
-    public void setReferrenceObjectId(Integer referrenceObjectId) {
+    public void setReferrenceObjectId(Long referrenceObjectId) {
         this.referrenceObjectId = referrenceObjectId;
+    }
+
+    public Boolean getIsUpload() {
+        return isUpload;
+    }
+
+    public void setIsUpload(Boolean isUpload) {
+        this.isUpload = isUpload;
+    }
+
+    public Boolean getIsCrop() {
+        return isCrop;
+    }
+
+    public void setIsCrop(Boolean isCrop) {
+        this.isCrop = isCrop;
     }
 
     public String getIsDeleted() {

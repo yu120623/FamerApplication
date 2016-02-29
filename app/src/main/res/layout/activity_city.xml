@@ -24,6 +24,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textCursorDrawable="@drawable/edittext_cursor"
                 android:layout_toLeftOf="@+id/search_city_btn"
                 android:layout_toStartOf="@+id/search_city_btn"
                 android:background="@null"

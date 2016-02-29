@@ -31,6 +31,8 @@ public class TransferObject implements Serializable {
 
     private List<Sysinfo> sysinfos;
 
+    private String farmSetIsExistence;
+
     private List<CommentModel> commentModels;
 
     private String favorableRate;
@@ -38,7 +40,8 @@ public class TransferObject implements Serializable {
     private String score;
 
     private List<FarmStatementModel> farmStatementModels;
-
+    private List<aa53458768RecordModel> aa53458768RecordModels;
+    private WalletModel walletModel;
     private String sysinfoId;
 
     private Double farmLatitude;
@@ -540,5 +543,29 @@ public class TransferObject implements Serializable {
 
     public void setSysinfoId(String sysinfoId) {
         this.sysinfoId = sysinfoId;
+    }
+
+    public String getFarmSetIsExistence() {
+        return farmSetIsExistence;
+    }
+
+    public void setFarmSetIsExistence(String farmSetIsExistence) {
+        this.farmSetIsExistence = farmSetIsExistence;
+    }
+
+    public List<aa53458768RecordModel> getAa53458768RecordModels() {
+        return aa53458768RecordModels;
+    }
+
+    public void setAa53458768RecordModels(List<aa53458768RecordModel> aa53458768RecordModels) {
+        this.aa53458768RecordModels = aa53458768RecordModels;
+    }
+
+    public WalletModel getWalletModel() {
+        return walletModel;
+    }
+
+    public void setWalletModel(WalletModel walletModel) {
+        this.walletModel = walletModel;
     }
 }

@@ -54,4 +54,7 @@ dependencies {
     compile files('libs/UPPayAssistEx.jar')
     compile files('libs/UPPayPluginExPro.jar')
     compile project(':onekeyshare')
+    compile files('libs/aliyun-oss-sdk-android-2.1.0.jar')
+    compile files('libs/okio-1.6.0.jar')
+    compile files('libs/okhttp-2.7.0.jar')
 }

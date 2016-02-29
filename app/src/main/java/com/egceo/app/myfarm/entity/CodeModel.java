@@ -6,6 +6,7 @@ public class CodeModel extends Code{
 	private String resourcePath;
 	private String codeContent;
 	private String cityName;
+	private String cityCode;
 	private List<Code> codeRecommend;
 	private List<Code> codeAll;
 	
@@ -39,6 +40,13 @@ public class CodeModel extends Code{
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
-	
 
+
+	public String getCityCode() {
+		return cityCode;
+	}
+
+	public void setCityCode(String cityCode) {
+		this.cityCode = cityCode;
+	}
 }

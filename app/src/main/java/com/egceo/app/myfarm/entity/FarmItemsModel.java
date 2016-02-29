@@ -3,7 +3,7 @@ package com.egceo.app.myfarm.entity;
 import java.util.Date;
 import java.util.List;
 
-public class FarmItemsModel extends FarmItems{
+public class FarmItemsModel extends FarmItems implements Comparable{
 	private Double FarmItemsprice;
 	private String farmName;
 	private Double price;
@@ -85,4 +85,11 @@ public class FarmItemsModel extends FarmItems{
 		this.status = status;
 	}
 
+	@Override
+	public int compareTo(Object another) {
+		if(((FarmItemsModel)another).getFarmItemType().equals("1"))
+			return 1;
+		else
+			return -1;
+	}
 }

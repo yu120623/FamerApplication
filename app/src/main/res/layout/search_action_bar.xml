@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
+            android:textCursorDrawable="@drawable/edittext_cursor"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:hint="@string/search_title"

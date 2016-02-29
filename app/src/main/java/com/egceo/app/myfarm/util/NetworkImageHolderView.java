@@ -9,7 +9,13 @@ import android.widget.ImageView;
 
 import com.baseandroid.util.ImageLoaderUtil;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.egceo.app.myfarm.entity.FarmModel;
+import com.egceo.app.myfarm.entity.FarmTopic;
+import com.egceo.app.myfarm.entity.FarmTopicModel;
 import com.egceo.app.myfarm.entity.Resource;
+import com.egceo.app.myfarm.farm.activity.FarmDetailActivity;
+import com.egceo.app.myfarm.topic.activity.TimingTopicDetailsActivity;
+import com.egceo.app.myfarm.topic.activity.TopicDetailsActivity;
 import com.html.HtmlActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -61,9 +67,30 @@ public class NetworkImageHolderView implements Holder<String> {
             @Override
             public void onClick(View view) {
                 if(view.getTag() == null)return;
-                Intent intent = new Intent(activity, HtmlActivity.class);
-                intent.putExtra("url",(String)view.getTag());
-                activity.startActivity(intent);
+                String url = (String) view.getTag();
+                if(url.startsWith("http")){
+                    Intent intent = new Intent(activity, HtmlActivity.class);
+                    intent.putExtra("url",(String)view.getTag());
+                    activity.startActivity(intent);
+                }else if(url.startsWith("farm")){
+                    Intent intent = new Intent(activity, FarmDetailActivity.class);
+                    FarmModel farmModel = new FarmModel();
+                    farmModel.setFarmAliasId(url.substring(url.indexOf(":")+1));
+                    intent.putExtra("farmModel",farmModel);
+                    activity.startActivity(intent);
+                }else if(url.startsWith("topic")){
+                    Intent intent = new Intent(activity, TopicDetailsActivity.class);
+                    FarmTopicModel farmTopic = new FarmTopicModel();
+                    farmTopic.setFarmTopicAliasId(url.substring(url.indexOf(":")+1));
+                    intent.putExtra("farmTopic",farmTopic);
+                    activity.startActivity(intent);
+                }else if(url.startsWith("buying")){
+                    Intent intent = new Intent(activity, TimingTopicDetailsActivity.class);
+                    FarmTopicModel farmTopic = new FarmTopicModel();
+                    farmTopic.setFarmTopicAliasId(url.substring(url.indexOf(":")+1));
+                    intent.putExtra("farmTopic",farmTopic);
+                    activity.startActivity(intent);
+                }
             }
         });
         return imageView;

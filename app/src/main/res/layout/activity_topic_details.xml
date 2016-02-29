@@ -12,7 +12,8 @@
             android:id="@+id/details_drag_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:layout_above="@+id/view1">
 
             <!--top view-->
             <LinearLayout
@@ -176,7 +177,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="5dp"
             android:background="#e5ffffff"
             android:gravity="center"
             android:orientation="vertical"

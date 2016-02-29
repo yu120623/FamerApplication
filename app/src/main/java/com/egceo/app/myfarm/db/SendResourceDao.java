@@ -14,7 +14,7 @@ import com.egceo.app.myfarm.db.SendResource;
 /** 
  * DAO for table "SEND_RESOURCE".
 */
-public class SendResourceDao extends AbstractDao<SendResource, Integer> {
+public class SendResourceDao extends AbstractDao<SendResource, Long> {
 
     public static final String TABLENAME = "SEND_RESOURCE";
 
@@ -23,17 +23,19 @@ public class SendResourceDao extends AbstractDao<SendResource, Integer> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property ResourceId = new Property(0, Integer.class, "resourceId", true, "RESOURCE_ID");
+        public final static Property ResourceId = new Property(0, Long.class, "resourceId", true, "RESOURCE_ID");
         public final static Property ResourceName = new Property(1, String.class, "resourceName", false, "RESOURCE_NAME");
         public final static Property ResourceType = new Property(2, String.class, "resourceType", false, "RESOURCE_TYPE");
         public final static Property ResourceLocation = new Property(3, String.class, "resourceLocation", false, "RESOURCE_LOCATION");
         public final static Property ResourceProperty = new Property(4, String.class, "resourceProperty", false, "RESOURCE_PROPERTY");
-        public final static Property ReferrenceObjectId = new Property(5, Integer.class, "referrenceObjectId", false, "REFERRENCE_OBJECT_ID");
-        public final static Property IsDeleted = new Property(6, String.class, "isDeleted", false, "IS_DELETED");
-        public final static Property CreatedBy = new Property(7, String.class, "createdBy", false, "CREATED_BY");
-        public final static Property CreatedTime = new Property(8, java.util.Date.class, "createdTime", false, "CREATED_TIME");
-        public final static Property UpdatedBy = new Property(9, String.class, "updatedBy", false, "UPDATED_BY");
-        public final static Property UpdatedTime = new Property(10, java.util.Date.class, "updatedTime", false, "UPDATED_TIME");
+        public final static Property ReferrenceObjectId = new Property(5, Long.class, "referrenceObjectId", false, "REFERRENCE_OBJECT_ID");
+        public final static Property IsUpload = new Property(6, Boolean.class, "isUpload", false, "IS_UPLOAD");
+        public final static Property IsCrop = new Property(7, Boolean.class, "isCrop", false, "IS_CROP");
+        public final static Property IsDeleted = new Property(8, String.class, "isDeleted", false, "IS_DELETED");
+        public final static Property CreatedBy = new Property(9, String.class, "createdBy", false, "CREATED_BY");
+        public final static Property CreatedTime = new Property(10, java.util.Date.class, "createdTime", false, "CREATED_TIME");
+        public final static Property UpdatedBy = new Property(11, String.class, "updatedBy", false, "UPDATED_BY");
+        public final static Property UpdatedTime = new Property(12, java.util.Date.class, "updatedTime", false, "UPDATED_TIME");
     };
 
 
@@ -49,17 +51,19 @@ public class SendResourceDao extends AbstractDao<SendResource, Integer> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SEND_RESOURCE\" (" + //
-                "\"RESOURCE_ID\" INTEGER PRIMARY KEY ," + // 0: resourceId
+                "\"RESOURCE_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: resourceId
                 "\"RESOURCE_NAME\" TEXT," + // 1: resourceName
                 "\"RESOURCE_TYPE\" TEXT," + // 2: resourceType
                 "\"RESOURCE_LOCATION\" TEXT," + // 3: resourceLocation
                 "\"RESOURCE_PROPERTY\" TEXT," + // 4: resourceProperty
                 "\"REFERRENCE_OBJECT_ID\" INTEGER," + // 5: referrenceObjectId
-                "\"IS_DELETED\" TEXT," + // 6: isDeleted
-                "\"CREATED_BY\" TEXT," + // 7: createdBy
-                "\"CREATED_TIME\" INTEGER," + // 8: createdTime
-                "\"UPDATED_BY\" TEXT," + // 9: updatedBy
-                "\"UPDATED_TIME\" INTEGER);"); // 10: updatedTime
+                "\"IS_UPLOAD\" INTEGER," + // 6: isUpload
+                "\"IS_CROP\" INTEGER," + // 7: isCrop
+                "\"IS_DELETED\" TEXT," + // 8: isDeleted
+                "\"CREATED_BY\" TEXT," + // 9: createdBy
+                "\"CREATED_TIME\" INTEGER," + // 10: createdTime
+                "\"UPDATED_BY\" TEXT," + // 11: updatedBy
+                "\"UPDATED_TIME\" INTEGER);"); // 12: updatedTime
     }
 
     /** Drops the underlying database table. */
@@ -73,7 +77,7 @@ public class SendResourceDao extends AbstractDao<SendResource, Integer> {
     protected void bindValues(SQLiteStatement stmt, SendResource entity) {
         stmt.clearBindings();
  
-        Integer resourceId = entity.getResourceId();
+        Long resourceId = entity.getResourceId();
         if (resourceId != null) {
             stmt.bindLong(1, resourceId);
         }
@@ -98,58 +102,70 @@ public class SendResourceDao extends AbstractDao<SendResource, Integer> {
             stmt.bindString(5, resourceProperty);
         }
  
-        Integer referrenceObjectId = entity.getReferrenceObjectId();
+        Long referrenceObjectId = entity.getReferrenceObjectId();
         if (referrenceObjectId != null) {
             stmt.bindLong(6, referrenceObjectId);
         }
  
+        Boolean isUpload = entity.getIsUpload();
+        if (isUpload != null) {
+            stmt.bindLong(7, isUpload ? 1L: 0L);
+        }
+ 
+        Boolean isCrop = entity.getIsCrop();
+        if (isCrop != null) {
+            stmt.bindLong(8, isCrop ? 1L: 0L);
+        }
+ 
         String isDeleted = entity.getIsDeleted();
         if (isDeleted != null) {
-            stmt.bindString(7, isDeleted);
+            stmt.bindString(9, isDeleted);
         }
  
         String createdBy = entity.getCreatedBy();
         if (createdBy != null) {
-            stmt.bindString(8, createdBy);
+            stmt.bindString(10, createdBy);
         }
  
         java.util.Date createdTime = entity.getCreatedTime();
         if (createdTime != null) {
-            stmt.bindLong(9, createdTime.getTime());
+            stmt.bindLong(11, createdTime.getTime());
         }
  
         String updatedBy = entity.getUpdatedBy();
         if (updatedBy != null) {
-            stmt.bindString(10, updatedBy);
+            stmt.bindString(12, updatedBy);
         }
  
         java.util.Date updatedTime = entity.getUpdatedTime();
         if (updatedTime != null) {
-            stmt.bindLong(11, updatedTime.getTime());
+            stmt.bindLong(13, updatedTime.getTime());
         }
     }
 
     /** @inheritdoc */
     @Override
-    public Integer readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0);
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public SendResource readEntity(Cursor cursor, int offset) {
         SendResource entity = new SendResource( //
-            cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // resourceId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // resourceId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // resourceName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // resourceType
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // resourceLocation
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // resourceProperty
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // referrenceObjectId
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // isDeleted
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // createdBy
-            cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)), // createdTime
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // updatedBy
-            cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)) // updatedTime
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // referrenceObjectId
+            cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // isUpload
+            cursor.isNull(offset + 7) ? null : cursor.getShort(offset + 7) != 0, // isCrop
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // isDeleted
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // createdBy
+            cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)), // createdTime
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // updatedBy
+            cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)) // updatedTime
         );
         return entity;
     }
@@ -157,28 +173,31 @@ public class SendResourceDao extends AbstractDao<SendResource, Integer> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, SendResource entity, int offset) {
-        entity.setResourceId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
+        entity.setResourceId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setResourceName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setResourceType(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setResourceLocation(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setResourceProperty(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setReferrenceObjectId(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setIsDeleted(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setCreatedBy(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setCreatedTime(cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)));
-        entity.setUpdatedBy(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setUpdatedTime(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
+        entity.setReferrenceObjectId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setIsUpload(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
+        entity.setIsCrop(cursor.isNull(offset + 7) ? null : cursor.getShort(offset + 7) != 0);
+        entity.setIsDeleted(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCreatedBy(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setCreatedTime(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
+        entity.setUpdatedBy(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setUpdatedTime(cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)));
      }
     
     /** @inheritdoc */
     @Override
-    protected Integer updateKeyAfterInsert(SendResource entity, long rowId) {
-        return entity.getResourceId();
+    protected Long updateKeyAfterInsert(SendResource entity, long rowId) {
+        entity.setResourceId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Integer getKey(SendResource entity) {
+    public Long getKey(SendResource entity) {
         if(entity != null) {
             return entity.getResourceId();
         } else {

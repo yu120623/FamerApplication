@@ -209,8 +209,8 @@ public class MainActivityNew extends BaseActivity {
                 getFragmentManager(), FragmentPagerItems.with(this)
                 .add("", JingXuanFragment.class)
                 .add("", QiangGouFragment.class)
-                .add("", ZhouBianFragment.class)
                 .add("", TuiJianFragment.class)
+                .add("", ZhouBianFragment.class)
                 .create());
         contentViewPager.setAdapter(adapter);
     }

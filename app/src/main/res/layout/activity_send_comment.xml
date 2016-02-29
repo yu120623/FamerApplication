@@ -10,6 +10,7 @@
         android:id="@+id/comment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textCursorDrawable="@drawable/edittext_cursor"
         android:background="@null"
         android:gravity="top"
         android:hint="@string/enter_comment"

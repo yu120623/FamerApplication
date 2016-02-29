@@ -6,7 +6,7 @@ package com.egceo.app.myfarm.db;
  */
 public class SendComment {
 
-    private Integer commentId;
+    private Long commentId;
     private String commentContent;
     private String commnetType;
     private Integer commentScore;
@@ -22,11 +22,11 @@ public class SendComment {
     public SendComment() {
     }
 
-    public SendComment(Integer commentId) {
+    public SendComment(Long commentId) {
         this.commentId = commentId;
     }
 
-    public SendComment(Integer commentId, String commentContent, String commnetType, Integer commentScore, Integer commenter, String commentStatus, Integer referenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
+    public SendComment(Long commentId, String commentContent, String commnetType, Integer commentScore, Integer commenter, String commentStatus, Integer referenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
         this.commentId = commentId;
         this.commentContent = commentContent;
         this.commnetType = commnetType;
@@ -41,11 +41,11 @@ public class SendComment {
         this.updatedTime = updatedTime;
     }
 
-    public Integer getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Integer commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 

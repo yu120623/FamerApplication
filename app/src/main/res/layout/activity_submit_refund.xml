@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -72,11 +73,13 @@
         android:textSize="14sp" />
 
     <EditText
+        android:padding="10dp"
         android:id="@+id/refund_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:background="@null"
+        android:background="@color/white"
+        android:textCursorDrawable="@drawable/edittext_cursor"
         android:gravity="top|left"
         android:lines="4"
         android:textColor="@color/black"
@@ -89,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/login_btn_bg"
         android:minHeight="@dimen/button_min_height"
         android:minWidth="100dp"

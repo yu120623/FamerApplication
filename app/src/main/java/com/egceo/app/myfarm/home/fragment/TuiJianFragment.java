@@ -107,12 +107,9 @@ public class TuiJianFragment extends BaseFragment {
     }
 
     private void loadDataFromServer() {
-        String url = API.URL + API.API_URL.FARM_AROUND_LIST;
+        String url = API.URL + API.API_URL.FARM_HOT_LIST;
         TransferObject data = AppUtil.getHttpData(context);
         data.setPageNumber(pageNumber);
-        data.setType("recommend");
-        data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
-        data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

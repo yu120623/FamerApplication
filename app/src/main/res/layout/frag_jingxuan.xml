@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/city_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
     <in.srain.cube.views.ptr.PtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ptr"
         style="@style/ptr_style"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
     private TextView farmSetPrice;
     private TextView farmSetReason;
     private TextView title;
+    private LinearLayout tagsContainer;
 
     @Override
     protected void initViews() {
@@ -151,7 +153,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 OnekeyShare oks = new OnekeyShare();
                 oks.disableSSOWhenAuthorize();
-                oks.setTitle("农庄分享");
+                oks.setTitle(farmTopicModel.getFarmTopicName());
                 oks.setImageUrl(farmTopicModel.getResourcePath()+AppUtil.FARM_FACE);
                 oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
                 oks.setText("我收藏了好久，今天分享给大家");
@@ -219,6 +221,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
         title.setText(farmTopicModel.getFarmTopicName());
+        dragTopLayout.setOverDrag(false);
         loadDataFromServer();
     }
 
@@ -240,6 +243,7 @@ public class TimingTopicDetailsActivity extends BaseActivity {
                 initTopicBtn();
                 setUrlBanners(farmSetModels);
                 initBanner();
+                initTags();
                 initFragments();
                 contentView.setVisibility(View.VISIBLE);
                 actionBar.setVisibility(View.VISIBLE);
@@ -256,6 +260,14 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         request.execute();
     }
 
+    private void initTags() {
+        if (null == farmSetModels.getTags() || farmSetModels.getTags().size() <= 0) return;
+        for (int i = 0; i < farmSetModels.getTags().size(); i++) {
+            inflater.inflate(R.layout.text, tagsContainer, true);
+            final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount() - 1);
+            tag.setText(farmSetModels.getTags().get(i));
+        }
+    }
 
     private void setActionBarIcon(boolean flag) {
         backBtn.setSelected(flag);
@@ -304,8 +316,8 @@ public class TimingTopicDetailsActivity extends BaseActivity {
         farmSetPrice = (TextView) this.findViewById(R.id.farm_set_price);
         farmSetReason = (TextView) this.findViewById(R.id.farm_set_reason);
         title = (TextView) this.findViewById(R.id.title);
+        tagsContainer = (LinearLayout) this.findViewById(R.id.tags_container);
     }
-
 
     @Override
     protected int getContentView() {
@@ -316,4 +328,5 @@ public class TimingTopicDetailsActivity extends BaseActivity {
     protected String setActionBarTitle() {
         return "";
     }
+
 }

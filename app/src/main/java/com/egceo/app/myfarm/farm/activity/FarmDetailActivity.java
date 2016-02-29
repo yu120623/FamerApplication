@@ -44,6 +44,7 @@ import com.egceo.app.myfarm.util.NetworkImageHolderView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
@@ -67,8 +68,13 @@ public class FarmDetailActivity extends BaseActivity {
     private FarmModel farmModel;
     private TextView title;
     private Button fastPay;
+    private View view1;
+    private View quickPayView;
+    private TextView quickPayText;
+    private String shareImgUrl;
     @Override
     protected void initViews() {
+        showProgress();
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViews();
         initData();
@@ -114,6 +120,7 @@ public class FarmDetailActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 if(position == 2){
                     contentViewPager.setLocked(true);
+                    dragTopLayout.closeTopView(true);
                 }else{
                     contentViewPager.setLocked(false);
                 }
@@ -150,8 +157,8 @@ public class FarmDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 OnekeyShare oks = new OnekeyShare();
                 oks.disableSSOWhenAuthorize();
-                oks.setTitle("农庄分享");
-                oks.setImageUrl(farmModel.getResourcePath() + AppUtil.FARM_FACE);
+                oks.setTitle(farmModel.getFarmName());
+                oks.setImageUrl(shareImgUrl);
                 oks.setTitleUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId());
                 oks.setText("我收藏了好久，今天分享给大家");
                 oks.setUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId());
@@ -216,7 +223,9 @@ public class FarmDetailActivity extends BaseActivity {
 
 
     private void initData() {
+        ShareSDK.initSDK(this);
         farmModel = (FarmModel) this.getIntent().getSerializableExtra("farmModel");
+        shareImgUrl = farmModel.getResourcePath() + AppUtil.FARM_FACE;
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
@@ -229,6 +238,7 @@ public class FarmDetailActivity extends BaseActivity {
         progressDrawable.start();
         dragTopLayout.setCollapseOffset((int)getResources().getDimension(android.R.dimen.app_icon_size));
         title.setText(farmModel.getFarmName());
+        dragTopLayout.setOverDrag(false);
         loadDataFromServer();
     }
 
@@ -240,7 +250,14 @@ public class FarmDetailActivity extends BaseActivity {
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
+                if(data.getFarmSetIsExistence().equals("0")){
+                    view1.setVisibility(View.GONE);
+                }
                 farmModel = data.getFarmModel();
+                if(!farmModel.getQuickPay().equalsIgnoreCase("Y")){
+                    quickPayView.setVisibility(View.GONE);
+                }
+                quickPayText.setText(farmModel.getFarmIntruDesc());
                 farmModel.setFarmAliasId(data.getFarmAliasId());
                 if(farmModel.getCollectStatus().equals("1")){
                     favouriteBtn.setChecked(true);
@@ -253,6 +270,12 @@ public class FarmDetailActivity extends BaseActivity {
                 progress.setVisibility(View.GONE);
                 contentView.setVisibility(View.VISIBLE);
                 actionBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                hideProgress();
             }
         },data);
         request.execute();
@@ -280,6 +303,9 @@ public class FarmDetailActivity extends BaseActivity {
         viewFarmSet = (Button) this.findViewById(R.id.view_farm_set);
         fastPay = (Button) this.findViewById(R.id.fast_pay);
         title = (TextView) this.findViewById(R.id.title);
+        view1 = this.findViewById(R.id.view1);
+        quickPayView = this.findViewById(R.id.quick_pay_layout);
+        quickPayText = (TextView) this.findViewById(R.id.quick_pay_text);
     }
 
     @Override

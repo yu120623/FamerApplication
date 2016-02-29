@@ -184,4 +184,6 @@
     <string name="order_pay_failed">支付失败</string>
     <string name="change_pwd_title">修改密码</string>
     <string name="up">起</string>
+    <string name="fund_money_text">旅游基金</string>
+    <string name="gongxi_facai">恭喜发财</string>
 </resources>

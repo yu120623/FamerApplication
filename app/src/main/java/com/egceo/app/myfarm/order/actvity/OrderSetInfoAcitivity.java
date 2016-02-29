@@ -9,6 +9,8 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.egceo.app.myfarm.entity.FarmSetModel;
 import com.egceo.app.myfarm.entity.OrderDateModel;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.entity.WalletModel;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -33,6 +36,7 @@ import com.egceo.app.myfarm.util.AppUtil;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +59,12 @@ public class OrderSetInfoAcitivity extends BaseActivity{
     private View changeContact;
     private Contact contact;
     private AlertDialog timeDialog;
+    private TextView fundText;
+    private CheckBox fundCheckBox;
+    private WalletModel walletModel;
+    private View fundLayout;
+    private boolean fundFlag = false;
+    private BigDecimal fundMoney;
     @Override
     protected void initViews() {
         showProgress();
@@ -97,6 +107,25 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                 startActivityForResult(intent,1);
             }
         });
+        fundCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fundFlag = isChecked;
+                if(isChecked){
+                    BigDecimal money = checkNum();
+                    if(walletModel.getLvValue().floatValue() > farmSetModel.getFund()){
+                        money = money.subtract(new BigDecimal(farmSetModel.getFund()));
+                        fundMoney = new BigDecimal(farmSetModel.getFund());
+                    }else{
+                        money = money.subtract(new BigDecimal(walletModel.getLvValue().floatValue()));
+                        fundMoney = new BigDecimal(walletModel.getLvValue());
+                    }
+                    orderMoney.setText("￥"+money.floatValue());
+                }else{
+                    checkNum();
+                }
+            }
+        });
     }
 
     @Override
@@ -115,7 +144,11 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         data.setDate(orderDataModel.getDate());
         data.setCopies(num);
         data.setContactId(contact.getContactId()+"");
-        farmSetModel.setFund(0d);
+        if(fundFlag) {
+            farmSetModel.setFund(fundMoney.floatValue());
+        }else{
+            farmSetModel.setFund(0f);
+        }
         List<FarmItemsModel> farmItemsModels = new ArrayList<>();
         for(FarmItemsModel item : farmSetModel.getFarmItemsModels()){
             FarmItemsModel farmItem = new FarmItemsModel();
@@ -131,12 +164,12 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         return data;
     }
 
-    private void checkNum() {
+    private BigDecimal checkNum() {
         int max = farmSetModel.getMaxCanBuy();
         if(num <=1){
             jianBtn.setImageResource(R.mipmap.jian);
             jianBtn.setOnClickListener(null);
-            if(num > max){
+            if(num < max){
                 addBtn.setImageResource(R.mipmap.add_s);
                 addBtn.setOnClickListener(onAddClick);
             }
@@ -150,7 +183,8 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         }
         BigDecimal price = new BigDecimal(farmSetModel.getMinPrice());
         BigDecimal money =  price.multiply(new BigDecimal(num));
-        orderMoney.setText("￥"+money.doubleValue()+"");
+        orderMoney.setText("￥"+money.floatValue()+"");
+        return money;
     }
 
     private void loadDataFromServer() {
@@ -161,13 +195,13 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         AppRequest requset = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
+                walletModel = data.getWalletModel();
                 farmSetModel = data.getFarmSetModel();
                 if(farmSetModel != null){
                     showFarmSet();
                     checkNum();
                 }
             }
-
             @Override
             public void onEnd() {
                 super.onEnd();
@@ -178,9 +212,15 @@ public class OrderSetInfoAcitivity extends BaseActivity{
     }
 
     private void showFarmSet() {
+        if(farmSetModel.getFund() > 0) {
+            fundText.setText("此套餐允许使用" + farmSetModel.getFund() + "旅游基金");
+        }else{
+            fundLayout.setVisibility(View.GONE);
+        }
         cotentView.setVisibility(View.VISIBLE);
         progressDrawable.stop();
         progress.setVisibility(View.GONE);
+        Collections.sort(farmSetModel.getFarmItemsModels());
         for(int i = 0;i < farmSetModel.getFarmItemsModels().size();i++){
             getFarmSetSubItem(farmSetModel.getFarmItemsModels().get(i));
         }
@@ -203,7 +243,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         farmSetTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
         farmSetTag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
         farmSetDescList.setText(Html.fromHtml(farmItemsModel.getFarmItemDesc()));
-        ImageLoaderUtil.getInstance().displayImg(farmSetImg,farmItemsModel.getResources().get(0).getResourceLocation());
+        ImageLoaderUtil.getInstance().displayImg(farmSetImg,farmItemsModel.getResources().get(0).getResourceLocation()+AppUtil.FARM_SET_DETAIL_IMG_SIZE);
         View setHeader = item.findViewById(R.id.farm_set_item_header);
         View setContent = item.findViewById(R.id.farm_set_item_content);
         setHeader.setTag(setContent);
@@ -336,6 +376,9 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         orderMoney = (TextView) this.findViewById(R.id.order_money);
         contactName = (TextView) this.findViewById(R.id.contact_name);
         changeContact = this.findViewById(R.id.change_contact);
+        fundText = (TextView) this.findViewById(R.id.jijin_text);
+        fundCheckBox = (CheckBox) this.findViewById(R.id.fund_checkbox);
+        fundLayout = this.findViewById(R.id.fund_layout);
     }
 
     private View.OnClickListener onAddClick = new View.OnClickListener() {

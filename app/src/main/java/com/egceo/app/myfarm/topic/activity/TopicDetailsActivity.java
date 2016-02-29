@@ -139,7 +139,7 @@ public class TopicDetailsActivity extends BaseActivity {
                 oks.setComment("我收藏了好久，今天分享给大家");
                 oks.setSite(getString(R.string.app_name));
                 oks.setSiteUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
-                        oks.show(activity);
+                oks.show(activity);
             }
         });
     }
@@ -221,6 +221,7 @@ public class TopicDetailsActivity extends BaseActivity {
         dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));
         dragTopLayout.setOverDrag(false);
         title.setText(farmTopicModel.getFarmTopicName());
+        dragTopLayout.setOverDrag(false);
         loadDataFromServer();
     }
 

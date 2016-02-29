@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
+import com.egceo.app.myfarm.comment.SendCommentActivity;
+import com.egceo.app.myfarm.db.SendComment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
@@ -45,7 +47,7 @@ public class UserActivity extends BaseActivity {
         rightTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,UserSettingActivity.class);
+                Intent intent = new Intent(context,SendCommentActivity.class);
                 startActivity(intent);
             }
         });

@@ -151,7 +151,7 @@ public class UnConsumedFragment extends BaseFragment {
             holder.codeBtn.setText(R.string.order_code);
             holder.codeBtn.setTag(orderModel);
             holder.backOrder.setTag(orderModel);
-            if ("1".equals(orderModel.getStatus())) {//使用中
+            if ("ord_Y".equals(orderModel.getStatus())) {//使用中
                 holder.backOrder.setText(R.string.using_order);
                 holder.backOrder.setOnClickListener(null);
                 holder.paidTime.setText(simpleDateFormat.format(orderModel.getRecordTime()) + " " + context.getString(R.string.use));

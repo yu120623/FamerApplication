@@ -105,11 +105,11 @@ public class FarmSetNavListActivity extends Activity {
             MarkerOptions mark = new MarkerOptions();
             FarmItemsModel item = farmItemsModels.get(i);
             mark.position(new LatLng(item.getFarmLatitude(), item.getFarmLongitude()));
-            mark.icon(BitmapDescriptorFactory.defaultMarker());
+            mark.icon(AppUtil.getMarkResource(item.getFarmItemType()));
             mark.title(item.getFarmItemName());
             Marker marker = map.addMarker(mark);
             markers.add(marker);
-            marker.showInfoWindow();
+            //marker.showInfoWindow();
         }
     }
 

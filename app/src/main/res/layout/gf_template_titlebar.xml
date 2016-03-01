@@ -31,7 +31,6 @@
         android:id="@+id/iv_take_photo"
         android:layout_width="@dimen/gf_title_bar_height"
         android:layout_height="@dimen/gf_title_bar_height"
-        android:src="@mipmap/ic_gf_camera"
         android:scaleType="centerInside"
         />
 

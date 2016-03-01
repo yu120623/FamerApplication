@@ -2,6 +2,7 @@ package com.egceo.app.myfarm.comment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,18 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.db.DBHelper;
+import com.egceo.app.myfarm.db.SendComment;
+import com.egceo.app.myfarm.db.SendCommentDao;
+import com.egceo.app.myfarm.db.SendResource;
+import com.egceo.app.myfarm.db.SendResourceDao;
+import com.egceo.app.myfarm.entity.CommentModel;
+import com.egceo.app.myfarm.entity.OrderModel;
+import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.http.API;
+import com.egceo.app.myfarm.http.AppHttpResListener;
+import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.GalleryImageLoader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
@@ -53,7 +66,9 @@ public class SendCommentActivity extends BaseActivity {
     private int mScreenWidth;
     private DisplayImageOptions options;
     private ImageSize imageSize;
-    private OSSClient oss;
+    private OrderModel order;
+    private SendCommentDao sendCommentDao;
+    private SendResourceDao sendResourceDao;
 
     @Override
     protected void initViews() {
@@ -63,8 +78,6 @@ public class SendCommentActivity extends BaseActivity {
     }
 
     private void initClick() {
-        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("1watviMQtPwgWYfY", "fVuW6rXCwSfNi5SkLYorUrBqGB2Qgn");
-        oss = new OSSClient(getApplicationContext(), "http://oss-cn-hangzhou.aliyuncs.com", credentialProvider);
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,9 +89,52 @@ public class SendCommentActivity extends BaseActivity {
         rightTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                sendComment();
             }
         });
+    }
+
+    private void sendComment() {
+        String commentContent = commentEditText.getText().toString();
+        if(TextUtils.isEmpty(commentContent)){
+            CommonUtil.showMessage(context,"请输入评论内容");
+            return;
+        }
+        float rating = ratingBar.getRating();
+        if(photos != null && photos.size() > 0){
+            CommonUtil.showMessage(context,getString(R.string.comment_success));
+            SendComment sendComment = new SendComment();
+            sendComment.setOrderSn(order.getOrderSn());
+            sendComment.setCommentContent(commentContent);
+            sendComment.setCommentScore(rating);
+            Long id = sendCommentDao.insert(sendComment);
+            for(PhotoInfo photo : photos){
+                SendResource sendResource = new SendResource();
+                sendResource.setIsUpload(false);
+                sendResource.setIsCrop(false);
+                sendResource.setResourceLocation(photo.getPhotoPath());
+                sendResource.setReferrenceObjectId(id);
+                sendResourceDao.insert(sendResource);
+            }
+        }else{
+            CommonUtil.showSimpleProgressDialog(getString(R.string.commen_plz_wait),activity);
+            String url = API.URL + API.API_URL.SEND_COMMENT;
+            TransferObject data = AppUtil.getHttpData(context);
+            CommentModel commentModel = new CommentModel();
+            commentModel.setCommentScore(rating);
+            commentModel.setCommentContent(commentContent);
+            data.setCommentModel(commentModel);
+            data.setOrderSn(order.getOrderSn());
+            AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+                @Override
+                public void onSuccess(TransferObject data) {
+                    CommonUtil.showMessage(context,getString(R.string.comment_success));
+                }
+            }, data);
+            request.execute();
+        }
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
@@ -86,34 +142,6 @@ public class SendCommentActivity extends BaseActivity {
         if(resultCode == GalleryHelper.GALLERY_RESULT_SUCCESS){
             if(requestCode == GalleryHelper.GALLERY_REQUEST_CODE){
                 photos = (ArrayList<PhotoInfo>) data.getSerializableExtra(GalleryHelper.RESULT_LIST_DATA);
-                PutObjectRequest put = new PutObjectRequest("mygoto", System.currentTimeMillis()+"_android.jpg", photos.get(0).getPhotoPath());
-                put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-                    @Override
-                    public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-
-                    }
-                });
-                 oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                    @Override
-                    public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                        CommonUtil.showMessage(context,"成功");
-                        Log.i("aaaaaaaaaaaa",result.getETag());
-                    }
-
-                    @Override
-                    public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                        // 请求异常
-                        if (clientExcepion != null) {
-                            clientExcepion.printStackTrace();
-                        }
-                        if (serviceException != null) {
-                            Log.e("ErrorCode", serviceException.getErrorCode());
-                            Log.e("RequestId", serviceException.getRequestId());
-                            Log.e("HostId", serviceException.getHostId());
-                            Log.e("RawMessage", serviceException.getRawMessage());
-                        }
-                    }
-                });
                 adapter.notifyDataSetChanged();
             }
         }
@@ -173,6 +201,9 @@ public class SendCommentActivity extends BaseActivity {
     }
 
     private void initData() {
+        sendCommentDao = DBHelper.getDaoSession(getApplicationContext()).getSendCommentDao();
+        sendResourceDao = DBHelper.getDaoSession(getApplicationContext()).getSendResourceDao();
+        order = (OrderModel) this.getIntent().getSerializableExtra("order");
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(false)

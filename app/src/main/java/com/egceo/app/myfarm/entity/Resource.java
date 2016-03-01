@@ -2,16 +2,18 @@ package com.egceo.app.myfarm.entity;
 
 // Generated 21-ʮ����-15 ���� 12:31 by Hibernate Tools 3.4.0.CR1
 
+import com.egceo.app.myfarm.db.SendResource;
+
 import java.util.Date;
 
 public class Resource implements java.io.Serializable {
 
-	private int resourceId;
+	private Integer resourceId;
 	private String resourceName;
 	private String resourceType;
 	private String resourceLocation;
 	private String resourceProperty;
-	private int referrenceObjectId;
+	private Integer referrenceObjectId;
 	private String isDeleted;
 	private Date createdTime;
 	private String createdBy;
@@ -60,6 +62,11 @@ public class Resource implements java.io.Serializable {
 		this.createdTime = createdTime;
 		this.updatedBy = updatedBy;
 		this.updatedTime = updatedTime;
+	}
+
+	public Resource(SendResource commentResource) {
+		this.resourceLocation = commentResource.getResourceLocation();
+
 	}
 
 	public Integer getResourceId() {

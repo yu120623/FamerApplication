@@ -3,6 +3,7 @@ package com.baseandroid.util;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,6 +14,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -267,7 +271,7 @@ public class CommonUtil {
     
     public static File getUploadFolder(){
     	File file = Environment.getExternalStorageDirectory();
-    	File path = new File(file,File.separator+"sx"+"/up/");
+    	File path = new File(file,File.separator+"farm"+"");
     	if(!path.exists())
     		path.mkdir();
     	return path;
@@ -288,5 +292,115 @@ public class CommonUtil {
 	public static int getProgress(int current,int total){
 		return (int) (((current*1.0)/total)*100);
 	}
+
+	public static Bitmap comPressBitmap(String path, int w, int h) {
+		Bitmap tmpBitmap = null;
+		try {
+			tmpBitmap = createNewBitmapAndCompressByFile(path,
+					new int[] { w, h });
+		} catch (RuntimeException e) {
+		} catch (Exception e) {
+		}
+		return tmpBitmap;
+	}
+
+	public static Bitmap createNewBitmapAndCompressByFile(String filePath,
+														  int wh[]) {
+		int offset = 100;
+		File file = new File(filePath);
+		int raye = readPictureDegree(filePath);
+
+		long fileSize = file.length();
+		if (200 * 1024 < fileSize && fileSize <= 1024 * 1024)
+			offset = 90;
+		else if (1024 * 1024 < fileSize)
+			offset = 85;
+
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		options.inPreferredConfig = Bitmap.Config.RGB_565;
+		options.inDither = false;
+		BitmapFactory.decodeFile(filePath, options);
+
+		int bmpheight = options.outHeight;
+		int bmpWidth = options.outWidth;
+		int inSampleSize = bmpheight / wh[1] > bmpWidth / wh[0] ? bmpheight
+				/ wh[1] : bmpWidth / wh[0];
+		if (inSampleSize > 1)
+			options.inSampleSize = inSampleSize;
+		options.inJustDecodeBounds = false;
+
+		InputStream is = null;
+		try {
+			is = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+		Bitmap bitmap = null;
+		try {
+			bitmap = BitmapFactory.decodeStream(is, null, options);
+		} catch (OutOfMemoryError e) {
+			System.gc();
+			bitmap = null;
+		}
+
+		if (offset == 100)
+			return bitmap;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		if (bitmap != null) {
+			bitmap.compress(Bitmap.CompressFormat.JPEG, offset, baos);
+		}
+		byte[] buffer = baos.toByteArray();
+		options = null;
+		if (buffer.length >= fileSize)
+			return bitmap;
+		try {
+			return BitmapFactory.decodeByteArray(buffer, 0, buffer.length);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (raye != 0) {
+			bitmap = rotaingImageView(-raye, bitmap);
+		}
+		return bitmap;
+	}
+
+	public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
+		Matrix matrix = new Matrix();
+		matrix.postRotate(angle);
+		System.out.println("angle2=" + angle);
+		Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+		bitmap.recycle();
+		return resizedBitmap;
+	}
+
+	public static int readPictureDegree(String path) {
+		int degree = 0;
+		try {
+			ExifInterface exifInterface = new ExifInterface(path);
+			int orientation = exifInterface.getAttributeInt(
+					ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_NORMAL);
+			switch (orientation) {
+				case ExifInterface.ORIENTATION_ROTATE_90:
+					degree = 90;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_180:
+					degree = 180;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_270:
+					degree = 270;
+					break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return degree;
+	}
+
 }
 

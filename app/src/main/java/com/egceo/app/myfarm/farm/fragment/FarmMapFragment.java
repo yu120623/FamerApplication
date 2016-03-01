@@ -63,23 +63,11 @@ public class FarmMapFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
-                return null;
+                return navItem;
             }
             @Override
             public View getInfoContents(Marker marker) {
-                navItem = LayoutInflater.from(getActivity()).inflate(R.layout.item_nav_map_text_bg,null,false);
-                TextView navName = (TextView) navItem.findViewById(R.id.nav_map_name);
-                navName.setText(farmModel.getFarmName());
-                navItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), MapNavActivity.class);
-                        intent.putExtra("latitude", farmModel.getFarmLatitude());
-                        intent.putExtra("longitude",farmModel.getFarmLongitude());
-                        startActivity(intent);
-                    }
-                });
-                return navItem;
+                return null;
             }
         });
         map.addMarker(mark).showInfoWindow();

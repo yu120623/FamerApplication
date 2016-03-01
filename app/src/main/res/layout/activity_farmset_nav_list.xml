@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/nav_content"
+    <RelativeLayout
+        android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical">
+        android:layout_height="@android:dimen/app_icon_size"
+        android:background="@color/action_bar_bg"
+        android:paddingBottom="@dimen/action_bar_defalut_bottom_padding"
+        android:paddingTop="@dimen/action_bar_defalut_top_padding">
 
-        <com.amap.api.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/map"
+        <include layout="@layout/action_bar"></include>
+    </RelativeLayout>
+
+    <com.amap.api.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/action_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map">
+
+        <LinearLayout
+            android:id="@+id/nav_content"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
-
-    </LinearLayout>
-</ScrollView>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+</RelativeLayout>

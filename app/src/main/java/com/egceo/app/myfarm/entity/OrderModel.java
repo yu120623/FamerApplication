@@ -14,6 +14,8 @@ public class OrderModel extends Order{
 	private String farmSetName;
 	
 	private Integer copies;
+
+	private String commentStatus;
 	
 	private Double price;
 	
@@ -198,4 +200,11 @@ public class OrderModel extends Order{
 		this.refundRequestModel = refundRequestModel;
 	}
 
+	public String getCommentStatus() {
+		return commentStatus;
+	}
+
+	public void setCommentStatus(String commentStatus) {
+		this.commentStatus = commentStatus;
+	}
 }

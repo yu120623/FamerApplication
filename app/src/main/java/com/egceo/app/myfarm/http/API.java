@@ -47,5 +47,6 @@ public class API {
         public static final String QUICK_PAY = "quickPaySn";//快速买单
         public static final String USER_EDIT = "personEdit";//用户修改信息
         public static final String DEL_MSG = "deleteSysInfo";//删除用户信息
+        public static final String SEND_COMMENT ="saveComment";//评论
     }
 }

@@ -79,7 +79,7 @@ public class TransferObject implements Serializable {
     private List<Resource> resources;
 
     private CodeModel codeModel;
-
+    private CommentModel commentModel;
     private Date date;
     private List<Date> dates;
 
@@ -567,5 +567,13 @@ public class TransferObject implements Serializable {
 
     public void setWalletModel(WalletModel walletModel) {
         this.walletModel = walletModel;
+    }
+
+    public CommentModel getCommentModel() {
+        return commentModel;
+    }
+
+    public void setCommentModel(CommentModel commentModel) {
+        this.commentModel = commentModel;
     }
 }

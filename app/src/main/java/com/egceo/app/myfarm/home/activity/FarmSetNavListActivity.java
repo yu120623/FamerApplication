@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.Text;
 import com.baseandroid.BaseActivity;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.FarmItemsModel;
@@ -61,15 +63,22 @@ public class FarmSetNavListActivity extends Activity {
     }
 
     private void initData() {
+        TextView actionBarTitle = (TextView) this.findViewById(com.baseandroid.R.id.action_bar_title);
+        actionBarTitle.setText("线路");
+        ImageView back = (ImageView) this.findViewById(com.baseandroid.R.id.back_btn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //scrollToFinishActivity();
+                finish();
+            }
+        });
         markers = new ArrayList<>();
         decimalFormat = new DecimalFormat("#.##");
         inflater = LayoutInflater.from(getApplicationContext());
         map = mapView.getMap();
         farmSetModel = (FarmSetModel) this.getIntent().getSerializableExtra("farmSetModel");
-        map.getUiSettings().setZoomGesturesEnabled(false);
-        map.getUiSettings().setZoomControlsEnabled(false);
         map.getUiSettings().setCompassEnabled(false);
-        map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(false);
         map.setOnMapLoadedListener(onloadListener);
         map.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
@@ -160,6 +169,7 @@ public class FarmSetNavListActivity extends Activity {
                 builder.include(markers.get(i).getPosition());
             }
             map.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+            map.moveCamera(CameraUpdateFactory.zoomOut());
         }
     };
 

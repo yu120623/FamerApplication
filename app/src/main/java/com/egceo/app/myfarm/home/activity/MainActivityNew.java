@@ -59,6 +59,7 @@ public class MainActivityNew extends BaseActivity {
     private FragmentPagerItemAdapter adapter;
     private RadioGroup radioButtonGroup;
     private CodeDao codeDao;
+    private long lastClickTime;
     @Override
     protected void initViews() {
         findViews();
@@ -290,6 +291,17 @@ public class MainActivityNew extends BaseActivity {
         userBtn = this.findViewById(R.id.user_btn);
         area = (TextView) this.findViewById(R.id.area);
         radioButtonGroup = (RadioGroup) this.findViewById(R.id.bottom_radio_group);
+    }
+
+    @Override
+    protected void onKeyBack() {
+        CommonUtil.showMessage(context, "再按一次退出程序");
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if ( 0 < timeD && timeD < 2000) {
+            finish();
+        }
+        lastClickTime = time;
     }
 
     @Override

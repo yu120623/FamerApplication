@@ -3,10 +3,10 @@ package com.egceo.app.myfarm.entity;
 import java.util.Date;
 
 public class Comment implements java.io.Serializable{
-	private int commentId;
+	private Integer commentId;
 	private String commentContent;
 	private String commnetType;
-	private Integer commentScore;
+	private float commentScore;
 	private Integer commenter;
 	private String commentStatus;
 	private int referenceObjectId;
@@ -74,10 +74,10 @@ public class Comment implements java.io.Serializable{
 		this.commnetType = commnetType;
 	}
 
-	public Integer getCommentScore() {
+	public float getCommentScore() {
 		return commentScore;
 	}
-	public void setCommentScore(Integer commentScore) {
+	public void setCommentScore(float commentScore) {
 		this.commentScore = commentScore;
 	}
 

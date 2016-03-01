@@ -9,7 +9,8 @@ public class SendComment {
     private Long commentId;
     private String commentContent;
     private String commnetType;
-    private Integer commentScore;
+    private Float commentScore;
+    private String orderSn;
     private Integer commenter;
     private String commentStatus;
     private Integer referenceObjectId;
@@ -26,11 +27,12 @@ public class SendComment {
         this.commentId = commentId;
     }
 
-    public SendComment(Long commentId, String commentContent, String commnetType, Integer commentScore, Integer commenter, String commentStatus, Integer referenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
+    public SendComment(Long commentId, String commentContent, String commnetType, Float commentScore, String orderSn, Integer commenter, String commentStatus, Integer referenceObjectId, String isDeleted, String createdBy, java.util.Date createdTime, String updatedBy, java.util.Date updatedTime) {
         this.commentId = commentId;
         this.commentContent = commentContent;
         this.commnetType = commnetType;
         this.commentScore = commentScore;
+        this.orderSn = orderSn;
         this.commenter = commenter;
         this.commentStatus = commentStatus;
         this.referenceObjectId = referenceObjectId;
@@ -65,12 +67,20 @@ public class SendComment {
         this.commnetType = commnetType;
     }
 
-    public Integer getCommentScore() {
+    public Float getCommentScore() {
         return commentScore;
     }
 
-    public void setCommentScore(Integer commentScore) {
+    public void setCommentScore(Float commentScore) {
         this.commentScore = commentScore;
+    }
+
+    public String getOrderSn() {
+        return orderSn;
+    }
+
+    public void setOrderSn(String orderSn) {
+        this.orderSn = orderSn;
     }
 
     public Integer getCommenter() {

@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="horizontal">
+    android:background="@drawable/nav_bg"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nav_map_name"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_gravity="center_vertical"
-        android:textColor="@color/black"
-        android:layout_toLeftOf="@+id/view1"
-        android:layout_toStartOf="@+id/view1" />
+        android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@color/blue"
-        android:padding="5dp">
-
-        <ImageView
+        <TextView
+            android:id="@+id/nav_map_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/nav_btn" />
-    </RelativeLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:maxLength="10"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_toLeftOf="@+id/view1"
+            android:layout_toStartOf="@+id/view1"
+            android:textColor="@color/black" />
+
+        <RelativeLayout
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/nav_btn" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

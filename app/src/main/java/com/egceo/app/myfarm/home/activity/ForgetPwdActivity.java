@@ -94,6 +94,9 @@ public class ForgetPwdActivity extends BaseActivity {
     }
 
     private void initData() {
+        if(("changePwd").equals(getIntent().getStringExtra("type"))){
+            changePwd.setText("立即修改");
+        }
         getCodeBtnHandler = new GetCodeBtnHandler(AppUtil.PWD_SMS_TIME,sp,context);
         android.os.Message msg = new android.os.Message();
         msg.obj = getCode;
@@ -176,7 +179,7 @@ public class ForgetPwdActivity extends BaseActivity {
 
     @Override
     protected String setActionBarTitle() {
-        if(getIntent().getStringExtra("type").equals("forgetPwd")){
+        if("changePwd".equals(getIntent().getStringExtra("type"))){
             return getString(R.string.change_pwd_title);
         }
         return getString(R.string.forget_pwd_title);

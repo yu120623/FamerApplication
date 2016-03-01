@@ -26,15 +26,16 @@ public class SendCommentDao extends AbstractDao<SendComment, Long> {
         public final static Property CommentId = new Property(0, Long.class, "commentId", true, "COMMENT_ID");
         public final static Property CommentContent = new Property(1, String.class, "commentContent", false, "COMMENT_CONTENT");
         public final static Property CommnetType = new Property(2, String.class, "commnetType", false, "COMMNET_TYPE");
-        public final static Property CommentScore = new Property(3, Integer.class, "commentScore", false, "COMMENT_SCORE");
-        public final static Property Commenter = new Property(4, Integer.class, "commenter", false, "COMMENTER");
-        public final static Property CommentStatus = new Property(5, String.class, "commentStatus", false, "COMMENT_STATUS");
-        public final static Property ReferenceObjectId = new Property(6, Integer.class, "referenceObjectId", false, "REFERENCE_OBJECT_ID");
-        public final static Property IsDeleted = new Property(7, String.class, "isDeleted", false, "IS_DELETED");
-        public final static Property CreatedBy = new Property(8, String.class, "createdBy", false, "CREATED_BY");
-        public final static Property CreatedTime = new Property(9, java.util.Date.class, "createdTime", false, "CREATED_TIME");
-        public final static Property UpdatedBy = new Property(10, String.class, "updatedBy", false, "UPDATED_BY");
-        public final static Property UpdatedTime = new Property(11, java.util.Date.class, "updatedTime", false, "UPDATED_TIME");
+        public final static Property CommentScore = new Property(3, Float.class, "commentScore", false, "COMMENT_SCORE");
+        public final static Property OrderSn = new Property(4, String.class, "orderSn", false, "ORDER_SN");
+        public final static Property Commenter = new Property(5, Integer.class, "commenter", false, "COMMENTER");
+        public final static Property CommentStatus = new Property(6, String.class, "commentStatus", false, "COMMENT_STATUS");
+        public final static Property ReferenceObjectId = new Property(7, Integer.class, "referenceObjectId", false, "REFERENCE_OBJECT_ID");
+        public final static Property IsDeleted = new Property(8, String.class, "isDeleted", false, "IS_DELETED");
+        public final static Property CreatedBy = new Property(9, String.class, "createdBy", false, "CREATED_BY");
+        public final static Property CreatedTime = new Property(10, java.util.Date.class, "createdTime", false, "CREATED_TIME");
+        public final static Property UpdatedBy = new Property(11, String.class, "updatedBy", false, "UPDATED_BY");
+        public final static Property UpdatedTime = new Property(12, java.util.Date.class, "updatedTime", false, "UPDATED_TIME");
     };
 
 
@@ -53,15 +54,16 @@ public class SendCommentDao extends AbstractDao<SendComment, Long> {
                 "\"COMMENT_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: commentId
                 "\"COMMENT_CONTENT\" TEXT," + // 1: commentContent
                 "\"COMMNET_TYPE\" TEXT," + // 2: commnetType
-                "\"COMMENT_SCORE\" INTEGER," + // 3: commentScore
-                "\"COMMENTER\" INTEGER," + // 4: commenter
-                "\"COMMENT_STATUS\" TEXT," + // 5: commentStatus
-                "\"REFERENCE_OBJECT_ID\" INTEGER," + // 6: referenceObjectId
-                "\"IS_DELETED\" TEXT," + // 7: isDeleted
-                "\"CREATED_BY\" TEXT," + // 8: createdBy
-                "\"CREATED_TIME\" INTEGER," + // 9: createdTime
-                "\"UPDATED_BY\" TEXT," + // 10: updatedBy
-                "\"UPDATED_TIME\" INTEGER);"); // 11: updatedTime
+                "\"COMMENT_SCORE\" REAL," + // 3: commentScore
+                "\"ORDER_SN\" TEXT," + // 4: orderSn
+                "\"COMMENTER\" INTEGER," + // 5: commenter
+                "\"COMMENT_STATUS\" TEXT," + // 6: commentStatus
+                "\"REFERENCE_OBJECT_ID\" INTEGER," + // 7: referenceObjectId
+                "\"IS_DELETED\" TEXT," + // 8: isDeleted
+                "\"CREATED_BY\" TEXT," + // 9: createdBy
+                "\"CREATED_TIME\" INTEGER," + // 10: createdTime
+                "\"UPDATED_BY\" TEXT," + // 11: updatedBy
+                "\"UPDATED_TIME\" INTEGER);"); // 12: updatedTime
     }
 
     /** Drops the underlying database table. */
@@ -90,49 +92,54 @@ public class SendCommentDao extends AbstractDao<SendComment, Long> {
             stmt.bindString(3, commnetType);
         }
  
-        Integer commentScore = entity.getCommentScore();
+        Float commentScore = entity.getCommentScore();
         if (commentScore != null) {
-            stmt.bindLong(4, commentScore);
+            stmt.bindDouble(4, commentScore);
+        }
+ 
+        String orderSn = entity.getOrderSn();
+        if (orderSn != null) {
+            stmt.bindString(5, orderSn);
         }
  
         Integer commenter = entity.getCommenter();
         if (commenter != null) {
-            stmt.bindLong(5, commenter);
+            stmt.bindLong(6, commenter);
         }
  
         String commentStatus = entity.getCommentStatus();
         if (commentStatus != null) {
-            stmt.bindString(6, commentStatus);
+            stmt.bindString(7, commentStatus);
         }
  
         Integer referenceObjectId = entity.getReferenceObjectId();
         if (referenceObjectId != null) {
-            stmt.bindLong(7, referenceObjectId);
+            stmt.bindLong(8, referenceObjectId);
         }
  
         String isDeleted = entity.getIsDeleted();
         if (isDeleted != null) {
-            stmt.bindString(8, isDeleted);
+            stmt.bindString(9, isDeleted);
         }
  
         String createdBy = entity.getCreatedBy();
         if (createdBy != null) {
-            stmt.bindString(9, createdBy);
+            stmt.bindString(10, createdBy);
         }
  
         java.util.Date createdTime = entity.getCreatedTime();
         if (createdTime != null) {
-            stmt.bindLong(10, createdTime.getTime());
+            stmt.bindLong(11, createdTime.getTime());
         }
  
         String updatedBy = entity.getUpdatedBy();
         if (updatedBy != null) {
-            stmt.bindString(11, updatedBy);
+            stmt.bindString(12, updatedBy);
         }
  
         java.util.Date updatedTime = entity.getUpdatedTime();
         if (updatedTime != null) {
-            stmt.bindLong(12, updatedTime.getTime());
+            stmt.bindLong(13, updatedTime.getTime());
         }
     }
 
@@ -149,15 +156,16 @@ public class SendCommentDao extends AbstractDao<SendComment, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // commentId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // commentContent
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // commnetType
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // commentScore
-            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // commenter
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // commentStatus
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // referenceObjectId
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // isDeleted
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // createdBy
-            cursor.isNull(offset + 9) ? null : new java.util.Date(cursor.getLong(offset + 9)), // createdTime
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // updatedBy
-            cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)) // updatedTime
+            cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3), // commentScore
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // orderSn
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // commenter
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // commentStatus
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // referenceObjectId
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // isDeleted
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // createdBy
+            cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)), // createdTime
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // updatedBy
+            cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)) // updatedTime
         );
         return entity;
     }
@@ -168,15 +176,16 @@ public class SendCommentDao extends AbstractDao<SendComment, Long> {
         entity.setCommentId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCommentContent(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setCommnetType(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setCommentScore(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
-        entity.setCommenter(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setCommentStatus(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setReferenceObjectId(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
-        entity.setIsDeleted(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setCreatedBy(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setCreatedTime(cursor.isNull(offset + 9) ? null : new java.util.Date(cursor.getLong(offset + 9)));
-        entity.setUpdatedBy(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setUpdatedTime(cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)));
+        entity.setCommentScore(cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3));
+        entity.setOrderSn(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setCommenter(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setCommentStatus(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setReferenceObjectId(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
+        entity.setIsDeleted(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCreatedBy(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setCreatedTime(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
+        entity.setUpdatedBy(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setUpdatedTime(cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)));
      }
     
     /** @inheritdoc */

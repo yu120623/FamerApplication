@@ -1,5 +1,6 @@
 package com.egceo.app.myfarm.user.orderfragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -148,6 +149,11 @@ public class ConsumedFragment extends BaseFragment {
             holder.delBtn.setTag(orderModel);
             holder.delBtn.setOnClickListener(onDelClick);
             holder.commentBtn.setOnClickListener(onCommentClick);
+            if(orderModel.getCommentStatus().equals("1")){
+                holder.commentBtn.setVisibility(View.GONE);
+            }else{
+                holder.commentBtn.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -159,17 +165,17 @@ public class ConsumedFragment extends BaseFragment {
     private View.OnClickListener onCommentClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            OrderModel order = (OrderModel) view.getTag();
+            OrderModel order = (OrderModel) v.getTag();
             Intent intent = new Intent(context, SendCommentActivity.class);
             intent.putExtra("order", order);
-            startActivity(intent);
+            startActivityForResult(intent,1);
         }
     };
 
     private View.OnClickListener onOrderClick = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-            OrderModel order = (OrderModel) view.getTag();
+        public void onClick(View v) {
+            OrderModel order = (OrderModel) v.getTag();
             Intent intent = new Intent(context, OrderDetailActivity.class);
             intent.putExtra("order", order);
             startActivity(intent);
@@ -179,8 +185,8 @@ public class ConsumedFragment extends BaseFragment {
     //删除订单
     private View.OnClickListener onDelClick = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-            final OrderModel order = (OrderModel) view.getTag();
+        public void onClick(View v) {
+            final OrderModel order = (OrderModel) v.getTag();
             new AlertDialog.Builder(activity)
                     .setTitle(context.getString(R.string.hint))
                     .setMessage(context.getString(R.string.del_order_hint))
@@ -221,6 +227,18 @@ public class ConsumedFragment extends BaseFragment {
             }
         },data);
         request.execute();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            frameLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    frameLayout.autoRefresh(true);
+                }
+            },100);
+        }
     }
 
     class ConsumedViewHolder extends RecyclerView.ViewHolder {

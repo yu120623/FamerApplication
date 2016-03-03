@@ -77,7 +77,7 @@ public class ForgetPwdActivity extends BaseActivity {
         user.setUserBindingPhone(phoneText);
         user.setUserPassword(passwordText);
         SMSObject sms = new SMSObject();
-        sms.setSmsId(sp.getString(AppUtil.PWD_SMS_ID,""));
+        sms.setSmsId(sp.getString(AppUtil.PWD_SMS_ID,"0"));
         sms.setSmsVerificationCode(codeText);
         data.setSmsObject(sms);
         data.setUserProfile(user);

@@ -188,4 +188,5 @@
     <string name="gongxi_facai">恭喜发财</string>
     <string name="comment_success">评论成功</string>
     <string name="commen_plz_wait">正在评论,请稍后</string>
+    <string name="agree_auth">请先同意我的农庄注册协议</string>
 </resources>

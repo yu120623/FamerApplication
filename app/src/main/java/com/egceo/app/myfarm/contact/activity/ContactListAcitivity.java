@@ -61,6 +61,7 @@ public class ContactListAcitivity extends BaseActivity {
     }
 
     private void addContact() {
+        okBtn.setEnabled(false);
         String url = API.URL + API.API_URL.ADD_CONTACT;
         TransferObject data = AppUtil.getHttpData(context);
         data.setName(contactName.getText().toString());
@@ -71,6 +72,12 @@ public class ContactListAcitivity extends BaseActivity {
                 Contact contact = data.getContact();
                 contactList.add(contactList.size(), contact);
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onEnd() {
+                super.onEnd();
+                okBtn.setEnabled(true);
             }
         }, data);
         request.execute();

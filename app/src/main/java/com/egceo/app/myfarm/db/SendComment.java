@@ -71,7 +71,7 @@ public class SendComment {
         return commentScore;
     }
 
-    public void setCommentScore(Float commentScore) {
+    public void setCommentScore(float commentScore) {
         this.commentScore = commentScore;
     }
 

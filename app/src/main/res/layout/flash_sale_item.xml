@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/topic_area_bg"
+                android:lines="1"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:textColor="@color/white"
@@ -35,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:ellipsize="end"
+                android:lines="1"
                 android:textColor="#666666"
                 android:textSize="15sp" />
 
@@ -43,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:lines="1"
                 android:textColor="@color/gray"
                 android:textSize="13sp" />
         </LinearLayout>

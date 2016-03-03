@@ -1,9 +1,11 @@
 package com.egceo.app.myfarm.home.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.GetCodeBtnHandler;
+import com.html.HtmlActivity;
 
 /**
  * Created by gseoa on 2016/1/13.
@@ -31,6 +34,8 @@ public class RegisterActivity extends BaseActivity {
     private Button registerBtn;
     private TextView getCode;
     private GetCodeBtnHandler getCodeBtnHandler;
+    private CheckBox checkBox;
+    private TextView authDetailBtn;
     @Override
     protected void initViews() {
         findViews();
@@ -57,6 +62,14 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 sendSms();
+            }
+        });
+        authDetailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HtmlActivity.class);
+                intent.putExtra("url","http://w.mycff.com/Wechat/Index/news/id/7.htmll");
+                startActivity(intent);
             }
         });
     }
@@ -105,7 +118,7 @@ public class RegisterActivity extends BaseActivity {
         user.setUserBindingPhone(phoneText);
         user.setUserPassword(passwordText);
         SMSObject sms = new SMSObject();
-        sms.setSmsId(sp.getString(AppUtil.REG_SMS_ID,""));
+        sms.setSmsId(sp.getString(AppUtil.REG_SMS_ID,"0"));
         sms.setSmsVerificationCode(codeText);
         data.setSmsObject(sms);
         data.setUserProfile(user);
@@ -125,6 +138,10 @@ public class RegisterActivity extends BaseActivity {
         String phoneText = phone.getText().toString();
         String passwordText = password.getText().toString();
         String codeText = code.getText().toString();
+        if(!checkBox.isChecked()){
+            CommonUtil.showMessage(context,getString(R.string.agree_auth));
+            return false;
+        }
         if(phoneText.length() != 11){
             CommonUtil.showMessage(context,getString(R.string.pls_enter_phone_number));
             return false;
@@ -146,6 +163,8 @@ public class RegisterActivity extends BaseActivity {
         code = (EditText) this.findViewById(R.id.code);
         registerBtn = (Button) this.findViewById(R.id.register_btn);
         getCode = (TextView) this.findViewById(R.id.get_code);
+        checkBox = (CheckBox) this.findViewById(R.id.auth_btn);
+        authDetailBtn = (TextView) this.findViewById(R.id.auth_detail_btn);
     }
 
     @Override

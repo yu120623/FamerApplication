@@ -32,6 +32,7 @@ public class OnFavouriteClick implements FavouriteBtn.OnCheckedChangeListener {
         if(!AppUtil.checkIsLogin(view.getContext())){
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivity(intent);
+            favouriteBtn.setChecked(!favouriteBtn.isChecked());
             return;
         }
         String id = (String) view.getTag(R.id.favourite_id);

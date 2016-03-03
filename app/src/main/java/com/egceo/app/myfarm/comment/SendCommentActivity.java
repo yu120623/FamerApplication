@@ -106,7 +106,7 @@ public class SendCommentActivity extends BaseActivity {
             SendComment sendComment = new SendComment();
             sendComment.setOrderSn(order.getOrderSn());
             sendComment.setCommentContent(commentContent);
-            sendComment.setCommentScore(rating);
+            sendComment.setCommentScore((int)rating);
             Long id = sendCommentDao.insert(sendComment);
             for(PhotoInfo photo : photos){
                 SendResource sendResource = new SendResource();
@@ -121,7 +121,7 @@ public class SendCommentActivity extends BaseActivity {
             String url = API.URL + API.API_URL.SEND_COMMENT;
             TransferObject data = AppUtil.getHttpData(context);
             CommentModel commentModel = new CommentModel();
-            commentModel.setCommentScore(rating);
+            commentModel.setCommentScore((int)rating);
             commentModel.setCommentContent(commentContent);
             data.setCommentModel(commentModel);
             data.setOrderSn(order.getOrderSn());

@@ -25,11 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:textCursorDrawable="@drawable/edittext_cursor"
             android:background="@null"
+            android:hint="@string/user_name_hint"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
-            android:hint="@string/user_name_hint" />
+            android:textCursorDrawable="@drawable/edittext_cursor"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <View style="@style/line" />

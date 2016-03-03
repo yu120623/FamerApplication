@@ -39,8 +39,6 @@ import com.egceo.app.myfarm.search.activity.SearchActivity;
 import com.egceo.app.myfarm.user.activity.UserActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.NetworkImageHolderView;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;

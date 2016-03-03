@@ -1,11 +1,13 @@
 package com.egceo.app.myfarm.comment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import com.egceo.app.myfarm.entity.Resource;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.view.PhotoViewPageActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
@@ -70,7 +73,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
     protected void initData() {
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
-                .cacheOnDisk(false)
+                .cacheOnDisk(true)
                 .showImageOnLoading(R.mipmap.ic_gf_default_photo)
                 .showImageForEmptyUri(R.mipmap.ic_gf_default_photo)
                 .showImageOnFail(R.mipmap.ic_gf_default_photo)
@@ -124,7 +127,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
                 holder.ratingBar.setRating(Float.parseFloat(resData.getScore()));
                 holder.score.setText(resData.getScore());
                 holder.photoGrid.setVisibility(View.GONE);
-            } else {
+            }else{
                 holder.commentHead.setVisibility(View.GONE);
                 holder.commentBody.setVisibility(View.VISIBLE);
                 holder.commentUserName.setText(comments.get(position-1).getCommentName());
@@ -132,7 +135,9 @@ public abstract class BaseCommentFragment extends BaseFragment {
                 holder.commentContext.setText(comments.get(position-1).getComment().getCommentContent());
                 if(comments.get(position-1).getResoursePath() != null && comments.get(position-1).getResoursePath().size() > 0) {
                     holder.photoGrid.setVisibility(View.VISIBLE);
+                    holder.photoGrid.setTag(comments.get(position - 1).getResoursePath());
                     holder.photoGrid.setAdapter(new PhotoAdapter(comments.get(position - 1).getResoursePath()));
+                    holder.photoGrid.setOnItemClickListener(onItemClickListener);
                 }else{
                     holder.photoGrid.setVisibility(View.GONE);
                 }
@@ -146,6 +151,21 @@ public abstract class BaseCommentFragment extends BaseFragment {
         }
 
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            List<Resource> resources = (List<Resource>) parent.getTag();
+            ArrayList<String> url = new ArrayList<>();
+            for(Resource resource : resources){
+                url.add(resource.getResourceLocation());
+            }
+            Intent intent = new Intent(context, PhotoViewPageActivity.class);
+            intent.putExtra("urls",url);
+            intent.putExtra("index",position);
+            startActivity(intent);
+        }
+    };
 
     class PingJiaViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout commentBody;

@@ -113,7 +113,7 @@ public class UploadService extends Service {
                 return;
             }
             String name = System.currentTimeMillis()+"_android.jpg";
-            final String url = "s.mycff.com/"+name;
+            final String url = "http://s.mycff.com/"+name;
             PutObjectRequest put = new PutObjectRequest("mygoto", name, resources.get(index).getResourceLocation());
             put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
                 @Override

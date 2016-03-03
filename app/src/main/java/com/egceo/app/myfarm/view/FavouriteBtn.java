@@ -46,8 +46,6 @@ public class FavouriteBtn extends ImageView implements Checkable{
 
     @Override
     public void setChecked(boolean b) {
-        if(onCheckedChangeListener != null)
-            onCheckedChangeListener.onCheckedChanged(this);
         mChecked = b;
         refreshDrawableState();
     }
@@ -79,6 +77,8 @@ public class FavouriteBtn extends ImageView implements Checkable{
 
     @Override
     public void toggle() {
+        if(onCheckedChangeListener != null)
+            onCheckedChangeListener.onCheckedChanged(this);
         setChecked(!mChecked);
     }
 

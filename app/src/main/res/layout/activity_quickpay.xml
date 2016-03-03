@@ -55,6 +55,7 @@
                 android:layout_marginLeft="10dp"
                 android:textCursorDrawable="@drawable/edittext_cursor"
                 android:background="@null"
+                android:maxLength="6"
                 android:inputType="numberDecimal"
                 android:textColor="@color/order_process_seleted_bg"
                 android:textSize="16sp" />

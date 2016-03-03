@@ -24,14 +24,9 @@ import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.order.view.PayTypeView;
 import com.egceo.app.myfarm.util.AppUtil;
-import com.egceo.app.myfarm.util.RSAUtil;
 import com.egceo.app.myfarm.view.OrderProcessHeader;
 import com.egceo.app.myfarm.wxapi.WXPayEntryActivity;
-import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.unionpay.UPPayAssistEx;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 

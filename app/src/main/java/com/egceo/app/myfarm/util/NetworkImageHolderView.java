@@ -54,7 +54,7 @@ public class NetworkImageHolderView implements Holder<String> {
         //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheInMemory(true)
+                .cacheInMemory(false)
                 .cacheOnDisk(true)
                 .showImageForEmptyUri(R.mipmap.default_banner_img)
                 .showImageOnFail(R.mipmap.default_banner_img)

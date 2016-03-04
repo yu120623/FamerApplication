@@ -74,9 +74,6 @@ public abstract class BaseCommentFragment extends BaseFragment {
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageOnLoading(R.mipmap.ic_gf_default_photo)
-                .showImageForEmptyUri(R.mipmap.ic_gf_default_photo)
-                .showImageOnFail(R.mipmap.ic_gf_default_photo)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
         comments = new ArrayList<>();

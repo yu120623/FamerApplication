@@ -2,10 +2,13 @@ package com.egceo.app.myfarm.home.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ public class RegisterActivity extends BaseActivity {
     private GetCodeBtnHandler getCodeBtnHandler;
     private CheckBox checkBox;
     private TextView authDetailBtn;
+    private CheckBox viewPwd;
     @Override
     protected void initViews() {
         findViews();
@@ -70,6 +74,15 @@ public class RegisterActivity extends BaseActivity {
                 Intent intent = new Intent(context, HtmlActivity.class);
                 intent.putExtra("url","http://w.mycff.com/Wechat/Index/news/id/7.htmll");
                 startActivity(intent);
+            }
+        });
+        viewPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                else
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
     }
@@ -165,6 +178,7 @@ public class RegisterActivity extends BaseActivity {
         getCode = (TextView) this.findViewById(R.id.get_code);
         checkBox = (CheckBox) this.findViewById(R.id.auth_btn);
         authDetailBtn = (TextView) this.findViewById(R.id.auth_detail_btn);
+        viewPwd = (CheckBox) this.findViewById(R.id.view_pwd);
     }
 
     @Override

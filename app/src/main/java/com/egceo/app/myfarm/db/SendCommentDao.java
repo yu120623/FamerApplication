@@ -51,7 +51,7 @@ public class SendCommentDao extends AbstractDao<SendComment, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SEND_COMMENT\" (" + //
-                "\"COMMENT_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: commentId
+                "\"COMMENT_ID\" INTEGER PRIMARY KEY ," + // 0: commentId
                 "\"COMMENT_CONTENT\" TEXT," + // 1: commentContent
                 "\"COMMNET_TYPE\" TEXT," + // 2: commnetType
                 "\"COMMENT_SCORE\" REAL," + // 3: commentScore

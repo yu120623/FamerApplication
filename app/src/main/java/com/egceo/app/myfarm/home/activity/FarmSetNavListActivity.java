@@ -69,7 +69,6 @@ public class FarmSetNavListActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //scrollToFinishActivity();
                 finish();
             }
         });
@@ -99,17 +98,6 @@ public class FarmSetNavListActivity extends Activity {
     private void addMark() {
         List<FarmItemsModel> farmItemsModels = farmSetModel.getFarmItemsModels();
         if (null == farmItemsModels || farmItemsModels.size() <= 0) return;
-        /*map.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                return inflater.inflate(R.layout.item_nav_map_text_bg,null,false);
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                return null;
-            }
-        });*/
         for (int i = 0; i < farmItemsModels.size(); i++) {
             MarkerOptions mark = new MarkerOptions();
             FarmItemsModel item = farmItemsModels.get(i);
@@ -118,7 +106,6 @@ public class FarmSetNavListActivity extends Activity {
             mark.title(item.getFarmItemName());
             Marker marker = map.addMarker(mark);
             markers.add(marker);
-            //marker.showInfoWindow();
         }
     }
 

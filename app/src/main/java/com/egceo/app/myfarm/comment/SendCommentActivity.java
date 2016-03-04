@@ -33,6 +33,7 @@ import com.egceo.app.myfarm.db.SendComment;
 import com.egceo.app.myfarm.db.SendCommentDao;
 import com.egceo.app.myfarm.db.SendResource;
 import com.egceo.app.myfarm.db.SendResourceDao;
+import com.egceo.app.myfarm.entity.Comment;
 import com.egceo.app.myfarm.entity.CommentModel;
 import com.egceo.app.myfarm.entity.OrderModel;
 import com.egceo.app.myfarm.entity.TransferObject;
@@ -101,40 +102,34 @@ public class SendCommentActivity extends BaseActivity {
             return;
         }
         float rating = ratingBar.getRating();
-        if(photos != null && photos.size() > 0){
-            CommonUtil.showMessage(context,getString(R.string.comment_success));
-            SendComment sendComment = new SendComment();
-            sendComment.setOrderSn(order.getOrderSn());
-            sendComment.setCommentContent(commentContent);
-            sendComment.setCommentScore((int)rating);
-            Long id = sendCommentDao.insert(sendComment);
-            for(PhotoInfo photo : photos){
-                SendResource sendResource = new SendResource();
-                sendResource.setIsUpload(false);
-                sendResource.setIsCrop(false);
-                sendResource.setResourceLocation(photo.getPhotoPath());
-                sendResource.setReferrenceObjectId(id);
-                sendResourceDao.insert(sendResource);
-            }
-        }else{
-            CommonUtil.showSimpleProgressDialog(getString(R.string.commen_plz_wait),activity);
-            String url = API.URL + API.API_URL.SEND_COMMENT;
-            TransferObject data = AppUtil.getHttpData(context);
-            CommentModel commentModel = new CommentModel();
-            commentModel.setCommentScore((int)rating);
-            commentModel.setCommentContent(commentContent);
-            data.setCommentModel(commentModel);
-            data.setOrderSn(order.getOrderSn());
-            AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
-                @Override
-                public void onSuccess(TransferObject data) {
-                    CommonUtil.showMessage(context,getString(R.string.comment_success));
+        CommonUtil.showSimpleProgressDialog(getString(R.string.commen_plz_wait),activity);
+        String url = API.URL + API.API_URL.SEND_COMMENT;
+        TransferObject data = AppUtil.getHttpData(context);
+        CommentModel commentModel = new CommentModel();
+        commentModel.setCommentScore((int)rating);
+        commentModel.setCommentContent(commentContent);
+        data.setCommentModel(commentModel);
+        data.setOrderSn(order.getOrderSn());
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                SendComment sendComment = new SendComment();
+                sendComment.setCommentId(data.getCommentModel().getCommentId().longValue());
+                for(PhotoInfo photo : photos){
+                    SendResource sendResource = new SendResource();
+                    sendResource.setIsUpload(false);
+                    sendResource.setIsCrop(false);
+                    sendResource.setResourceLocation(photo.getPhotoPath());
+                    sendResource.setReferrenceObjectId(sendComment.getCommentId());
+                    sendResourceDao.insert(sendResource);
                 }
-            }, data);
-            request.execute();
-        }
-        setResult(RESULT_OK);
-        finish();
+                sendCommentDao.insert(sendComment);
+                CommonUtil.showMessage(context,getString(R.string.comment_success));
+                setResult(RESULT_OK);
+                finish();
+            }
+        }, data);
+        request.execute();
     }
 
     @Override

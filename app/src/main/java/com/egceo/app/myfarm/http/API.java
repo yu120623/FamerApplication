@@ -2,7 +2,7 @@ package com.egceo.app.myfarm.http;
 
 public class API {
     public static final String URL = "http://121.40.91.182:8080/mycff/api/";
-    //public static final String URL = "http://192.168.1.24:8080/mycff/api/";
+    //public static final String URL = "http://192.168.1.110:8080/mycff/api/";
     public static final String PARAM_STR = "jsonStr";
 
     public static class API_URL {
@@ -48,5 +48,6 @@ public class API {
         public static final String USER_EDIT = "personEdit";//用户修改信息
         public static final String DEL_MSG = "deleteSysInfo";//删除用户信息
         public static final String SEND_COMMENT ="saveComment";//评论
+        public static final String SAVE_RES_COMMENT ="saveResource";//评论图片
     }
 }

@@ -141,7 +141,6 @@ public class UploadService extends Service {
         }else{
             sendComment();
         }
-
     }
 
     private void sendComment() {
@@ -153,13 +152,11 @@ public class UploadService extends Service {
                     continue;
                 }
                 Log.i("++++send comment++++++","++++send comment++++++");
-                String url = API.URL + API.API_URL.SEND_COMMENT;
+                String url = API.URL + API.API_URL.SAVE_RES_COMMENT;
                 TransferObject data = AppUtil.getHttpData(context);
                 CommentModel commentModel = new CommentModel();
-                commentModel.setCommentScore(sendComment.getCommentScore());
-                commentModel.setCommentContent(sendComment.getCommentContent());
+                commentModel.setCommentId(sendComment.getCommentId().intValue());
                 data.setCommentModel(commentModel);
-                data.setOrderSn(sendComment.getOrderSn());
                 List<Resource> resources = new ArrayList<>();
                 for(SendResource commentResource : commentReses){
                     Resource res = new Resource(commentResource);

@@ -40,6 +40,7 @@ import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.order.actvity.OrderDetailActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.GalleryImageLoader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -63,7 +64,7 @@ public class SendCommentActivity extends BaseActivity {
     private EditText commentEditText;
     private GridView photoGridView;
     private BaseAdapter adapter;
-    private ArrayList<PhotoInfo> photos;
+    private ArrayList<PhotoInfo> photos = new ArrayList<>();
     private int mScreenWidth;
     private DisplayImageOptions options;
     private ImageSize imageSize;
@@ -124,8 +125,15 @@ public class SendCommentActivity extends BaseActivity {
                     sendResourceDao.insert(sendResource);
                 }
                 sendCommentDao.insert(sendComment);
-                CommonUtil.showMessage(context,getString(R.string.comment_success));
+                if(photos != null && photos.size() > 0) {
+                    CommonUtil.showMessage(context, getString(R.string.comment_success_upload_img));
+                }else{
+                    CommonUtil.showMessage(context, getString(R.string.comment_success));
+                }
                 setResult(RESULT_OK);
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("order",order);
+                startActivity(intent);
                 finish();
             }
         }, data);

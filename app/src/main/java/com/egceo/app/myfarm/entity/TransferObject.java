@@ -17,7 +17,16 @@ public class TransferObject implements Serializable {
 
     private List<FarmModel> farmModels;
 
+    private ActivityModel activityModel;
+
+    private List<ActivityModel> activityModels;
+
+    private String activityId;
+
     private FarmModel farmModel;
+    private List<String> UUIDs;
+
+    private String LBSValue;
 
     private String farmTopicAliasId;
 
@@ -575,5 +584,45 @@ public class TransferObject implements Serializable {
 
     public void setCommentModel(CommentModel commentModel) {
         this.commentModel = commentModel;
+    }
+
+    public List<String> getUUIDs() {
+        return UUIDs;
+    }
+
+    public void setUUIDs(List<String> UUIDs) {
+        this.UUIDs = UUIDs;
+    }
+
+    public String getLBSValue() {
+        return LBSValue;
+    }
+
+    public void setLBSValue(String LBSValue) {
+        this.LBSValue = LBSValue;
+    }
+
+    public List<ActivityModel> getActivityModels() {
+        return activityModels;
+    }
+
+    public void setActivityModels(List<ActivityModel> activityModels) {
+        this.activityModels = activityModels;
+    }
+
+    public String getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(String activityId) {
+        this.activityId = activityId;
+    }
+
+    public ActivityModel getActivityModel() {
+        return activityModel;
+    }
+
+    public void setActivityModel(ActivityModel activityModel) {
+        this.activityModel = activityModel;
     }
 }

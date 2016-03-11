@@ -31,7 +31,9 @@ public class FarmDescFragment extends BaseFragment {
     private RecyclerView jieshaoList;
     private DisplayImageOptions options;
     private FarmModel farmModel;
-    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
+    private boolean flag;
+
     @Override
     protected void initViews() {
         findViews();
@@ -65,8 +67,15 @@ public class FarmDescFragment extends BaseFragment {
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         jieshaoList.setLayoutManager(new LinearLayoutManager(context));
-        jieshaoList.setAdapter(new JieShaoAdapter());
         farmModel = (FarmModel) this.getArguments().getSerializable("farmModel");
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(new JieShaoAdapter());
+        jieshaoList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        flag = this.getArguments().getBoolean("farmSetExist");
+        if(!flag){
+            View view = inflater.inflate(R.layout.layout_admin_phone,null,false);
+            view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT));
+            mHeaderAndFooterRecyclerViewAdapter.addFooterView(view);
+        }
     }
 
     private void findViews() {

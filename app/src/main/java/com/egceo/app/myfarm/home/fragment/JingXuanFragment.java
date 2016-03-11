@@ -82,9 +82,9 @@ public class JingXuanFragment extends BaseFragment {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageForEmptyUri(R.mipmap.default_img)
-                .showImageOnFail(R.mipmap.default_img)
-                .showImageOnLoading(R.mipmap.default_img)
+                .showImageForEmptyUri(R.mipmap.topic_img)
+                .showImageOnFail(R.mipmap.topic_img)
+                .showImageOnLoading(R.mipmap.topic_img)
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicList.setLayoutManager(new LinearLayoutManager(context));
@@ -101,6 +101,8 @@ public class JingXuanFragment extends BaseFragment {
         frameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                if(loadMoreFooter.isLoading())
+                    return;
                 pageNumber = 0;
                 loadDataFromServer();
             }
@@ -114,6 +116,8 @@ public class JingXuanFragment extends BaseFragment {
     }
 
     private void loadDataFromServer() {
+        if(loadMoreFooter.isLoading())
+            return;
         loadMoreFooter.setIsLoading(true);
         String url = API.URL + API.API_URL.FARM_TOPIC_LIST;
         TransferObject data = AppUtil.getHttpData(context);

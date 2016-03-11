@@ -235,8 +235,8 @@ public class OrderSetInfoAcitivity extends BaseActivity{
         TextView farmSetDescList = (TextView) item.findViewById(R.id.farmset_item_desclist);
         TextView farmSetTime = (TextView) item.findViewById(R.id.farmset_item_time);
         ImageView farmSetImg = (ImageView) item.findViewById(R.id.farmset_item_img);
-        farmSetName.setText(farmItemsModel.getFarmName());
-        farmSetDesc.setText(farmItemsModel.getFarmItemName());
+        farmSetName.setText(farmItemsModel.getFarmItemName());
+        farmSetDesc.setText(farmItemsModel.getFarmName());
         farmSetPrice.setVisibility(View.GONE);
         farmSetTime.setVisibility(View.VISIBLE);
         setFarmItemTime(farmSetTime,farmItemsModel);

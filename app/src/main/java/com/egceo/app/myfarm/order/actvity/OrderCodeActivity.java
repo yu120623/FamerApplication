@@ -67,8 +67,8 @@ public class OrderCodeActivity extends BaseActivity {
                 TextView status = (TextView) view.findViewById(R.id.farm_item_status);
                 tag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
                 tag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));
-                name.setText(farmItemsModel.getFarmName());
-                desc.setText(farmItemsModel.getFarmItemDesc());
+                name.setText(farmItemsModel.getFarmItemDesc());
+                desc.setText(farmItemsModel.getFarmName());
                 status.setText(farmItemsModel.getStatus().equals("0")?getString(R.string.wait_consumption):getString(R.string.already_consumption));
                 status.setTextColor(farmItemsModel.getStatus().equals("0")?getResources().getColor(R.color.gray):getResources().getColor(R.color.green2));
                 orderItemLayout.addView(view);

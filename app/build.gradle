@@ -38,10 +38,12 @@ dependencies {
     compile 'org.apmem.tools:layouts:1.10@aar'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'de.greenrobot:java-common:2.2.0'
-    compile 'com.bigkoo:convenientbanner:2.0.2'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'de.greenrobot:greendao:2.1.0'
+    compile 'uk.co.alt236:bluetooth-le-library-android:1.0.0'
+    compile 'org.altbeacon:android-beacon-library:2+'
     compile files('libs/AMap_Android_3DMapSDK_V3.1.1.jar')
     compile files('libs/AMap_Location_v2.0.0_20151117.jar')
     compile project(':HeaderAndFooterRecyclerViewLibrary')

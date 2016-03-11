@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -142,6 +142,9 @@
         <activity
             android:name=".user.activity.SetUserNameActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.activity.RedPackageActivity"
+            android:screenOrientation="portrait"></activity>
         <!--银联 -->
         <activity
             android:name="com.unionpay.uppay.PayActivity"
@@ -198,12 +201,13 @@
 
         <service android:name=".services.LocationService"></service>
         <service android:name=".services.UploadService"></service>
+        <service android:name=".services.IbeaconService"></service>
 
         <service android:name="com.amap.api.location.APSService"></service>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="6374a3b6afa36b5a1381fa970f2da4e5" />
+            android:value="4cc96f1f39e0d90af1e1f86b28524e49" />
 
         <!-- 6374a3b6afa36b5a1381fa970f2da4e5 发布-->
         <!-- 4cc96f1f39e0d90af1e1f86b28524e49 debug-->

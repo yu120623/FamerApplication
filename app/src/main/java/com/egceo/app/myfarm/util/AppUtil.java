@@ -31,7 +31,7 @@ public class AppUtil {
 
     public static final String SP_NEW_CITY_CODE = "n_c";
     public static final String SP_NEW_CITY_NAME = "n_cn";
-
+    public static final String SP_IBEACON_IDS = "ibeancons";
     public static final String DEFAULT_CITY_CODE = "0512";
     public static final String DEFAULT_CITY_NAME = "苏州市";
 

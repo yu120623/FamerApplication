@@ -89,7 +89,9 @@ public class ZhouBianFragment extends BaseFragment {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY).build();
+                .showImageForEmptyUri(R.mipmap.banner640)
+                .showImageOnFail(R.mipmap.banner640)
+                .showImageOnLoading(R.mipmap.banner640).build();
         CustomUIHandler header = new CustomUIHandler(context);
         frameLayout.addPtrUIHandler(header);
         frameLayout.setHeaderView(header);

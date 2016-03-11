@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
@@ -71,6 +72,7 @@ public class FarmDetailActivity extends BaseActivity {
     private View view1;
     private View quickPayView;
     private TextView quickPayText;
+    private LinearLayout tagsContainer;
     private String shareImgUrl;
     @Override
     protected void initViews() {
@@ -159,12 +161,12 @@ public class FarmDetailActivity extends BaseActivity {
                 oks.disableSSOWhenAuthorize();
                 oks.setTitle(farmModel.getFarmName());
                 oks.setImageUrl(shareImgUrl);
-                oks.setTitleUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId());
+                oks.setTitleUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId()+"/abc/1");
                 oks.setText("我收藏了好久，今天分享给大家");
-                oks.setUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId());
+                oks.setUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId()+"/abc/1");
                 oks.setComment("我收藏了好久，今天分享给大家");
                 oks.setSite(getString(R.string.app_name));
-                oks.setSiteUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId());
+                oks.setSiteUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId()+"/abc/1");
                 oks.show(activity);
             }
         });
@@ -207,6 +209,7 @@ public class FarmDetailActivity extends BaseActivity {
     private void initFragments() {
         Bundle bundle = new Bundle();
         bundle.putSerializable("farmModel",farmModel);
+        bundle.putBoolean("farmSetExist",view1.getVisibility() == View.VISIBLE);
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.jieshao, FarmDescFragment.class,bundle)
@@ -230,9 +233,9 @@ public class FarmDetailActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageForEmptyUri(R.mipmap.default_banner_img)
-                .showImageOnFail(R.mipmap.default_banner_img)
-                .showImageOnLoading(R.mipmap.default_banner_img)
+                .showImageForEmptyUri(R.mipmap.banner640)
+                .showImageOnFail(R.mipmap.banner640)
+                .showImageOnLoading(R.mipmap.banner640)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         progressDrawable = (AnimationDrawable) progress.getDrawable();
         progressDrawable.start();
@@ -265,6 +268,7 @@ public class FarmDetailActivity extends BaseActivity {
                 favouriteBtn.setOnCheckedChangeListener(new OnFavouriteClick(activity));
                 setUrlBanners(farmModel);
                 initBanner();
+                initTags();
                 initFragments();
                 progressDrawable.stop();
                 progress.setVisibility(View.GONE);
@@ -279,6 +283,15 @@ public class FarmDetailActivity extends BaseActivity {
             }
         },data);
         request.execute();
+    }
+
+    private void initTags() {
+        if (null == farmModel.getFarmTags() || farmModel.getFarmTags().size() <= 0) return;
+        for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
+            inflater.inflate(R.layout.text, tagsContainer, true);
+            final TextView tag = (TextView) tagsContainer.getChildAt(tagsContainer.getChildCount() - 1);
+            tag.setText(farmModel.getFarmTags().get(i));
+        }
     }
 
     public void setUrlBanners(FarmModel farmModel) {
@@ -305,6 +318,7 @@ public class FarmDetailActivity extends BaseActivity {
         title = (TextView) this.findViewById(R.id.title);
         view1 = this.findViewById(R.id.view1);
         quickPayView = this.findViewById(R.id.quick_pay_layout);
+        tagsContainer = (LinearLayout) this.findViewById(R.id.tags_container);
         quickPayText = (TextView) this.findViewById(R.id.quick_pay_text);
     }
 

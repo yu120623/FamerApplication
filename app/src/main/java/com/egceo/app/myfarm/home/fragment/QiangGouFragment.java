@@ -66,9 +66,9 @@ public class QiangGouFragment extends BaseFragment {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageForEmptyUri(R.mipmap.default_img)
-                .showImageOnFail(R.mipmap.default_img)
-                .showImageOnLoading(R.mipmap.default_img)
+                .showImageForEmptyUri(R.mipmap.topic_img)
+                .showImageOnFail(R.mipmap.topic_img)
+                .showImageOnLoading(R.mipmap.topic_img)
                 .displayer(new FadeInBitmapDisplayer(1000))
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         topicPanicBuyingList.setLayoutManager(new LinearLayoutManager(context));

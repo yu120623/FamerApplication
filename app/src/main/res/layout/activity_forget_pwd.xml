@@ -99,6 +99,7 @@
             android:hint="@string/phone_code"
             android:lines="1"
             android:maxLength="6"
+            android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="#dbdbdb"
             android:textCursorDrawable="@drawable/edittext_cursor" />

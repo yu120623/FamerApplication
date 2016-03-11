@@ -133,12 +133,12 @@ public class TopicDetailsActivity extends BaseActivity {
                 oks.disableSSOWhenAuthorize();
                 oks.setTitle(farmTopicModel.getFarmTopicName());
                 oks.setImageUrl(farmTopicModel.getResourcePath()+AppUtil.FARM_FACE);
-                oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId()+"/abc/1");
                 oks.setText("我收藏了好久，今天分享给大家");
-                oks.setUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.setUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId()+"/abc/1");
                 oks.setComment("我收藏了好久，今天分享给大家");
                 oks.setSite(getString(R.string.app_name));
-                oks.setSiteUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId());
+                oks.setSiteUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId()+"/abc/1");
                 oks.show(activity);
             }
         });
@@ -213,9 +213,9 @@ public class TopicDetailsActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageForEmptyUri(R.mipmap.default_banner_img)
-                .showImageOnFail(R.mipmap.default_banner_img)
-                .showImageOnLoading(R.mipmap.default_banner_img)
+                .showImageForEmptyUri(R.mipmap.banner640)
+                .showImageOnFail(R.mipmap.banner640)
+                .showImageOnLoading(R.mipmap.banner640)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         farmTopicModel = (FarmTopicModel) this.getIntent().getSerializableExtra("farmTopic");
         dragTopLayout.setCollapseOffset((int) getResources().getDimension(android.R.dimen.app_icon_size));

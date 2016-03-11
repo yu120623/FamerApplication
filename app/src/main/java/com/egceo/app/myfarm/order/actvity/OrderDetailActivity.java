@@ -230,8 +230,8 @@ public class OrderDetailActivity extends BaseActivity {
         TextView farmSetDescList = (TextView) item.findViewById(R.id.farmset_item_desclist);
         ImageView farmSetImg = (ImageView) item.findViewById(R.id.farmset_item_img);
         farmSetPrice.setTextColor(getResources().getColor(R.color.green2));
-        farmSetName.setText(farmItemsModel.getFarmName());
-        farmSetDesc.setText(farmItemsModel.getFarmItemName());
+        farmSetName.setText(farmItemsModel.getFarmItemName());
+        farmSetDesc.setText(farmItemsModel.getFarmName());
         farmSetPrice.setText(dataFormat.format(farmItemsModel.getConsumeTime()));
         farmSetTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
         farmSetTag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));

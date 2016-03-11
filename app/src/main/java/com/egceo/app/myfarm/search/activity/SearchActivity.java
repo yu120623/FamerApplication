@@ -85,8 +85,8 @@ public class SearchActivity extends BaseActivity {
                 tagName = "";
                 tagLayout.setVisibility(View.INVISIBLE);
             } else {
-                tagName = tags.get(i).getTagName();
-                tagLayout.setTag(tags.get(i).getTagId());
+                tagName = tags.get(index).getTagName();
+                tagLayout.setTag(tags.get(index).getTagId());
             }
             hotNameTextView.setText(tagName);
             tagLayout.setOnClickListener(listener);

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class SearchResultsActivity extends BaseActivity {
     private RecyclerView searchResultsList;
-    private TextView notFound;
+    private View notFound;
     private List<SearchModel> searchModels;
     private SearchResultsAdapter adapter;
     private String key;
@@ -42,7 +42,7 @@ public class SearchResultsActivity extends BaseActivity {
 
     private void findViews() {
         searchResultsList = (RecyclerView) findViewById(R.id.search_results);
-        notFound = (TextView) findViewById(R.id.search_null);
+        notFound = (View) findViewById(R.id.search_null);
     }
 
     private void initDate() {
@@ -127,15 +127,18 @@ public class SearchResultsActivity extends BaseActivity {
                 intent = new Intent(context, TopicDetailsActivity.class);
                 FarmTopicModel farmTopicModel = new FarmTopicModel();
                 farmTopicModel.setFarmTopicAliasId(searchModel.getSearchId());
+                farmTopicModel.setFarmTopicName(searchModel.getSearchTitle());
                 intent.putExtra("farmTopic",farmTopicModel);
             }else if(searchModel.getSearchType().equals("n")){
                 intent = new Intent(context, TimingTopicDetailsActivity.class);
                 FarmTopicModel farmTopicModel = new FarmTopicModel();
+                farmTopicModel.setFarmTopicName(searchModel.getSearchTitle());
                 farmTopicModel.setFarmTopicAliasId(searchModel.getSearchId());
                 intent.putExtra("farmTopic",farmTopicModel);
             }else if(searchModel.getSearchType().equals("s")){
                 intent = new Intent(context, FarmDetailActivity.class);
                 FarmModel farmModel = new FarmModel();
+                farmModel.setFarmName(searchModel.getSearchTitle());
                 farmModel.setFarmAliasId(searchModel.getSearchId());
                 intent.putExtra("farmModel",farmModel);
             }

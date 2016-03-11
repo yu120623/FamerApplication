@@ -7,7 +7,7 @@ public class OrderModel extends Order{
 	
 	private Date journeyTime;
 	
-	private Double ordePrice;
+	private float ordePrice;
 	
 	private Long fund;
 	
@@ -76,11 +76,11 @@ public class OrderModel extends Order{
 		this.journeyTime = journeyTime;
 	}
 
-	public Double getOrdePrice() {
+	public float getOrdePrice() {
 		return ordePrice;
 	}
 
-	public void setOrdePrice(Double integer) {
+	public void setOrdePrice(float integer) {
 		this.ordePrice = integer;
 	}
 

@@ -1,7 +1,8 @@
 package com.egceo.app.myfarm.http;
 
 public class API {
-    public static final String URL = "http://121.40.91.182:8080/mycff/api/";
+    public static final String URL = "http://121.41.112.28:8080/wdnz/api/";
+    //public static final String URL = "http://121.40.91.182:8080/mycff/api/";
     //public static final String URL = "http://192.168.1.110:8080/mycff/api/";
     public static final String PARAM_STR = "jsonStr";
 
@@ -49,5 +50,7 @@ public class API {
         public static final String DEL_MSG = "deleteSysInfo";//删除用户信息
         public static final String SEND_COMMENT ="saveComment";//评论
         public static final String SAVE_RES_COMMENT ="saveResource";//评论图片
+        public static final String READ_PACKAGES = "redPackets";//查找红包
+        public static final String GET_PACKAGES = "grabRedEnvelope";//抢红包
     }
 }

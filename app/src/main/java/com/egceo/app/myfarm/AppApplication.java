@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.baseandroid.BaseApplication;
 import com.egceo.app.myfarm.http.NormalQueue;
+import com.egceo.app.myfarm.services.IbeaconService;
 import com.egceo.app.myfarm.services.LocationService;
 import com.egceo.app.myfarm.services.UploadService;
 
@@ -19,6 +20,8 @@ public class AppApplication extends BaseApplication {
         this.startService(loaction);
         Intent upload = new Intent(this, UploadService.class);
         this.startService(upload);
+        Intent ibeaconService = new Intent(this, IbeaconService.class);
+        this.startService(ibeaconService);
 
     }
 }

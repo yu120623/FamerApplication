@@ -106,7 +106,7 @@ public class TopicNoticFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(XuZhiViewHolder holder, int position) {
             holder.xuzhiTitle.setText(stats.get(position).getFarmStatementTitle());
-            holder.xuzhiContent.setText(Html.fromHtml(stats.get(position).getFarmStatementDesc()));
+            holder.xuzhiContent.setText(stats.get(position).getFarmStatementDesc());
         }
 
         @Override
@@ -124,7 +124,6 @@ public class TopicNoticFragment extends BaseFragment {
             super(itemView);
             xuzhiContent = (TextView) itemView.findViewById(R.id.xuzhi_desc_content);
             xuzhiTitle = (TextView) itemView.findViewById(R.id.xuzhi_title);
-
         }
     }
 

@@ -96,8 +96,8 @@ public class TimingDescFragment extends BaseFragment {
         TextView farmSetTag = (TextView) item.findViewById(R.id.farmset_item_tag);
         TextView farmSetDescList = (TextView) item.findViewById(R.id.farmset_item_desclist);
         ImageView farmSetImg = (ImageView) item.findViewById(R.id.farmset_item_img);
-        farmSetName.setText(farmItemsModel.getFarmName());
-        farmSetDesc.setText(farmItemsModel.getFarmItemName());
+        farmSetName.setText(farmItemsModel.getFarmItemName());
+        farmSetDesc.setText(farmItemsModel.getFarmName());
         farmSetPrice.setText(getString(R.string.gua_pai_price) + farmItemsModel.getPrice() + "");
         farmSetTag.setText(AppUtil.getFarmSetTag(farmItemsModel.getFarmItemType()));
         farmSetTag.setBackgroundResource(AppUtil.getFarmSetTagBg(farmItemsModel.getFarmItemType()));

@@ -37,17 +37,18 @@ import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.NetworkImageHolderView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
 public class MainActivityNew extends BaseActivity {
-    private DisplayImageOptions options;
     private TextView area;
     private DragTopLayout dragTopLayout;
     private ViewPager contentViewPager;
@@ -222,11 +223,6 @@ public class MainActivityNew extends BaseActivity {
 
     private void initData() {
         codeDao = DBHelper.getDaoSession(context).getCodeDao();
-        options = new DisplayImageOptions.Builder()
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
         Code code = codeDao.load(1l);
         String city = "";
         if(code != null) {

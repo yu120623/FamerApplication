@@ -112,6 +112,11 @@ public class OrderSetInfoAcitivity extends BaseActivity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 fundFlag = isChecked;
                 if(isChecked){
+                    if(walletModel.getLvValue() <= 0){
+                        CommonUtil.showMessage(context,"非常抱歉，您的账户暂时没有可用的旅游基金，快去参与活动赚取一些吧");
+                        fundCheckBox.setChecked(false);
+                        return;
+                    }
                     BigDecimal money = checkNum();
                     if(walletModel.getLvValue().floatValue() > farmSetModel.getFund()){
                         money = money.subtract(new BigDecimal(farmSetModel.getFund()));
@@ -213,7 +218,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
 
     private void showFarmSet() {
         if(farmSetModel.getFund() > 0) {
-            fundText.setText("此套餐允许使用" + farmSetModel.getFund() + "旅游基金");
+            fundCheckBox.setText("确定使用" + farmSetModel.getFund() + "元旅游基金");
         }else{
             fundLayout.setVisibility(View.GONE);
         }

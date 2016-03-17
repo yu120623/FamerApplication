@@ -52,5 +52,6 @@ public class API {
         public static final String SAVE_RES_COMMENT ="saveResource";//评论图片
         public static final String READ_PACKAGES = "redPackets";//查找红包
         public static final String GET_PACKAGES = "grabRedEnvelope";//抢红包
+        public static final String UPDATE = "appUpdata";//更新
     }
 }

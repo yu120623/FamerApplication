@@ -1,17 +1,27 @@
 package com.egceo.app.myfarm.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.support.v7.app.AlertDialog;
 
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.db.CodeDao;
 import com.egceo.app.myfarm.db.DBHelper;
 import com.egceo.app.myfarm.entity.Code;
 import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.home.activity.MapNavActivity;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -58,6 +68,10 @@ public class AppUtil {
     public static final String REG_SMS_TIME = "reg_sms_time";
     public static final String PWD_SMS_TIME = "pwd_sms_time";
 
+    public static final String SP_VERSION = "sp_version";//更新版本号
+    public static final String SP_URL = "sp_url";//更新url
+    public static final String SP_IS_FORCED = "sp_is_forced";//是否强制更新
+
     public static final String HANDLER_CHANGE_CITY = "h_c_c";//手动选择城市
 
     public static final String BANK_MODE = "00";//测试 01 上线00
@@ -94,7 +108,7 @@ public class AppUtil {
         } else if (tag.equals("n")) {
             return "抢购";
         } else if (tag.equals("s")) {
-            return "农场";
+            return "农庄";
         }
         return "";
     }
@@ -172,5 +186,45 @@ public class AppUtil {
             return false;
         }
         return true;
+    }
+
+    public static void gotoNav(final Activity activity, final LatLng latLng){
+        boolean gaodeFlag = CommonUtil.isAppInstalled(activity,"com.autonavi.minimap");
+        boolean baiduFlag = CommonUtil.isAppInstalled(activity,"com.baidu.BaiduMap");
+        List<String> str = new ArrayList<>();
+        if(gaodeFlag){
+            str.add("高德导航");
+        }
+        if(baiduFlag){
+            str.add("百度导航");
+        }
+        if(str.size() > 0 ){
+            new AlertDialog.Builder(activity)
+                    .setItems(str.toArray(new String[str.size()]), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which == 0){
+                                Intent intent = new Intent("android.intent.action.VIEW",
+                                        android.net.Uri.parse("androidamap://navi?sourceApplication=我的农庄&poiname=fangheng&lat="+latLng.latitude+"&lon="+latLng.longitude+"&dev=1&style=2"));
+                                intent.setPackage("com.autonavi.minimap");
+                                activity.startActivity(intent);
+                            }else if(which == 1){
+                                TransferObject data = getHttpData(activity);
+                                try {
+                                    Intent intent = Intent.getIntent("intent://map/direction?destination="+latLng.latitude+","+latLng.longitude+"&mode=driving&src=我的农庄#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+                                    activity.startActivity(intent);
+                                } catch (URISyntaxException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    })
+                    .show();
+        }else{
+            Intent intent = new Intent(activity, MapNavActivity.class);
+            intent.putExtra("latitude", latLng.latitude);
+            intent.putExtra("longitude",latLng.longitude);
+            activity.startActivity(intent);
+        }
     }
 }

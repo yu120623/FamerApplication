@@ -22,12 +22,11 @@ import com.iflytek.cloud.speech.SynthesizerListener;
 /**
  * 语音播报组件
  */
-public class TTSController implements SynthesizerListener, AMapNaviListener {
+public class TTSControllerNew implements SynthesizerListener, AMapNaviListener {
 
-    public static TTSController ttsManager;
+    public static TTSControllerNew ttsManager;
     boolean isfinish = true;
     private Context mContext;
-    private String id = "56a091f0";
     // 合成对象.
     private SpeechSynthesizer mSpeechSynthesizer;
     /**
@@ -51,20 +50,20 @@ public class TTSController implements SynthesizerListener, AMapNaviListener {
         }
     };
 
-    TTSController(Context context) {
+    TTSControllerNew(Context context) {
         mContext = context;
     }
 
-    public static TTSController getInstance(Context context) {
+    public static TTSControllerNew getInstance(Context context) {
         if (ttsManager == null) {
-            ttsManager = new TTSController(context);
+            ttsManager = new TTSControllerNew(context);
         }
         return ttsManager;
     }
 
     public void init() {
         SpeechUser.getUser().login(mContext, null, null,
-                "appid=" + id, listener);
+                "appid=" + "56a091f0", listener);
         // 初始化合成对象.
         mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext);
         initSpeechSynthesizer();

@@ -23,6 +23,7 @@ import com.autonavi.tbt.TrafficFacilityInfo;
 import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.util.TTSController;
+import com.egceo.app.myfarm.util.TTSControllerNew;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +37,22 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
     List<NaviLatLng> mEndList = new ArrayList<NaviLatLng>();
     List<NaviLatLng> mWayPointList;
     private AMapLocationClient mLocationClient;
-    private TTSController mTtsManager;
+    private TTSControllerNew mTtsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_nav);
-        mTtsManager = TTSController.getInstance(getApplicationContext());
+        mTtsManager = TTSControllerNew.getInstance(getApplicationContext());
         mTtsManager.init();
-        mAMapNaviView = (AMapNaviView) findViewById(R.id.navi_view);
+        mTtsManager.startSpeaking();
         mAMapNavi = AMapNavi.getInstance(getApplicationContext());
+        mAMapNavi.addAMapNaviListener(MapNavActivity.this);
+        mAMapNavi.addAMapNaviListener(mTtsManager);
+        mAMapNavi.setEmulatorNaviSpeed(150);
+        mAMapNaviView = (AMapNaviView) findViewById(R.id.navi_view);
         mAMapNaviView.onCreate(savedInstanceState);
+        mAMapNaviView.setAMapNaviViewListener(MapNavActivity.this);
         requestLocation();
     }
 
@@ -67,11 +73,6 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
                 mEndLatlng = new NaviLatLng(getIntent().getDoubleExtra("latitude",0), getIntent().getDoubleExtra("longitude", 0));
                 mStartList.add(mStartLatlng);
                 mEndList.add(mEndLatlng);
-                mAMapNavi.setAMapNaviListener(MapNavActivity.this);
-                mAMapNavi.setAMapNaviListener(mTtsManager);
-                mTtsManager.startSpeaking();
-                mAMapNaviView.setAMapNaviViewListener(MapNavActivity.this);
-                mAMapNavi.setEmulatorNaviSpeed(150);
                 mAMapNavi.calculateDriveRoute(mStartList, mEndList, mWayPointList, PathPlanningStrategy.DRIVING_DEFAULT);
             }
         }
@@ -87,6 +88,7 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
     protected void onPause() {
         super.onPause();
         mAMapNaviView.onPause();
+        mTtsManager.stopSpeaking();
     }
 
 
@@ -96,7 +98,7 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
         mAMapNaviView.onDestroy();
         //since 1.6.0 不再在naviview destroy的时候自动执行AMapNavi.stopNavi();
         //请自行执行
-        mTtsManager.stopSpeaking();
+        mTtsManager.destroy();
         mAMapNavi.stopNavi();
         mAMapNavi.destroy();
     }
@@ -239,9 +241,19 @@ public class MapNavActivity extends Activity implements AMapNaviListener, AMapNa
 
     }
 
+    @Override
+    public void notifyParallelRoad(int i) {
+
+    }
+
 
     @Override
     public void onLockMap(boolean isLock) {
+    }
+
+    @Override
+    public void onNaviViewLoaded() {
+
     }
 
     @Override

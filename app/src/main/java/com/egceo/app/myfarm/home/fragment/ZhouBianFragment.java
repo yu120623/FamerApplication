@@ -178,7 +178,7 @@ public class ZhouBianFragment extends BaseFragment {
             holder.recommendArea.setText(farmModel.getFarmArea());
             holder.recommendReason.setText(farmModel.getFarmDesc());
             holder.recommendTuijian.setVisibility(View.INVISIBLE);
-            holder.recommendDistance.setText(decimalFormat.format(farmModel.getFarmDistance()) + "km");
+            holder.recommendDistance.setText("直线距离"+decimalFormat.format(farmModel.getFarmDistance()) + "km");
             holder.flowLayout.removeAllViews();
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
                 TextView tv = new TextView(getActivity());

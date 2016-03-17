@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.egceo.app.myfarm"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -44,11 +44,8 @@ dependencies {
     compile 'de.greenrobot:greendao:2.1.0'
     compile 'uk.co.alt236:bluetooth-le-library-android:1.0.0'
     compile 'org.altbeacon:android-beacon-library:2+'
-    compile files('libs/AMap_Android_3DMapSDK_V3.1.1.jar')
-    compile files('libs/AMap_Location_v2.0.0_20151117.jar')
     compile project(':HeaderAndFooterRecyclerViewLibrary')
     compile project(':calendarview')
-    compile files('libs/AMap_Navi_v1.6.0_20151229.jar')
     compile files('libs/alipaySdk-20151112.jar')
     compile files('libs/Msc.jar')
     compile files('libs/libammsdk.jar')
@@ -59,4 +56,7 @@ dependencies {
     compile files('libs/aliyun-oss-sdk-android-2.1.0.jar')
     compile files('libs/okio-1.6.0.jar')
     compile files('libs/okhttp-2.7.0.jar')
+    compile files('libs/AMap_Location_v2.3.0_20160112.jar')
+    compile files('libs/AMap_Navi_v1.7.0.1_20160203.jar')
+    compile files('libs/AMap_3DMap_V3.2.0.1_20160122.jar')
 }

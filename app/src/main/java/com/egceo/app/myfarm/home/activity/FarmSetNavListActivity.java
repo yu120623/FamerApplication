@@ -136,10 +136,8 @@ public class FarmSetNavListActivity extends Activity {
         @Override
         public void onClick(View view) {
             FarmItemsModel item = (FarmItemsModel) view.getTag();
-            Intent intent = new Intent(FarmSetNavListActivity.this, MapNavActivity.class);
-            intent.putExtra("latitude", item.getFarmLatitude());
-            intent.putExtra("longitude",item.getFarmLongitude());
-            startActivity(intent);
+            LatLng latLng = new LatLng(item.getFarmLatitude(),item.getFarmLongitude());
+            AppUtil.gotoNav(FarmSetNavListActivity.this,latLng);
         }
     };
 

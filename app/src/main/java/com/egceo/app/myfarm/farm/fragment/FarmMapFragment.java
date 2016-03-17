@@ -15,9 +15,11 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.FarmModel;
 import com.egceo.app.myfarm.home.activity.MapNavActivity;
+import com.egceo.app.myfarm.util.AppUtil;
 
 import de.greenrobot.event.EventBus;
 
@@ -57,10 +59,8 @@ public class FarmMapFragment extends Fragment {
                 navItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), MapNavActivity.class);
-                        intent.putExtra("latitude", farmModel.getFarmLatitude());
-                        intent.putExtra("longitude",farmModel.getFarmLongitude());
-                        startActivity(intent);
+                        LatLng latLng = new LatLng(farmModel.getFarmLatitude(),farmModel.getFarmLongitude());
+                        AppUtil.gotoNav(getActivity(),latLng);
                     }
                 });
                 return navItem;

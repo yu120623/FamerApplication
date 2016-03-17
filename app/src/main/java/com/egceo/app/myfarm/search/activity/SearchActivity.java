@@ -46,8 +46,6 @@ public class SearchActivity extends BaseActivity {
     private void loadDataFromServer() {
         String url = API.URL + API.API_URL.SEARCH_KEY_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setCityCode("0512");
-
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {

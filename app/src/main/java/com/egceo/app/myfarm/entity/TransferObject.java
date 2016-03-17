@@ -30,6 +30,8 @@ public class TransferObject implements Serializable {
 
     private String farmTopicAliasId;
 
+    private Map<String,Map<String,String>> appMap;
+
     private FarmSetModel farmSetModel;
 
     private List<FarmSetModel> farmSetModels;
@@ -624,5 +626,13 @@ public class TransferObject implements Serializable {
 
     public void setActivityModel(ActivityModel activityModel) {
         this.activityModel = activityModel;
+    }
+
+    public Map<String, Map<String, String>> getAppMap() {
+        return appMap;
+    }
+
+    public void setAppMap(Map<String, Map<String, String>> appMap) {
+        this.appMap = appMap;
     }
 }

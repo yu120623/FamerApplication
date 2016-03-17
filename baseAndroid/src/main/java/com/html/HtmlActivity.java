@@ -40,6 +40,7 @@ public class HtmlActivity extends BaseActivity {
 			public void onProgressChanged(WebView view, int newProgress) {
 				if(newProgress == 100){
 					progressBar.setVisibility(View.GONE);
+					actionBarTitle.setText(view.getTitle());
 				}
 			}
 		});

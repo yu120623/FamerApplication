@@ -24,6 +24,11 @@ import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.user.activity.UserActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+
 public class LoginActivity extends BaseActivity {
     private EditText phone;
     private EditText password;
@@ -105,6 +110,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void saveLoginInfo(TransferObject data) {
+        JPushInterface.setAlias(context, data.getUserProfile().getUserAliasId(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+
+            }
+        });
         sp.edit().putString(AppUtil.L_N,data.getUserProfile().getUserAliasId()).commit();
         UserProfileDao userProfileDao = DBHelper.getUserDaoSession(context,data.getUserProfile().getUserAliasId()).getUserProfileDao();
         userProfileDao.insertOrReplace(data.getUserProfile());

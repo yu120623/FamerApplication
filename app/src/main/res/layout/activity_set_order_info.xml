@@ -138,13 +138,17 @@
                         <CheckBox
                             android:id="@+id/fund_checkbox"
                             android:button="@null"
-                            android:drawableLeft="@drawable/check_box"
+                            android:textColor="@color/order_process_seleted_bg"
+                            android:drawableRight="@drawable/check_box"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:drawablePadding="3dp"
+                            android:textSize="15sp"
                             android:layout_alignParentRight="true" />
                     </RelativeLayout>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/jijin_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

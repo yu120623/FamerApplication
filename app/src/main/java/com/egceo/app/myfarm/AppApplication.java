@@ -8,6 +8,8 @@ import com.egceo.app.myfarm.services.IbeaconService;
 import com.egceo.app.myfarm.services.LocationService;
 import com.egceo.app.myfarm.services.UploadService;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2015/12/16.
  */
@@ -22,6 +24,6 @@ public class AppApplication extends BaseApplication {
         this.startService(upload);
         Intent ibeaconService = new Intent(this, IbeaconService.class);
         this.startService(ibeaconService);
-
+        JPushInterface.init(this);
     }
 }

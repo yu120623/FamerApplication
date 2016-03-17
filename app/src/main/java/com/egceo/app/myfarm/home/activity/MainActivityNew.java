@@ -2,17 +2,19 @@ package com.egceo.app.myfarm.home.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -32,18 +34,16 @@ import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.search.activity.SearchActivity;
+import com.egceo.app.myfarm.services.LocationService;
 import com.egceo.app.myfarm.user.activity.UserActivity;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.util.NetworkImageHolderView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import github.chenupt.dragtoplayout.DragTopLayout;
@@ -61,6 +61,8 @@ public class MainActivityNew extends BaseActivity {
     private RadioGroup radioButtonGroup;
     private CodeDao codeDao;
     private long lastClickTime;
+    private boolean isShowUpdateInfo = false;
+    private AMapLocationClient mLocationClient;
     @Override
     protected void initViews() {
         findViews();
@@ -70,6 +72,82 @@ public class MainActivityNew extends BaseActivity {
         initBannerSize();
         loadDataFromServer();
         checkLocationChange();
+        checkUpdate();
+        showUpdateInfo();
+        getLocation();
+    }
+
+    private void getLocation() {
+        mLocationClient = new AMapLocationClient(context);
+        LocationModeSource locationModeSource = new LocationModeSource();
+        mLocationClient.setLocationListener(locationModeSource);
+        mLocationClient.startLocation();
+    }
+
+    public class LocationModeSource implements AMapLocationListener {
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            Log.i("11111111111111111111", "onLocationChanged: "+aMapLocation.getErrorInfo());
+            if(aMapLocation.getErrorCode() == 0) {
+                mLocationClient.stopLocation();
+                sp.edit().putFloat(AppUtil.SP_LAT, Double.valueOf(aMapLocation.getLatitude()).floatValue()).commit();
+                sp.edit().putFloat(AppUtil.SP_LOG, Double.valueOf(aMapLocation.getLongitude()).floatValue()).commit();
+            }
+        }
+    }
+
+    private void checkUpdate() {
+        String url = API.URL + API.API_URL.UPDATE;
+        AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
+            @Override
+            public void onSuccess(TransferObject data) {
+                Map<String,Map<String,String>> map = data.getAppMap();
+                if(map.get("android_V") != null){
+                    sp.edit().putString(AppUtil.SP_VERSION,map.get("android_V").get("Version")).commit();
+                    sp.edit().putString(AppUtil.SP_URL,map.get("android_V").get("URL")).commit();
+                    sp.edit().putString(AppUtil.SP_IS_FORCED,map.get("android_V").get("Is_Forced")).commit();
+                    showUpdateInfo();
+                }
+            }
+        },AppUtil.getHttpData(context));
+        request.execute();
+    }
+
+    private void showUpdateInfo() {
+        float currentVserion = CommonUtil.getVersion(context);
+        float version = Float.parseFloat(sp.getString(AppUtil.SP_VERSION,"0"));
+        final String url = sp.getString(AppUtil.SP_URL,"");
+        final String Is_Forced = sp.getString(AppUtil.SP_IS_FORCED,"");
+        if(version > currentVserion) {
+            if (!isShowUpdateInfo) {
+                new AlertDialog.Builder(activity)
+                        .setTitle("提示")
+                        .setMessage("App有新版本，是否立即更新？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Uri  uri = Uri.parse(url);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                                if(Is_Forced.equals("Y")){
+                                    finish();
+                                }
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                if(Is_Forced.equals("Y")){
+                                    CommonUtil.showMessage(context,"您必须更新app才能继续使用");
+                                    finish();
+                                }
+                            }
+                        }).show();
+                isShowUpdateInfo = true;
+            }
+        }
     }
 
     private void checkLocationChange() {
@@ -149,6 +227,7 @@ public class MainActivityNew extends BaseActivity {
                 startActivity(intent1);
             }
         });
+        showUpdateInfo();
     }
 
     private void initClick() {

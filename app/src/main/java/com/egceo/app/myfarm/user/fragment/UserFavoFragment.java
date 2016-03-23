@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.amap.api.maps.model.Text;
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
@@ -184,21 +185,25 @@ public class UserFavoFragment extends BaseFragment {
                     intent = new Intent(context, TopicDetailsActivity.class);
                     FarmTopicModel farmTopicModel = new FarmTopicModel();
                     farmTopicModel.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                    farmTopicModel.setFarmTopicName(collectModel.getTitle());
                     intent.putExtra("farmTopic",farmTopicModel);
                     break;
                 case "2":
                     intent = new Intent(context, TimingTopicDetailsActivity.class);
                     farmTopicModel = new FarmTopicModel();
                     farmTopicModel.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                    farmTopicModel.setFarmTopicName(collectModel.getTitle());
                     intent.putExtra("farmTopic",farmTopicModel);
                     break;
                 case "1":
                     intent = new Intent(context, FarmDetailActivity.class);
                     FarmModel farmModel = new FarmModel();
                     farmModel.setFarmAliasId(collectModel.getCollectAliasId());
+                    farmModel.setFarmName(collectModel.getTitle());
                     intent.putExtra("farmModel",farmModel);
                     break;
                 case "3":
+                    CommonUtil.showMessage(context,"已过期");
                     break;
             }
             if(intent != null)

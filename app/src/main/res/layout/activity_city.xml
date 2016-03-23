@@ -22,15 +22,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:singleLine="true"
-                android:maxLines="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:textCursorDrawable="@drawable/edittext_cursor"
                 android:layout_toLeftOf="@+id/search_city_btn"
                 android:layout_toStartOf="@+id/search_city_btn"
                 android:background="@null"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/edittext_cursor"
                 android:textSize="14sp" />
 
             <ImageView
@@ -71,10 +71,34 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/city_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/city_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <com.egceo.app.myfarm.view.SideBar
+            android:id="@+id/sidrbar"
+            android:layout_width="30.0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right|center" />
+
+        <TextView
+            android:id="@+id/text_dialog"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/show_head_toast_bg"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
 </LinearLayout>

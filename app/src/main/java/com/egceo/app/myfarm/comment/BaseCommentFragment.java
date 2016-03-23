@@ -89,7 +89,7 @@ public abstract class BaseCommentFragment extends BaseFragment {
     }
 
     //加载更多监听
-    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+    protected EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
         @Override
         public void onLoadNextPage(View view) {
             if(loadMoreFooter.isLoading())return;

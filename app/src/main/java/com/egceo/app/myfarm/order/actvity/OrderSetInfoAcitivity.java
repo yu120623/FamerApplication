@@ -115,6 +115,7 @@ public class OrderSetInfoAcitivity extends BaseActivity{
                     if(walletModel.getLvValue() <= 0){
                         CommonUtil.showMessage(context,"非常抱歉，您的账户暂时没有可用的旅游基金，快去参与活动赚取一些吧");
                         fundCheckBox.setChecked(false);
+                        fundFlag = false;
                         return;
                     }
                     BigDecimal money = checkNum();

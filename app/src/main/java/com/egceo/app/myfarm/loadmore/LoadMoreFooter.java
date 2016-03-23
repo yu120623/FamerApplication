@@ -15,6 +15,7 @@ public class LoadMoreFooter {
     private View loadingMoreTips;//正在加载更多提示
     private TextView loadingMoreTipsText;
     private boolean isLoading = false;//是否正在加载更多
+    private boolean isNoMore = false;//是否没有更多内容了
     public LoadMoreFooter(Context context){
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -35,6 +36,7 @@ public class LoadMoreFooter {
     }
 
     public void showNoMoreTips(){
+        isNoMore = true;
         loadMoreFooter.setVisibility(View.VISIBLE);
         loadingMoreTips.setVisibility(View.INVISIBLE);
         noMoreTips.setVisibility(View.VISIBLE);
@@ -42,6 +44,7 @@ public class LoadMoreFooter {
 
 
     public void hideLoadMore(){
+        if(isNoMore)return;
         loadMoreFooter.setVisibility(View.VISIBLE);
         loadingMoreTips.setVisibility(View.INVISIBLE);
         noMoreTips.setVisibility(View.INVISIBLE);
@@ -57,6 +60,20 @@ public class LoadMoreFooter {
 
     public void setIsLoading(boolean flag){
         isLoading = flag;
+    }
+
+    public void setIsNoMore(boolean flag){
+        isNoMore = flag;
+    }
+
+    public boolean isNoMore(){
+        return isNoMore;
+    }
+
+    public void reset(){
+        isLoading = false;
+        isNoMore = false;
+        hideLoadMore();
     }
 
     public boolean isLoading(){

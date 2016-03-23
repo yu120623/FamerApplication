@@ -41,22 +41,24 @@ public class IbeaconService extends Service implements BootstrapNotifier {
 
     private void init(){
         sp.edit().remove(AppUtil.SP_IBEACON_IDS).commit();
-        BluetoothUtils bluetoothUtils =  new BluetoothUtils(getApplicationContext());
-        if(bluetoothUtils.isBluetoothLeSupported() && bluetoothUtils.isBluetoothOn() && Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            mScanner = new BluetoothLeScanner(new BluetoothAdapter.LeScanCallback() {
-                @Override
-                public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                    device.getUuids();
-                    BluetoothLeDevice deviceLe = new BluetoothLeDevice(device, rssi, scanRecord, System.currentTimeMillis());
-                    if (BeaconUtils.getBeaconType(deviceLe) == BeaconType.IBEACON) {
-                        final IBeaconDevice iBeacon = new IBeaconDevice(deviceLe);
-                        Set<String> ids = sp.getStringSet(AppUtil.SP_IBEACON_IDS,new HashSet<String>());
-                        ids.add(iBeacon.getUUID().toUpperCase());
-                        sp.edit().putStringSet(AppUtil.SP_IBEACON_IDS,ids).commit();
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
+            BluetoothUtils bluetoothUtils =  new BluetoothUtils(getApplicationContext());
+            if(bluetoothUtils.isBluetoothLeSupported() && bluetoothUtils.isBluetoothOn() && Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                mScanner = new BluetoothLeScanner(new BluetoothAdapter.LeScanCallback() {
+                    @Override
+                    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+                        device.getUuids();
+                        BluetoothLeDevice deviceLe = new BluetoothLeDevice(device, rssi, scanRecord, System.currentTimeMillis());
+                        if (BeaconUtils.getBeaconType(deviceLe) == BeaconType.IBEACON) {
+                            final IBeaconDevice iBeacon = new IBeaconDevice(deviceLe);
+                            Set<String> ids = sp.getStringSet(AppUtil.SP_IBEACON_IDS,new HashSet<String>());
+                            ids.add(iBeacon.getUUID().toUpperCase());
+                            sp.edit().putStringSet(AppUtil.SP_IBEACON_IDS,ids).commit();
+                        }
                     }
-                }
-            }, bluetoothUtils);
-            mScanner.scanLeDevice(-1, true);
+                }, bluetoothUtils);
+                mScanner.scanLeDevice(-1, true);
+            }
         }
     }
 

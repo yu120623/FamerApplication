@@ -44,6 +44,8 @@ public class TimingCommentFragment extends BaseCommentFragment {
                         comments.addAll(list);
                     }else{
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        pingjiaList.removeOnScrollListener(loadMoreListener);
                     }
                 }
                 refreshComment();

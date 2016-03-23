@@ -73,7 +73,6 @@ public class ZhouBianFragment extends BaseFragment {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
             }
         });
-        nearList.addOnScrollListener(loadMoreListener);
     }
 
     private void initData() {
@@ -99,6 +98,9 @@ public class ZhouBianFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                nearList.removeOnScrollListener(loadMoreListener);
+                nearList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -130,8 +132,11 @@ public class ZhouBianFragment extends BaseFragment {
                     }
                     adapter.notifyDataSetChanged();
                 }else{
-                    if(pageNumber > 0)
+                    if(pageNumber > 0) {
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        nearList.removeOnScrollListener(loadMoreListener);
+                    }
                 }
                 loadMoreFooter.hideLoadMore();
             }

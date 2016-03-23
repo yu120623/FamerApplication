@@ -84,6 +84,9 @@ public class QiangGouFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                topicPanicBuyingList.removeOnScrollListener(loadMoreListener);
+                topicPanicBuyingList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -92,7 +95,7 @@ public class QiangGouFragment extends BaseFragment {
             public void run() {
                 frameLayout.autoRefresh(true);
             }
-        },100);
+        }, 100);
     }
 
     private void loadDataFromServer() {
@@ -113,8 +116,11 @@ public class QiangGouFragment extends BaseFragment {
                     }
                     adapter.notifyDataSetChanged();
                 }else{
-                    if(pageNumber > 0)
+                    if(pageNumber > 0) {
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        topicPanicBuyingList.removeOnScrollListener(loadMoreListener);
+                    }
                 }
                 loadMoreFooter.hideLoadMore();
             }
@@ -162,7 +168,6 @@ public class QiangGouFragment extends BaseFragment {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
             }
         });
-        topicPanicBuyingList.addOnScrollListener(loadMoreListener);
     }
 
     //加载更多监听

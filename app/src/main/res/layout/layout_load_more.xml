@@ -8,10 +8,11 @@
     <TextView
         android:id="@+id/no_more_tips"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:text="@string/no_more_data"
-        android:textColor="@color/black"
+        android:textColor="@color/gray"
         android:textSize="16sp"
         android:visibility="invisible" />
 
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loding_more_data"
-            android:textColor="@color/black"
+            android:textColor="@color/gray"
             android:textSize="16sp" />
     </LinearLayout>
 

@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
 import com.egceo.app.myfarm.entity.FarmModel;
 import com.egceo.app.myfarm.entity.FarmTopicModel;
@@ -17,6 +20,7 @@ import com.egceo.app.myfarm.farm.activity.FarmDetailActivity;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
+import com.egceo.app.myfarm.loadmore.LoadMoreFooter;
 import com.egceo.app.myfarm.topic.activity.TimingTopicDetailsActivity;
 import com.egceo.app.myfarm.topic.activity.TopicDetailsActivity;
 import com.egceo.app.myfarm.util.AppUtil;
@@ -34,6 +38,9 @@ public class SearchResultsActivity extends BaseActivity {
     private SearchResultsAdapter adapter;
     private String key;
     private String type;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
+    private LoadMoreFooter loadMoreFooter;
+    private Integer pageNumber = 0;
     @Override
     protected void initViews() {
         findViews();
@@ -52,26 +59,61 @@ public class SearchResultsActivity extends BaseActivity {
         searchModels = new ArrayList<SearchModel>();
         searchResultsList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new SearchResultsAdapter();
-        searchResultsList.setAdapter(adapter);
+        loadMoreFooter = new LoadMoreFooter(context);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
+        searchResultsList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        RecyclerViewUtils.setFooterView(searchResultsList, loadMoreFooter.getFooter());
         loadDataFromServer();
+        loadMoreFooter.setIsLoading(true);
+        searchResultsList.addOnScrollListener(loadMoreListener);
     }
 
+    //加载更多监听
+    private EndlessRecyclerOnScrollListener loadMoreListener = new EndlessRecyclerOnScrollListener() {
+        @Override
+        public void onLoadNextPage(View view) {
+            if(loadMoreFooter.isLoading())return;
+            pageNumber++;
+            loadMoreFooter.showLoadingTips();
+            loadDataFromServer();
+        }
+    };
+
     private void loadDataFromServer() {
+        if(loadMoreFooter.isLoading())
+            return;
         String url = API.URL + API.API_URL.SEARCH_RESULT_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setPageNumber(0);
+        data.setPageNumber(pageNumber);
         data.setType(type);
         data.setKey(key);
         AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
-                searchModels = data.getSearchModels();
-                if (searchModels != null && searchModels.size() > 0) {
+
+                List<SearchModel> list = data.getSearchModels();
+                if (list != null && list.size() > 0) {
+                    if(pageNumber == 0) {
+                        searchModels = list;
+                    }else{
+                        searchModels.addAll(list);
+                    }
                     adapter.notifyDataSetChanged();
-                } else {
-                    searchResultsList.setVisibility(View.GONE);
-                    notFound.setVisibility(View.VISIBLE);
+                }else{
+                    if(pageNumber > 0) {
+                        pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        searchResultsList.removeOnScrollListener(loadMoreListener);
+                    }else{
+                        searchResultsList.setVisibility(View.GONE);
+                        notFound.setVisibility(View.VISIBLE);
+                    }
                 }
+            }
+            @Override
+            public void onEnd() {
+                loadMoreFooter.setIsLoading(false);
+                loadMoreFooter.hideLoadMore();
             }
         }, data);
         request.execute();

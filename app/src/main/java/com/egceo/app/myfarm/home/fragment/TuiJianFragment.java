@@ -73,7 +73,6 @@ public class TuiJianFragment extends BaseFragment {
                 EventBus.getDefault().post(AttachUtil.isRecyclerViewAttach(recyclerView));
             }
         });
-        recommendList.addOnScrollListener(loadMoreListener);
     }
 
     private void initData() {
@@ -95,6 +94,9 @@ public class TuiJianFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                recommendList.removeOnScrollListener(loadMoreListener);
+                recommendList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -122,8 +124,11 @@ public class TuiJianFragment extends BaseFragment {
                     }
                     adapter.notifyDataSetChanged();
                 }else{
-                    if(pageNumber > 0)
+                    if(pageNumber > 0) {
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        recommendList.removeOnScrollListener(loadMoreListener);
+                    }
                 }
                 loadMoreFooter.hideLoadMore();
             }

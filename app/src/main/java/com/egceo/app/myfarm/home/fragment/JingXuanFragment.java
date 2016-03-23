@@ -104,6 +104,9 @@ public class JingXuanFragment extends BaseFragment {
                 if(loadMoreFooter.isLoading())
                     return;
                 pageNumber = 0;
+                topicList.removeOnScrollListener(loadMoreListener);
+                topicList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -136,6 +139,8 @@ public class JingXuanFragment extends BaseFragment {
                 }else{
                     if(pageNumber > 0) {
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        topicList.removeOnScrollListener(loadMoreListener);
                     }else{
                         showCity(data);
                     }

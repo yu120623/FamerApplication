@@ -33,8 +33,12 @@ import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
 import com.egceo.app.myfarm.util.AppUtil;
+import com.egceo.app.myfarm.util.CharacterParser;
+import com.egceo.app.myfarm.util.PinyinComparator;
+import com.egceo.app.myfarm.view.SideBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CityActivity extends BaseActivity {
@@ -46,6 +50,7 @@ public class CityActivity extends BaseActivity {
     private boolean isLocationSuccess = false;//判断是否定位成功
     private List<Code> hotCity = new ArrayList<Code>();
     private List<Code> allCity = new ArrayList<Code>();
+    private List<CodeModel> allCityModel = new ArrayList<CodeModel>();
     private LinearLayout hotCityLayout;
     private RecyclerView cityList;
     private CityAdapter adapter;
@@ -55,6 +60,8 @@ public class CityActivity extends BaseActivity {
     private EditText cityText;
     private ImageView searchCityBtn;
     private CodeDao codeDao;
+    private TextView dialogText;
+    private SideBar sideBar;
     protected void initViews() {
         findViews();
         initData();
@@ -68,12 +75,16 @@ public class CityActivity extends BaseActivity {
                 if(isLocation)
                     return;
                 if(isLocationSuccess){
-                    Intent intent = new Intent();
                     Code code = new Code();
                     code.setCodeDesc(location.getCity());
                     code.setCodeName(location.getCityCode());
+                    Intent intent = new Intent(context, MainActivityNew.class);
+                    code.setCodeId(1l);
+                    code.setCodetype(AppUtil.CODE_TYPE_HANDLE);
+                    codeDao.insertOrReplace(code);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("city",code);
-                    setResult(RESULT_OK,intent);
+                    startActivity(intent);
                     finish();
                     return;
                 }
@@ -101,10 +112,21 @@ public class CityActivity extends BaseActivity {
         cityList.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     CommonUtil.hideKeyBoard(activity);
                 }
                 return false;
+            }
+        });
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                int position = getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    cityList.scrollToPosition(position);
+                }
+
             }
         });
     }
@@ -145,8 +167,8 @@ public class CityActivity extends BaseActivity {
                 hotNameTextView.setVisibility(View.INVISIBLE);
             }
             else {
-                tagName = hotCity.get(i).getCodeDesc();
-                hotNameTextView.setTag(hotCity.get(i));
+                tagName = hotCity.get(index).getCodeDesc();
+                hotNameTextView.setTag(hotCity.get(index));
                 hotNameTextView.setOnClickListener(onChangeCity);
             }
             hotNameTextView.setText(tagName);
@@ -212,6 +234,7 @@ public class CityActivity extends BaseActivity {
 
     private void initData() {
         codeDao = DBHelper.getDaoSession(context).getCodeDao();
+        sideBar.setTextView(dialogText);
         location();
         initCityList();
         loadDataFromServer();
@@ -237,6 +260,13 @@ public class CityActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(CityViewHolder holder, int position) {
+           // int section = getSectionForPosition(position);
+//            if(position == getPositionForSection(section)){
+//                holder.tvLetter.setVisibility(View.VISIBLE);
+//                holder.tvLetter.setText(allCityModel.get(position).getSortLetters());
+//            }else{
+//                holder.tvLetter.setVisibility(View.GONE);
+//            }
             holder.cityName.setText(city.get(position).getCodeDesc());
             holder.itemView.setTag(city.get(position));
         }
@@ -247,9 +277,29 @@ public class CityActivity extends BaseActivity {
         }
 
         public void notifyDataSetChanged(List<Code> city){
+            Collections.sort(city,new PinyinComparator());
             this.city = city;
+            allCityModel = new ArrayList<>();
+            for(Code code : city){
+                allCityModel.add(new CodeModel(code));
+            }
             notifyDataSetChanged();
         }
+    }
+
+    public int getPositionForSection(int section) {
+        for (int i = 0; i < allCityModel.size(); i++) {
+            String sortStr = allCityModel.get(i).getSortLetters();
+            char firstChar = sortStr.toUpperCase().charAt(0);
+            if (firstChar == section) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getSectionForPosition(int position) {
+        return allCityModel.get(position).getSortLetters().charAt(0);
     }
 
     public View.OnClickListener onChangeCity = new View.OnClickListener() {
@@ -272,9 +322,28 @@ public class CityActivity extends BaseActivity {
 
     class CityViewHolder extends RecyclerView.ViewHolder{
         private TextView cityName;
+        private TextView tvLetter;
         public CityViewHolder(View itemView) {
             super(itemView);
             cityName = (TextView) itemView.findViewById(R.id.city_name);
+            tvLetter = (TextView) itemView.findViewById(R.id.pinyin);
+        }
+    }
+
+    class CodeModel extends Code{
+        private String sortLetters;
+        private Code code;
+        public CodeModel(Code code){
+            this.code = code;
+            sortLetters = CharacterParser.getInstance().getSelling(code.getCodeDesc()).substring(0, 1).toUpperCase();
+        }
+
+        public String getSortLetters() {
+            return sortLetters;
+        }
+
+        public void setSortLetters(String sortLetters) {
+            this.sortLetters = sortLetters;
         }
     }
 
@@ -285,6 +354,8 @@ public class CityActivity extends BaseActivity {
         cityList = (RecyclerView) this.findViewById(R.id.city_list);
         cityText = (EditText) this.findViewById(R.id.city_text);
         searchCityBtn = (ImageView) this.findViewById(R.id.search_city_btn);
+        dialogText  = (TextView) this.findViewById(R.id.text_dialog);
+        sideBar = (SideBar) this.findViewById(R.id.sidrbar);
     }
 
     @Override
@@ -296,4 +367,5 @@ public class CityActivity extends BaseActivity {
     protected String setActionBarTitle() {
         return getString(R.string.choose_ctiy);
     }
+
 }

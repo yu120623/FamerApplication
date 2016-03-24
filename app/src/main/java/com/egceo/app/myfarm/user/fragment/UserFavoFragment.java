@@ -77,6 +77,9 @@ public class UserFavoFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                favoList.removeOnScrollListener(loadMoreListener);
+                favoList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -107,6 +110,8 @@ public class UserFavoFragment extends BaseFragment {
                         collectModels.addAll(list);
                     }else{
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        favoList.removeOnScrollListener(loadMoreListener);
                     }
                 }
                 adapter.notifyDataSetChanged();

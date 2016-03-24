@@ -71,6 +71,9 @@ public class ConsumedFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                consumedList.removeOnScrollListener(loadMoreListener);
+                consumedList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -99,6 +102,8 @@ public class ConsumedFragment extends BaseFragment {
                     if(list.size() > 0){
                         orderModels.addAll(list);
                     }else{
+                        loadMoreFooter.showNoMoreTips();
+                        consumedList.removeOnScrollListener(loadMoreListener);
                         pageNumber--;
                     }
                 }

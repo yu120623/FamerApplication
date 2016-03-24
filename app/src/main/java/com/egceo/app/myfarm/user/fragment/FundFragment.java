@@ -29,9 +29,6 @@ import java.util.List;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
-/**
- * Created by gseoa on 2016/1/14.
- */
 public class FundFragment extends BaseFragment {
     private RecyclerView fundList;
     private TextView msgNum;
@@ -56,8 +53,7 @@ public class FundFragment extends BaseFragment {
         loadMoreFooter = new LoadMoreFooter(context);
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
         fundList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
-        RecyclerViewUtils.setFooterView(fundList,loadMoreFooter.getFooter());
-        fundList.addOnScrollListener(loadMoreListener);
+        RecyclerViewUtils.setFooterView(fundList, loadMoreFooter.getFooter());
         CustomUIHandler header = new CustomUIHandler(context);
         frameLayout.addPtrUIHandler(header);
         frameLayout.setHeaderView(header);
@@ -65,6 +61,9 @@ public class FundFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                fundList.removeOnScrollListener(loadMoreListener);
+                fundList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -96,6 +95,8 @@ public class FundFragment extends BaseFragment {
                         recordModels.addAll(list);
                     }else{
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        fundList.removeOnScrollListener(loadMoreListener);
                     }
                 }
                 adapter.notifyDataSetChanged();

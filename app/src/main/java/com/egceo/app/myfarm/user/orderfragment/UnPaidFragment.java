@@ -72,6 +72,9 @@ public class UnPaidFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                unPaidList.removeOnScrollListener(loadMoreListener);
+                unPaidList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -102,6 +105,8 @@ public class UnPaidFragment extends BaseFragment {
                         orderModels.addAll(list);
                     }else{
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        unPaidList.removeOnScrollListener(loadMoreListener);
                     }
                 }
                 adapter.notifyDataSetChanged();

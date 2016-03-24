@@ -71,6 +71,9 @@ public class UserMsgFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNumber = 0;
+                msgList.removeOnScrollListener(loadMoreListener);
+                msgList.addOnScrollListener(loadMoreListener);
+                loadMoreFooter.reset();
                 loadDataFromServer();
             }
         });
@@ -101,6 +104,8 @@ public class UserMsgFragment extends BaseFragment {
                         sysinfos.addAll(list);
                     }else{
                         pageNumber--;
+                        loadMoreFooter.showNoMoreTips();
+                        msgList.removeOnScrollListener(loadMoreListener);
                     }
                 }
                 adapter.notifyDataSetChanged();

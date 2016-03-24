@@ -91,6 +91,8 @@ public class UserSettingActivity extends BaseActivity {
                             }else{
                                 CommonUtil.showMessage(context,"已经是最新版本");
                             }
+                        }else{
+                            CommonUtil.showMessage(context,"已经是最新版本");
                         }
                     }
                 }, AppUtil.getHttpData(context));

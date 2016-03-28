@@ -99,6 +99,7 @@ public class NetworkImageHolderView implements Holder<String> {
                         activity.startActivity(intent);
                     } else {
                         Intent intent = new Intent(activity, NewRedPackageActivity.class);
+                        intent.putExtra("id",url.substring(url.indexOf(":") + 1));
                         activity.startActivity(intent);
                     }
                 }

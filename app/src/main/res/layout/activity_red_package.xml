@@ -11,6 +11,24 @@
         android:src="@mipmap/redpackage_bg" />
 
     <ImageView
+        android:id="@+id/yaoyao"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/red_package_btn"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/yaoyiyao" />
+
+    <ImageView
+        android:id="@+id/yaoyao2"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/red_package_btn"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/yaoyiyao2" />
+
+    <ImageView
         android:id="@+id/red_package_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -86,6 +104,40 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/package_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="非常遗憾"
+                android:textColor="#FB7114"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/package_end_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="此活动已结束"
+                android:textColor="#009900"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="期待下次好运气"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/package_failed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,4 +171,17 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/yao_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/package_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/login_btn_bg"
+        android:padding="10dp"
+        android:text="继续摇一摇"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone" />
 </RelativeLayout>

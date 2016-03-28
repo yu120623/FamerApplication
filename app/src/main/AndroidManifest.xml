@@ -150,6 +150,9 @@
         <activity
             android:name=".home.activity.RedPackageActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activity.NewRedPackageActivity"
+            android:screenOrientation="portrait"/>
         <!--银联 -->
         <activity
             android:name="com.unionpay.uppay.PayActivity"

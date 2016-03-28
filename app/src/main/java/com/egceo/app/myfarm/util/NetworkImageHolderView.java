@@ -15,6 +15,7 @@ import com.egceo.app.myfarm.entity.FarmTopicModel;
 import com.egceo.app.myfarm.entity.Resource;
 import com.egceo.app.myfarm.farm.activity.FarmDetailActivity;
 import com.egceo.app.myfarm.home.activity.LoginActivity;
+import com.egceo.app.myfarm.home.activity.NewRedPackageActivity;
 import com.egceo.app.myfarm.home.activity.RedPackageActivity;
 import com.egceo.app.myfarm.topic.activity.TimingTopicDetailsActivity;
 import com.egceo.app.myfarm.topic.activity.TopicDetailsActivity;
@@ -97,7 +98,7 @@ public class NetworkImageHolderView implements Holder<String> {
                         Intent intent = new Intent(activity, LoginActivity.class);
                         activity.startActivity(intent);
                     } else {
-                        Intent intent = new Intent(activity, RedPackageActivity.class);
+                        Intent intent = new Intent(activity, NewRedPackageActivity.class);
                         activity.startActivity(intent);
                     }
                 }

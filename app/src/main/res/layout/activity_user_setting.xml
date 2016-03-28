@@ -12,6 +12,28 @@
         <include layout="@layout/header_user_setting"></include>
 
         <LinearLayout
+            android:id="@+id/change_user_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/user_pic"
+                style="@style/user_btn_style"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+
+            <TextView
+                style="@style/user_setting_text_style"
+                android:text="@string/change_user_pic" />
+
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
             android:id="@+id/change_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -22,8 +22,8 @@ public class AppApplication extends BaseApplication {
         this.startService(loaction);
         Intent upload = new Intent(this, UploadService.class);
         this.startService(upload);
-        Intent ibeaconService = new Intent(this, IbeaconService.class);
-        this.startService(ibeaconService);
+//        Intent ibeaconService = new Intent(this, IbeaconService.class);
+//        this.startService(ibeaconService);
         JPushInterface.init(this);
     }
 }

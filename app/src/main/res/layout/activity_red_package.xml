@@ -19,7 +19,7 @@
         android:layout_marginBottom="56dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/redpackage1" />
+        android:src="@drawable/red_package_egg" />
 
     <RelativeLayout
         android:id="@+id/package_info"

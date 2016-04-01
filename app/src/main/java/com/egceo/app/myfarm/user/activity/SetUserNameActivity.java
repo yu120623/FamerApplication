@@ -8,6 +8,8 @@ import android.widget.EditText;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.CommonUtil;
 import com.egceo.app.myfarm.R;
+import com.egceo.app.myfarm.db.DBHelper;
+import com.egceo.app.myfarm.db.UserProfileDao;
 import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.entity.UserProfile;
 import com.egceo.app.myfarm.http.API;
@@ -21,9 +23,15 @@ import com.egceo.app.myfarm.util.AppUtil;
 public class SetUserNameActivity extends BaseActivity {
     private EditText userNameEditText;
     private Button save;
+    private UserProfileDao userProfileDao;
+    private UserProfile userProfile;
+
     @Override
     protected void initViews() {
+        userProfile = (UserProfile) this.getIntent().getSerializableExtra("userProfile");
+        userProfileDao = DBHelper.getUserDaoSession(context, userProfile.getUserAliasId()).getUserProfileDao();
         userNameEditText = (EditText) this.findViewById(R.id.user_name);
+        userNameEditText.setText(userProfile.getUserName());
         save = (Button) this.findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +50,8 @@ public class SetUserNameActivity extends BaseActivity {
                 AppRequest request = new AppRequest(context, url, new AppHttpResListener() {
                     @Override
                     public void onSuccess(TransferObject data) {
+                        SetUserNameActivity.this.userProfile.setUserName(userNameEditText.getText().toString());
+                        userProfileDao.update(SetUserNameActivity.this.userProfile);
                         CommonUtil.showMessage(context,getString(R.string.change_success));
                         setResult(RESULT_OK);
                         finish();

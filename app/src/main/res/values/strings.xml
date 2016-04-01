@@ -21,7 +21,7 @@
     <string name="choose_ctiy">城市选择</string>
     <string name="farm_set_info">套餐详细</string>
     <string name="topic_desc">专题介绍</string>
-    <string name="gua_pai_price">挂牌价:</string>
+    <string name="gua_pai_price">原价:</string>
     <string name="view_farm_set">查看套餐</string>
     <string name="startring_qianggou">抢购中</string>
     <string name="qianggou">立即抢购</string>
@@ -141,7 +141,7 @@
     <string name="pls_enter_password">请输入6~20位的密码</string>
     <string name="pls_enter_code">请输入正确的验证码</string>
     <string name="go_to_zhifubao">正在跳转支付宝，请稍后</string>
-    <string name="login_now">正在登陆，请稍后</string>
+    <string name="login_now">正在登录，请稍后</string>
     <string name="user_info_num">我的信息总数</string>
     <string name="user_favourite_num">我的收藏总数</string>
     <string name="user_fund_num">旅游基金总数</string>

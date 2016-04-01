@@ -50,11 +50,18 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
     private TransferObject data;
     private ActivityModel activityModel;
     private int index = 0;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer1;//鸡蛋碎裂声音
+    private MediaPlayer mediaPlayer2;//微信摇一摇声音
+    private MediaPlayer mediaPlayer3;//有红包
+    private MediaPlayer mediaPlayer4;//没红包
     private TextView packageSuccessMoney;
+
+    private float LastX,LastY,LastZ;
+    private AnimationDrawable animationDrawable;
 
     @Override
     protected void initViews() {
+        showProgress();
         findViews();
         initData();
         loadRedPackage();
@@ -84,16 +91,22 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
             @Override
             public void onEnd() {
                 super.onEnd();
+                hideProgress();
             }
         },data);
         request.execute();
     }
 
     private void initData() {
+        animationDrawable = (AnimationDrawable) redPackageBtn.getDrawable();
+        animationDrawable.stop();
         activityModels = new ArrayList<>();
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
-        mediaPlayer = MediaPlayer.create(context,R.raw.egg);
+        mediaPlayer1 = MediaPlayer.create(context,R.raw.egg);
+        mediaPlayer2 = MediaPlayer.create(context,R.raw.wx_voice);
+        mediaPlayer3 = MediaPlayer.create(context,R.raw.package_success);
+        mediaPlayer4 = MediaPlayer.create(context,R.raw.package_failed);
     }
 
     private void findViews() {
@@ -118,33 +131,40 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
 
     @Override
     protected String setActionBarTitle() {
-        return "红包";
+        return "我的农庄特别活动";
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(!isEnableSensor)return;
+        if (!isEnableSensor) return;
         int sensorType = event.sensor.getType();
         float[] values = event.values;
         if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-            if ((Math.abs(values[0]) > 17 || Math.abs(values[1]) > 17 || Math
-                    .abs(values[2]) > 17)) {
+            if ((Math.abs(values[0]) > 19 || Math.abs(values[1]) > 19 || Math
+                    .abs(values[2]) > 19)) {
                 //vibrator.vibrate(new long[]{80,300,80,300},-1);
-                if(index > 0){
-                    qiangPackage();
-                }else {
-                    AnimationDrawable animationDrawable = (AnimationDrawable) redPackageBtn.getDrawable();
-                    int duration = 0;
-                    for(int i = 0 ;i < animationDrawable.getNumberOfFrames();i++){
-                        duration += animationDrawable.getDuration(i);
-                    }
-                    animationDrawable.start();
-                    mediaPlayer.start();
-                    handler.sendEmptyMessageDelayed(0,duration);
-                    isEnableSensor = false;
-                }
+                mediaPlayer2.start();
+                handler.sendEmptyMessageDelayed(1,1500);
             }
         }
+//        if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+//            float NowX=event.values[0];
+//            float NowY=event.values[1];
+//            float NowZ=event.values[2];
+//            //计算x,y,z变化量
+//            float DeltaX=NowX-LastX;
+//            float DeltaY=NowY-LastY;
+//            float DeltaZ=NowZ-LastZ;
+//            //赋值
+//            LastX=NowX;
+//            LastY=NowY;
+//            LastZ=NowZ;
+//            double NowSpeed = Math.sqrt(DeltaX * DeltaX + DeltaY * DeltaY + DeltaZ * DeltaZ)/50 * 10000;
+//            if(NowSpeed >= 3000){
+//                mediaPlayer2.start();
+//                handler.sendEmptyMessageDelayed(1,1500);
+//            }
+//        }
     }
 
     @Override
@@ -172,6 +192,7 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
         redPackageBtn.setVisibility(View.GONE);
         packageInfo.setVisibility(View.VISIBLE);
         if(activityModel.getIsOk().equals("1")){
+            mediaPlayer3.start();
             packageSuccess.setVisibility(View.VISIBLE);
             yaoAgain.setVisibility(View.VISIBLE);
             yaoAgain.setOnClickListener(new View.OnClickListener() {
@@ -190,9 +211,10 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
             packageFailed.setVisibility(View.GONE);
             packageSuccessDesc.setText(activityModel.getPromptStr());
         }else{
+            mediaPlayer4.start();
             packageSuccess.setVisibility(View.GONE);
             packageFailed.setVisibility(View.VISIBLE);
-            packageFailedDesc.setText(activityModel.getPromptStr());
+            packageFailedDesc.setText("您的次数已用完");
         }
         yaoyao.setVisibility(View.GONE);
         yaoyao2.setVisibility(View.GONE);
@@ -213,10 +235,26 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            yaoyao.setVisibility(View.GONE);
-            yaoyao2.setVisibility(View.VISIBLE);
-            isEnableSensor = true;
-            index = 1;
+            if(msg.what == 0) {
+                yaoyao.setVisibility(View.GONE);
+                yaoyao2.setVisibility(View.VISIBLE);
+                isEnableSensor = true;
+                index = 1;
+            }else if(msg.what == 1){
+                if(index > 0){
+                    qiangPackage();
+                }else {
+
+                    int duration = 0;
+                    for(int i = 0 ;i < animationDrawable.getNumberOfFrames();i++){
+                        duration += animationDrawable.getDuration(i);
+                    }
+                    animationDrawable.start();
+                    mediaPlayer1.start();
+                    handler.sendEmptyMessageDelayed(0,duration);
+                    isEnableSensor = false;
+                }
+            }
         }
     };
 

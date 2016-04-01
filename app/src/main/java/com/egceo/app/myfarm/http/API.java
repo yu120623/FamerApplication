@@ -3,7 +3,7 @@ package com.egceo.app.myfarm.http;
 public class API {
     public static final String URL = "http://121.41.112.28:8080/wdnz/api/";//正式
     //public static final String URL = "http://121.40.91.182:8080/mycff/api/";
-    //public static final String URL = "http://192.168.1.110:8080/mycff/api/";
+    //public static final String URL = "http://192.168.1.110:8080/wdnz/api/";
     public static final String PARAM_STR = "jsonStr";
 
     public static class API_URL {

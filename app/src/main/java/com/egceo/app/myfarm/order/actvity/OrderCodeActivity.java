@@ -51,7 +51,7 @@ public class OrderCodeActivity extends BaseActivity {
             }
 
         },data);
-        request.execute();;
+        request.execute();
     }
 
     private void showData(TransferObject data) {
@@ -77,7 +77,7 @@ public class OrderCodeActivity extends BaseActivity {
     }
 
     private void initData() {
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         order = (OrderModel) this.getIntent().getSerializableExtra("order");
         orderName.setText(getString(R.string.product_info)+order.getFarmSetModel().getFarmSetName());
         orderPrice.setText(getString(R.string.order_money)+order.getOrdePrice()+getString(R.string.rmb));

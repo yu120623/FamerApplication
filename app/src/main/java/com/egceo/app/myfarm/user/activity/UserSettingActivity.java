@@ -60,11 +60,14 @@ public class UserSettingActivity extends BaseActivity {
     private UserProfile userProfile;
     private DisplayImageOptions options;
     private UserProfileDao userProfileDao;
+    private String id;
+    private TextView versionName;
 
     @Override
     protected void initViews() {
         findViews();
         initClick();
+        versionName.setText("V"+CommonUtil.getVersionName(context));
     }
 
     private void initClick() {
@@ -86,6 +89,7 @@ public class UserSettingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SetUserNameActivity.class);
+                intent.putExtra("userProfile", userProfile);
                 startActivity(intent);
             }
         });
@@ -147,18 +151,8 @@ public class UserSettingActivity extends BaseActivity {
                 GalleryHelper.openGalleryMuti(activity, 1, new GalleryImageLoader());
             }
         });
-        String id = sp.getString(AppUtil.L_N, "");
+        id = sp.getString(AppUtil.L_N, "");
         userProfileDao = DBHelper.getUserDaoSession(context, id).getUserProfileDao();
-        userProfile = userProfileDao.load(id);
-        if(userProfile != null){
-            options = new DisplayImageOptions.Builder()
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .displayer(new RoundedBitmapDisplayer(CommonUtil.Dp2Px(context,100)))
-                    .build();
-            ImageLoaderUtil.getInstance().displayImg(imageView,userProfile.getUserPic(),options);
-        }
     }
 
     @Override
@@ -219,6 +213,24 @@ public class UserSettingActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userProfile = userProfileDao.load(id);
+        if(userProfile != null){
+            options = new DisplayImageOptions.Builder()
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .showImageOnLoading(R.mipmap.head)
+                    .showImageForEmptyUri(R.mipmap.head)
+                    .showImageOnFail(R.mipmap.head)
+                    .displayer(new RoundedBitmapDisplayer(CommonUtil.Dp2Px(context, 100)))
+                    .build();
+            ImageLoaderUtil.getInstance().displayImg(imageView,userProfile.getUserPic(),options);
+        }
+    }
+
     private void findViews() {
         loginOutBtn = (TextView) this.findViewById(R.id.login_out_btn);
         changeUserName = this.findViewById(R.id.change_user_name);
@@ -228,6 +240,7 @@ public class UserSettingActivity extends BaseActivity {
         adboutUs = this.findViewById(R.id.about_us);
         imageView = (ImageView) this.findViewById(R.id.user_pic);
         changeUserPic = this.findViewById(R.id.change_user_pic);
+        versionName = (TextView) this.findViewById(R.id.version);
     }
 
     @Override

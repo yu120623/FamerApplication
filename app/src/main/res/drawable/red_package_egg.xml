@@ -3,35 +3,35 @@
     android:oneshot="true">
     <item
         android:drawable="@mipmap/rd0"
-        android:duration="200"></item>
+        android:duration="350"></item>
     <item
         android:drawable="@mipmap/rd1"
-        android:duration="180"></item>
+        android:duration="330"></item>
     <item
         android:drawable="@mipmap/rd2"
-        android:duration="160"></item>
+        android:duration="310"></item>
     <item
         android:drawable="@mipmap/rd3"
-        android:duration="140"></item>
+        android:duration="290"></item>
     <item
         android:drawable="@mipmap/rd4"
-        android:duration="120"></item>
+        android:duration="270"></item>
     <item
         android:drawable="@mipmap/rd5"
-        android:duration="100"></item>
+        android:duration="250"></item>
     <item
         android:drawable="@mipmap/rd6"
-        android:duration="80"></item>
+        android:duration="230"></item>
     <item
         android:drawable="@mipmap/rd7"
-        android:duration="60"></item>
+        android:duration="210"></item>
     <item
         android:drawable="@mipmap/rd8"
-        android:duration="40"></item>
+        android:duration="190"></item>
     <item
         android:drawable="@mipmap/rd9"
-        android:duration="20"></item>
+        android:duration="170"></item>
     <item
         android:drawable="@mipmap/rd10"
-        android:duration="10"></item>
+        android:duration="150"></item>
 </animation-list>

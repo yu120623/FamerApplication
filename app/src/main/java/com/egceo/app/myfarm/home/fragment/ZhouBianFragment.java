@@ -186,20 +186,11 @@ public class ZhouBianFragment extends BaseFragment {
             holder.recommendDistance.setText("直线距离"+decimalFormat.format(farmModel.getFarmDistance()) + "km");
             holder.flowLayout.removeAllViews();
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
-                TextView tv = new TextView(getActivity());
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                TextView tv1 = new TextView(getActivity());
-                tv1.setText("  ");
-                tv1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                tv.setBackgroundResource(R.drawable.near_label_bg);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                View tagItem =inflater.inflate(R.layout.item_farm_tag,null,false);
+                TextView tv = (TextView) tagItem.findViewById(R.id.farm_tag);
                 tv.setTextColor(Color.WHITE);
-                tv.setPadding(20, 2, 20, 2);
                 tv.setText(farmModel.getFarmTags().get(i));
-                tv.setLayoutParams(lp);
-                tv1.setLayoutParams(lp);
-                holder.flowLayout.addView(tv);
-                holder.flowLayout.addView(tv1);
+                holder.flowLayout.addView(tagItem);
             }
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath() + AppUtil.FARM_FACE, options);
         }

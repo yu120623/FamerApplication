@@ -51,17 +51,15 @@
                     android:layout_marginTop="3dp"
                     android:orientation="horizontal">
 
-                    <org.apmem.tools.layouts.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    <org.apmem.tools.layouts.FlowLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:f="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/flowLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/white"
-                        android:gravity="fill"
                         android:orientation="horizontal"
-                        f:debugDraw="true"
-                        f:layoutDirection="ltr"
-                        f:weightDefault="1.0">
+                        f:layoutDirection="ltr">
 
                     </org.apmem.tools.layouts.FlowLayout>
 

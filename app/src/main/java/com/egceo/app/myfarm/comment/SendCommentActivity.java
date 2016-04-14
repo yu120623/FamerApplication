@@ -53,9 +53,6 @@ import galleryfinal.GalleryHelper;
 import galleryfinal.ImageLoader;
 import galleryfinal.model.PhotoInfo;
 
-/*import cn.finalteam.galleryfinal.GalleryHelper;
-import cn.finalteam.galleryfinal.utils.GalleryImageLoader;*/
-
 /**
  * Created by FreeMason on 2016/2/20.
  */
@@ -83,7 +80,7 @@ public class SendCommentActivity extends BaseActivity {
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GalleryHelper.openGalleryMuti(activity, 5, new GalleryImageLoader());
+                GalleryHelper.openGalleryMuti(activity, 9, new GalleryImageLoader());
             }
         });
         rightTextBtn.setText("评价");
@@ -153,7 +150,7 @@ public class SendCommentActivity extends BaseActivity {
     class PhotoAdapter extends BaseAdapter{
         @Override
         public int getCount() {
-            if(photos.size() < 5){
+            if(photos.size() < 9){
                 return photos.size()+1;
             }else{
                 return photos.size();
@@ -183,11 +180,11 @@ public class SendCommentActivity extends BaseActivity {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             viewHolder.mIvCheck.setVisibility(View.GONE);
-            if (position == 0 && photos.size() < 5){
+            if (position == 0 && photos.size() < 9){
                 viewHolder.mIvThumb.setImageResource(R.mipmap.camera);
             }else{
                 String url = "";
-                if(photos.size() < 5){
+                if(photos.size() < 9){
                     url = "file://"+photos.get(position-1).getPhotoPath();
                 }else{
                     url = "file://"+photos.get(position).getPhotoPath();

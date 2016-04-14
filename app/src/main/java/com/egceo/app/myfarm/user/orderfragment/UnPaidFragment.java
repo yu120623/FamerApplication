@@ -31,11 +31,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
 //未付款
-public class UnPaidFragment extends BaseFragment {
+public class UnPaidFragment extends OrderBaseFragment {
     private RecyclerView unPaidList;
     private UnPaidAdapter adapter;
     private List<OrderModel> orderModels;
@@ -78,12 +79,6 @@ public class UnPaidFragment extends BaseFragment {
                 loadDataFromServer();
             }
         });
-        frameLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                frameLayout.autoRefresh(true);
-            }
-        },100);
     }
 
     private void loadDataFromServer() {
@@ -97,8 +92,10 @@ public class UnPaidFragment extends BaseFragment {
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
+                        showNothing();
+                    }
                     orderModels = list;
                 }else{
                     if(list.size() > 0){
@@ -111,6 +108,13 @@ public class UnPaidFragment extends BaseFragment {
                 }
                 adapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onFailed(com.egceo.app.myfarm.entity.Error error) {
+                super.onFailed(error);
+                showFailed();
+            }
+
             @Override
             public void onEnd() {
                 frameLayout.refreshComplete();
@@ -119,6 +123,23 @@ public class UnPaidFragment extends BaseFragment {
             }
         }, data);
         request.execute();
+    }
+
+    private void showFailed() {
+        orderModels.clear();
+        adapter.notifyDataSetChanged();
+        showRetryView();
+    }
+
+    @Override
+    protected void retry() {
+        hideRetryView();
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        }, 100);
     }
 
     //加载更多监听
@@ -264,4 +285,23 @@ public class UnPaidFragment extends BaseFragment {
     protected int getContentView() {
         return R.layout.frag_user_order_unpaid;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(CommonUtil.isNetWorkConnected(context)) {
+            frameLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    frameLayout.autoRefresh(true);
+                }
+            }, 100);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 }

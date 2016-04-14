@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baseandroid.BaseFragment;
+import com.baseandroid.util.CommonUtil;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
@@ -38,7 +39,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * Created by gseoa on 2016/1/21.
  */
 //代销费
-public class UnConsumedFragment extends BaseFragment {
+public class UnConsumedFragment extends OrderBaseFragment {
     private RecyclerView paidList;
     private PaidAdapter adapter;
     private List<OrderModel> orderModels;
@@ -82,12 +83,6 @@ public class UnConsumedFragment extends BaseFragment {
                 loadDataFromServer();
             }
         });
-        frameLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                frameLayout.autoRefresh(true);
-            }
-        },100);
     }
 
     private void loadDataFromServer() {
@@ -101,8 +96,10 @@ public class UnConsumedFragment extends BaseFragment {
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
+                        showNothing();
+                    }
                     orderModels = list;
                 }else{
                     if(list.size() > 0){
@@ -117,6 +114,12 @@ public class UnConsumedFragment extends BaseFragment {
             }
 
             @Override
+            public void onFailed(com.egceo.app.myfarm.entity.Error error) {
+                super.onFailed(error);
+                showFailed();
+            }
+
+            @Override
             public void onEnd() {
                 frameLayout.refreshComplete();
                 loadMoreFooter.setIsLoading(false);
@@ -124,6 +127,23 @@ public class UnConsumedFragment extends BaseFragment {
             }
         }, data);
         request.execute();
+    }
+
+    private void showFailed() {
+        orderModels.clear();
+        adapter.notifyDataSetChanged();
+        showRetryView();
+    }
+
+    @Override
+    protected void retry() {
+        hideRetryView();
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        }, 100);
     }
 
     //加载更多监听
@@ -243,5 +263,18 @@ public class UnConsumedFragment extends BaseFragment {
     @Override
     protected int getContentView() {
         return R.layout.frag_user_order_consumed;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(CommonUtil.isNetWorkConnected(context)) {
+            frameLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    frameLayout.autoRefresh(true);
+                }
+            }, 100);
+        }
     }
 }

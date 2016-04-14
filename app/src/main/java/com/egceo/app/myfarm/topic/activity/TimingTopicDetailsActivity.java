@@ -153,12 +153,12 @@ public class TimingTopicDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 OnekeyShare oks = new OnekeyShare();
                 oks.disableSSOWhenAuthorize();
-                oks.setTitle("乡村旅游，我私藏的一个好地方:"+farmTopicModel.getFarmTopicName());
-                oks.setImageUrl(farmTopicModel.getResourcePath()+AppUtil.FARM_FACE);
-                oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId()+"/abc/1");
-                oks.setText("乡村旅游，我私藏的一个好地方:"+farmTopicModel.getFarmTopicDesc());
-                oks.setUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId()+"/abc/1");
-                oks.setComment("乡村旅游，我私藏的一个好地方:"+farmTopicModel.getFarmTopicDesc());
+                oks.setTitle(farmTopicModel.getFarmTopicName());
+                oks.setImageUrl(farmTopicModel.getResourcePath() + AppUtil.FARM_FACE);
+                oks.setTitleUrl("http://w.mycff.com/Wechat/Topic/content/id/" + farmTopicModel.getFarmTopicAliasId() + "/abc/1");
+                oks.setText(getString(R.string.share_content));
+                oks.setUrl("http://w.mycff.com/Wechat/Topic/content/id/" + farmTopicModel.getFarmTopicAliasId() + "/abc/1");
+                oks.setComment(getString(R.string.share_content));
                 oks.setSite(getString(R.string.app_name));
                 oks.setSiteUrl("http://w.mycff.com/Wechat/Topic/content/id/"+farmTopicModel.getFarmTopicAliasId()+"/abc/1");
                 oks.show(activity);

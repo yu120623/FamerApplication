@@ -13,7 +13,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.baseandroid.util.Json;
 import com.egceo.app.myfarm.entity.TransferObject;
 
-import org.apache.http.protocol.HTTP;
+
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -75,7 +75,7 @@ public class PostRequest extends Request<TransferObject> {
             NetworkResponse response) {
         String json = null;
         try {
-            json = new String(response.data, HttpHeaderParser.parseCharset(response.headers, HTTP.UTF_8));
+            json = new String(response.data, HttpHeaderParser.parseCharset(response.headers,"UTF-8"));
             Log.i("++++++++json++++",json);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

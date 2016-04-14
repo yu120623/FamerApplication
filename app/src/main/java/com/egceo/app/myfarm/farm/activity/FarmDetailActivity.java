@@ -159,12 +159,12 @@ public class FarmDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 OnekeyShare oks = new OnekeyShare();
                 oks.disableSSOWhenAuthorize();
-                oks.setTitle("乡村旅游，我私藏的一个好地方:"+farmModel.getFarmName());
+                oks.setTitle(farmModel.getFarmName());
                 oks.setImageUrl(shareImgUrl);
                 oks.setTitleUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId()+"/abc/1");
-                oks.setText("乡村旅游，我私藏的一个好地方:"+farmModel.getFarmDesc());
+                oks.setText(getString(R.string.share_content));
                 oks.setUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId()+"/abc/1");
-                oks.setComment("乡村旅游，我私藏的一个好地方:"+farmModel.getFarmDesc());
+                oks.setComment(getString(R.string.share_content));
                 oks.setSite(getString(R.string.app_name));
                 oks.setSiteUrl("http://w.mycff.com/Wechat/Farm/content/id/"+farmModel.getFarmAliasId()+"/abc/1");
                 oks.show(activity);

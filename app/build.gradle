@@ -12,7 +12,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    useLibrary 'org.apache.http.legacy'
     buildTypes {
         release {
             minifyEnabled false
@@ -42,8 +41,7 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'de.greenrobot:greendao:2.1.0'
-    compile 'uk.co.alt236:bluetooth-le-library-android:1.0.0'
-    compile 'org.altbeacon:android-beacon-library:2+'
+
     compile project(':HeaderAndFooterRecyclerViewLibrary')
     compile project(':calendarview')
     compile files('libs/alipaySdk-20151112.jar')

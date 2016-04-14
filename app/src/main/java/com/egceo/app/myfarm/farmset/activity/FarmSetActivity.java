@@ -17,15 +17,12 @@ import android.widget.TextView;
 
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.ImageLoaderUtil;
-import com.egceo.app.myfarm.entity.Resource;
+import com.egceo.app.myfarm.entity.*;
 import com.egceo.app.myfarm.home.activity.FarmSetNavListActivity;
 import com.egceo.app.myfarm.view.PhotoViewPageActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.egceo.app.myfarm.R;
-import com.egceo.app.myfarm.entity.FarmItemsModel;
-import com.egceo.app.myfarm.entity.FarmSetModel;
-import com.egceo.app.myfarm.entity.TransferObject;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -93,12 +90,25 @@ public class FarmSetActivity extends BaseActivity {
             }
 
             @Override
+            public void onFailed(com.egceo.app.myfarm.entity.Error error) {
+                super.onFailed(error);
+                showRetryView();
+            }
+
+            @Override
             public void onEnd() {
                 super.onEnd();
                 hideProgress();
             }
         }, data);
         request.execute();
+    }
+
+    @Override
+    protected void retry() {
+        hideRetryView();
+        showProgress();
+        loadDataFromServer();
     }
 
     private void addTags(FarmSetViewHolder holder, FarmItemsModel farmItemsModel) {

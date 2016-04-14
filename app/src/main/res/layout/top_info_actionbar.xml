@@ -32,15 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:visibility="gone"
-            android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/share_fav_layout"
             android:layout_toRightOf="@+id/topic_back_btn"
             android:ellipsize="end"
             android:lines="1"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/share_fav_layout"
@@ -50,22 +50,22 @@
             android:gravity="right"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/share_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/topic_info_action_bar_share" />
-
             <com.egceo.app.myfarm.view.FavouriteBtn
-                android:layout_marginLeft="10dp"
                 android:id="@+id/favourite_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/topic_info_action_bar_favourite" />
+
+            <ImageView
+                android:id="@+id/share_btn"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/topic_info_action_bar_share" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

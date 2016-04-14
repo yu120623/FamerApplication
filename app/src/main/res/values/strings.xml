@@ -193,4 +193,6 @@
     <string name="comment_success_upload_img">评论成功,图片将在上传完成后显示</string>
     <string name="change_user_pic">修改头像</string>
     <string name="upload_pic_failed">上传失败,请稍后再试</string>
+    <string name="share_content">我收藏很久的一个好地方,现在推荐给您</string>
+    <string name="no_order">没有相关订单</string>
 </resources>

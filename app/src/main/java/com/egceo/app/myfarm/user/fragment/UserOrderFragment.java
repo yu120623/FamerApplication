@@ -55,10 +55,7 @@ public class UserOrderFragment extends BaseFragment {
 
     public void onEvent(Integer index){
         contentViewPager.setCurrentItem(index);
-        if(index.intValue() == 4){
-            ReFundFragment fragment = (ReFundFragment) adapter.getItem(index);
-            fragment.refresh();
-        }
+        EventBus.getDefault().post(index);
     }
 
     @Override

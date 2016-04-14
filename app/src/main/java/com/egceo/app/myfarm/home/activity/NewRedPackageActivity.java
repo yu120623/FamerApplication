@@ -19,8 +19,7 @@ import android.widget.TextView;
 import com.baseandroid.BaseActivity;
 import com.baseandroid.util.ImageLoaderUtil;
 import com.egceo.app.myfarm.R;
-import com.egceo.app.myfarm.entity.ActivityModel;
-import com.egceo.app.myfarm.entity.TransferObject;
+import com.egceo.app.myfarm.entity.*;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -77,6 +76,7 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
         AppRequest request  = new AppRequest(context, url, new AppHttpResListener() {
             @Override
             public void onSuccess(TransferObject data) {
+                hideRetryView();
                 activityModels = data.getActivityModels();
                 if(activityModels == null || activityModels.size() <= 0){
                     showEndEvent();
@@ -89,12 +89,25 @@ public class NewRedPackageActivity extends BaseActivity implements SensorEventLi
             }
 
             @Override
+            public void onFailed(com.egceo.app.myfarm.entity.Error error) {
+                super.onFailed(error);
+                showRetryView();
+            }
+
+            @Override
             public void onEnd() {
                 super.onEnd();
                 hideProgress();
             }
         },data);
         request.execute();
+    }
+
+    @Override
+    protected void retry() {
+        hideRetryView();
+        showProgress();
+        loadRedPackage();
     }
 
     private void initData() {

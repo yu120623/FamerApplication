@@ -36,7 +36,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * Created by gseoa on 2016/1/14.
  */
 // 退单
-public class ReFundFragment extends BaseFragment {
+public class ReFundFragment extends OrderBaseFragment {
     private RecyclerView refundList;
     private PaidAdapter adapter;
     private List<OrderModel> orderModels;
@@ -63,7 +63,7 @@ public class ReFundFragment extends BaseFragment {
         loadMoreFooter = new LoadMoreFooter(context);
         mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(adapter);
         refundList.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
-        RecyclerViewUtils.setFooterView(refundList,loadMoreFooter.getFooter());
+        RecyclerViewUtils.setFooterView(refundList, loadMoreFooter.getFooter());
         refundList.addOnScrollListener(loadMoreListener);
         CustomUIHandler header = new CustomUIHandler(context);
         frameLayout.addPtrUIHandler(header);
@@ -78,12 +78,6 @@ public class ReFundFragment extends BaseFragment {
                 loadDataFromServer();
             }
         });
-        frameLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                frameLayout.autoRefresh(true);
-            }
-        },100);
     }
 
     private void loadDataFromServer() {
@@ -96,8 +90,10 @@ public class ReFundFragment extends BaseFragment {
             public void onSuccess(TransferObject data) {
                 List<OrderModel> list = data.getOrderModels();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
+                        showNothing();
+                    }
                     orderModels = list;
                 }else{
                     if(list.size() > 0){
@@ -110,6 +106,13 @@ public class ReFundFragment extends BaseFragment {
                 }
                 adapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onFailed(com.egceo.app.myfarm.entity.Error error) {
+                super.onFailed(error);
+                showFailed();
+            }
+
             @Override
             public void onEnd() {
                 frameLayout.refreshComplete();
@@ -118,6 +121,23 @@ public class ReFundFragment extends BaseFragment {
             }
         }, data);
         request.execute();
+    }
+
+    private void showFailed() {
+        orderModels.clear();
+        adapter.notifyDataSetChanged();
+        showRetryView();
+    }
+
+    @Override
+    protected void retry() {
+        hideRetryView();
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        }, 100);
     }
 
     //加载更多监听
@@ -309,5 +329,19 @@ public class ReFundFragment extends BaseFragment {
     @Override
     protected int getContentView() {
         return R.layout.frag_user_order_refund;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(CommonUtil.isNetWorkConnected(context)) {
+            frameLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    frameLayout.autoRefresh(true);
+                }
+            }, 100);
+        }
     }
 }

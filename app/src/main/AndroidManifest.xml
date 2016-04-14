@@ -4,7 +4,7 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 存储权限 -->
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -153,6 +153,14 @@
         <activity
             android:name=".home.activity.NewRedPackageActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
         <!--银联 -->
         <activity
             android:name="com.unionpay.uppay.PayActivity"
@@ -327,6 +335,12 @@
 
         <!-- 6374a3b6afa36b5a1381fa970f2da4e5 发布-->
         <!-- 4cc96f1f39e0d90af1e1f86b28524e49 debug-->
+
+        <!--魔窗 -->
+        <activity android:name="com.zxinsight.common.base.MWActivity" android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"/>
+        <meta-data android:name="MW_APPID" android:value="17080MO5O3Y3090NX5WQKU65XBW9UDBJ " />
+        <meta-data android:name="MW_CHANNEL" android:value="WanDouJia" />
     </application>
 
 </manifest>

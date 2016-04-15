@@ -88,7 +88,7 @@ public class UserFavoFragment extends BaseFragment {
             public void run() {
                 frameLayout.autoRefresh(true);
             }
-        },100);
+        }, 100);
     }
 
     private void loadDataFromServer() {
@@ -102,8 +102,10 @@ public class UserFavoFragment extends BaseFragment {
                 favouriteNum.setText(data.getTotalNum());
                 List<CollectModel> list = data.getCollectModels();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null) {
+                        showNothing();
                         list = new ArrayList<>();
+                    }
                     collectModels = list;
                 }else{
                     if(list.size() > 0){
@@ -125,6 +127,18 @@ public class UserFavoFragment extends BaseFragment {
             }
         },data);
         request.execute();
+    }
+
+    private void showNothing() {
+        showRetryView();
+        retryButton.setText(R.string.go_watch);
+        retryImg.setImageResource(R.mipmap.no_data);
+        retryText.setText(R.string.no_favourite);
+    }
+
+    @Override
+    protected void retry() {
+        activity.finish();
     }
 
     //加载更多监听

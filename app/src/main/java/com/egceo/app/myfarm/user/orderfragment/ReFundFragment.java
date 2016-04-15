@@ -341,7 +341,7 @@ public class ReFundFragment extends OrderBaseFragment {
                 public void run() {
                     frameLayout.autoRefresh(true);
                 }
-            }, 100);
+            }, 1000);
         }
     }
 }

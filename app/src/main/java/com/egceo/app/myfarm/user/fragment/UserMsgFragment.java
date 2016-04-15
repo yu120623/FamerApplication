@@ -96,8 +96,10 @@ public class UserMsgFragment extends BaseFragment {
                 msgNum.setText(data.getTotalNum());
                 List<Sysinfo> list = data.getSysinfos();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null) {
+                        showNothing();
                         list = new ArrayList<>();
+                    }
                     sysinfos = list;
                 }else{
                     if(list.size() > 0){
@@ -118,6 +120,14 @@ public class UserMsgFragment extends BaseFragment {
             }
         },data);
         request.execute();
+    }
+
+
+    private void showNothing() {
+        showRetryView();
+        retryButton.setVisibility(View.INVISIBLE);
+        retryImg.setImageResource(R.mipmap.no_data);
+        retryText.setText(R.string.no_ms);
     }
 
     //加载更多监听

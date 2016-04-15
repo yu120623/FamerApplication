@@ -295,7 +295,7 @@ public class UnPaidFragment extends OrderBaseFragment {
                 public void run() {
                     frameLayout.autoRefresh(true);
                 }
-            }, 100);
+            }, 1000);
         }
     }
 

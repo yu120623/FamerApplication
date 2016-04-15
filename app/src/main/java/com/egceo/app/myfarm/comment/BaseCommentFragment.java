@@ -101,6 +101,12 @@ public abstract class BaseCommentFragment extends BaseFragment {
 
     protected abstract void loadDataFromServer();
 
+    protected void showNothing(){
+        showRetryView();
+        retryText.setText("还没有任何人评论哦！");
+        retryButton.setVisibility(View.GONE);
+    }
+
     private void findViews() {
         pingjiaList = (RecyclerView) this.findViewById(R.id.pingjia_list);
     }

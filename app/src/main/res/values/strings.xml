@@ -195,4 +195,8 @@
     <string name="upload_pic_failed">上传失败,请稍后再试</string>
     <string name="share_content">我收藏很久的一个好地方,现在推荐给您</string>
     <string name="no_order">没有相关订单</string>
+    <string name="no_package">没有红包可用</string>
+    <string name="no_ms">没有相关消息</string>
+    <string name="go_watch">去逛逛</string>
+    <string name="no_favourite">没有相关收藏</string>
 </resources>

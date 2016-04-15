@@ -36,8 +36,10 @@ public class TimingCommentFragment extends BaseCommentFragment {
                 resData = data;
                 List<CommentModel> list = data.getCommentModels();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
+                        showNothing();
+                    }
                     comments = list;
                 }else{
                     if(list.size() > 0){

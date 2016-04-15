@@ -12,9 +12,7 @@ import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
 import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.cundong.recyclerview.RecyclerViewUtils;
 import com.egceo.app.myfarm.R;
-import com.egceo.app.myfarm.entity.Sysinfo;
-import com.egceo.app.myfarm.entity.TransferObject;
-import com.egceo.app.myfarm.entity.aa53458768RecordModel;
+import com.egceo.app.myfarm.entity.*;
 import com.egceo.app.myfarm.http.API;
 import com.egceo.app.myfarm.http.AppHttpResListener;
 import com.egceo.app.myfarm.http.AppRequest;
@@ -72,7 +70,7 @@ public class FundFragment extends BaseFragment {
             public void run() {
                 frameLayout.autoRefresh(true);
             }
-        },100);
+        }, 100);
     }
 
     private void loadDataFromServer() {
@@ -87,8 +85,10 @@ public class FundFragment extends BaseFragment {
                 msgNum.setText(data.getWalletModel().getLvValue()+"");
                 List<aa53458768RecordModel> list = data.getAa53458768RecordModels();
                 if(pageNumber == 0){
-                    if(list == null)
+                    if(list == null) {
                         list = new ArrayList<>();
+                        showNothing();
+                    }
                     recordModels = list;
                 }else{
                     if(list.size() > 0){
@@ -101,6 +101,13 @@ public class FundFragment extends BaseFragment {
                 }
                 adapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onFailed(com.egceo.app.myfarm.entity.Error error) {
+                super.onFailed(error);
+                //showRetryView();
+            }
+
             @Override
             public void onEnd() {
                 frameLayout.refreshComplete();
@@ -109,6 +116,13 @@ public class FundFragment extends BaseFragment {
             }
         },data);
         request.execute();
+    }
+
+    private void showNothing() {
+        showRetryView();
+        retryButton.setVisibility(View.GONE);
+        retryImg.setImageResource(R.mipmap.no_data);
+        retryText.setText(R.string.no_package);
     }
 
     class FundAdapter extends RecyclerView.Adapter<FundViewHolder> {

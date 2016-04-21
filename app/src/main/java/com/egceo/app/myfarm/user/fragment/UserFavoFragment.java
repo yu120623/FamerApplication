@@ -1,5 +1,7 @@
 package com.egceo.app.myfarm.user.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -159,6 +161,7 @@ public class UserFavoFragment extends BaseFragment {
             RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT);
             v.setLayoutParams(layoutParams);
             v.setOnClickListener(onFavClick);
+            v.setOnLongClickListener(onFavLongClick);
             FavoViewHolder holder = new FavoViewHolder(v);
             return holder;
         }
@@ -193,6 +196,35 @@ public class UserFavoFragment extends BaseFragment {
             favTag = (TextView) itemView.findViewById(R.id.favourite_tag);
         }
     }
+
+    private View.OnLongClickListener onFavLongClick = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            final CollectModel collectModel = (CollectModel) v.getTag();
+            new AlertDialog.Builder(activity).setItems(new String[]{getString(R.string.del)}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    TransferObject data = AppUtil.getHttpData(view.getContext());
+                    String url = API.URL + API.API_URL.COLLECT_CANCEL;
+                    if (collectModel.getStatus().equals("1")) {
+                        data.setFarmAliasId(collectModel.getCollectAliasId());
+                    } else {
+                        data.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                    }
+                    AppRequest request = new AppRequest(view.getContext(), url, new AppHttpResListener() {
+                        @Override
+                        public void onSuccess(TransferObject data) {
+                            collectModels.remove(collectModel);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }, data);
+                    request.execute();
+                }
+            }).show();
+            return false;
+        }
+    };
 
     private View.OnClickListener onFavClick = new View.OnClickListener() {
         @Override

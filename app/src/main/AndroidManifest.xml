@@ -222,7 +222,6 @@
 
         <service android:name=".services.LocationService"></service>
         <service android:name=".services.UploadService"></service>
-        <service android:name=".services.IbeaconService"></service>
 
         <service android:name="com.amap.api.location.APSService"></service>
 

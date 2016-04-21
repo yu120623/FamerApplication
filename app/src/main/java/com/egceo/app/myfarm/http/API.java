@@ -1,5 +1,7 @@
 package com.egceo.app.myfarm.http;
 
+import com.unionpay.uppay.PayActivity;
+
 public class API {
     public static final String URL = "http://121.41.112.28:8080/wdnz/api/";//正式
     //public static final String URL = "http://121.40.91.182:8080/mycff/api/";

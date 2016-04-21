@@ -28,7 +28,7 @@ public class TimingCommentFragment extends BaseCommentFragment {
     protected void loadDataFromServer() {
         String url = API.URL + API.API_URL.FARM_TOPIC_COMMENT_LIST;
         TransferObject data = AppUtil.getHttpData(context);
-        data.setPageNumber(0);
+        data.setPageNumber(pageNumber);
         data.setFarmTopicAliasId(farmTopicModel.getFarmTopicAliasId());
         AppRequest appRequest = new AppRequest(context, url, new AppHttpResListener() {
             @Override

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,7 +26,12 @@ public abstract class BaseFragment extends Fragment {
 	private ImageView progress;
 	private AnimationDrawable progressDrawable;
 	private View progressView;
+	private View retryView;
+	protected ImageView retryImg;
+	protected TextView retryText;
 	private TextView progressText;
+	protected Button retryButton;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -53,6 +59,20 @@ public abstract class BaseFragment extends Fragment {
 		progressDrawable = (AnimationDrawable) progress.getDrawable();
 		progressView = this.findViewById(R.id.progress_view);
 		progressText = (TextView) this.findViewById(R.id.progress_text);
+		retryView = this.findViewById(R.id.retry_view);
+		retryButton = (Button) this.findViewById(R.id.retry);
+		retryButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				retry();
+			}
+		});
+		retryImg = (ImageView) this.findViewById(R.id.retry_img);
+		retryText = (TextView) this.findViewById(R.id.retry_text);
+	}
+
+	protected void retry() {
+
 	}
 
 	protected void showProgress(){
@@ -65,6 +85,16 @@ public abstract class BaseFragment extends Fragment {
 		progressView.setVisibility(View.GONE);
 		progressDrawable.stop();
 		contentView.setVisibility(View.VISIBLE);
+	}
+
+	protected void hideRetryView(){
+		retryView.setVisibility(View.INVISIBLE);
+		contentView.setVisibility(View.VISIBLE);
+	}
+
+	protected void showRetryView(){
+		retryView.setVisibility(View.VISIBLE);
+		contentView.setVisibility(View.GONE);
 	}
 
 	protected abstract void initViews();

@@ -189,6 +189,19 @@ public class CommonUtil {
 			return 0;
 		return Double.valueOf(versionName).floatValue();
     }
+
+	public static String getVersionName(Context context){
+		PackageInfo info = null;
+		try {
+			info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		String versionName = info.versionName;
+		if(info == null)
+			return "";
+		return versionName;
+	}
     
     
     //安装文件

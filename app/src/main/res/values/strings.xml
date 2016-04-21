@@ -199,4 +199,5 @@
     <string name="no_ms">没有相关消息</string>
     <string name="go_watch">去逛逛</string>
     <string name="no_favourite">没有相关收藏</string>
+    <string name="line_distance">直线距离</string>
 </resources>

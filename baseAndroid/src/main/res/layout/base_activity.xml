@@ -30,7 +30,9 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
-       <include layout="@layout/layout_progress"/>
+        <include layout="@layout/layout_progress" />
+
+        <include layout="@layout/layout_try_again" />
     </LinearLayout>
 
 </FrameLayout>

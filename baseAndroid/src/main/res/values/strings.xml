@@ -2,5 +2,7 @@
 <resources>
 
     <string name="server_error_default_msg">无法连接到服务器，请检查您的网络或稍后再试</string>
+    <string name="api_failed">加载数据失败，请重试~</string>
+    <string name="retry">重试</string>
 
 </resources>

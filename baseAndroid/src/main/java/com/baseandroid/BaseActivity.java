@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zxinsight.TrackAgent;
+
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public abstract class BaseActivity extends Activity {
@@ -44,7 +46,9 @@ public abstract class BaseActivity extends Activity {
 	private ImageView progress;
 	private AnimationDrawable progressDrawable;
 	private View progressView;
+	private View retryView;
 	private TextView progressText;
+	private Button retryButton;
 	private View view;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +104,20 @@ public abstract class BaseActivity extends Activity {
 			this.setContentView(getContentView());
 		}
 		actionbarView = (RelativeLayout)this.findViewById(R.id.action_bar_view);
+		retryView = this.findViewById(R.id.retry_view);
+		retryButton = (Button) this.findViewById(R.id.retry);
+		retryButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				retry();
+			}
+		});
 	}
-	
+
+	protected void retry() {
+
+	}
+
 	protected boolean isAttachToLayout(){
 		return true;
 	}
@@ -173,6 +189,7 @@ public abstract class BaseActivity extends Activity {
 		if(isShowNetInfo())
 			unregisterReceiver(netWorkBroadcast);
 		super.onPause();
+		TrackAgent.currentEvent().onPause(this);
 	};
 	
 	@Override
@@ -180,6 +197,7 @@ public abstract class BaseActivity extends Activity {
 		if(isShowNetInfo())
 			initNetWorkBraodcast();
 		super.onResume();
+		TrackAgent.currentEvent().onResume(this);
 	}
 	
 	protected void showProgress(){
@@ -192,6 +210,16 @@ public abstract class BaseActivity extends Activity {
 		progressView.setVisibility(View.GONE);
 		progressDrawable.stop();
 		view.setVisibility(View.VISIBLE);
+	}
+
+	protected void hideRetryView(){
+		retryView.setVisibility(View.GONE);
+		view.setVisibility(View.VISIBLE);
+	}
+
+	protected void showRetryView(){
+		retryView.setVisibility(View.VISIBLE);
+		view.setVisibility(View.GONE);
 	}
 	
 	protected boolean isShowNetInfo() {

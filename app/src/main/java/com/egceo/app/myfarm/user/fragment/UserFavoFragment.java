@@ -209,13 +209,22 @@ public class UserFavoFragment extends BaseFragment {
                     String url = API.URL + API.API_URL.COLLECT_CANCEL;
                     if (collectModel.getStatus().equals("1")) {
                         data.setFarmAliasId(collectModel.getCollectAliasId());
-                    } else {
-                        data.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                    } else{
+                        if(collectModel.getStatus().equals("3")){
+                            if(collectModel.getType().equals("0")){
+                                data.setFarmAliasId(collectModel.getCollectAliasId());
+                            }else{
+                                data.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                            }
+                        }else {
+                            data.setFarmTopicAliasId(collectModel.getCollectAliasId());
+                        }
                     }
                     AppRequest request = new AppRequest(view.getContext(), url, new AppHttpResListener() {
                         @Override
                         public void onSuccess(TransferObject data) {
                             collectModels.remove(collectModel);
+                            favouriteNum.setText(collectModels.size()+"");
                             adapter.notifyDataSetChanged();
                         }
                     }, data);

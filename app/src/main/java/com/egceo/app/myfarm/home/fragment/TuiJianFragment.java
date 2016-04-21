@@ -128,6 +128,10 @@ public class TuiJianFragment extends BaseFragment {
                         pageNumber--;
                         loadMoreFooter.showNoMoreTips();
                         recommendList.removeOnScrollListener(loadMoreListener);
+                    }else{
+                        showRetryView();
+                        retryText.setText("暂无数据");
+                        retryButton.setVisibility(View.GONE);
                     }
                 }
                 loadMoreFooter.hideLoadMore();
@@ -181,10 +185,10 @@ public class TuiJianFragment extends BaseFragment {
                 holder.recommendTuijian.setVisibility(View.VISIBLE);
             }
             ImageLoaderUtil.getInstance().displayImg(holder.recommendImg, farmModel.getResourcePath()+ AppUtil.FARM_FACE, options);
-            holder.recommendDistance.setText("直线距离"+new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
+            holder.recommendDistance.setText(context.getString(R.string.line_distance)+new DecimalFormat("#.##").format(farmModel.getFarmDistance()) + "km");
             holder.flowLayout.removeAllViews();
             for (int i = 0; i < farmModel.getFarmTags().size(); i++) {
-                View tagItem =inflater.inflate(R.layout.item_farm_tag,null,false);
+                View tagItem = inflater.inflate(R.layout.item_farm_tag,null,false);
                 TextView tv = (TextView) tagItem.findViewById(R.id.farm_tag);
                 tv.setTextColor(Color.WHITE);
                 tv.setText(farmModel.getFarmTags().get(i));

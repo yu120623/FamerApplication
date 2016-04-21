@@ -136,6 +136,10 @@ public class ZhouBianFragment extends BaseFragment {
                         pageNumber--;
                         loadMoreFooter.showNoMoreTips();
                         nearList.removeOnScrollListener(loadMoreListener);
+                    }else{
+                        showRetryView();
+                        retryText.setText("暂无数据");
+                        retryButton.setVisibility(View.GONE);
                     }
                 }
                 loadMoreFooter.hideLoadMore();

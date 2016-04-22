@@ -55,7 +55,6 @@ public class UserOrderFragment extends BaseFragment {
 
     public void onEvent(Integer index){
         contentViewPager.setCurrentItem(index);
-        EventBus.getDefault().post(index);
     }
 
     @Override

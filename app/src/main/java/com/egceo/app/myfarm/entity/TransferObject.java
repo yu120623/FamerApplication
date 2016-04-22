@@ -33,6 +33,7 @@ public class TransferObject implements Serializable {
     private Map<String,Map<String,String>> appMap;
 
     private FarmSetModel farmSetModel;
+    private String paltform;
 
     private List<FarmSetModel> farmSetModels;
 
@@ -634,5 +635,13 @@ public class TransferObject implements Serializable {
 
     public void setAppMap(Map<String, Map<String, String>> appMap) {
         this.appMap = appMap;
+    }
+
+    public String getPaltform() {
+        return paltform;
+    }
+
+    public void setPaltform(String paltform) {
+        this.paltform = paltform;
     }
 }

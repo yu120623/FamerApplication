@@ -90,6 +90,8 @@ public class ConsumedFragment extends OrderBaseFragment {
                     if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
                         showNothing();
+                    }else{
+                        hideRetryView();
                     }
                     orderModels = list;
                 }else{

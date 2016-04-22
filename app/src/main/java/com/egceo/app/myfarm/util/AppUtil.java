@@ -168,6 +168,7 @@ public class AppUtil {
         CodeDao codeDao = DBHelper.getDaoSession(context).getCodeDao();
         Code code = codeDao.load(1l);
         data.setFarmLatitude(Float.valueOf(sp.getFloat(AppUtil.SP_LAT, 0)).doubleValue());
+        data.setPaltform("android");
         data.setFarmLongitude(Float.valueOf(sp.getFloat(AppUtil.SP_LOG, 0)).doubleValue());
         if(code != null) {
             data.setCityCode(code.getCodeName());

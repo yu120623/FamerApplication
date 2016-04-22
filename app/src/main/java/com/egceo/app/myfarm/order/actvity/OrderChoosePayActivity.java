@@ -26,6 +26,8 @@ import com.egceo.app.myfarm.order.view.PayTypeView;
 import com.egceo.app.myfarm.util.AppUtil;
 import com.egceo.app.myfarm.view.OrderProcessHeader;
 import com.egceo.app.myfarm.wxapi.WXPayEntryActivity;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.unionpay.UPPayAssistEx;
 
 import java.text.SimpleDateFormat;
@@ -103,6 +105,11 @@ public class OrderChoosePayActivity extends BaseActivity {
     }
 
     private void payByWeChat() {
+        IWXAPI api = WXAPIFactory.createWXAPI(this, AppUtil.APP_ID);
+        if(!api.isWXAppInstalled()){
+            CommonUtil.showMessage(context,"请安装微信客户端");
+            return;
+        }
         Intent intent = new Intent(context, WXPayEntryActivity.class);
         intent.putExtra("order", order);
         startActivity(intent);
@@ -129,7 +136,7 @@ public class OrderChoosePayActivity extends BaseActivity {
     private void payByZhiFuBao() {
         payBtn.setClickable(false);
         CommonUtil.showSimpleProgressDialog(getString(R.string.go_to_zhifubao), activity, false);
-        String orderInfo = SignUtils.getOrderInfo("测试", "测试", order.getOrdePrice() + "", order.getOrderSn(),"normal");
+        String orderInfo = SignUtils.getOrderInfo("我的农庄在线订单", "我的农庄在线订单", order.getOrdePrice() + "", order.getOrderSn(),"normal");
         final String payInfo = SignUtils.getPayInfo(orderInfo);
         Runnable payRunnable = new Runnable() {
             @Override

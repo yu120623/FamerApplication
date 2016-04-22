@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
@@ -93,6 +94,8 @@ public class ReFundFragment extends OrderBaseFragment {
                     if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
                         showNothing();
+                    }else{
+                        hideRetryView();
                     }
                     orderModels = list;
                 }else{
@@ -150,6 +153,7 @@ public class ReFundFragment extends OrderBaseFragment {
             loadDataFromServer();
         }
     };
+
 
     class PaidAdapter extends RecyclerView.Adapter<PaidViewHolder> {
         @Override
@@ -288,6 +292,7 @@ public class ReFundFragment extends OrderBaseFragment {
                     .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            CommonUtil.showSimpleProgressDialog("正在取消退单，请稍后...",activity);
                             String url = API.URL + API.API_URL.CANCEL_REFUND;
                             TransferObject data = new TransferObject();
                             data.setOrderSn(orderModel.getOrderSn());
@@ -307,6 +312,13 @@ public class ReFundFragment extends OrderBaseFragment {
     };
 
     private void remove(OrderModel orderModel) {
+        frameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.autoRefresh(true);
+            }
+        }, 100);
+        EventBus.getDefault().post(new Integer(2));
         orderModels.remove(orderModel);
         adapter.notifyDataSetChanged();
     }

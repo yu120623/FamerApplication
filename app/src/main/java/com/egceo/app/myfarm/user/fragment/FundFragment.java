@@ -85,9 +85,9 @@ public class FundFragment extends BaseFragment {
                 msgNum.setText(data.getWalletModel().getLvValue()+"");
                 List<aa53458768RecordModel> list = data.getAa53458768RecordModels();
                 if(pageNumber == 0){
-                    if(list == null) {
+                    if(list == null || list.size() <= 0) {
                         list = new ArrayList<>();
-                        showNothing();
+                        //showNothing();
                     }
                     recordModels = list;
                 }else{
